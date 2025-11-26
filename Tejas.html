@@ -3,131 +3,142 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tejas Keri | Interactive Portfolio</title>
+<title>Interactive Portfolio</title>
 <style>
 body {
     font-family: 'Poppins', sans-serif;
     background: #f5f5f5;
     margin: 0;
     padding: 20px;
-    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-.container {
-    max-width: 900px;
-    margin: 0 auto;
-}
+
 header {
     background-color: #4CAF50;
     color: white;
     padding: 2rem;
     border-radius: 8px;
     text-align: center;
+    width: 80%;
+    max-width: 900px;
     margin-bottom: 2rem;
 }
 header h1 { margin: 0; font-size: 2rem; }
 header p { margin-top: 0.5rem; }
 
 .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    display: flex;
+    justify-content: center;
     gap: 20px;
+    flex-wrap: wrap;
+    width: 80%;
+    max-width: 900px;
 }
+
 .card {
     background: white;
     padding: 1.5rem;
     border-radius: 12px;
     border: 1px solid #e0e0e0;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    width: 250px;
     position: relative;
-    transition: transform 0.3s;
 }
-.card:hover { transform: translateY(-5px); }
 
-.card .tooltip {
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #4CAF50;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 6px;
-    white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s;
-    font-size: 0.9rem;
-}
-.card:hover .tooltip { opacity: 1; }
+.card h2 { color: #4CAF50; margin-bottom: 1rem; }
+.card ul { list-style: none; padding: 0; }
+.card ul li { background: #e7f7e7; margin-bottom: 0.5rem; padding: 0.75rem; border-radius: 5px; }
+.card a { color: #4CAF50; text-decoration: none; font-weight: bold; }
+.card a:hover { text-decoration: underline; }
 
-h2 { color: #4CAF50; margin-bottom: 1rem; }
-ul { list-style: none; padding: 0; }
-ul li { background: #e7f7e7; margin-bottom: 0.5rem; padding: 0.75rem; border-radius: 5px; }
-
-a { color: #4CAF50; text-decoration: none; font-weight: bold; }
-a:hover { text-decoration: underline; }
-
-/* Cursor-following animal */
-#animal {
+/* Owl image container */
+#owl-container {
     position: fixed;
-    width: 50px;
-    height: 50px;
+    bottom: 20px;
+    right: 20px;
+    width: 100px;
+    height: 100px;
     pointer-events: none;
-    transition: transform 0.1s linear;
-    z-index: 999;
 }
+
+/* Static owl image */
+#owl {
+    width: 100%;
+    height: 100%;
+}
+
+/* Eyes */
+.eye {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: black;
+    border-radius: 50%;
+    top: 30px; /* relative to owl container */
+}
+
+.eye.left { left: 30px; }
+.eye.right { left: 60px; }
 </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>👨‍💻 Tejas B.K</h1>
-        <p>Interactive Portfolio with Animated Fun!</p>
-    </header>
+<header>
+    <h1>👨‍💻 Tejas B.K</h1>
+    <p>Interactive Portfolio — Eyes follow your cursor!</p>
+</header>
 
-    <div class="cards">
-        <div class="card">
-            <h2>🚀 Projects</h2>
-            <ul>
-                <li>Algorithm Visualizer</li>
-                <li>Web App Dashboard</li>
-            </ul>
-            <div class="tooltip">These are my main coding projects!</div>
-        </div>
-
-        <div class="card">
-            <h2>🧠 Skills</h2>
-            <ul>
-                <li>C++</li>
-                <li>Python</li>
-                <li>JavaScript</li>
-            </ul>
-            <div class="tooltip">These are my core technical skills!</div>
-        </div>
-
-        <div class="card">
-            <h2>🌐 Connect</h2>
-            <ul>
-                <li><a href="https://github.com/Tejas-Keri" target="_blank">GitHub</a></li>
-                <li><a href="#">LinkedIn</a></li>
-                <li><a href="mailto:tejas@example.com">Email</a></li>
-            </ul>
-            <div class="tooltip">Get in touch with me!</div>
-        </div>
+<div class="cards">
+    <div class="card">
+        <h2>🚀 Projects</h2>
+        <ul>
+            <li>Algorithm Visualizer</li>
+            <li>Web App Dashboard</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h2>🧠 Skills</h2>
+        <ul>
+            <li>C++</li>
+            <li>Python</li>
+            <li>JavaScript</li>
+        </ul>
+    </div>
+    <div class="card">
+        <h2>🌐 Connect</h2>
+        <ul>
+            <li><a href="https://github.com/Tejas-Keri">GitHub</a></li>
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="mailto:tejas@example.com">Email</a></li>
+        </ul>
     </div>
 </div>
 
-<!-- Cursor-following animal -->
-<img src="https://i.ibb.co/6Yk12g9/owl.png" id="animal" alt="owl">
+<!-- Owl Image with Eyes -->
+<div id="owl-container">
+    <img src="/mnt/data/c6263b46-2f1a-4684-b3e7-45e9d4adc653.png" id="owl">
+    <div class="eye left"></div>
+    <div class="eye right"></div>
+</div>
 
 <script>
-// Cursor-following animal
-const animal = document.getElementById('animal');
+// Eye movement
+const eyes = document.querySelectorAll('.eye');
 document.addEventListener('mousemove', e => {
-    const x = e.clientX - animal.offsetWidth/2;
-    const y = e.clientY - animal.offsetHeight/2;
-    animal.style.transform = `translate(${x}px, ${y}px)`;
+    const rect = document.getElementById('owl-container').getBoundingClientRect();
+    eyes.forEach(eye => {
+        const eyeCenterX = rect.left + eye.offsetLeft + eye.offsetWidth/2;
+        const eyeCenterY = rect.top + eye.offsetTop + eye.offsetHeight/2;
+        const dx = e.clientX - eyeCenterX;
+        const dy = e.clientY - eyeCenterY;
+        const angle = Math.atan2(dy, dx);
+        const radius = 4; // max movement
+        const x = radius * Math.cos(angle);
+        const y = radius * Math.sin(angle);
+        eye.style.transform = `translate(${x}px, ${y}px)`;
+    });
 });
 </script>
 
