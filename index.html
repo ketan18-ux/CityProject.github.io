@@ -3,204 +3,110 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>City Design Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <title>Multi-Page City Design</title>
+
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
-
     body {
-      background: #000000;
-      color: #ffffff;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
     }
 
-    /* HEADER */
-    header {
-      background: #ff0000;
-      padding: 15px 30px;
+    /* Navbar */
+    nav {
+      background: #00c7d9;
+      padding: 15px;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      font-weight: 600;
-      font-size: 20px;
-      color: #ffffff;
+      gap: 20px;
+      font-size: 18px;
     }
 
     nav a {
-      margin: 0 12px;
+      color: black;
+      cursor: pointer;
       text-decoration: none;
-      color: #ffffff;
-      font-weight: 500;
+      font-weight: bold;
     }
 
     nav a:hover {
       text-decoration: underline;
     }
 
-    /* INTRO SECTION */
-    .intro-title {
-      text-align: center;
-      padding: 25px 0;
-      font-size: 28px;
-      font-weight: 600;
-      color: #ff0000;
+    /* Page container */
+    .page {
+      display: none;
+      padding: 30px;
     }
 
-    /* CARD */
+    /* Visible page */
+    .active {
+      display: block;
+    }
+
+    /* Card */
     .card {
-      background: #1a1a1a;
-      color: #ffffff;
-      width: 90%;
-      max-width: 900px;
-      margin: 0 auto;
-      border-radius: 8px;
-      padding: 25px;
-      border: 1px solid #ff0000;
-    }
-
-    .center-text {
-      text-align: center;
-      margin-bottom: 10px;
-      font-size: 14px;
-    }
-
-    table {
-      width: 100%;
-      margin-top: 15px;
-      border-collapse: collapse;
-    }
-
-    table, th, td {
-      border: 1px solid #ff0000;
-    }
-
-    th, td {
-      padding: 8px;
-      text-align: center;
-      color: #ffffff;
-    }
-
-    th {
-      background: #ff0000;
-      color: #000000;
-    }
-
-    /* CONTENT SECTIONS */
-    .content {
-      width: 90%;
-      max-width: 1000px;
-      margin: 30px auto;
-    }
-
-    .section {
-      margin-bottom: 30px;
-    }
-
-    .section h2 {
-      margin-bottom: 10px;
-      font-size: 20px;
-      border-bottom: 2px solid #ff0000;
-      display: inline-block;
-      padding-bottom: 5px;
-      color: #ff4d4d;
-    }
-
-    .section p {
-      font-size: 14px;
-      line-height: 1.7;
-    }
-
-    /* RESPONSIVE */
-    @media(max-width: 600px) {
-      nav {
-        font-size: 14px;
-      }
-
-      .intro-title {
-        font-size: 22px;
-      }
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 700px;
+      box-shadow: 0 0 10px #999;
     }
   </style>
+
 </head>
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <div class="logo">CITY DESIGN</div>
-    <nav>
-      <a href="#">Home</a>
-      <a href="#">About</a>
-      <a href="#">Project</a>
-      <a href="#">Tejas</a>
-      <a href="#">Swaymbu</a>
-      <a href="#">Govind</a>
-    </nav>
-  </header>
+  <!-- NAVBAR -->
+  <nav>
+    <a onclick="showPage('home')">Home</a>
+    <a onclick="showPage('about')">About</a>
+    <a onclick="showPage('contact')">Contact</a>
+  </nav>
 
-  <!-- INTRODUCTION -->
-  <div class="intro-title">Introduction</div>
-
-  <div class="card">
-    <div class="center-text"><strong>Course:</strong> DAA</div>
-    <div class="center-text"><strong>Course Code:</strong> 24EC5C205</div>
-    <div class="center-text"><strong>Course Instructor:</strong> Prof. Prakash Hegade</div>
-    <div class="center-text"><strong>University:</strong> KLE Technological University</div>
-    <div class="center-text"><strong>Topic:</strong> City Design</div>
-
-    <table>
-      <tr>
-        <th>Name</th>
-        <th>USN</th>
-      </tr>
-      <tr>
-        <td>Ketan S</td>
-        <td>01fe24bcs151</td>
-      </tr>
-      <tr>
-        <td>Tejas.B.K</td>
-        <td>01fe24bcs144</td>
-      </tr>
-      <tr>
-        <td>Swyambu</td>
-        <td>01fe24bcs102</td>
-      </tr>
-      <tr>
-        <td>Govind</td>
-        <td>01fe24bcs037</td>
-      </tr>
-    </table>
-  </div>
-
-  <!-- CONTENT -->
-  <div class="content">
-    <div class="section">
-      <h2>What is the course about?</h2>
-      <p>
-        Design and analysis of algorithms is more than a branch of computer science. It is the core of computer science and is relevant to science, business, and technology. The course focuses on understanding natural patterns and applying them to computational problem-solving strategies.
-      </p>
-    </div>
-
-    <div class="section">
-      <h2>What kind of data structures and algorithms have you studied?</h2>
-      <p>
-        The journey through data structures spans arrays, linked lists, stacks, queues, trees, and graphs. These structures help in efficient problem-solving and optimized searches while enabling real-world applications.
-      </p>
-    </div>
-
-    <div class="section">
-      <h2>How do you connect the course with real-time applications?</h2>
-      <p>
-        Algorithms like Dijkstra’s guide navigation systems, while sorting and searching power e-commerce platforms. These algorithms solve complex challenges and create seamless digital experiences.
-      </p>
+  <!-- HOME PAGE -->
+  <div id="home" class="page active">
+    <div class="card">
+      <h2>Welcome to the Home Page</h2>
+      <p>This is the home section of your website.</p>
     </div>
   </div>
+
+  <!-- ABOUT PAGE -->
+  <div id="about" class="page">
+    <div class="card">
+      <h2>About Us</h2>
+      <p>We are a dedicated project team working together.</p>
+
+      <h3>Team Members:</h3>
+      <ul>
+        <li>Ketan</li>
+        <li>Tejas</li>
+        <li>Swaymbu</li>
+        <li>Govind</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- CONTACT PAGE -->
+  <div id="contact" class="page">
+    <div class="card">
+      <h2>Contact Us</h2>
+      <p>Email: example@mail.com</p>
+    </div>
+  </div>
+
+  <!-- PAGE SWITCHING SCRIPT -->
+  <script>
+    function showPage(pageName) {
+      // Hide all pages
+      document.querySelectorAll(".page").forEach((page) => {
+        page.classList.remove("active");
+      });
+
+      // Show selected page
+      document.getElementById(pageName).classList.add("active");
+    }
+  </script>
 
 </body>
 </html>
