@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DAA Project - City Design</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | DAA City Design</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <style>
     * {
@@ -14,280 +14,159 @@
     }
 
     body {
-      background: #1e1e1e;
+      background: radial-gradient(circle at top, #0f2027, #203a43, #2c5364);
       color: #ffffff;
     }
 
-    /* NAVBAR */
-    .navbar {
-      background: linear-gradient(90deg, #00c6ff, #0072ff);
-      padding: 15px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .header {
+      text-align: center;
+      padding: 60px 20px;
     }
 
-    .logo {
-      font-size: 22px;
-      font-weight: 600;
-      color: #000;
+    .header h1 {
+      font-size: 36px;
+      letter-spacing: 2px;
     }
 
-    .nav-links a {
+    .header p {
+      margin-top: 10px;
+      color: #d1e8ff;
+      font-style: italic;
+    }
+
+    .team-section {
+      width: 85%;
+      margin: 40px auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+
+    .member {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 25px;
+      text-align: center;
+      transition: 0.4s ease;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+
+    .member:hover {
+      transform: translateY(-12px) scale(1.02);
+      background: rgba(255,255,255,0.12);
+    }
+
+    .member h2 {
+      margin-bottom: 5px;
+    }
+
+    .member span {
+      font-size: 14px;
+      color: #8ac6ff;
+    }
+
+    .badge {
+      display: inline-block;
+      background: linear-gradient(90deg,#00c6ff,#0072ff);
+      padding: 6px 14px;
+      border-radius: 20px;
+      margin: 10px 0;
+      font-size: 13px;
+    }
+
+    .quote {
+      font-size: 14px;
+      margin-top: 10px;
+      color: #ccc;
+    }
+
+    .back-btn {
+      text-align: center;
+      margin: 50px 0;
+    }
+
+    .back-btn a {
       text-decoration: none;
+      background: linear-gradient(90deg,#00c6ff,#0072ff);
+      padding: 12px 25px;
+      border-radius: 30px;
       color: #000;
-      margin: 0 15px;
+      font-weight: 600;
+    }
+
+    .back-btn a:hover {
+      background: #ffffff;
+    }
+    /* EXTRA VISUAL EFFECTS */
+    .member::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      border-radius: 22px;
+      background: linear-gradient(45deg,#00c6ff,#7dd3fc,#ffffff,#0072ff);
+      z-index: -1;
+      filter: blur(10px);
+      opacity: 0.6;
+      animation: glow 6s linear infinite;
+    }
+
+    @keyframes glow {
+      0% { filter: blur(8px); }
+      50% { filter: blur(14px); }
+      100% { filter: blur(8px); }
+    }
+
+    .skills {
+      margin-top: 15px;
+    }
+
+    .skill-pill {
+      display: inline-block;
+      margin: 5px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: linear-gradient(90deg,#00c6ff,#0072ff);
+      color: #000;
+      font-size: 13px;
       font-weight: 500;
+      box-shadow: 0 0 10px rgba(0,198,255,0.6);
       transition: 0.3s;
     }
 
-    .nav-links a:hover {
-      color: #fff;
-    }
-
-    /* TITLE */
-    .title-section {
-      text-align: center;
-      padding: 30px 0;
-    }
-
-    .title-section h1 {
-      font-size: 30px;
-      margin-bottom: 10px;
-    }
-
-    .line {
-      width: 200px;
-      height: 6px;
-      background: #000;
-      margin: 0 auto;
-      border-radius: 10px;
-    }
-
-    /* CARD */
-    .card {
-      background: #fff;
-      color: #000;
-      width: 80%;
-      margin: 25px auto;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-      text-align: center;
-    }
-
-    .course-details p {
-      font-weight: 500;
-      margin: 5px 0;
-    }
-
-    table {
-      width: 100%;
-      margin-top: 20px;
-      border-collapse: collapse;
-    }
-
-    th, td {
-      border: 1px solid #333;
-      padding: 10px;
-      text-align: center;
-    }
-
-    th {
-      background: #0072ff;
-      color: #fff;
-    }
-
-    /* CONTENT BOXES */
-    .content-section {
-      background: #121212;
-      margin: 20px auto;
-      width: 80%;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 6px 15px rgba(0,0,0,0.5);
-    }
-
-    .content-section h2 {
-      margin-bottom: 10px;
-      color: #00c6ff;
-    }
-
-    .content-section p {
-      line-height: 1.7;
-      font-size: 15px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #aaa;
-      font-size: 14px;
+    .skill-pill:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px rgba(255,255,255,0.9);
     }
   </style>
 </head>
 <body>
 
-  <!-- NAVBAR -->
-  <div class="navbar">
-    <div class="logo">CITY DESIGN</div>
-    <div class="nav-links">
-      <a href="#">Home</a>
-      <a href="#about">About</a>
-      <a href="#">Project</a>
-      <a href="#">Ketan</a>
-      <a href="#">Tajas</a>
-      <a href="#">Govindh</a>
-      <a href="#">Swyambu</a>
-    </div>
+  <div class="header">
+    <h1>Our Creative Force</h1>
+    <p>Where logic meets imagination in city design</p>
   </div>
 
-  <!-- ABOUT SECTION -->
-  <section id="about">
-    <div class="title-section">
-      <h1>Who We Are</h1>
-      <div class="line"></div>
+  <section class="team-section">
+
+    <div class="member">
+      <h2>Ketan Shinde</h2>
+      <span>01FE24BCS151</span>
+      <div style="height:3px;width:60px;margin:15px auto;border-radius:20px;background:linear-gradient(90deg,#7dd3fc,#ffffff);"></div>
+      <div class="skills">
+        <span class="skill-pill">C, C++</span>
+        <span class="skill-pill">Python</span>
+        <span class="skill-pill">Data Structures & Algorithms</span>
+        <span class="skill-pill">Web Development (HTML, CSS)</span>
+      </div>
+      <p class="quote">"Creativity fuels practical innovation."</p>
     </div>
 
-    <div class="content-section" style="text-align:center;">
-      <p style="font-size:16px;">
-        We are not just a team — we are a creative blend of problem-solvers, planners, and tech enthusiasts shaping a smarter vision of urban life.
-        Through our DAA City Design project, we combine algorithmic intelligence with practical city planning to simulate efficient transport systems,
-        optimal zoning, and resource-aware infrastructure models. Our goal is to transform complex data into meaningful, real-world city solutions.
-      </p>
-      <p style="margin-top:10px; color:#ccc;">
-        "Designing cities for the future, powered by logic and innovation."
-      </p>
-    </div>
-
-    <div class="title-section">
-      <h1>Core Team Contributors</h1>
-    </div>
-
-    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:25px; width:85%; margin:40px auto;">
-
-      <div class="card" style="background:linear-gradient(145deg,#0f2027,#203a43,#2c5364); color:#fff;">
-        <h3>Ketan Shinde</h3>
-        <p><i>USN:</i> 01FE24BCS151</p>
-        <h4>💡 Strengths</h4>
-        <ul style="list-style:none; padding:0;">
-          <li>Algorithm Design</li>
-          <li>Python & C++ Programming</li>
-          <li>UI Structuring</li>
-        </ul>
-        <span style="font-size:13px; color:#bbb;">Explorer of efficient logic</span>
-      </div>
-
-      <div class="card" style="background:linear-gradient(145deg,#41295a,#2F0743); color:#fff;">
-        <h3>Tajas B K</h3>
-        <p><i>USN:</i> 01FE24BCS144</p>
-        <h4>⚙️ Strengths</h4>
-        <ul style="list-style:none; padding:0;">
-          <li>Data Structuring</li>
-          <li>Optimisation Techniques</li>
-          <li>Logical Flow Design</li>
-        </ul>
-        <span style="font-size:13px; color:#bbb;">Precision-driven thinker</span>
-      </div>
-
-      <div class="card" style="background:linear-gradient(145deg,#232526,#414345); color:#fff;">
-        <h3>Govindh Reddy</h3>
-        <p><i>USN:</i> 01FE24BCS037</p>
-        <h4>🧠 Strengths</h4>
-        <ul style="list-style:none; padding:0;">
-          <li>Problem Analysis</li>
-          <li>Code Optimisation</li>
-          <li>System Modeling</li>
-        </ul>
-        <span style="font-size:13px; color:#bbb;">Logic meets creativity</span>
-      </div>
-
-      <div class="card" style="background:linear-gradient(145deg,#134E5E,#71B280); color:#fff;">
-        <h3>Swyambu Boli</h3>
-        <p><i>USN:</i> 01FE24BCS102</p>
-        <h4>🚀 Strengths</h4>
-        <ul style="list-style:none; padding:0;">
-          <li>Web Interface Design</li>
-          <li>Smart Planning Models</li>
-          <li>Presentation Strategy</li>
-        </ul>
-        <span style="font-size:13px; color:#bbb;">Vision-focused creator</span>
-      </div>
-
-    </div>
   </section>
 
-  <!-- INTRODUCTION -->
-  <div class="title-section">
-    <h1>Introduction</h1>
-    <div class="line"></div>
+  <div class="back-btn">
+    <a href="index.html">⬅ Back to Home</a>
   </div>
-
-  <!-- COURSE CARD -->
-  <div class="card">
-    <div class="course-details">
-      <p><b>Course:</b> DAA</p>
-      <p><b>Course Code:</b> 24ECSC205</p>
-      <p><b>Course Instructor:</b> Prof. Prakash Hegde</p>
-      <p><b>University:</b> KLE Technological University</p>
-      <p><b>Topic:</b> City Design</p>
-    </div>
-
-    <table>
-      <tr>
-        <th>Name</th>
-        <th>USN</th>
-      </tr>
-      <tr>
-        <td>Ketan Shinde</td>
-        <td>01FE24BCS151</td>
-      </tr>
-      <tr>
-        <td>Tajas B K</td>
-        <td>01FE24BCS144</td>
-      </tr>
-      <tr>
-        <td>Govindh Reddy</td>
-        <td>01FE24BCS037</td>
-      </tr>
-      <tr>
-        <td>Swyambu Boli</td>
-        <td>01FE24BCS102</td>
-      </tr>
-    </table>
-  </div>
-
-  <!-- CONTENT SECTIONS -->
-  <div class="content-section">
-    <h2>What is the course about?</h2>
-    <p>
-      Design and Analysis of Algorithms (DAA) focuses on understanding the efficiency and structure of algorithms.
-      It explores how algorithms solve real-world problems through optimal strategies, computational logic, and
-      structured problem-solving techniques, forming the backbone of computer science applications.
-    </p>
-  </div>
-
-  <div class="content-section">
-    <h2>What kind of data structures and algorithms have you studied?</h2>
-    <p>
-      We studied arrays, linked lists, stacks, queues, trees, graphs, hashing, and searching techniques.
-      Algorithms such as sorting, dynamic programming, greedy algorithms, and shortest path calculations have
-      enhanced our understanding of efficient computation.
-    </p>
-  </div>
-
-  <div class="content-section">
-    <h2>How do you connect the course with real-time applications?</h2>
-    <p>
-      Algorithms guide GPS routing, data compression, search engines, and traffic management systems. These
-      concepts enable smart city planning, automated decision-making, and optimized resource utilization for
-      sustainable urban development.
-    </p>
-  </div>
-
-  <footer>
-    &copy; 2025 DAA City Design Project | Team Portfolio
-  </footer>
 
 </body>
 </html>
