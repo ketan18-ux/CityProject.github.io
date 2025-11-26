@@ -3,19 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tejas BK | Creative Portfolio</title>
+<title>Tejas Keri | Interactive Portfolio</title>
 <style>
 body {
     font-family: 'Poppins', sans-serif;
     background: #f5f5f5;
     margin: 0;
     padding: 20px;
-    display: flex;
-    justify-content: center;
+    overflow-x: hidden;
 }
 .container {
     max-width: 900px;
-    width: 100%;
+    margin: 0 auto;
 }
 header {
     background-color: #4CAF50;
@@ -25,124 +24,86 @@ header {
     text-align: center;
     margin-bottom: 2rem;
 }
-header h1 {
-    margin: 0;
-    font-size: 2rem;
-}
-header p {
-    margin-top: 0.5rem;
-}
+header h1 { margin: 0; font-size: 2rem; }
+header p { margin-top: 0.5rem; }
 
 .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
 }
-
 .card {
     background: white;
     padding: 1.5rem;
     border-radius: 12px;
     border: 1px solid #e0e0e0;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: 0.3s;
+    position: relative;
+    transition: transform 0.3s;
 }
-.card:hover {
-    transform: translateY(-5px);
-    border-color: #4CAF50;
-}
+.card:hover { transform: translateY(-5px); }
 
-h2 {
-    color: #4CAF50;
-    margin-bottom: 1rem;
-}
-
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-ul li {
-    background-color: #e7f7e7;
-    margin-bottom: 0.5rem;
-    padding: 0.75rem;
-    border-radius: 5px;
-}
-
-a {
-    color: #4CAF50;
-    text-decoration: none;
-    font-weight: bold;
-}
-a:hover {
-    text-decoration: underline;
-}
-
-/* Skill Bars */
-.skill {
-    margin: 10px 0;
-}
-.skill-name {
-    margin-bottom: 5px;
-    font-weight: 500;
-}
-.bar {
-    background: #ddd;
-    border-radius: 5px;
-    overflow: hidden;
-    height: 15px;
-}
-.fill {
-    height: 100%;
+.card .tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
     background: #4CAF50;
-    width: 0;
-    transition: width 1s ease;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    font-size: 0.9rem;
 }
+.card:hover .tooltip { opacity: 1; }
 
-blockquote {
-    font-style: italic;
-    color: #555;
-    border-left: 4px solid #4CAF50;
-    padding-left: 1rem;
-    margin-top: 1rem;
+h2 { color: #4CAF50; margin-bottom: 1rem; }
+ul { list-style: none; padding: 0; }
+ul li { background: #e7f7e7; margin-bottom: 0.5rem; padding: 0.75rem; border-radius: 5px; }
+
+a { color: #4CAF50; text-decoration: none; font-weight: bold; }
+a:hover { text-decoration: underline; }
+
+/* Cursor-following animal */
+#animal {
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    pointer-events: none;
+    transition: transform 0.1s linear;
+    z-index: 999;
 }
 </style>
 </head>
 <body>
+
 <div class="container">
     <header>
         <h1>👨‍💻 Tejas B.K</h1>
-        <p>Passionate about coding, problem-solving & creative UI</p>
+        <p>Interactive Portfolio with Animated Fun!</p>
     </header>
 
     <div class="cards">
-
         <div class="card">
             <h2>🚀 Projects</h2>
             <ul>
-                <li><strong>Project 1:</strong> Algorithm Visualizer</li>
-                <li><strong>Project 2:</strong> Web App Dashboard</li>
+                <li>Algorithm Visualizer</li>
+                <li>Web App Dashboard</li>
             </ul>
+            <div class="tooltip">These are my main coding projects!</div>
         </div>
 
         <div class="card">
             <h2>🧠 Skills</h2>
-            <div class="skill">
-                <div class="skill-name">C++</div>
-                <div class="bar"><div class="fill" style="width:90%"></div></div>
-            </div>
-            <div class="skill">
-                <div class="skill-name">Python</div>
-                <div class="bar"><div class="fill" style="width:85%"></div></div>
-            </div>
-            <div class="skill">
-                <div class="skill-name">JavaScript</div>
-                <div class="bar"><div class="fill" style="width:75%"></div></div>
-            </div>
-            <div class="skill">
-                <div class="skill-name">React.js</div>
-                <div class="bar"><div class="fill" style="width:70%"></div></div>
-            </div>
+            <ul>
+                <li>C++</li>
+                <li>Python</li>
+                <li>JavaScript</li>
+            </ul>
+            <div class="tooltip">These are my core technical skills!</div>
         </div>
 
         <div class="card">
@@ -152,36 +113,23 @@ blockquote {
                 <li><a href="#">LinkedIn</a></li>
                 <li><a href="mailto:tejas@example.com">Email</a></li>
             </ul>
+            <div class="tooltip">Get in touch with me!</div>
         </div>
-
-        <div class="card">
-            <h2>📄 Portfolio Info</h2>
-            <ul>
-                <li>Course: Algorithmic Problem Solving</li>
-                <li>SRN: Your SRN</li>
-                <li>Instructor: Instructor Name</li>
-                <li>University: Your University</li>
-                <li>Topic: Google</li>
-            </ul>
-        </div>
-
-        <div class="card">
-            <blockquote>“The only way to do great work is to love what you do.” – Steve Jobs</blockquote>
-        </div>
-
     </div>
 </div>
 
+<!-- Cursor-following animal -->
+<img src="https://i.ibb.co/6Yk12g9/owl.png" id="animal" alt="owl">
+
 <script>
-    // Animate skill bars
-    const fills = document.querySelectorAll('.fill');
-    fills.forEach(fill => {
-        const width = fill.style.width;
-        fill.style.width = '0';
-        setTimeout(() => {
-            fill.style.width = width;
-        }, 100);
-    });
+// Cursor-following animal
+const animal = document.getElementById('animal');
+document.addEventListener('mousemove', e => {
+    const x = e.clientX - animal.offsetWidth/2;
+    const y = e.clientY - animal.offsetHeight/2;
+    animal.style.transform = `translate(${x}px, ${y}px)`;
+});
 </script>
+
 </body>
 </html>
