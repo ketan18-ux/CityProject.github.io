@@ -3,64 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tejas BK — Portfolio</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-</head>
+    <title>Tejas Keri | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
+<style>
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+/* Main Container */
+section {
+    background-color: white;
+    padding: 2rem;
+    width: 90%;
+    max-width: 800px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-top: 30px;
+}
+
+/* Header */
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+header h1 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+header p {
+    margin: 1rem 0 0;
+}
+
+/* Section Titles */
+h2 {
+    color: #4CAF50;
+    margin-bottom: 1rem;
+}
+
+/* List Items */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    background-color: #e7f7e7;
+    margin-bottom: 0.5rem;
+    padding: 0.75rem;
+    border-radius: 5px;
+}
+
+/* Links */
+a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Definition List */
+dl dt {
+    font-weight: bold;
+    color: #333;
+    margin-top: 1rem;
+}
+
+dl dd {
+    margin-left: 1.5rem;
+    color: #666;
+}
+
+/* Blockquote */
+blockquote {
+    font-style: italic;
+    color: #555;
+    border-left: 4px solid #4CAF50;
+    padding-left: 1rem;
+    margin-top: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    section {
+        padding: 1.5rem;
+    }
+
+    header {
+        padding: 1.5rem;
+    }
+}
+</style>
+</head>
 <body>
 
-    <div class="headerbox">
-        <h1>Hello, I'm <span>Tejas B.K</span> 👋</h1>
-        <p>I am passionate about technology and problem-solving.</p>
-    </div>
+<section>
+    <header>
+        <h1>👨‍💻 Tejas Keri</h1>
+        <p>A tech enthusiast exploring coding, web development, and creative design.</p>
+    </header>
 
-    <div class="grid">
+    <h2>🚀 Current Projects</h2>
+    <ul>
+        <li>Building advanced UI with CSS + JS</li>
+        <li>Backend learning — DBMS + OS</li>
+        <li>Personal portfolio design</li>
+    </ul>
 
-        <div class="tile wide">
-            <h2>🛠️ Projects</h2>
-            <div class="project">
-                <h3>Project 1</h3>
-                <p>A short description of your project1.</p>
-            </div>
-            <div class="project">
-                <h3>Project 2</h3>
-                <p>A short description of another project2.</p>
-            </div>
-        </div>
+    <h2>🧠 Technical Skills</h2>
+    <dl>
+        <dt>Languages:</dt>
+        <dd>C, Python, JavaScript, SQL</dd>
+        <dt>Tools & Platforms:</dt>
+        <dd>Git, GitHub, Linux, VS Code</dd>
+        <dt>Concepts:</dt>
+        <dd>OOP, Data Structures, OS, DBMS</dd>
+    </dl>
 
-        <div class="tile">
-            <h2>🚀 Skills</h2>
-            <div class="skillbox">
-                <span>C++</span><span>Python</span><span>JavaScript</span>
-                <span>DSA</span><span>React.js</span><span>Node.js</span>
-            </div>
-        </div>
+    <h2>🔗 Connect with Me</h2>
+    <ul>
+        <li><a href="https://github.com/Tejas-Keri">GitHub</a></li>
+        <li><a href="#">LinkedIn</a></li>
+        <li><a href="mailto:tejas@example.com">Email</a></li>
+    </ul>
 
-        <div class="tile">
-            <h2>🌐 Links</h2>
-            <a href="https://github.com/your-github-username" target="_blank">GitHub</a><br>
-            <a href="https://linkedin.com/in/your-linkedin-profile" target="_blank">LinkedIn</a>
-        </div>
-
-        <div class="tile wide">
-            <h2>Portfolio Details</h2>
-            <dl>
-                <dt>Course Name</dt><dd>Algorithmic Problem Solving</dd>
-                <dt>Course Code</dt><dd>Course Code Placeholder</dd>
-                <dt>Name</dt><dd>Your Name</dd>
-                <dt>SRN</dt><dd>Your SRN</dd>
-                <dt>Course Instructor</dt><dd>Instructor Name Placeholder</dd>
-                <dt>University</dt><dd>Your University Name</dd>
-                <dt>Portfolio Topic/Domain</dt><dd>Google</dd>
-            </dl>
-        </div>
-
-        <div class="tile quote">
-            <blockquote>“The only way to do great work is to love what you do.” – Steve Jobs</blockquote>
-        </div>
-
-    </div>
+    <blockquote>
+        “Code is like humor. When you have to explain it, it’s bad.”
+    </blockquote>
+</section>
 
 </body>
 </html>
