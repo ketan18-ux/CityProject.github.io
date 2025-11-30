@@ -15,7 +15,7 @@
       overflow-x: hidden;
     }
 
-    /* NAVBAR */
+    /* ---------------- NAVBAR ---------------- */
     nav {
       width: 100%;
       background: #003366;
@@ -42,7 +42,7 @@
       margin-left: 25px;
       padding: 7px 14px;
       border-radius: 6px;
-      transition: 0.4s ease;
+      transition: 0.3s;
     }
 
     nav a:hover {
@@ -53,7 +53,7 @@
 
     .container { max-width: 1100px; margin: auto; padding: 25px; }
 
-    /* HEADER */
+    /* ---------------- HEADER ---------------- */
     .header {
       background: linear-gradient(120deg, #003366, #0077cc);
       color: white;
@@ -69,31 +69,39 @@
       to { opacity: 1; transform: scale(1); }
     }
 
-    /* MOTTO BLOCK */
+    /* ---------------- MOTTO BLOCK ---------------- */
     .motto-block {
       margin: 40px 0;
       padding: 35px;
       border-radius: 20px;
       background: linear-gradient(135deg, #003366, #0099cc, #00c6ff);
       background-size: 300% 300%;
-      animation: gradientMove 6s infinite alternate ease-in-out;
+      animation: mottoGradient 6s infinite alternate ease-in-out,
+                 mottoFloat 4s ease-in-out infinite;
       text-align: center;
       color: white;
       box-shadow: 0px 12px 25px rgba(0,0,0,0.3);
     }
 
-    @keyframes gradientMove {
+    @keyframes mottoGradient {
       0% { background-position: 0% 50%; }
       100% { background-position: 100% 50%; }
     }
 
-    .motto-title {
-      font-size: 28px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      text-shadow: 0px 0px 20px rgba(255,255,255,0.9);
+    @keyframes mottoFloat {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0px); }
     }
 
+    .motto-title {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      text-shadow: 0px 0px 15px rgba(255,255,255,0.8);
+    }
+
+    /* ---------------- SECTION BOX ---------------- */
     .section-box {
       background: white;
       padding: 30px;
@@ -108,15 +116,36 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* TEAM TITLE */
+    /* ---------------- LOGO ROW ---------------- */
+    .logo-row {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 25px 0;
+    }
+
+    .logo-row img {
+      width: 85px;
+      height: 85px;
+      object-fit: contain;
+      animation: floatIcon 3s infinite ease-in-out;
+    }
+
+    @keyframes floatIcon {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+      100% { transform: translateY(0px); }
+    }
+
+    /* ---------------- TEAM ---------------- */
     .team-title {
       font-size: 32px;
       text-align: center;
       color: #003366;
       margin-bottom: 25px;
+      text-shadow: 0 0 12px #66b3ff;
     }
 
-    /* TEAM GRID */
     .team-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -156,13 +185,13 @@
       color: white;
       border-radius: 10px;
       text-decoration: none;
-      transition: 0.35s ease;
+      transition: 0.3s;
       display: inline-block;
     }
 
     .btn:hover {
-      background: rgba(255,255,255,0.45);
       transform: scale(1.12);
+      background: rgba(255,255,255,0.45);
     }
 
     footer {
@@ -172,6 +201,7 @@
       color: white;
       margin-top: 40px;
     }
+
   </style>
 </head>
 
@@ -181,8 +211,8 @@
   <nav>
     <h2>DAA City Design</h2>
     <div>
+      <a href="#intro">Intro</a>
       <a href="#motto">Motto</a>
-      <a href="#city-info">City Info</a>
       <a href="#team">Team</a>
     </div>
   </nav>
@@ -202,23 +232,39 @@
     <!-- MOTTO BLOCK -->
     <div id="motto" class="motto-block">
       <h2 class="motto-title">
-        Build an Knowledge Powered by Innovation, Sustained by Nature
+        🌿 Build a Knowledge Powered City — Driven by Innovation, Sustained by Nature 🌿
       </h2>
-      <p class="motto-sub">
-        Our city blends technology, creativity, and environmental harmony 
-        into a unified vision for a sustainable and intelligent future.
+      <p>
+        A vision of blending technology, creativity, and environmental balance to shape a sustainable and intelligent future.
       </p>
     </div>
 
-    <!-- CITY INFO WITH ICONS -->
-    <div id="city-info" class="section-box">
-      <h2 style="color:#003366; margin-bottom:15px;">📘 City Design Project Information</h2>
+    <!-- INTRO SECTION -->
+    <div id="intro" class="section-box">
+      <h2>Introduction to DAA 📘</h2>
+      <p>
+        Design and Analysis of Algorithms (DAA) helps us create fast, optimized, and efficient solutions.
+        It teaches techniques like Divide & Conquer, Greedy Algorithms, Graph Algorithms, Dynamic Programming,
+        and many more concepts used to solve complex real-world problems.
+      </p>
+    </div>
 
-      <p>🎓 <b>University:</b> KLE Technological University</p>
-      <p>📘 <b>Course:</b> Design & Analysis of Algorithms (DAA)</p>
-      <p>🆔 <b>Course Code:</b> 24ECSC205</p>
-      <p>🧠 <b>Instructor:</b> Prof. Prakash Hegde</p>
-      <p>🌆 <b>Project Topic:</b> Smart City Design</p>
+    <!-- HOW DAA HELPS -->
+    <div class="section-box">
+      <h2>How Algorithms Help City Design 🏙️</h2>
+      <p>
+        ✔ Graph Algorithms → Designing road networks & shortest travel paths <br>
+        ✔ Greedy Algorithms → Placing hospitals, schools, and fire stations <br>
+        ✔ Dynamic Programming → Minimizing construction and zoning cost <br>
+        ✔ Search Algorithms → Traffic routing & emergency navigation <br>
+      </p>
+    </div>
+
+    <!-- LOGOS BELOW CITY DESIGN BLOCK ONLY -->
+    <div class="logo-row">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/K.L.E._Society_Logo.png/600px-K.L.E._Society_Logo.png">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Smart_City_Logo.png/480px-Smart_City_Logo.png">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Algorithms_Icon.png/480px-Algorithms_Icon.png">
     </div>
 
     <!-- TEAM -->
