@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ketan Shinde | Bucket 1 Portfolio</title>
+  <title>Ketan Shinde | Portfolio</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -63,13 +63,24 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* TITLE */
-    .title-main {
-      font-size: 28px;
-      color: #003366;
-      margin-bottom: 25px;
-      text-align: center;
-      font-weight: 600;
+    /* BACK TO HOME BUTTON */
+    .back-btn {
+      display: inline-block;
+      margin: 20px auto 40px;
+      padding: 12px 22px;
+      background: #003366;
+      color: white;
+      font-size: 16px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: 0.3s ease;
+      box-shadow: 0px 6px 16px rgba(0,0,0,0.2);
+    }
+
+    .back-btn:hover {
+      background: #0055aa;
+      transform: translateY(-4px);
+      box-shadow: 0px 10px 25px rgba(0,0,0,0.3);
     }
 
     /* CARD GRID */
@@ -140,7 +151,6 @@
     <h2>Ketan Shinde</h2>
     <div>
       <a href="index.html">Home</a>
-      <a href="#bucket1">Bucket 1</a>
     </div>
   </nav>
 
@@ -148,83 +158,76 @@
 
     <!-- HEADER -->
     <div class="header">
-      <h1>Bucket 1 — Infrastructure & Network Optimization</h1>
-      <p>These are my selected algorithmic problems related to city infrastructure, transportation, and network optimization.</p>
+      <h1>Infrastructure & Network Optimization Projects</h1>
+      <p>Algorithmic solutions built for planning roads, traffic, pipelines, routing and emergency systems.</p>
     </div>
 
-    <h2 class="title-main" id="bucket1">My 10 Problems (Bucket 1)</h2>
+    <!-- BACK TO HOME BUTTON -->
+    <center>
+      <a class="back-btn" href="index.html">⬅ Back to Home</a>
+    </center>
 
     <!-- GRID -->
     <div class="grid">
 
-      <!-- CARD 1 -->
       <div class="card">
         <h3>1. Optimal Road Network Construction</h3>
-        <p class="algo">Algorithm: Minimum Spanning Tree (Kruskal / Prim)</p>
-        <p class="desc">Given roads with construction cost, compute the minimum-cost connected city road network.</p>
+        <p class="algo">Algorithm: Minimum Spanning Tree</p>
+        <p class="desc">Compute the minimum-cost road network connecting all major locations.</p>
       </div>
 
-      <!-- CARD 2 -->
       <div class="card">
         <h3>2. Shortest Travel-Time Routing</h3>
         <p class="algo">Algorithm: Dijkstra</p>
-        <p class="desc">Find the fastest route between any two zones or junctions in the smart city.</p>
+        <p class="desc">Find the fastest route between important city zones.</p>
       </div>
 
-      <!-- CARD 3 -->
       <div class="card">
         <h3>3. Traffic Signal Timing Optimization</h3>
-        <p class="algo">Algorithm: Scheduling + Greedy</p>
-        <p class="desc">Optimize signal intervals using vehicle flow to reduce congestion.</p>
+        <p class="algo">Algorithm: Scheduling</p>
+        <p class="desc">Optimize traffic signal timings based on flow data.</p>
       </div>
 
-      <!-- CARD 4 -->
       <div class="card">
         <h3>4. Emergency Vehicle Fastest Route Planner</h3>
-        <p class="algo">Algorithm: A* or Real-Time Dijkstra</p>
-        <p class="desc">Compute the quickest possible path for ambulances, fire trucks, etc.</p>
+        <p class="algo">Algorithm: A* / Real-Time Dijkstra</p>
+        <p class="desc">Compute the quickest path for emergency response teams.</p>
       </div>
 
-      <!-- CARD 5 -->
       <div class="card">
         <h3>5. Water Pipeline Pressure Optimization</h3>
-        <p class="algo">Algorithm: Max Flow / Ford-Fulkerson</p>
-        <p class="desc">Find bottlenecks and compute maximum possible water flow in pipeline networks.</p>
+        <p class="algo">Algorithm: Max Flow</p>
+        <p class="desc">Determine maximum water flow and identify weak pipeline areas.</p>
       </div>
 
-      <!-- CARD 6 -->
       <div class="card">
         <h3>6. Power Grid Load Minimization</h3>
-        <p class="algo">Algorithm: MST + Graph Optimization</p>
-        <p class="desc">Connect transformers with minimum energy loss and stable supply.</p>
+        <p class="algo">Algorithm: MST</p>
+        <p class="desc">Design efficient transformer connections with minimal loss.</p>
       </div>
 
-      <!-- CARD 7 -->
       <div class="card">
         <h3>7. Garbage Truck Route Optimization</h3>
-        <p class="algo">Algorithm: TSP (Nearest Neighbor, Christofides)</p>
-        <p class="desc">Find shortest route to collect waste across various city zones.</p>
+        <p class="algo">Algorithm: TSP</p>
+        <p class="desc">Find shortest route for waste collection vehicles.</p>
       </div>
 
-      <!-- CARD 8 -->
       <div class="card">
-        <h3>8. Public Transport Timetable Creation</h3>
+        <h3>8. Public Transport Timetable Generation</h3>
         <p class="algo">Algorithm: Interval Scheduling</p>
-        <p class="desc">Generate optimal bus arrival schedules to cover more passengers.</p>
+        <p class="desc">Create efficient transport schedules using limited buses.</p>
       </div>
 
-      <!-- CARD 9 -->
       <div class="card">
         <h3>9. Bridge Construction Priority Model</h3>
-        <p class="algo">Algorithm: Min-Cut / Bridge Finding</p>
-        <p class="desc">Identify most critical edges whose failure breaks city connectivity.</p>
+        <p class="algo">Algorithm: Min-Cut</p>
+        <p class="desc">Identify critical bridges whose failure disconnects the city.</p>
       </div>
 
-      <!-- CARD 10 -->
       <div class="card">
         <h3>10. Flood Evacuation Simulation</h3>
-        <p class="algo">Algorithm: BFS Level Expansion</p>
-        <p class="desc">Compute safe reachable zones during flood emergencies.</p>
+        <p class="algo">Algorithm: BFS Levels</p>
+        <p class="desc">Determine safe zones reachable during flooding.</p>
       </div>
 
     </div>
@@ -232,7 +235,7 @@
   </div>
 
   <footer>
-    © 2024 Portfolio – Ketan Shinde | Bucket 1
+    © 2024 Ketan Shinde – Portfolio
   </footer>
 
 </body>
