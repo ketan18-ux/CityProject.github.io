@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tejas Keri | Portfolio</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
+
+    body {
+      background: linear-gradient(145deg, #dfe9f3, #ffffff);
+      overflow-x: hidden;
+    }
+
+    /* NAVBAR */
+    nav {
+      width: 100%;
+      background: #003366;
+      padding: 16px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: 0.3s ease;
+    }
+
+    nav a:hover {
+      background: rgba(255,255,255,0.15);
+      transform: translateY(-3px);
+    }
+
+    .container { max-width: 1100px; margin: auto; padding: 30px; }
+
+    /* HEADER */
+    .header {
+      background: linear-gradient(120deg, #003366, #0077cc);
+      color: white;
+      padding: 40px 30px;
+      border-radius: 18px;
+      text-align: center;
+      margin-bottom: 45px;
+      box-shadow: 0px 10px 25px rgba(0,0,0,0.25);
+      animation: fadeIn 1.2s ease-out;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: white;
+      padding: 22px;
+      border-radius: 16px;
+      box-shadow: 0px 10px 25px rgba(0,0,0,0.12);
+      transition: 0.35s ease;
+      border-left: 6px solid #0077cc;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: cardRise 1s forwards ease-out;
+    }
+
+    @keyframes cardRise {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .card:hover {
+      transform: translateY(-12px) scale(1.03);
+      box-shadow: 0px 16px 35px rgba(0,0,0,0.25);
+    }
+
+    .card h3 {
+      font-size: 20px;
+      margin-bottom: 8px;
+      color: #003366;
+      font-weight: 600;
+    }
+
+    .algo {
+      font-size: 14px;
+      font-weight: bold;
+      color: #0077cc;
+      margin-bottom: 5px;
+    }
+
+    .desc {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    /* BACK TO HOME BUTTON */
+    .back-btn {
+      display: inline-block;
+      margin: 45px auto 30px;
+      padding: 12px 22px;
+      background: #003366;
+      color: white;
+      font-size: 16px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: 0.3s ease;
+      box-shadow: 0px 6px 16px rgba(0,0,0,0.2);
+    }
+
+    .back-btn:hover {
+      background: #0055aa;
+      transform: translateY(-4px);
+      box-shadow: 0px 10px 25px rgba(0,0,0,0.3);
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #003366;
+      color: white;
+      margin-top: 25px;
+      border-radius: 12px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <h2>Tejas Keri</h2>
+    <div>
+      <a href="index.html">Home</a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+      <h1>Land Use, Zoning & Location Optimization Projects</h1>
+      <p>These problems involve spatial allocation, clustering, matching, zoning, and optimal city planning using algorithms.</p>
+    </div>
+
+    <!-- GRID -->
+    <div class="grid">
+
+      <div class="card">
+        <h3>1. Optimal Hospital Location</h3>
+        <p class="algo">Algorithm: k-Means / k-Medians</p>
+        <p class="desc">Place hospitals to minimize average distance for citizens.</p>
+      </div>
+
+      <div class="card">
+        <h3>2. School Allocation to Students</h3>
+        <p class="algo">Algorithm: Bipartite Matching</p>
+        <p class="desc">Match students to nearest valid schools with minimal travel distance.</p>
+      </div>
+
+      <div class="card">
+        <h3>3. Smart Parking Slot Allocation</h3>
+        <p class="algo">Algorithm: Hungarian Algorithm</p>
+        <p class="desc">Assign cars to parking slots with minimum total walking distance.</p>
+      </div>
+
+      <div class="card">
+        <h3>4. Industrial vs Residential Separation</h3>
+        <p class="algo">Algorithm: Graph Coloring</p>
+        <p class="desc">Assign zone colors ensuring harmful industries don't touch residential areas.</p>
+      </div>
+
+      <div class="card">
+        <h3>5. Public Park Placement Optimization</h3>
+        <p class="algo">Algorithm: Max Coverage</p>
+        <p class="desc">Select k park spots maximizing total population served.</p>
+      </div>
+
+      <div class="card">
+        <h3>6. Land Subdivision Optimization</h3>
+        <p class="algo">Algorithm: Divide & Conquer</p>
+        <p class="desc">Divide large land into optimal smaller usable plots.</p>
+      </div>
+
+      <div class="card">
+        <h3>7. High Footfall Commercial Zone Prediction</h3>
+        <p class="algo">Algorithm: Clustering</p>
+        <p class="desc">Cluster regions to predict future commercial hotspots.</p>
+      </div>
+
+      <div class="card">
+        <h3>8. Creation of Green Belt Buffers</h3>
+        <p class="algo">Algorithm: Constraint Solver</p>
+        <p class="desc">Maximize green buffers around city limits with minimal relocation.</p>
+      </div>
+
+      <div class="card">
+        <h3>9. Footpath Connectivity Plan</h3>
+        <p class="algo">Algorithm: Graph Connectivity</p>
+        <p class="desc">Identify disconnected pedestrian paths and repair with minimal new footpaths.</p>
+      </div>
+
+      <div class="card">
+        <h3>10. Underground Utility Routing</h3>
+        <p class="algo">Algorithm: Disjoint Shortest Paths</p>
+        <p class="desc">Lay sewer, fiber, and power lines without crossing each other.</p>
+      </div>
+
+    </div>
+
+    <!-- BOTTOM BACK TO HOME BUTTON -->
+    <center>
+      <a class="back-btn" href="index.html">⬅ Back to Home</a>
+    </center>
+
+  </div>
+
+  <footer>
+    © 2024 Tejas Keri – Portfolio
+  </footer>
+
+</body>
+</html>
