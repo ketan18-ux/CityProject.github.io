@@ -5,49 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>City Design Project | DAA Portfolio</title>
 
-  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Poppins", sans-serif;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
 
-    body {
-      background: #eef3f7;
-      padding: 25px;
-    }
+    body { background: #eef3f7; }
 
-    .container {
-      max-width: 1100px;
-      margin: auto;
+    /* NAVBAR */
+    nav {
+      width: 100%;
+      background: #003366;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
+    nav h2 { font-size: 22px; }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+    nav a:hover { color: #00aaff; }
 
-    /* Header Section */
+    .container { max-width: 1100px; margin: auto; padding: 25px; }
+
     .header {
       background: #003366;
       color: white;
       padding: 35px 20px;
       border-radius: 12px;
       text-align: center;
-      margin-bottom: 40px;
+      margin: 40px 0;
     }
 
-    .header h1 {
-      font-size: 32px;
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-
-    .header p {
-      font-size: 16px;
-      line-height: 1.6;
-    }
-
-    /* Info section */
     .section-box {
       background: white;
       padding: 25px;
@@ -56,27 +54,8 @@
       box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
     }
 
-    .section-box h2 {
-      font-size: 24px;
-      color: #003366;
-      margin-bottom: 15px;
-      font-weight: 600;
-    }
-
-    .section-box p {
-      font-size: 16px;
-      line-height: 1.6;
-      color: #333;
-    }
-
-    /* Team Section */
-    .team-title {
-      text-align: center;
-      margin-bottom: 25px;
-      font-size: 28px;
-      font-weight: 600;
-      color: #003366;
-    }
+    .section-box h2 { color: #003366; margin-bottom: 10px; }
+    .team-title { font-size: 28px; text-align: center; color: #003366; margin-bottom: 25px; }
 
     .team-grid {
       display: grid;
@@ -85,123 +64,122 @@
     }
 
     .team-card {
-      background: white;
+      background: #fff;
       padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
       text-align: center;
+      border-radius: 12px;
+      box-shadow: 0px 5px 14px rgba(0,0,0,0.1);
       transition: 0.3s;
     }
-
-    .team-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.15);
-    }
-
-    .team-card h3 {
-      font-size: 20px;
-      color: #003366;
-      margin-bottom: 8px;
-    }
-
-    .team-card p {
-      font-size: 15px;
-      color: #333;
-      margin-bottom: 15px;
-    }
+    .team-card:hover { transform: translateY(-5px); }
 
     .btn {
-      display: inline-block;
       padding: 10px 18px;
       background: #003366;
       color: white;
-      border-radius: 8px;
+      border-radius: 6px;
       text-decoration: none;
       font-size: 14px;
       transition: 0.3s;
     }
+    .btn:hover { background: #0055aa; }
 
-    .btn:hover {
-      background: #0055aa;
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #003366;
+      color: white;
+      margin-top: 40px;
     }
   </style>
 </head>
 
 <body>
 
+  <!-- NAVBAR -->
+  <nav>
+    <h2>DAA City Design</h2>
+    <div>
+      <a href="#intro">DAA Intro</a>
+      <a href="#usage">DAA in City Design</a>
+      <a href="#team">Team</a>
+    </div>
+  </nav>
+
   <div class="container">
 
-    <!-- HEADER -->
     <div class="header">
       <h1>City Design Project</h1>
       <p><b>Course:</b> Design and Analysis of Algorithms (DAA)</p>
       <p><b>Course Code:</b> 24ECSC205</p>
       <p><b>Instructor:</b> Prof. Prakash Hegde</p>
       <p><b>University:</b> KLE Technological University</p>
-      <p><b>Topic:</b> City Design</p>
+      <p><b>Topic:</b> Smart City Design Using Algorithms</p>
     </div>
 
     <!-- INTRO TO DAA -->
-    <div class="section-box">
+    <div id="intro" class="section-box">
       <h2>Introduction to DAA</h2>
       <p>
-        Design and Analysis of Algorithms (DAA) is a core subject in computer science that focuses on designing efficient algorithms and evaluating their performance. 
-        It helps students understand how to optimize solutions using concepts such as Divide & Conquer, Greedy strategies, Dynamic Programming, Graph algorithms, and more. 
-        These principles guide us in building systems that are fast, scalable, and efficient.
+        Design and Analysis of Algorithms (DAA) focuses on developing efficient, optimized solutions for computational problems. 
+        It helps engineers build systems that are fast, scalable, and cost-effective by using concepts like Divide & Conquer, 
+        Greedy Algorithms, Dynamic Programming, and Graph Theory.
       </p>
     </div>
 
     <!-- DAA IN CITY DESIGN -->
-    <div class="section-box">
-      <h2>How DAA is Used in a City Design Project</h2>
+    <div id="usage" class="section-box">
+      <h2>How DAA Helps in City Design</h2>
       <p>
-        City design requires solving real-world optimization problems such as traffic routing, shortest path planning, resource distribution, facility placement, and network connectivity.  
+        City Design involves solving real-world problems where optimization is essential.  
         Using DAA concepts, we can:
       </p>
       <p>
-        ✔ Use **Graph Algorithms** to design road networks and shortest paths.<br>
-        ✔ Apply **Greedy Algorithms** for optimal placement of hospitals, fire stations, and parks.<br>
-        ✔ Use **Dynamic Programming** to minimize construction cost or space usage.<br>
-        ✔ Use **Minimum Spanning Tree (MST)** techniques for connecting city zones efficiently.<br>
-        ✔ Use **Search Algorithms** to plan traffic movement and vehicle routing.
-      </p>
-      <p>
-        By combining algorithmic thinking with smart city planning, we develop a more structured, optimized, and scalable city layout.
+        ✔ Use **Graph Algorithms** to plan road maps and shortest routes. <br>
+        ✔ Use **Greedy Algorithms** for optimal placement of hospitals, parks, and fire stations.<br>
+        ✔ Use **Dynamic Programming** to minimize total cost of construction.<br>
+        ✔ Apply **Minimum Spanning Tree (MST)** for efficient zone connectivity.<br>
+        ✔ Use **Search Algorithms** for traffic simulation and routing.
       </p>
     </div>
 
     <!-- TEAM SECTION -->
-    <h2 class="team-title">Project Team Members</h2>
+    <h2 id="team" class="team-title">Project Team Members</h2>
 
     <div class="team-grid">
 
       <div class="team-card">
         <h3>Ketan Shinde</h3>
         <p>USN: 01FE24BCS151</p>
-        <a class="btn" href="#" target="_blank">View Portfolio</a>
+        <a class="btn" href="ketan.html">View Portfolio</a>
       </div>
 
       <div class="team-card">
         <h3>Tejas Keri</h3>
         <p>USN: 01FE24BCS144</p>
-        <a class="btn" href="#" target="_blank">View Portfolio</a>
+        <a class="btn" href="tejas.html">View Portfolio</a>
       </div>
 
       <div class="team-card">
-        <h3>Govind</h3>
+        <h3>Govind Reddy</h3>
         <p>USN: 01FE24BCS037</p>
-        <a class="btn" href="#" target="_blank">View Portfolio</a>
+        <a class="btn" href="govind.html">View Portfolio</a>
       </div>
 
       <div class="team-card">
         <h3>Swyambu Boli</h3>
         <p>USN: 01FE24BCS102</p>
-        <a class="btn" href="#" target="_blank">View Portfolio</a>
+        <a class="btn" href="swyambu.html">View Portfolio</a>
       </div>
 
     </div>
 
   </div>
+
+  <footer>
+    © 2024 DAA City Design Project – KLE Technological University
+  </footer>
 
 </body>
 </html>
