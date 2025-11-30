@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ketan Shinde | Bucket 1 Portfolio</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
+
+    body {
+      background: linear-gradient(145deg, #dfe9f3, #ffffff);
+      overflow-x: hidden;
+    }
+
+    /* NAVBAR */
+    nav {
+      width: 100%;
+      background: #003366;
+      padding: 16px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: 0.3s ease;
+    }
+
+    nav a:hover {
+      background: rgba(255,255,255,0.15);
+      transform: translateY(-3px);
+    }
+
+    .container { max-width: 1100px; margin: auto; padding: 30px; }
+
+    /* HEADER */
+    .header {
+      background: linear-gradient(120deg, #003366, #0077cc);
+      color: white;
+      padding: 40px 30px;
+      border-radius: 18px;
+      text-align: center;
+      margin-bottom: 45px;
+      box-shadow: 0px 10px 25px rgba(0,0,0,0.25);
+      animation: fadeIn 1.2s ease-out;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* TITLE */
+    .title-main {
+      font-size: 28px;
+      color: #003366;
+      margin-bottom: 25px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    /* CARD GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: white;
+      padding: 22px;
+      border-radius: 16px;
+      box-shadow: 0px 10px 25px rgba(0,0,0,0.12);
+      transition: 0.35s ease;
+      border-left: 6px solid #0077cc;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: cardRise 1s forwards ease-out;
+    }
+
+    @keyframes cardRise {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .card:hover {
+      transform: translateY(-12px) scale(1.03);
+      box-shadow: 0px 16px 35px rgba(0,0,0,0.25);
+    }
+
+    .card h3 {
+      font-size: 20px;
+      margin-bottom: 8px;
+      color: #003366;
+      font-weight: 600;
+    }
+
+    .algo {
+      font-size: 14px;
+      font-weight: bold;
+      color: #0077cc;
+      margin-bottom: 5px;
+    }
+
+    .desc {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #003366;
+      color: white;
+      margin-top: 40px;
+      border-radius: 12px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav>
+    <h2>Ketan Shinde</h2>
+    <div>
+      <a href="index.html">Home</a>
+      <a href="#bucket1">Bucket 1</a>
+    </div>
+  </nav>
+
+  <div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+      <h1>Bucket 1 — Infrastructure & Network Optimization</h1>
+      <p>These are my selected algorithmic problems related to city infrastructure, transportation, and network optimization.</p>
+    </div>
+
+    <h2 class="title-main" id="bucket1">My 10 Problems (Bucket 1)</h2>
+
+    <!-- GRID -->
+    <div class="grid">
+
+      <!-- CARD 1 -->
+      <div class="card">
+        <h3>1. Optimal Road Network Construction</h3>
+        <p class="algo">Algorithm: Minimum Spanning Tree (Kruskal / Prim)</p>
+        <p class="desc">Given roads with construction cost, compute the minimum-cost connected city road network.</p>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="card">
+        <h3>2. Shortest Travel-Time Routing</h3>
+        <p class="algo">Algorithm: Dijkstra</p>
+        <p class="desc">Find the fastest route between any two zones or junctions in the smart city.</p>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="card">
+        <h3>3. Traffic Signal Timing Optimization</h3>
+        <p class="algo">Algorithm: Scheduling + Greedy</p>
+        <p class="desc">Optimize signal intervals using vehicle flow to reduce congestion.</p>
+      </div>
+
+      <!-- CARD 4 -->
+      <div class="card">
+        <h3>4. Emergency Vehicle Fastest Route Planner</h3>
+        <p class="algo">Algorithm: A* or Real-Time Dijkstra</p>
+        <p class="desc">Compute the quickest possible path for ambulances, fire trucks, etc.</p>
+      </div>
+
+      <!-- CARD 5 -->
+      <div class="card">
+        <h3>5. Water Pipeline Pressure Optimization</h3>
+        <p class="algo">Algorithm: Max Flow / Ford-Fulkerson</p>
+        <p class="desc">Find bottlenecks and compute maximum possible water flow in pipeline networks.</p>
+      </div>
+
+      <!-- CARD 6 -->
+      <div class="card">
+        <h3>6. Power Grid Load Minimization</h3>
+        <p class="algo">Algorithm: MST + Graph Optimization</p>
+        <p class="desc">Connect transformers with minimum energy loss and stable supply.</p>
+      </div>
+
+      <!-- CARD 7 -->
+      <div class="card">
+        <h3>7. Garbage Truck Route Optimization</h3>
+        <p class="algo">Algorithm: TSP (Nearest Neighbor, Christofides)</p>
+        <p class="desc">Find shortest route to collect waste across various city zones.</p>
+      </div>
+
+      <!-- CARD 8 -->
+      <div class="card">
+        <h3>8. Public Transport Timetable Creation</h3>
+        <p class="algo">Algorithm: Interval Scheduling</p>
+        <p class="desc">Generate optimal bus arrival schedules to cover more passengers.</p>
+      </div>
+
+      <!-- CARD 9 -->
+      <div class="card">
+        <h3>9. Bridge Construction Priority Model</h3>
+        <p class="algo">Algorithm: Min-Cut / Bridge Finding</p>
+        <p class="desc">Identify most critical edges whose failure breaks city connectivity.</p>
+      </div>
+
+      <!-- CARD 10 -->
+      <div class="card">
+        <h3>10. Flood Evacuation Simulation</h3>
+        <p class="algo">Algorithm: BFS Level Expansion</p>
+        <p class="desc">Compute safe reachable zones during flood emergencies.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <footer>
+    © 2024 Portfolio – Ketan Shinde | Bucket 1
+  </footer>
+
+</body>
+</html>
