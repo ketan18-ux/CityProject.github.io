@@ -8,14 +8,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
-    * { 
-      margin: 0; padding: 0; 
-      box-sizing: border-box; 
-      font-family: "Poppins", sans-serif; 
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
 
-    body { 
-      background: linear-gradient(to bottom right, #e9f0ff, #f7fbff); 
+    body {
+      background: linear-gradient(145deg, #dfe9f3, #ffffff);
       overflow-x: hidden;
     }
 
@@ -31,143 +27,196 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      animation: navSlide 0.8s ease-out;
+      animation: navSlide 1s ease-out;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
     }
+
     @keyframes navSlide {
-      from { transform: translateY(-70px); opacity: 0; }
+      from { transform: translateY(-80px); opacity: 0; }
       to { transform: translateY(0); opacity: 1; }
     }
-    nav h2 { font-size: 24px; }
+
     nav a {
       color: white;
       text-decoration: none;
       margin-left: 25px;
-      font-size: 15px;
-      padding: 6px 12px;
-      transition: 0.4s ease;
+      padding: 7px 14px;
       border-radius: 6px;
+      transition: 0.4s ease;
     }
+
     nav a:hover {
-      background: #0059cc;
-      transform: scale(1.1);
-      box-shadow: 0px 4px 12px rgba(255,255,255,0.4);
+      background: #007bff;
+      transform: scale(1.12);
+      box-shadow: 0 0 12px #66b3ff;
     }
 
     .container { max-width: 1100px; margin: auto; padding: 25px; }
 
     /* HEADER */
     .header {
-      background: linear-gradient(135deg, #003366, #0055aa);
+      background: linear-gradient(120deg, #003366, #0077cc);
       color: white;
-      padding: 40px 20px;
-      border-radius: 12px;
+      padding: 45px 25px;
+      border-radius: 15px;
       text-align: center;
       margin: 40px 0;
-      animation: fadeInScale 1.2s ease-out;
-      box-shadow: 0px 12px 25px rgba(0,0,0,0.2);
+      animation: glowFade 1.4s ease-out;
+      box-shadow: 0px 10px 25px rgba(0,0,0,0.25);
+      position: relative;
+      overflow: hidden;
     }
 
-    @keyframes fadeInScale {
-      0% { opacity: 0; transform: scale(0.8); }
+    /* Header glow animation */
+    @keyframes glowFade {
+      0% { opacity: 0; transform: scale(0.9); }
       100% { opacity: 1; transform: scale(1); }
     }
 
-    /* Section Box */
+    /* Moving light beam in header */
+    .header::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: rgba(255,255,255,0.15);
+      transform: skewX(-20deg);
+      animation: shineMove 5s infinite linear;
+    }
+
+    @keyframes shineMove {
+      0% { left: -100%; }
+      100% { left: 150%; }
+    }
+
+    /* Section styling */
     .section-box {
       background: white;
       padding: 30px;
       border-radius: 16px;
       margin-bottom: 40px;
-      box-shadow: 0px 10px 25px rgba(0,0,0,0.12);
-      animation: softFade 1.4s ease-out;
+      box-shadow: 0px 8px 20px rgba(0,0,0,0.15);
+      animation: smoothRise 1.3s ease-out;
+      position: relative;
+      overflow: hidden;
     }
 
-    @keyframes softFade {
-      from { opacity: 0; transform: translateY(30px); }
+    /* Ripple animation in white sections */
+    .section-box::before {
+      content: "";
+      position: absolute;
+      top: -100%;
+      left: 0;
+      width: 100%;
+      height: 200%;
+      background: radial-gradient(circle at center, rgba(0,102,204,0.1), transparent 70%);
+      animation: rippleMove 6s infinite linear;
+    }
+
+    @keyframes rippleMove {
+      0% { transform: translateY(-50%); }
+      100% { transform: translateY(50%); }
+    }
+
+    @keyframes smoothRise {
+      from { opacity: 0; transform: translateY(35px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* Team Title Animation */
     .team-title {
       font-size: 32px;
       text-align: center;
       color: #003366;
       margin-bottom: 25px;
-      animation: fadeGlow 1.5s ease-in-out infinite alternate;
+      animation: titleGlow 2s infinite alternate ease-in-out;
     }
 
-    @keyframes fadeGlow {
-      from { text-shadow: 0 0 5px #7fbaff; }
-      to { text-shadow: 0 0 18px #0055ff; }
+    @keyframes titleGlow {
+      0% { text-shadow: 0 0 10px #66b3ff; }
+      100% { text-shadow: 0 0 20px #0077ff; }
     }
 
     /* TEAM GRID */
     .team-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 25px;
     }
 
+    /* TEAM CARDS */
     .team-card {
       padding: 25px;
       text-align: center;
       border-radius: 16px;
       color: white;
-      box-shadow: 0px 12px 20px rgba(0,0,0,0.2);
-      transition: 0.4s ease;
-      opacity: 0;
-      transform: translateY(40px);
-      animation: floatUp 1s forwards;
-      background-size: 200% 200%;
-      background-position: center;
-      animation-timing-function: ease-out;
+      box-shadow: 0px 12px 20px rgba(0,0,0,0.25);
+      animation: floatUp 1s forwards ease-out;
+      background-size: 300% 300%;
+      transition: 0.5s ease;
+      transform-style: preserve-3d;
     }
 
-    /* Floating animation when visible */
+    /* Gradient animations */
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Stagger card appearance */
+    .team-card:nth-child(1) { animation-delay: 0.2s; }
+    .team-card:nth-child(2) { animation-delay: 0.4s; }
+    .team-card:nth-child(3) { animation-delay: 0.6s; }
+    .team-card:nth-child(4) { animation-delay: 0.8s; }
+
     @keyframes floatUp {
-      0% { opacity: 0; transform: translateY(40px) scale(0.9); }
-      100% { opacity: 1; transform: translateY(0) scale(1); }
+      0% { opacity: 0; transform: translateY(50px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* Infinite floating effect */
+    /* TEAM CARD HOVER ANIMATION */
     .team-card:hover {
-      transform: translateY(-10px) scale(1.08);
-      box-shadow: 0px 15px 30px rgba(0,0,0,0.3);
-      animation: floatGlow 1.5s infinite alternate;
+      transform: translateY(-12px) scale(1.08) rotateX(5deg);
+      box-shadow: 0px 18px 40px rgba(0,0,0,0.35);
+      animation: glowPulse 1s infinite alternate;
     }
 
-    @keyframes floatGlow {
-      from { box-shadow: 0px 12px 25px rgba(255,255,255,0.4); }
-      to { box-shadow: 0px 12px 35px rgba(255,255,255,0.8); }
+    @keyframes glowPulse {
+      0% { box-shadow: 0 0 18px rgba(255,255,255,0.4); }
+      100% { box-shadow: 0 0 28px rgba(255,255,255,0.9); }
     }
 
-    /* UNIQUE COLORS FOR EACH MEMBER */
-    .card1 { background: linear-gradient(135deg, #6a11cb, #2575fc); }
-    .card2 { background: linear-gradient(135deg, #ff512f, #dd2476); }
-    .card3 { background: linear-gradient(135deg, #11998e, #38ef7d); }
-    .card4 { background: linear-gradient(135deg, #ff9966, #ff5e62); }
+    /* NEW COLORFUL BLOCKS */
+    .card1 { background: linear-gradient(135deg, #6a11cb, #2575fc); animation: gradientFlow 6s infinite; }
+    .card2 { background: linear-gradient(135deg, #ff512f, #dd2476); animation: gradientFlow 6s infinite; }
+    .card3 { background: linear-gradient(135deg, #11998e, #38ef7d); animation: gradientFlow 6s infinite; }
+    .card4 { background: linear-gradient(135deg, #ff9966, #ff5e62); animation: gradientFlow 6s infinite; }
 
-    /* BUTTON ANIMATION */
+    /* BUTTON */
     .btn {
       padding: 12px 20px;
-      background: rgba(0,0,0,0.2);
+      background: rgba(255,255,255,0.2);
+      border: 2px solid rgba(255,255,255,0.5);
       color: white;
-      border-radius: 8px;
+      border-radius: 10px;
       text-decoration: none;
       font-size: 15px;
       transition: 0.4s ease;
-      display: inline-block;
-      margin-top: 10px;
       position: relative;
       overflow: hidden;
+      display: inline-block;
     }
 
+    /* Button hover shine */
     .btn:hover {
-      background: rgba(255,255,255,0.3);
-      transform: scale(1.1);
-      box-shadow: 0px 8px 18px rgba(255,255,255,0.5);
+      background: rgba(255,255,255,0.4);
+      transform: scale(1.15);
+      box-shadow: 0px 8px 22px rgba(255,255,255,0.5);
     }
 
-    /* Shine effect on hover */
     .btn::after {
       content: "";
       position: absolute;
@@ -175,9 +224,9 @@
       left: -100%;
       width: 100%;
       height: 100%;
-      background: rgba(255,255,255,0.6);
-      transform: skewX(-30deg);
-      transition: 0.7s;
+      background: rgba(255,255,255,0.7);
+      transform: skewX(-20deg);
+      transition: 0.5s;
     }
 
     .btn:hover::after {
@@ -191,7 +240,7 @@
       background: #003366;
       color: white;
       margin-top: 40px;
-      animation: fadeIn 1.5s ease-out;
+      animation: fadeIn 2s ease-out;
     }
   </style>
 </head>
@@ -223,9 +272,9 @@
     <div id="intro" class="section-box">
       <h2>Introduction to DAA</h2>
       <p>
-        Design and Analysis of Algorithms (DAA) teaches how to build efficient solutions 
-        using Divide & Conquer, Greedy methods, Dynamic Programming, and Graph algorithms. 
-        These techniques are used in real-world optimization problems.
+        Design and Analysis of Algorithms (DAA) focuses on creating efficient and optimized solutions 
+        for real-world computational problems. It includes Divide & Conquer, Greedy Algorithms, 
+        Dynamic Programming, Graph Algorithms, and more.
       </p>
     </div>
 
@@ -233,11 +282,10 @@
     <div id="usage" class="section-box">
       <h2>How DAA Helps in City Design</h2>
       <p>
-        ✔ Graph Algorithms for roads  
-        ✔ MST for connecting zones  
-        ✔ Greedy algorithms for resource placement  
-        ✔ Dynamic Programming for cost planning  
-        ✔ Search algorithms for traffic routing  
+        ✔ Graph Algorithms for road planning<br>
+        ✔ Greedy Algorithms for facility placement<br>
+        ✔ Dynamic Programming for cost optimization<br>
+        ✔ Search Algorithms for traffic routing<br>
       </p>
     </div>
 
