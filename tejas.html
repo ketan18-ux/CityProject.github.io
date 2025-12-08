@@ -161,6 +161,7 @@
     align-items:center;
     transition: all 0.15s ease;
     border: 1px solid rgba(255,255,255,0.02);
+    outline: none;
   }
   .problem-item:hover{
     transform: translateX(6px);
@@ -175,6 +176,12 @@
     box-shadow: 0 10px 30px rgba(2,6,23,0.45);
   }
   .problem-index{ font-weight:700; color:#9fe9ff; margin-right:8px; }
+
+  /* focus outline for accessibility */
+  .problem-item:focus {
+    box-shadow: 0 0 0 4px rgba(34,211,238,0.16);
+    transform: translateX(4px);
+  }
 
   /* center panel */
   .center{
@@ -260,8 +267,21 @@
     </p>
 
     <!-- Problem items inserted by JS for clarity but also provide accessible fallback -->
-    <div id="problemList">
-      <!-- JS will populate -->
+    <div id="problemList" role="list">
+      <noscript>
+        <ul>
+          <li>1. Optimal Hospital Location</li>
+          <li>2. School Allocation to Students</li>
+          <li>3. Smart Parking Slot Allocation</li>
+          <li>4. Industrial vs Residential Separation</li>
+          <li>5. Public Park Placement Optimization</li>
+          <li>6. Land Subdivision Optimization</li>
+          <li>7. High Footfall Commercial Zone Prediction</li>
+          <li>8. Creation of Green Belt Buffers</li>
+          <li>9. Footpath Connectivity Plan</li>
+          <li>10. Underground Utility Routing</li>
+        </ul>
+      </noscript>
     </div>
   </aside>
 
@@ -280,23 +300,14 @@
 
 <script>
 /* --------------------------
-   Data: 10 problems (image-based list)
-   Each problem has:
-   - id
-   - title
-   - description (HTML)
-   - complexity (HTML)
-   - code (string, python) — long
+   Data: 10 problems
 ---------------------------*/
-
 const problems = [
   {
     id: 1,
     title: "Optimal Hospital Location",
     desc: `<strong>Problem summary:</strong> Place hospitals so that the total distance citizens travel to the closest hospital is minimized. Use median-based or clustering strategies for 1D/2D.`,
-
     complexity: `<strong>Time Complexity:</strong> Sorting-based median approach: O(n log n). For k-median clustering with Lloyd iterations: O(k n t) where t is iterations.`,
-
     code: `# Optimal Hospital Location (Detailed, multi-step)
 # Approach: 1) 1D median when points are on a line.
 #           2) For 2D, use k-median approximation via k-means++ seeding then Lloyd iterations.
@@ -368,15 +379,13 @@ def k_median_approx(points, k=3, iterations=20):
 # Usage example:
 # points = [(x,y), ...]
 # print(k_median_approx(points, k=2))
-`},
-
+`
+  },
   {
     id: 2,
     title: "School Allocation to Students",
     desc: `<strong>Problem summary:</strong> Assign students to the nearest valid school without capacity overflow. Model as bipartite assignment with capacities.`,
-
     complexity: `<strong>Time Complexity:</strong> For max-flow (Dinic) based assignment: O(E sqrt(V)) - practical and efficient for city-sized graphs.`,
-
     code: `# School Allocation using Max Flow (Dinic)
 # We model students as sources connected to schools with capacity constraints.
 
@@ -436,15 +445,13 @@ class Dinic:
 # dinic.add_edge(student_node, school_node, 1)  # if appropriate geographically
 # dinic.add_edge(school_node, sink, school_capacity)
 # result = dinic.max_flow(source, sink)
-`},
-
+`
+  },
   {
     id: 3,
     title: "Smart Parking Slot Allocation",
     desc: `<strong>Problem summary:</strong> Match cars to parking slots minimizing total walking time; consider priorities and slot suitability.`,
-
     complexity: `<strong>Time Complexity:</strong> Hungarian algorithm O(n^3) for perfect matching; greedy + DP alternatives are O(n^2).`,
-
     code: `# Smart Parking Allocation: Hungarian Algorithm (dense, but robust)
 # Implementation adapted for clarity: O(n^3) time but excellent for impressive demonstration.
 
@@ -496,15 +503,13 @@ def hungarian(cost_matrix):
 # Example:
 # cost = [[abs(car - slot) for slot in slots] for car in cars]
 # assign, cost = hungarian(cost)
-`},
-
+`
+  },
   {
     id: 4,
     title: "Industrial vs Residential Separation",
     desc: `<strong>Problem summary:</strong> Color regions so that industrial blocks don't touch residential zones; minimize colors and reassign problematic borders.`,
-
     complexity: `<strong>Time Complexity:</strong> Graph coloring greedy approach O(V^2) in worst-case; bipartite check O(V+E).`,
-
     code: `# Graph Coloring & Validation for Industrial vs Residential separation
 
 def is_bipartite(graph):
@@ -533,15 +538,13 @@ def greedy_coloring(graph):
     return color
 
 # Attempt bipartite first for separation; fallback to greedy coloring.
-`},
-
+`
+  },
   {
     id: 5,
     title: "Public Park Placement Optimization",
     desc: `<strong>Problem summary:</strong> Select k park locations to maximize population coverage; use greedy max-cover with Fenwick tree for efficient population queries.`,
-
     complexity: `<strong>Time Complexity:</strong> O(k n log n) using greedy + Fenwick updates; building Fenwick is O(n).`,
-
     code: `# Fenwick-based greedy selection for park placement (max coverage approximation)
 
 class Fenwick:
@@ -589,15 +592,13 @@ def greedy_max_cover(population, candidate_positions, k, radius):
     return chosen
 
 # This code is a conceptual demonstration and can be optimized using segment trees for larger N.
-`},
-
+`
+  },
   {
     id: 6,
     title: "Land Subdivision Optimization",
     desc: `<strong>Problem summary:</strong> Divide large land plots into smaller usable plots optimizing for area balance and accessibility using divide-and-conquer and kd-like partitioning.`,
-
     complexity: `<strong>Time Complexity:</strong> Typical recursive splits cost O(n log n) for balanced partitions; worst-case unbalanced splits can reach O(n^2).`,
-
     code: `# Land Subdivision via recursive partitioning (2D kd-split concept)
 
 def area_of(polygon):
@@ -632,15 +633,13 @@ def recursive_subdivide(polygon, depth=0, max_depth=4):
     return recursive_subdivide(left, depth+1, max_depth) + recursive_subdivide(right, depth+1, max_depth)
 
 # For practical mapping systems, use planar subdivisions and graph connectivity checks for roads.
-`},
-
+`
+  },
   {
     id: 7,
     title: "High Footfall Commercial Zone Prediction",
     desc: `<strong>Problem summary:</strong> Use clustering over mobility data and heatmap aggregation to predict commercial hotspots; combine density clustering + temporal smoothing.`,
-
     complexity: `<strong>Time Complexity:</strong> Clustering (k-means) O(n k t), DBSCAN O(n log n) with indexing.`,
-
     code: `# Predict high-footfall zones using density estimation + heap selection
 
 import heapq
@@ -667,15 +666,13 @@ def top_k_density(points, radius, k):
     return result
 
 # For large datasets, use spatial indices (R-tree, KD-tree) for efficiency.
-`},
-
+`
+  },
   {
     id: 8,
     title: "Creation of Green Belt Buffers",
     desc: `<strong>Problem summary:</strong> Place green belts respecting constraints (minimum distances, land restrictions); find feasible placements with backtracking and greedy pruning.`,
-
     complexity: `<strong>Time Complexity:</strong> Backtracking worst-case O(2^n), with pruning often much faster in practice.`,
-
     code: `# Green Belt placement using backtracking and pruning
 
 def feasible(placed, candidate, min_dist):
@@ -704,15 +701,13 @@ def place_belts(candidates, min_dist):
     return solutions
 
 # Example: use heuristics to order candidates by degree of constraint to speed pruning.
-`},
-
+`
+  },
   {
     id: 9,
     title: "Footpath Connectivity Plan",
     desc: `<strong>Problem summary:</strong> Identify disconnected pedestrian networks, compute all-pairs shortest paths, and suggest minimum new footpaths to maximize connectivity.`,
-
     complexity: `<strong>Time Complexity:</strong> Floyd-Warshall O(V^3) for dense graphs; Dijkstra O((V+E) log V) for sparse graphs.`,
-
     code: `# Footpath connectivity helpers and suggestion of new edges using disjoint components
 
 def floyd_warshall(adj_matrix):
@@ -749,15 +744,13 @@ def propose_links_for_connectivity(graph):
         a = comps[i][0]; b = comps[i+1][0]
         links.append((a,b))  # placeholder: in practice compute shortest geometric pair
     return links
-`},
-
+`
+  },
   {
     id: 10,
     title: "Underground Utility Routing",
     desc: `<strong>Problem summary:</strong> Route utilities (water, fiber, power) as disjoint shortest paths with constraints to avoid crossing; use multi-commodity flow approximations or sequential shortest path with reservations.`,
-
     complexity: `<strong>Time Complexity:</strong> Dijkstra per source O((V+E) log V) and repeated runs for multiple commodities; complexity grows with commodities and constraints.`,
-
     code: `# Underground utility routing using Dijkstra with reservation (sequential heuristic)
 
 import heapq
@@ -804,8 +797,8 @@ def sequential_routing(graph, commodities):
     return routes
 
 # Note: Real disjoint paths require advanced combinatorial methods (Menger's theorem, flow reductions).
-`}
-
+`
+  }
 ];
 
 /* -------------------------
@@ -825,8 +818,17 @@ function renderSidebar(){
     const div = document.createElement('div');
     div.className = 'problem-item';
     div.dataset.id = p.id;
-    div.innerHTML = \`<div><span class="problem-index">#\${p.id}</span> <span>\${p.title}</span></div>\`;
+    div.setAttribute('role', 'button');
+    div.setAttribute('tabindex', '0');
+    div.innerHTML = `<div><span class="problem-index">#${p.id}</span> <span>${p.title}</span></div>`;
     div.onclick = () => setActiveProblem(p.id);
+    // keyboard: Enter & Space to activate
+    div.addEventListener('keydown', (ev) => {
+      if (ev.key === 'Enter' || ev.key === ' ') {
+        ev.preventDefault();
+        setActiveProblem(p.id);
+      }
+    });
     listEl.appendChild(div);
   });
 }
@@ -844,9 +846,13 @@ function setActiveProblem(id){
   titleEl.innerHTML = p.title;
   descEl.innerHTML = p.desc;
   compEl.innerHTML = p.complexity;
-  // display code with escaping to preserve indentation
+  // display code with escaping to preserve indentation; use textContent so Prism can highlight
   codeEl.textContent = p.code.trim();
-  Prism.highlightElement(codeEl); // highlight only the changed code
+  try {
+    Prism.highlightElement(codeEl); // highlight only the changed code
+  } catch (err) {
+    // fallback: do nothing
+  }
   // scroll center to top nicely
   document.querySelector('.center').scrollTop = 0;
 }
@@ -854,7 +860,9 @@ function setActiveProblem(id){
 // init
 renderSidebar();
 // set first as active by default
-setActiveProblem(problems[0].id);
+if (problems.length) {
+  setActiveProblem(problems[0].id);
+}
 
 /* -------------------------
    Optional: keyboard navigation
@@ -891,8 +899,6 @@ document.addEventListener('keydown', (e) => {
   btn.addEventListener('click', () => {
     document.documentElement.classList.toggle('light');
     document.body.classList.toggle('light');
-    // adjust prism theme quickly by toggling a data attribute (prism CSS is dark themed by default)
-    // For brevity we leave prism theme as-is (tomorrow) which looks good in dark; in light mode it is still readable.
   });
 })();
 </script>
