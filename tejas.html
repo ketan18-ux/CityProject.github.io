@@ -15,7 +15,7 @@
       overflow: hidden;
     }
 
-    /* LEFT SIDEBAR (PROBLEM LIST) */
+    /* LEFT SIDEBAR */
     .sidebar {
       width: 25%;
       background: #104e99;
@@ -26,64 +26,50 @@
 
     .sidebar h2 {
       font-size: 22px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .problem {
-      background: rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.15);
       padding: 12px;
       margin-bottom: 10px;
       border-radius: 8px;
       cursor: pointer;
-      font-size: 16px;
       transition: 0.2s;
     }
-
     .problem:hover {
-      background: rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.30);
     }
 
-    /* CENTER CONTENT (DESCRIPTION) */
+    /* CENTER DESCRIPTION + CODE */
     .content {
-      width: 45%;
+      width: 75%;
       padding: 20px;
       overflow-y: auto;
-      background: #f8fbff;
-      border-right: 2px solid #dce7f7;
-      border-left: 2px solid #dce7f7;
+      background: #f9fbff;
     }
 
     .content h2 {
       margin-top: 0;
-      font-size: 24px;
+      font-size: 26px;
     }
 
-    /* RIGHT PANEL (EMPTY SPACE FOR FUTURE CODE) */
-    .code-panel {
-      width: 30%;
-      padding: 20px;
-      background: #ffffff;
-      overflow-y: auto;
-    }
-
-    .placeholder {
-      width: 100%;
-      height: 90%;
-      border: 2px dashed #b8c6dd;
-      border-radius: 10px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #7d8aa6;
-      font-size: 18px;
-      font-style: italic;
+    pre {
+      background: #1e1e1e;
+      color: #b5e853;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 20px;
+      overflow-x: auto;
+      font-size: 15px;
     }
   </style>
 
   <script>
-    function showDescription(title, text) {
+    function loadProblem(title, desc, code) {
       document.getElementById("title").innerHTML = title;
-      document.getElementById("description").innerHTML = text;
+      document.getElementById("description").innerHTML = desc;
+      document.getElementById("code").innerHTML = code;
     }
   </script>
 </head>
@@ -94,116 +80,230 @@
   <div class="sidebar">
     <h2>Problems</h2>
 
-    <div class="problem" onclick="showDescription('Optimal Hospital Location', desc1)">
-      1. Optimal Hospital Location
-    </div>
-
-    <div class="problem" onclick="showDescription('School Allocation to Students', desc2)">
-      2. School Allocation to Students
-    </div>
-
-    <div class="problem" onclick="showDescription('Smart Parking Slot Allocation', desc3)">
-      3. Smart Parking Slot Allocation
-    </div>
-
-    <div class="problem" onclick="showDescription('Industrial vs Residential Separation', desc4)">
-      4. Industrial vs Residential Separation
-    </div>
-
-    <div class="problem" onclick="showDescription('Public Park Placement Optimization', desc5)">
-      5. Public Park Placement Optimization
-    </div>
-
-    <div class="problem" onclick="showDescription('Land Subdivision Optimization', desc6)">
-      6. Land Subdivision Optimization
-    </div>
-
-    <div class="problem" onclick="showDescription('High Footfall Commercial Zone Prediction', desc7)">
-      7. High Footfall Commercial Zone Prediction
-    </div>
-
-    <div class="problem" onclick="showDescription('Creation of Green Belt Buffers', desc8)">
-      8. Creation of Green Belt Buffers
-    </div>
-
-    <div class="problem" onclick="showDescription('Footpath Connectivity Plan', desc9)">
-      9. Footpath Connectivity Plan
-    </div>
-
-    <div class="problem" onclick="showDescription('Underground Utility Routing', desc10)">
-      10. Underground Utility Routing
-    </div>
+    <div class="problem" onclick="loadProblem('Optimal Hospital Location', desc1, code1)">1. Optimal Hospital Location</div>
+    <div class="problem" onclick="loadProblem('School Allocation to Students', desc2, code2)">2. School Allocation to Students</div>
+    <div class="problem" onclick="loadProblem('Smart Parking Slot Allocation', desc3, code3)">3. Smart Parking Slot Allocation</div>
+    <div class="problem" onclick="loadProblem('Industrial vs Residential Separation', desc4, code4)">4. Industrial vs Residential Separation</div>
+    <div class="problem" onclick="loadProblem('Public Park Placement Optimization', desc5, code5)">5. Public Park Placement Optimization</div>
+    <div class="problem" onclick="loadProblem('Land Subdivision Optimization', desc6, code6)">6. Land Subdivision Optimization</div>
+    <div class="problem" onclick="loadProblem('High Footfall Commercial Zone Prediction', desc7, code7)">7. High Footfall Commercial Zone Prediction</div>
+    <div class="problem" onclick="loadProblem('Creation of Green Belt Buffers', desc8, code8)">8. Creation of Green Belt Buffers</div>
+    <div class="problem" onclick="loadProblem('Footpath Connectivity Plan', desc9, code9)">9. Footpath Connectivity Plan</div>
+    <div class="problem" onclick="loadProblem('Underground Utility Routing', desc10, code10)">10. Underground Utility Routing</div>
   </div>
 
-  <!-- CENTER DESCRIPTION -->
+  <!-- CENTER PANEL -->
   <div class="content">
     <h2 id="title">Select a Problem</h2>
-    <p id="description">Click on any problem from the left to view its explanation.</p>
+    <p id="description">Click a problem on the left to view description and code.</p>
+    <pre id="code">// Code will appear here</pre>
   </div>
 
-  <!-- RIGHT EMPTY CODE PANEL -->
-  <div class="code-panel">
-    <div class="placeholder">
-      Space reserved for future code implementation
-    </div>
-  </div>
-
-  <!-- JAVASCRIPT DESCRIPTIONS -->
+  <!-- PROBLEM DESCRIPTIONS + CODE -->
   <script>
+    /* -----------------------------------------
+       PROBLEM 1
+    ----------------------------------------- */
     const desc1 = `
-      <b>Concept Used:</b> Math Foundations + Divide & Conquer + Recursion.<br><br>
-      Sorting (Quick Sort / Merge Sort) is used to find medians.<br>
-      Median minimizes travel distance → optimal hospital placement.
+      <b>Concepts Used:</b> Median, Divide & Conquer, Recursion.<br><br>
+      The best hospital location is the <b>median</b> of all coordinates.
     `;
 
+    const code1 = `
+def optimal_hospital_location(points):
+    points.sort()  # Quick Sort / Merge Sort
+    n = len(points)
+    return points[n // 2]  # Median
+`;
+
+    /* -----------------------------------------
+       PROBLEM 2
+    ----------------------------------------- */
     const desc2 = `
-      <b>Concept Used:</b> Bipartite Matching + Greedy + BFS/DFS.<br><br>
-      Model students and schools as two sets.  
-      Graph matching assigns students to nearest schools efficiently.
+      <b>Concepts Used:</b> Bipartite Matching using DFS.<br><br>
+      Students ↔ Schools assigned using maximum matching.
     `;
 
+    const code2 = `
+# Bipartite matching using DFS
+def bpm(student, seen, match, graph):
+    for school in graph[student]:
+        if not seen[school]:
+            seen[school] = True
+            if match[school] == -1 or bpm(match[school], seen, match, graph):
+                match[school] = student
+                return True
+    return False
+`;
+
+    /* -----------------------------------------
+       PROBLEM 3
+    ----------------------------------------- */
     const desc3 = `
-      <b>Concept Used:</b> Sorting + Dynamic Programming.<br><br>
-      Cars and slots sorted using Merge Sort.<br>
-      DP computes minimum-walking-distance assignments.
+      <b>Concepts Used:</b> Sorting + Dynamic Programming.<br><br>
+      Cars and slots aligned to minimize walking distance.
     `;
 
+    const code3 = `
+def min_distance_assignment(cars, slots):
+    cars.sort()
+    slots.sort()
+    dp = [[0]*len(slots) for _ in range(len(cars))]
+
+    for i in range(len(cars)):
+        for j in range(len(slots)):
+            cost = abs(cars[i] - slots[j])
+            if i == 0 and j == 0:
+                dp[i][j] = cost
+            elif i == 0:
+                dp[i][j] = dp[i][j-1] + cost
+            elif j == 0:
+                dp[i][j] = 10**9
+            else:
+                dp[i][j] = min(dp[i][j-1], dp[i-1][j-1] + cost)
+    return dp[-1][-1]
+`;
+
+    /* -----------------------------------------
+       PROBLEM 4
+    ----------------------------------------- */
     const desc4 = `
-      <b>Concept Used:</b> Graph Coloring + DFS/BFS.<br><br>
-      Ensure industrial and residential zones do not touch.  
-      Uses 2-coloring similar to bipartite graphs.
+      <b>Concepts Used:</b> Graph Coloring.<br><br>
+      Zones must not be adjacent.
     `;
 
+    const code4 = `
+def color_graph(graph):
+    colors = {}
+    for node in graph:
+        used = {colors[nb] for nb in graph[node] if nb in colors}
+        for c in range(1, 5):
+            if c not in used:
+                colors[node] = c
+                break
+    return colors
+`;
+
+    /* -----------------------------------------
+       PROBLEM 5
+    ----------------------------------------- */
     const desc5 = `
-      <b>Concept Used:</b> Greedy + Fenwick Tree (Binary Indexed Tree).<br><br>
-      Select k parks covering maximum population using fast range queries.
+      <b>Concepts Used:</b> Fenwick Tree for range queries.</b>
     `;
 
+    const code5 = `
+class Fenwick:
+    def __init__(self, n):
+        self.fw = [0]*(n+1)
+
+    def update(self, i, val):
+        while i < len(self.fw):
+            self.fw[i] += val
+            i += i & -i
+
+    def sum(self, i):
+        s = 0
+        while i > 0:
+            s += self.fw[i]
+            i -= i & -i
+        return s
+`;
+
+    /* -----------------------------------------
+       PROBLEM 6
+    ----------------------------------------- */
     const desc6 = `
-      <b>Concept Used:</b> Divide & Conquer + Binary Partition Trees.<br><br>
-      Land recursively subdivided, similar to Quick Sort partitioning.
+      <b>Concepts Used:</b> Divide & Conquer.</br>
+      Recursively split land just like Quick Sort partitions.
     `;
 
+    const code6 = `
+def subdivide(land):
+    if land <= 1:
+        return [land]
+    mid = land // 2
+    return subdivide(mid) + subdivide(land - mid)
+`;
+
+    /* -----------------------------------------
+       PROBLEM 7
+    ----------------------------------------- */
     const desc7 = `
-      <b>Concept Used:</b> Clustering + Heap + Sorting.<br><br>
-      Predict high-footfall zones by grouping dense regions.
+      <b>Concepts Used:</b> Clustering + Heaps.</b>
     `;
 
+    const code7 = `
+import heapq
+
+def top_k_zones(zones, k):
+    return heapq.nlargest(k, zones, key=lambda x: x.population)
+`;
+
+    /* -----------------------------------------
+       PROBLEM 8
+    ----------------------------------------- */
     const desc8 = `
-      <b>Concept Used:</b> Backtracking + Recursion.<br><br>
-      Green belts are placed respecting constraints on minimum separation.
+      <b>Concepts Used:</b> Backtracking.</b>
     `;
 
+    const code8 = `
+def place_greenbelts(zones, idx, placed):
+    if idx == len(zones):
+        return True
+    for choice in [True, False]:
+        if choice and (placed and zones[idx] - placed[-1] < 3):
+            continue
+        if choice:
+            placed.append(zones[idx])
+        if place_greenbelts(zones, idx+1, placed):
+            return True
+        if choice:
+            placed.pop()
+    return False
+`;
+
+    /* -----------------------------------------
+       PROBLEM 9
+    ----------------------------------------- */
     const desc9 = `
-      <b>Concept Used:</b> Graph Connectivity Algorithms.<br><br>
-      BFS/DFS → find disconnected footpaths.  
-      Floyd-Warshall → compute all-pairs walking distances.
+      <b>Concepts Used:</b> Floyd–Warshall for connectivity.</b>
     `;
 
+    const code9 = `
+def floyd_warshall(dist):
+    n = len(dist)
+    for k in range(n):
+        for i in range(n):
+            for j in range(n):
+                dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
+    return dist
+`;
+
+    /* -----------------------------------------
+       PROBLEM 10
+    ----------------------------------------- */
     const desc10 = `
-      <b>Concept Used:</b> Dijkstra + Bellman-Ford + Shortest Path Trees.<br><br>
-      Compute utility routes (water, electricity) without crossing paths.
+      <b>Concepts Used:</b> Dijkstra shortest path.</b>
     `;
+
+    const code10 = `
+import heapq
+
+def dijkstra(graph, start):
+    pq = [(0, start)]
+    dist = {node: float('inf') for node in graph}
+    dist[start] = 0
+
+    while pq:
+        d, node = heapq.heappop(pq)
+        if d > dist[node]:
+            continue
+        for nb, w in graph[node]:
+            if dist[node] + w < dist[nb]:
+                dist[nb] = dist[node] + w
+                heapq.heappush(pq, (dist[nb], nb))
+    return dist
+`;
   </script>
 
 </body>
