@@ -15,7 +15,6 @@
       overflow-x: hidden;
     }
 
-    /* NAVBAR */
     nav {
       width: 100%;
       background: #003366;
@@ -46,7 +45,6 @@
 
     .container { max-width: 1100px; margin: auto; padding: 30px; }
 
-    /* HEADER */
     .header {
       background: linear-gradient(120deg, #003366, #0077cc);
       color: white;
@@ -63,7 +61,6 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* GRID */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
@@ -111,7 +108,6 @@
       opacity: 0.9;
     }
 
-    /* BACK BUTTON */
     .back-btn {
       display: inline-block;
       margin: 45px auto 30px;
@@ -131,7 +127,6 @@
       box-shadow: 0px 10px 25px rgba(0,0,0,0.3);
     }
 
-    /* FOOTER */
     footer {
       text-align: center;
       padding: 20px;
@@ -140,13 +135,11 @@
       margin-top: 25px;
       border-radius: 12px;
     }
-
   </style>
 </head>
 
 <body>
 
-  <!-- NAVBAR -->
   <nav>
     <h2>Govind Reddy</h2>
     <div>
@@ -156,78 +149,75 @@
 
   <div class="container">
 
-    <!-- HEADER -->
     <div class="header">
       <h1>Resource, Budget & Revenue Optimization Projects</h1>
-      <p>Solutions implemented using foundational CS algorithms and data structures taught in class.</p>
+      <p>Each solution is mapped to algorithms and data structures taught in class.</p>
     </div>
 
-    <!-- GRID -->
     <div class="grid">
 
       <div class="card">
         <h3>1. Best Allocation of City Budget</h3>
         <p class="algo">Algorithm: 0/1 Knapsack (DP)</p>
-        <p class="desc">Projects are items with cost and benefit; dynamic programming selects the optimal subset under budget.</p>
+        <p class="desc">Dynamic programming selects projects under budget, maximizing welfare impact.</p>
       </div>
 
       <div class="card">
         <h3>2. Tax Officer Route Optimization</h3>
-        <p class="algo">Algorithm: Floyd–Warshall (all-pairs shortest paths) + Backtracking</p>
-        <p class="desc">Compute shortest paths between all locations, then backtrack to construct near-optimal visit order minimizing total distance.</p>
+        <p class="algo">Algorithm: Dijkstra / Bellman-Ford / Floyd-Warshall</p>
+        <p class="desc">Graph shortest-path algorithms compute efficient inspection routes.</p>
       </div>
 
       <div class="card">
         <h3>3. Smart Parking Fee Prediction</h3>
-        <p class="algo">Algorithm: Segment tree (range aggregation) + Lookup table</p>
-        <p class="desc">Use segment trees to aggregate demand over time windows and a lookup table to map demand bands to optimal fees.</p>
+        <p class="algo">Algorithm: Segment Tree + Lookup Table</p>
+        <p class="desc">Segment trees aggregate demand; lookup tables map demand ranges to fees.</p>
       </div>
 
       <div class="card">
         <h3>4. City Energy Demand Forecasting</h3>
-        <p class="algo">Algorithm: Fenwick tree (prefix sums) + Recurrence</p>
-        <p class="desc">Maintain rolling aggregates with Fenwick tree; apply a simple recurrence on recent windows to forecast next-period demand.</p>
+        <p class="algo">Algorithm: Recurrence + Fenwick Tree</p>
+        <p class="desc">Fenwick tree maintains rolling sums; recurrence predicts next demand values.</p>
       </div>
 
       <div class="card">
         <h3>5. Metro Construction Phase Optimization</h3>
-        <p class="algo">Algorithm: Max-heap (priority by ROI) + Greedy selection</p>
-        <p class="desc">Push phases keyed by ROI into a max-heap and pick in order until budget is exhausted for maximum cumulative ROI.</p>
+        <p class="algo">Algorithm: Heap + Heap Sort</p>
+        <p class="desc">Heap prioritizes phases by ROI; heap sort ensures optimal construction order.</p>
       </div>
 
       <div class="card">
         <h3>6. Streetlight Energy Reduction</h3>
-        <p class="algo">Algorithm: Interval scheduling with segment tree</p>
-        <p class="desc">Model dimming windows as intervals; use a segment tree to manage overlaps and enforce optimal non-conflicting schedules.</p>
+        <p class="algo">Algorithm: Backtracking + Scheduling</p>
+        <p class="desc">Backtracking finds feasible dimming schedules while ensuring safety constraints.</p>
       </div>
 
       <div class="card">
         <h3>7. Transport Ticket Dynamic Pricing</h3>
-        <p class="algo">Algorithm: AVL tree (price bands) + Heap (demand peaks)</p>
-        <p class="desc">Maintain price bands in an AVL tree for fast updates; use a max-heap of demand peaks to raise/lower prices efficiently.</p>
+        <p class="algo">Algorithm: AVL Tree + Binary Heap</p>
+        <p class="desc">AVL tree stores price bands; heap tracks demand peaks for dynamic adjustments.</p>
       </div>
 
       <div class="card">
         <h3>8. Garbage Plant Load Balancing</h3>
-        <p class="algo">Algorithm: Min-heap (least loaded server) + Queue simulation</p>
-        <p class="desc">Simulate waste arrivals; assign each batch to the plant with minimal current load tracked by a min-heap to balance throughput.</p>
+        <p class="algo">Algorithm: Min-Heap + Queue Simulation</p>
+        <p class="desc">Queue models arrivals; min-heap assigns waste to least loaded plant.</p>
       </div>
 
       <div class="card">
         <h3>9. Building Maintenance Prediction</h3>
-        <p class="algo">Algorithm: 2–3 tree (time-indexed events) + Recursion</p>
-        <p class="desc">Index maintenance logs in a 2–3 tree for balanced queries and recursively analyze patterns to predict upcoming service needs.</p>
+        <p class="algo">Algorithm: 2-3 Tree + Divide & Conquer</p>
+        <p class="desc">Logs indexed in 2-3 tree; divide & conquer detects recurring maintenance patterns.</p>
       </div>
 
       <div class="card">
         <h3>10. Subsidy Distribution Optimization</h3>
-        <p class="algo">Algorithm: Quick sort (benefit/cost ratio) + Greedy</p>
-        <p class="desc">Sort beneficiaries by benefit-to-cost ratio using quick sort; greedily select until budget cap to maximize total welfare impact.</p>
+        <p class="algo">Algorithm: Quick Sort + Knapsack</p>
+        <p class="desc">Quick sort orders beneficiaries by benefit/cost; knapsack DP selects optimal subset.</p>
       </div>
 
     </div>
 
-    <!-- BOTTOM BACK BUTTON -->
     <center>
       <a class="back-btn" href="index.html">⬅ Back to Home</a>
     </center>
