@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ketan Shinde | Portfolio</title>
+  <title>Ketan Shinde | City Problems Portfolio</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -16,391 +16,1025 @@
     }
 
     body {
-      background: linear-gradient(145deg, #dfe9f3, #ffffff);
-      overflow-x: hidden;
+      background: radial-gradient(circle at top, #1b2a4a 0, #050814 40%, #02030a 100%);
+      color: #f5f7ff;
+      min-height: 100vh;
     }
 
     /* NAVBAR */
     nav {
       width: 100%;
-      background: #003366;
-      padding: 16px 30px;
+      padding: 12px 22px;
+      background: rgba(3, 9, 30, 0.9);
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      color: white;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
       position: sticky;
       top: 0;
-      z-index: 1000;
-      box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
+      z-index: 100;
+      backdrop-filter: blur(12px);
     }
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin-left: 20px;
-      padding: 8px 14px;
-      border-radius: 6px;
-      transition: 0.3s ease;
-    }
-
-    nav a:hover {
-      background: rgba(255,255,255,0.15);
-      transform: translateY(-3px);
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: auto;
-      padding: 30px;
-    }
-
-    /* HEADER */
-    .header {
-      background: linear-gradient(120deg, #003366, #0077cc);
-      color: white;
-      padding: 40px 30px;
-      border-radius: 18px;
-      text-align: center;
-      margin-bottom: 45px;
-      box-shadow: 0px 10px 25px rgba(0,0,0,0.25);
-      animation: fadeIn 1.2s ease-out;
-    }
-
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    /* SECTION TITLE */
-    .section-title {
-      margin: 50px 5px 20px;
-      font-size: 24px;
-      font-weight: 600;
-      color: #003366;
-    }
-
-    /* CARD GRID */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-      gap: 25px;
-    }
-
-    .card {
-      background: white;
-      padding: 22px;
-      border-radius: 16px;
-      box-shadow: 0px 10px 25px rgba(0,0,0,0.12);
-      transition: 0.35s ease;
-      border-left: 6px solid #0077cc;
-      opacity: 0;
-      transform: translateY(40px);
-      animation: cardRise 1s forwards ease-out;
-    }
-
-    @keyframes cardRise {
-      0% { opacity: 0; transform: translateY(40px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    .card:hover {
-      transform: translateY(-12px) scale(1.03);
-      box-shadow: 0px 16px 35px rgba(0,0,0,0.25);
-    }
-
-    .card h3 {
+    nav h1 {
       font-size: 20px;
-      margin-bottom: 8px;
-      color: #003366;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    nav .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .home-btn, .back-btn {
+      border: none;
+      background: #18a4ff;
+      color: #ffffff;
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .home-btn:hover, .back-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+      background: #2cc5ff;
+    }
+
+    /* LAYOUT */
+    .layout {
+      display: grid;
+      grid-template-columns: 290px minmax(0, 1fr);
+      max-width: 1200px;
+      margin: 18px auto 30px;
+      gap: 18px;
+      padding: 0 12px;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      background: rgba(10, 16, 40, 0.95);
+      border-radius: 16px;
+      padding: 18px 16px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .sidebar-header {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .sidebar-title {
+      font-size: 16px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sidebar-title span {
+      background: #18a4ff;
+      color: #020617;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .sidebar-sub {
+      font-size: 11px;
+      opacity: 0.7;
+    }
+
+    .problem-list {
+      list-style: none;
+      margin-top: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      max-height: calc(100vh - 220px);
+      overflow-y: auto;
+      padding-right: 2px;
+    }
+
+    .problem-item {
+      border-radius: 10px;
+      padding: 8px 10px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: 0.2s ease;
+      background: rgba(15, 23, 60, 0.8);
+    }
+
+    .problem-item:hover {
+      background: rgba(30, 64, 175, 0.8);
+    }
+
+    .problem-item.active {
+      background: linear-gradient(135deg, #1d4ed8, #22c1c3);
+      border-color: rgba(255,255,255,0.6);
+      box-shadow: 0 8px 22px rgba(15, 118, 221, 0.7);
+    }
+
+    .problem-item-title {
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .problem-item-meta {
+      font-size: 11px;
+      opacity: 0.8;
+    }
+
+    /* MAIN PANEL */
+    .main-panel {
+      background: rgba(15, 23, 60, 0.95);
+      border-radius: 18px;
+      padding: 18px 20px 22px;
+      box-shadow: 0 14px 45px rgba(0,0,0,0.55);
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .panel-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .panel-title {
+      font-size: 20px;
       font-weight: 600;
     }
 
-    .algo {
-      font-size: 14px;
-      font-weight: bold;
-      color: #0077cc;
-      margin-bottom: 5px;
+    .panel-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(14, 165, 233, 0.2);
+      border: 1px solid rgba(56, 189, 248, 0.6);
     }
 
-    .desc {
-      font-size: 14px;
+    .view-code-btn {
+      background: #22c55e;
+      color: #020617;
+      font-size: 12px;
+      border-radius: 999px;
+      padding: 7px 14px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .view-code-btn:hover {
+      background: #4ade80;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(22, 163, 74, 0.5);
+    }
+
+    /* DIAGRAM PLACEHOLDER */
+    .diagram-box {
+      margin-top: 4px;
+      background: radial-gradient(circle at top left, #22c1c3 0, #0b1120 55%);
+      border-radius: 16px;
+      padding: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 160px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .diagram-box::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.15) 0, transparent 45%),
+                        radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.4) 0, transparent 55%);
+      mix-blend-mode: screen;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .diagram-label {
+      position: absolute;
+      right: 16px;
+      bottom: 14px;
+      font-size: 11px;
+      background: rgba(15, 23, 42, 0.85);
+      padding: 3px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.8);
+      z-index: 2;
+    }
+
+    .diagram-text {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      font-size: 13px;
+      max-width: 320px;
       opacity: 0.9;
     }
 
-    .card ul {
-      margin-left: 18px;
-      margin-top: 6px;
-      font-size: 14px;
+    /* SECTION CONTENT */
+    .problem-section {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
 
-    /* BACK TO HOME BUTTON */
-    .back-btn {
-      display: inline-block;
-      margin: 45px auto 30px;
-      padding: 12px 22px;
-      background: #003366;
-      color: white;
-      font-size: 16px;
-      border-radius: 10px;
-      text-decoration: none;
-      transition: 0.3s ease;
-      box-shadow: 0px 6px 16px rgba(0,0,0,0.2);
-    }
-
-    .back-btn:hover {
-      background: #0055aa;
-      transform: translateY(-4px);
-      box-shadow: 0px 10px 25px rgba(0,0,0,0.3);
-    }
-
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #003366;
-      color: white;
-      margin-top: 25px;
+    .problem-block {
+      background: rgba(15, 23, 42, 0.95);
       border-radius: 12px;
+      padding: 10px 12px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
     }
 
+    .problem-block h3 {
+      font-size: 14px;
+      margin-bottom: 4px;
+      color: #e5e7eb;
+    }
+
+    .problem-block p {
+      font-size: 13px;
+      line-height: 1.5;
+      color: #cbd5f5;
+    }
+
+    .problem-block ul {
+      margin-left: 18px;
+      margin-top: 4px;
+      font-size: 13px;
+      color: #cbd5f5;
+    }
+
+    .algo-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .algo-badge {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(59, 130, 246, 0.2);
+      border: 1px solid rgba(59, 130, 246, 0.7);
+    }
+
+    /* PANELS VISIBILITY */
+    .detail-panel {
+      display: none;
+    }
+    .detail-panel.active {
+      display: block;
+    }
+
+    /* BOTTOM BACK BUTTON */
+    .bottom-back {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 850px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        order: 2;
+      }
+      .main-panel {
+        order: 1;
+      }
+      .problem-list {
+        max-height: 220px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      nav h1 {
+        font-size: 16px;
+      }
+      .panel-title {
+        font-size: 17px;
+      }
+      .diagram-box {
+        min-height: 130px;
+      }
+    }
   </style>
 </head>
-
 <body>
 
   <!-- NAVBAR -->
   <nav>
-    <h2>Ketan Shinde</h2>
-    <div>
-      <a href="index.html">Home</a>
+    <h1>Ketan Shinde · DAA City Design</h1>
+    <div class="nav-right">
+      <a class="home-btn" href="index.html">🏠 Home</a>
     </div>
   </nav>
 
-  <div class="container">
+  <!-- MAIN LAYOUT -->
+  <div class="layout">
 
-    <!-- HEADER -->
-    <div class="header">
-      <h1>Infrastructure & Network Optimization Projects</h1>
-      <p>Algorithmic solutions built for planning roads, traffic, pipelines, routing and emergency systems in a smart city.</p>
-    </div>
-
-    <!-- GRID : 10 BUSINESS CASES -->
-    <div class="grid">
-
-      <div class="card">
-        <h3>1. Optimal Road Network Construction</h3>
-        <p class="algo">Algorithm: Minimum Spanning Tree (Kruskal / Prim)</p>
-        <p class="desc">Compute the minimum-cost road network connecting all major locations while avoiding redundant roads.</p>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-title">
+          <span>CP</span> City Problems (10)
+        </div>
+        <div class="sidebar-sub">
+          Click any problem or documentation to view details.
+        </div>
       </div>
 
-      <div class="card">
-        <h3>2. Shortest Travel-Time Routing</h3>
-        <p class="algo">Algorithm: Dijkstra</p>
-        <p class="desc">Find the fastest route between important city zones based on weighted travel times.</p>
-      </div>
+      <ul class="problem-list">
+        <li class="problem-item active" data-target="p1">
+          <div class="problem-item-title">Optimal Road Network Construction</div>
+          <div class="problem-item-meta">Transport · MST</div>
+        </li>
+        <li class="problem-item" data-target="p2">
+          <div class="problem-item-title">Shortest Travel-Time Routing</div>
+          <div class="problem-item-meta">Commute · Dijkstra</div>
+        </li>
+        <li class="problem-item" data-target="p3">
+          <div class="problem-item-title">Traffic Signal Timing Optimization</div>
+          <div class="problem-item-meta">Junctions · Scheduling</div>
+        </li>
+        <li class="problem-item" data-target="p4">
+          <div class="problem-item-title">Emergency Vehicle Fastest Route</div>
+          <div class="problem-item-meta">Ambulance · A* / Dijkstra</div>
+        </li>
+        <li class="problem-item" data-target="p5">
+          <div class="problem-item-title">Water Pipeline Pressure Optimization</div>
+          <div class="problem-item-meta">Utilities · Max Flow</div>
+        </li>
+        <li class="problem-item" data-target="p6">
+          <div class="problem-item-title">Power Grid Load Minimization</div>
+          <div class="problem-item-meta">Electricity · MST</div>
+        </li>
+        <li class="problem-item" data-target="p7">
+          <div class="problem-item-title">Garbage Truck Route Optimization</div>
+          <div class="problem-item-meta">Waste · TSP</div>
+        </li>
+        <li class="problem-item" data-target="p8">
+          <div class="problem-item-title">Public Transport Timetable Generation</div>
+          <div class="problem-item-meta">Buses · Interval Scheduling</div>
+        </li>
+        <li class="problem-item" data-target="p9">
+          <div class="problem-item-title">Bridge Construction Priority Model</div>
+          <div class="problem-item-meta">Bridges · Min-Cut</div>
+        </li>
+        <li class="problem-item" data-target="p10">
+          <div class="problem-item-title">Flood Evacuation Simulation</div>
+          <div class="problem-item-meta">Disaster Mgmt · BFS</div>
+        </li>
 
-      <div class="card">
-        <h3>3. Traffic Signal Timing Optimization</h3>
-        <p class="algo">Algorithm: Scheduling / Greedy</p>
-        <p class="desc">Optimize traffic signal timings using peak hour flow to reduce waiting time at junctions.</p>
-      </div>
+        <li class="problem-item" data-target="doc">
+          <div class="problem-item-title">Technical Documentation & SDG Mapping</div>
+          <div class="problem-item-meta">Metrics · DS · Algorithms · SDG</div>
+        </li>
+      </ul>
+    </aside>
 
-      <div class="card">
-        <h3>4. Emergency Vehicle Fastest Route Planner</h3>
-        <p class="algo">Algorithm: A* / Real-Time Dijkstra</p>
-        <p class="desc">Compute the quickest path for ambulances and fire services considering blocked/slow roads.</p>
-      </div>
+    <!-- MAIN PANEL -->
+    <main class="main-panel">
 
-      <div class="card">
-        <h3>5. Water Pipeline Pressure Optimization</h3>
-        <p class="algo">Algorithm: Max Flow / Min-Cut</p>
-        <p class="desc">Determine maximum water flow, detect bottlenecks and suggest reinforcement for critical pipes.</p>
-      </div>
+      <!-- PROBLEM 1 -->
+      <section id="p1" class="detail-panel active">
+        <div class="panel-header">
+          <div class="panel-title-group">
+            <div class="panel-title">Optimal Road Network Construction</div>
+            <div class="panel-tag">Zone: City-wide · Category: Transport Infrastructure</div>
+          </div>
+          <a class="view-code-btn" href="#" target="_blank">View code (update link)</a>
+        </div>
 
-      <div class="card">
-        <h3>6. Power Grid Load Minimization</h3>
-        <p class="algo">Algorithm: MST</p>
-        <p class="desc">Design efficient transformer connections with minimal loss and redundancy in the power network.</p>
-      </div>
+        <div class="diagram-box">
+          <div class="diagram-text">
+            Conceptual MST of city junctions. Each node is a major junction; edges are candidate roads with construction cost.
+          </div>
+          <div class="diagram-label">MST Layout</div>
+        </div>
 
-      <div class="card">
-        <h3>7. Garbage Truck Route Optimization</h3>
-        <p class="algo">Algorithm: Travelling Salesman (TSP)</p>
-        <p class="desc">Plan shortest cyclic routes for waste collection vehicles covering all collection points.</p>
-      </div>
+        <div class="problem-section">
+          <div class="problem-block">
+            <h3>1. Problem</h3>
+            <p>
+              The city wants to connect all major junctions with new roads. Budget is limited,
+              so we must connect every location while keeping total construction cost minimal and
+              avoiding unnecessary duplicate roads.
+            </p>
+          </div>
 
-      <div class="card">
-        <h3>8. Public Transport Timetable Generation</h3>
-        <p class="algo">Algorithm: Interval Scheduling</p>
-        <p class="desc">Generate efficient bus schedules ensuring maximum coverage with limited buses.</p>
-      </div>
+          <div class="problem-block">
+            <h3>2. Practical Solution</h3>
+            <p>
+              We model junctions as vertices and possible roads as weighted edges (cost or distance).
+              Using a Minimum Spanning Tree algorithm, we select a subset of roads that connects all
+              junctions with minimum total cost, guaranteeing there is exactly one simple path between any pair.
+            </p>
+          </div>
 
-      <div class="card">
-        <h3>9. Bridge Construction Priority Model</h3>
-        <p class="algo">Algorithm: Min-Cut / Articulation Points</p>
-        <p class="desc">Identify critical bridges whose failure disconnects the city and prioritize them for strengthening.</p>
-      </div>
+          <div class="problem-block">
+            <h3>3. Algorithm(s) Used</h3>
+            <div class="algo-badges">
+              <span class="algo-badge">Kruskal's MST</span>
+              <span class="algo-badge">Prim's MST</span>
+              <span class="algo-badge">Union-Find DS</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <div class="card">
-        <h3>10. Flood Evacuation Simulation</h3>
-        <p class="algo">Algorithm: BFS Levels</p>
-        <p class="desc">Simulate flood spread, identify safe zones and fastest evacuation paths to shelters.</p>
-      </div>
+      <!-- PROBLEM 2 -->
+      <section id="p2" class="detail-panel">
+        <div class="panel-header">
+          <div class="panel-title-group">
+            <div class="panel-title">Shortest Travel-Time Routing</div>
+            <div class="panel-tag">Zone: Commuter · Category: Route Planning</div>
+          </div>
+          <a class="view-code-btn" href="#" target="_blank">View code (update link)</a>
+        </div>
 
-    </div> <!-- end first grid -->
+        <div class="diagram-box">
+          <div class="diagram-text">
+            Weighted directed graph where edge weights store travel time based on traffic intensity.
+          </div>
+          <div class="diagram-label">Dijkstra Graph</div>
+        </div>
 
-    <!-- ================= EXTRA SECTIONS FROM GOOGLE FORM ================= -->
+        <div class="problem-section">
+          <div class="problem-block">
+            <h3>1. Problem</h3>
+            <p>
+              Citizens struggle to find the fastest route between two zones during peak hours.
+              Distance alone is not enough because some shorter routes are heavily congested.
+            </p>
+          </div>
 
-    <h2 class="section-title">Project Technical Summary</h2>
-    <div class="grid">
+          <div class="problem-block">
+            <h3>2. Practical Solution</h3>
+            <p>
+              Each road segment is a directed edge with weight equal to estimated travel time.
+              Running Dijkstra's algorithm from the source zone, we compute minimum-time paths to all other zones.
+              The system returns the route with least travel time and can be updated as traffic data changes.
+            </p>
+          </div>
 
-      <div class="card">
-        <h3>📌 Code & Modules Overview</h3>
-        <p class="desc"><strong>Lines of Code (Total for all 10 problems):</strong> 2001 – 2500</p>
-        <p class="desc"><strong>Total Functions:</strong> 21 – 25</p>
-        <p class="desc"><strong>Data/Input Files Generated:</strong> 6 – 10 (JSON, CSV, text, test cases)</p>
-        <p class="desc"><strong>Figures / Charts / Diagrams:</strong> 6 – 10 (flowcharts, graphs, route maps)</p>
-        <p class="desc"><strong>Efficiency Analysis:</strong> Yes – documented for all modules (time & space complexity).</p>
-      </div>
+          <div class="problem-block">
+            <h3>3. Algorithm(s) Used</h3>
+            <div class="algo-badges">
+              <span class="algo-badge">Dijkstra</span>
+              <span class="algo-badge">Binary Heap / Priority Queue</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <div class="card">
-        <h3>🧠 Design Techniques Applied</h3>
-        <!-- Edit list if needed -->
-        <p class="desc">The following algorithm design techniques are demonstrated across the modules:</p>
-        <ul>
-          <li>Brute Force (baseline comparisons)</li>
-          <li>Divide and Conquer</li>
-          <li>Decrease and Conquer</li>
-          <li>Transform and Conquer</li>
-          <li>Dynamic Programming</li>
-          <li>Greedy Technique</li>
-          <li>Backtracking (route & scheduling exploration)</li>
-          <li>Randomized Algorithms (test data and tie-breaking)</li>
-          <li>Space and Time Trade-off (pre-computed structures)</li>
-        </ul>
-      </div>
+      <!-- PROBLEM 3 -->
+      <section id="p3" class="detail-panel">
+        <div class="panel-header">
+          <div class="panel-title-group">
+            <div class="panel-title">Traffic Signal Timing Optimization</div>
+            <div class="panel-tag">Zone: Junctions · Category: Flow Management</div>
+          </div>
+          <a class="view-code-btn" href="#" target="_blank">View code (update link)</a>
+        </div>
 
-      <div class="card">
-        <h3>🧩 Principles Used in the Project</h3>
-        <p class="desc">Important algorithmic principles used while solving the smart city problems:</p>
-        <ul>
-          <li>Brave and Cautious Travel</li>
-          <li>Pruning of search space</li>
-          <li>Lazy Propagation (for range updates / queries)</li>
-          <li>Sliding Window (local traffic analysis)</li>
-          <li>Level Order Traversal</li>
-          <li>Hierarchical Data Modelling</li>
-          <li>Edge Relaxation & Shortest Path Trees</li>
-          <li>Pre-Computing and Memoization</li>
-          <li>Bit Manipulations (optimization in states)</li>
-          <li>Partition / Decomposition & Pattern Recognition</li>
-          <li>Recursion & Invariants</li>
-          <li>Search Space Exploration / Search as Decision</li>
-          <li>Relaxation and Convergence</li>
-          <li>Balance Maintenance, Cut & Cycle Properties</li>
-          <li>Connectivity and Reachability, Trade-off Principle</li>
-        </ul>
-      </div>
+        <div class="diagram-box">
+          <div class="diagram-text">
+            Intersection model with incoming lanes treated as jobs competing for green signal slots.
+          </div>
+          <div class="diagram-label">Scheduling View</div>
+        </div>
 
-      <div class="card">
-        <h3>🧱 Basic Data Structures Used</h3>
-        <p class="desc">Core DS used as building blocks in all modules:</p>
-        <ul>
-          <li>Array</li>
-          <li>Stack</li>
-          <li>Queue</li>
-          <li>Lists (linked lists / adjacency lists)</li>
-        </ul>
-      </div>
+        <div class="problem-section">
+          <div class="problem-block">
+            <h3>1. Problem</h3>
+            <p>
+              Major junctions get long queues on some arms while other arms remain under-utilized.
+              Fixed green signal times are not optimal for dynamic traffic.
+            </p>
+          </div>
 
-      <div class="card">
-        <h3>🛠 Advanced DS / Tools</h3>
-        <p class="desc">To efficiently support queries and updates, the following DS/Tools are used:</p>
-        <ul>
-          <li>Binary Tree, BST, AVL Tree, Red Black Tree, 2–3 Tree</li>
-          <li>Hashing (fast lookups for locations/edges)</li>
-          <li>Trie (prefix-based data like route codes)</li>
-          <li>Fenwick Tree (BIT) and Segment Tree</li>
-          <li>Sparse Table & Lookup Table</li>
-          <li>Heap / Priority Queue</li>
-          <li>Union-Find (Disjoint Set Union)</li>
-          <li>Skip List</li>
-        </ul>
-      </div>
+          <div class="problem-block">
+            <h3>2. Practical Solution</h3>
+            <p>
+              Treat each direction as a job with processing time proportional to queue length.
+              Using greedy or interval scheduling ideas, we allocate green time slices to lanes
+              to minimize total waiting time and prevent starvation by periodically rotating lanes.
+            </p>
+          </div>
 
-      <div class="card">
-        <h3>⚙ Sorting Algorithms Implemented</h3>
-        <p class="desc">Sorting helps in ordering roads, events and schedules.</p>
-        <ul>
-          <li>Bubble Sort</li>
-          <li>Selection Sort</li>
-          <li>Insertion Sort</li>
-          <li>Merge Sort</li>
-          <li>Heap Sort</li>
-          <li>Quick Sort</li>
-        </ul>
-      </div>
+          <div class="problem-block">
+            <h3>3. Algorithm(s) Used</h3>
+            <div class="algo-badges">
+              <span class="algo-badge">Greedy Scheduling</span>
+              <span class="algo-badge">Priority Queue</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <div class="card">
-        <h3>🔍 String / Pattern Searching</h3>
-        <p class="desc">For searching routes, codes and logs:</p>
-        <ul>
-          <li>Brute Force String Search</li>
-          <li>Boyer Moore</li>
-          <li>KMP (Knuth–Morris–Pratt)</li>
-          <li>Rabin–Karp</li>
-        </ul>
-      </div>
+      <!-- PROBLEM 4 -->
+      <section id="p4" class="detail-panel">
+        <div class="panel-header">
+          <div class="panel-title-group">
+            <div class="panel-title">Emergency Vehicle Fastest Route Planner</div>
+            <div class="panel-tag">Zone: City-wide · Category: Emergency Response</div>
+          </div>
+          <a class="view-code-btn" href="#" target="_blank">View code (update link)</a>
+        </div>
 
-      <div class="card">
-        <h3>🌐 Graph Algorithms</h3>
-        <p class="desc">City infrastructure is naturally modelled as a graph. Algorithms used:</p>
-        <ul>
-          <li>DFS (Depth First Search)</li>
-          <li>BFS (Breadth First Search)</li>
-          <li>Floyd–Warshall (all-pairs shortest paths)</li>
-          <li>Dijkstra (single-source shortest path)</li>
-          <li>Kruskal & Prim (minimum spanning tree)</li>
-          <li>Bellman–Ford (graphs with negative edges)</li>
-        </ul>
-      </div>
+        <div class="diagram-box">
+          <div class="diagram-text">
+            Graph with real-time blocked edges; heuristic uses straight-line distance to target.
+          </div>
+          <div class="diagram-label">A* Search</div>
+        </div>
 
-      <div class="card">
-        <h3>🧪 Additional DS / Algorithms</h3>
-        <p class="desc">Other components used to support the city design models:</p>
-        <ul>
-          <li>Custom Graph generators and test case builders</li>
-          <li>Random route and demand simulators</li>
-          <li>Utilities for path reconstruction and result verification</li>
-        </ul>
-      </div>
+        <div class="problem-section">
+          <div class="problem-block">
+            <h3>1. Problem</h3>
+            <p>
+              Ambulances and fire trucks must reach incidents as fast as possible.
+              Some usual routes may be blocked due to traffic jams, accidents or road works.
+            </p>
+          </div>
 
-      <div class="card">
-        <h3>🌍 UN SDG Mapping</h3>
-        <p class="desc">The project supports sustainable and resilient city infrastructure.</p>
-        <p class="desc"><strong>SDG Targets mapped to (example set):</strong></p>
-        <ul>
-          <li>9.1 – Develop quality, reliable, sustainable infrastructure</li>
-          <li>9.C – Increase access to ICT and networks</li>
-          <li>11.2 – Provide access to safe, affordable, accessible and sustainable transport systems</li>
-          <li>11.5 – Reduce the impact of disasters (flood evacuation module)</li>
-        </ul>
-        <p class="desc"><strong>SDG Indicators used:</strong> 9.1.1, 11.2.1, 11.5.2</p>
-      </div>
+          <div class="problem-block">
+            <h3>2. Practical Solution</h3>
+            <p>
+              Using real-time road status, we run A* search (or modified Dijkstra) from the emergency station
+              to the incident location. A* combines actual travel time so far with a heuristic estimate
+              (straight-line distance) to prioritize promising routes and compute the quickest feasible path.
+            </p>
+          </div>
 
-    </div> <!-- end second grid -->
+          <div class="problem-block">
+            <h3>3. Algorithm(s) Used</h3>
+            <div class="algo-badges">
+              <span class="algo-badge">A* Search</span>
+              <span class="algo-badge">Real-time Dijkstra</span>
+              <span class="algo-badge">Heuristic Design</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-    <!-- BOTTOM BACK TO HOME BUTTON -->
-    <center>
-      <a class="back-btn" href="index.html">⬅ Back to Home</a>
-    </center>
+      <!-- PROBLEM 5 -->
+      <section id="p5" class="detail-panel">
+        <div class="panel-header">
+          <div class="panel-title-group">
+            <div class="panel-title">Water Pipeline Pressure Optimization</div>
+            <div class="panel-tag">Zone: Utilities · Category: Water Network</div>
+          </div>
+          <a class="view-code-btn" href="#" target="_blank">View code (update link)</a>
+        </div>
 
+        <div class="diagram-box">
+          <div class="diagram-text">
+            Network of pipes with capacities; source is treatment plant and sinks are city zones.
+          </div>
+          <div class="diagram-label">Max Flow Model</div>
+        </div>
+
+        <div class="problem-section">
+          <div class="problem-block">
+            <h3>1. Problem</h3>
+            <p>
+              Some areas receive very low water pressure during peak usage time while others
+              get more than required. The authority wants to identify bottleneck pipes.
+            </p>
+          </div>
+
+          <div class="problem-block">
+            <h3>2. Practical Solution</h3>
+            <p>
+              Model the pipeline layout as a flow network where capacities represent maximum
+              water that can pass through each pipe. Running maximum flow algorithm shows the
+              overall supply limit and identifies edges where capacity is fully utilized, guiding reinforcement decisions.
+            </p>
+          </div>
+
+          <div class="problem-block">
+            <h3>3. Algorithm(s) Used</h3>
+            <div class="algo-badges">
+              <span class="algo-badge">Edmonds–Karp Max Flow</span>
+              <span class="algo-badge">Min-Cut Analysis</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROBLEM 6 -->
+      <section id="p6" class="detail-panel">
+        <div class="panel-header">
+          <div class="panel-title-group">
+            <div class="panel-title">Power Grid Load Minimization</div>
+            <div class="panel-tag">Zone: Utilities · Category: Electrical Grid</div>
+          </div>
+          <a class="view-code-btn" href="#" target="_blank">View code (update link)</a>
+        </div>
+
+        <div class="diagram-box">
+          <div class="diagram-text">
+            Substations as nodes and high-tension lines as edges with construction or loss cost.
+          </div>
+          <div class="diagram-label">Power MST</div>
+        </div>
+
+        <div class="problem-section">
+          <div class="problem-block">
+            <h3>1. Problem</h3>
+            <p>
+              The city wants to connect new residential zones to the power grid with minimum infrastructure cost,
+              while avoiding cyclic connections that waste money.
+            </p>
+          </div>
+
+          <div class="problem-block">
+            <h3>2. Practical Solution</h3>
+            <p>
+              We build an MST over substations and new zones using a cost function that combines
+              line length and energy loss. The resulting tree suggests which transmission lines
+              to build first with minimum total cost and guaranteed connectivity.
+            </p>
+          </div>
+
+          <div class="problem-block">
+            <h3>3. Algorithm(s) Used</h3>
+            <div class="algo-badges">
+              <span class="algo-badge">Prim's MST</span>
+              <span class="algo-badge">Priority Queue</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROBLEM 7 -->
+      <section id="p7" class="detail-panel">
+        <div class="panel-header">
+          <div class="panel-title-group">
+            <div class="panel-title">Garbage Truck Route Optimization</div>
+            <div class="panel-tag">Zone: Neighborhoods · Category: Waste Collection</div>
+          </div>
+          <a class="view-code-btn" href="#" target="_blank">View code (update link)</a>
+        </div>
+
+        <div class="diagram-box">
+          <div class="diagram-text">
+            Set of pickup points; truck must start and end at depot while minimizing total travel distance.
+          </div>
+          <div class="diagram-label">TSP Approximation</div>
+        </div>
+
+        <div class="problem-section">
+          <div class="problem-block">
+            <h3>1. Problem</h3>
+            <p>
+              Garbage trucks often travel long unnecessary distances, leaving some bins full for a long time.
+              Route planning is currently manual.
+            </p>
+          </div>
+
+          <div class="problem-block">
+            <h3>2. Practical Solution</h3>
+            <p>
+              We treat collection points as cities in a Travelling Salesman Problem.
+              Using a greedy TSP heuristic (nearest neighbour + 2-opt improvement),
+              we generate cyclic routes starting from the depot that keep total distance short
+              while still visiting all pickup locations.
+            </p>
+          </div>
+
+          <div class="problem-block">
+            <h3>3. Algorithm(s) Used</h3>
+            <div class="algo-badges">
+              <span class="algo-badge">Greedy TSP Heuristic</span>
+              <span class="algo-badge">2-opt Improvement</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROBLEM 8 -->
+      <section id="p8" class="detail-panel">
+        <div class="panel-header">
+          <div class="panel-title-group">
+            <div class="panel-title">Public Transport Timetable Generation</div>
+            <div class="panel-tag">Zone: Bus Network · Category: Scheduling</div>
+          </div>
+          <a class="view-code-btn" href="#" target="_blank">View code (update link)</a>
+        </div>
+
+        <div class="diagram-box">
+          <div class="diagram-text">
+            Each bus trip is an interval with start and end time; objective is to maximize useful trips.
+          </div>
+          <div class="diagram-label">Interval Scheduling</div>
+        </div>
+
+        <div class="problem-section">
+          <div class="problem-block">
+            <h3>1. Problem</h3>
+            <p>
+              There are limited buses but many candidate trips. Overlapping trips cause shortage on some routes
+              and idle buses at other times.
+            </p>
+          </div>
+
+          <div class="problem-block">
+            <h3>2. Practical Solution</h3>
+            <p>
+              Treat each possible trip as an interval on a timeline. Using interval scheduling,
+              we choose a maximum set of non-overlapping trips for every bus and generate
+              a timetable that improves coverage with the same fleet size.
+            </p>
+          </div>
+
+          <div class="problem-block">
+            <h3>3. Algorithm(s) Used</h3>
+            <div class="algo-badges">
+              <span class="algo-badge">Greedy Interval Scheduling</span>
+              <span class="algo-badge">Sorting by Finish Time</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROBLEM 9 -->
+      <section id="p9" class="detail-panel">
+        <div class="panel-header">
+          <div class="panel-title-group">
+            <div class="panel-title">Bridge Construction Priority Model</div>
+            <div class="panel-tag">Zone: River & Flyovers · Category: Critical Infrastructure</div>
+          </div>
+          <a class="view-code-btn" href="#" target="_blank">View code (update link)</a>
+        </div>
+
+        <div class="diagram-box">
+          <div class="diagram-text">
+            Graph of regions where some edges correspond to bridges; removing them splits the graph.
+          </div>
+          <div class="diagram-label">Min-Cut / Articulation</div>
+        </div>
+
+        <div class="problem-section">
+          <div class="problem-block">
+            <h3>1. Problem</h3>
+            <p>
+              If certain bridges fail due to floods or maintenance, large parts of the city become disconnected.
+              The city must know which bridges are most critical and should be strengthened first.
+            </p>
+          </div>
+
+          <div class="problem-block">
+            <h3>2. Practical Solution</h3>
+            <p>
+              We represent important road segments and bridges as a graph.
+              Using min-cut and articulation edge ideas, we find edges whose removal
+              disconnects key regions. These bridges are ranked and prioritized for monitoring and upgrades.
+            </p>
+          </div>
+
+          <div class="problem-block">
+            <h3>3. Algorithm(s) Used</h3>
+            <div class="algo-badges">
+              <span class="algo-badge">Min-Cut</span>
+              <span class="algo-badge">Bridge / Articulation Edge Detection</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROBLEM 10 -->
+      <section id="p10" class="detail-panel">
+        <div class="panel-header">
+          <div class="panel-title-group">
+            <div class="panel-title">Flood Evacuation Simulation</div>
+            <div class="panel-tag">Zone: Low-lying Areas · Category: Disaster Management</div>
+          </div>
+          <a class="view-code-btn" href="#" target="_blank">View code (update link)</a>
+        </div>
+
+        <div class="diagram-box">
+          <div class="diagram-text">
+            Levels of BFS from flooded source show time steps at which each locality becomes unsafe.
+          </div>
+          <div class="diagram-label">BFS Levels</div>
+        </div>
+
+        <div class="problem-section">
+          <div class="problem-block">
+            <h3>1. Problem</h3>
+            <p>
+              During heavy rain, some localities get flooded quickly.
+              Authorities need to know which areas will be affected first and how much time
+              is available to evacuate people to safe shelters.
+            </p>
+          </div>
+
+          <div class="problem-block">
+            <h3>2. Practical Solution</h3>
+            <p>
+              We create a graph where nodes are localities and edges are road connections.
+              Starting BFS from flood source points, each BFS level corresponds to time units until water reaches that locality.
+              Shelters reachable before a cut-off level are marked as safe evacuation options.
+            </p>
+          </div>
+
+          <div class="problem-block">
+            <h3>3. Algorithm(s) Used</h3>
+            <div class="algo-badges">
+              <span class="algo-badge">Breadth-First Search</span>
+              <span class="algo-badge">Multi-source BFS</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TECHNICAL DOCUMENTATION PANEL -->
+      <section id="doc" class="detail-panel">
+        <div class="panel-header">
+          <div class="panel-title-group">
+            <div class="panel-title">Technical Documentation & SDG Mapping</div>
+            <div class="panel-tag">Project Metrics · DS · Algorithms · UN SDG</div>
+          </div>
+        </div>
+
+        <div class="problem-section">
+
+          <div class="problem-block">
+            <h3>A. Project Metrics (Across All 10 Problems)</h3>
+            <ul>
+              <li>Total lines of code (C++ / helper files): <strong>2001 – 2500</strong></li>
+              <li>Total functions implemented: <strong>21 – 25</strong></li>
+              <li>Data / input files generated (JSON, CSV, text, Excel): <strong>6 – 10</strong></li>
+              <li>Figures / charts / screenshots / diagrams: <strong>6 – 10</strong></li>
+              <li>Efficiency analysis (time &amp; space complexity): <strong>Provided for all modules</strong></li>
+            </ul>
+          </div>
+
+          <div class="problem-block">
+            <h3>B. Design Techniques Used</h3>
+            <ul>
+              <li>Brute Force (baseline comparison)</li>
+              <li>Divide and Conquer, Decrease and Conquer</li>
+              <li>Transform and Conquer</li>
+              <li>Dynamic Programming</li>
+              <li>Greedy Technique</li>
+              <li>Backtracking (for route exploration)</li>
+              <li>Randomized Algorithms (test data / tie-breaking)</li>
+              <li>Space and Time Trade-off (precomputation and caching)</li>
+            </ul>
+          </div>
+
+          <div class="problem-block">
+            <h3>C. Principles Applied</h3>
+            <ul>
+              <li>Pruning and Brave/Cautious Travel in search space</li>
+              <li>Lazy Propagation &amp; Sliding Window (for range and local analysis)</li>
+              <li>Level Order Traversal &amp; Hierarchical Data</li>
+              <li>Edge Relaxation, Shortest Path Trees, Invariants</li>
+              <li>Precomputing, Memoization and Bit Manipulations</li>
+              <li>Partition / Decomposition · Pattern Recognition · Abstraction</li>
+              <li>Recursion and Search Space Exploration / Search as Decision</li>
+              <li>Cut &amp; Cycle Properties · Connectivity and Reachability</li>
+              <li>Balance Maintenance and Trade-off Principle</li>
+            </ul>
+          </div>
+
+          <div class="problem-block">
+            <h3>D. Data Structures Used</h3>
+            <p><strong>Basic DS</strong></p>
+            <ul>
+              <li>Arrays, Stacks, Queues, Linked Lists</li>
+            </ul>
+            <p style="margin-top:6px;"><strong>Advanced DS / Tools</strong></p>
+            <ul>
+              <li>Graphs (adjacency list &amp; matrix)</li>
+              <li>Binary Tree, BST, AVL Tree, Red-Black Tree, 2–3 Tree</li>
+              <li>Hash Tables, Trie, Skip List</li>
+              <li>Fenwick Tree (Binary Indexed Tree), Segment Tree, Sparse Table</li>
+              <li>Priority Queue / Heap</li>
+              <li>Disjoint Set Union (Union-Find)</li>
+              <li>Lookup tables and precomputed prefix structures</li>
+            </ul>
+          </div>
+
+          <div class="problem-block">
+            <h3>E. Algorithms Implemented</h3>
+            <p><strong>Sorting</strong></p>
+            <ul>
+              <li>Bubble Sort, Selection Sort, Insertion Sort</li>
+              <li>Merge Sort, Heap Sort, Quick Sort</li>
+            </ul>
+            <p style="margin-top:6px;"><strong>String / Pattern Searching</strong></p>
+            <ul>
+              <li>Brute Force String Search</li>
+              <li>Boyer–Moore</li>
+              <li>KMP (Knuth–Morris–Pratt)</li>
+              <li>Rabin–Karp</li>
+            </ul>
+            <p style="margin-top:6px;"><strong>Graph Algorithms</strong></p>
+            <ul>
+              <li>DFS, BFS, Multi-source BFS</li>
+              <li>Dijkstra, Bellman–Ford, Floyd–Warshall</li>
+              <li>Kruskal &amp; Prim (MST)</li>
+              <li>Max Flow (Edmonds–Karp), Min-Cut</li>
+              <li>Articulation points / bridges and connectivity checks</li>
+            </ul>
+          </div>
+
+          <div class="problem-block">
+            <h3>F. UN Sustainable Development Goals (SDG) Mapping</h3>
+            <p><strong>Relevant SDG Targets</strong></p>
+            <ul>
+              <li><strong>SDG 9.1</strong> – Develop quality, reliable, sustainable infrastructure.</li>
+              <li><strong>SDG 9.C</strong> – Improve access to information and communication networks.</li>
+              <li><strong>SDG 11.2</strong> – Provide access to safe, affordable, accessible and sustainable transport systems.</li>
+              <li><strong>SDG 11.5</strong> – Reduce impacts of disasters such as floods on people and infrastructure.</li>
+            </ul>
+            <p style="margin-top:6px;"><strong>Example Indicators Used</strong></p>
+            <ul>
+              <li>9.1.1 – Access to all-season infrastructure (through road, power and water network models).</li>
+              <li>11.2.1 – Access to public transport (through bus routing and timetable generation).</li>
+              <li>11.5.2 – Disaster risk reduction (through evacuation and flood simulation modules).</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+    </main>
   </div>
 
-  <footer>
-    © 2024 Ketan Shinde – Portfolio
-  </footer>
+  <div class="bottom-back">
+    <a class="back-btn" href="index.html">⬅ Back to Home</a>
+  </div>
+
+  <script>
+    // Sidebar click handling
+    const items = document.querySelectorAll('.problem-item');
+    const panels = document.querySelectorAll('.detail-panel');
+
+    items.forEach(item => {
+      item.addEventListener('click', () => {
+        const targetId = item.getAttribute('data-target');
+
+        // highlight sidebar item
+        items.forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+
+        // show correct panel
+        panels.forEach(p => {
+          if (p.id === targetId) {
+            p.classList.add('active');
+          } else {
+            p.classList.remove('active');
+          }
+        });
+      });
+    });
+  </script>
 
 </body>
 </html>
