@@ -7,181 +7,204 @@
 
   <style>
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
       background: #eef5ff;
-      margin: 0;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
     }
 
-    header {
-      background: #0a67d1;
+    /* LEFT SIDEBAR (PROBLEM LIST) */
+    .sidebar {
+      width: 25%;
+      background: #104e99;
       color: white;
       padding: 20px;
-      font-size: 26px;
-      font-weight: bold;
-      text-align: center;
+      overflow-y: auto;
     }
 
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 20px;
+    .sidebar h2 {
+      font-size: 22px;
+      margin-bottom: 10px;
     }
 
     .problem {
-      background: white;
-      padding: 15px;
+      background: rgba(255,255,255,0.12);
+      padding: 12px;
       margin-bottom: 10px;
-      border-radius: 10px;
+      border-radius: 8px;
       cursor: pointer;
-      font-size: 18px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      font-size: 16px;
       transition: 0.2s;
     }
 
     .problem:hover {
-      background: #e6f1ff;
+      background: rgba(255,255,255,0.22);
     }
 
-    .details {
-      display: none;
+    /* CENTER CONTENT (DESCRIPTION) */
+    .content {
+      width: 45%;
+      padding: 20px;
+      overflow-y: auto;
+      background: #f8fbff;
+      border-right: 2px solid #dce7f7;
+      border-left: 2px solid #dce7f7;
+    }
+
+    .content h2 {
+      margin-top: 0;
+      font-size: 24px;
+    }
+
+    /* RIGHT PANEL (EMPTY SPACE FOR FUTURE CODE) */
+    .code-panel {
+      width: 30%;
+      padding: 20px;
       background: #ffffff;
-      border-left: 4px solid #0a67d1;
-      padding: 15px;
-      margin-top: 5px;
-      margin-bottom: 20px;
-      border-radius: 6px;
-      font-size: 16px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      overflow-y: auto;
+    }
+
+    .placeholder {
+      width: 100%;
+      height: 90%;
+      border: 2px dashed #b8c6dd;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #7d8aa6;
+      font-size: 18px;
+      font-style: italic;
     }
   </style>
 
   <script>
-    function toggleDetails(id) {
-      const box = document.getElementById(id);
-      box.style.display = box.style.display === "block" ? "none" : "block";
+    function showDescription(title, text) {
+      document.getElementById("title").innerHTML = title;
+      document.getElementById("description").innerHTML = text;
     }
   </script>
 </head>
 
 <body>
 
-<header>Land Use, Zoning & Location Optimization (with Algorithms Taught in Class)</header>
+  <!-- LEFT SIDEBAR -->
+  <div class="sidebar">
+    <h2>Problems</h2>
 
-<div class="container">
+    <div class="problem" onclick="showDescription('Optimal Hospital Location', desc1)">
+      1. Optimal Hospital Location
+    </div>
 
-  <!-- 1 -->
-  <div class="problem" onclick="toggleDetails('p1')">
-    1. Optimal Hospital Location
-  </div>
-  <div class="details" id="p1">
-    <b>Concept Used:</b> Math Foundations + Greedy Strategy + Recursion (Median Finding)<br><br>
-    To minimize average travel distance, the problem reduces to finding a <b>1-D or 2-D median location</b>.
-    <br><br>
-    If sorted list is used → <b>Quick Sort / Merge Sort</b> to sort coordinates.  
-    Median is computed efficiently using a <b>divide-and-conquer selection algorithm</b>.  
-  </div>
+    <div class="problem" onclick="showDescription('School Allocation to Students', desc2)">
+      2. School Allocation to Students
+    </div>
 
-  <!-- 2 -->
-  <div class="problem" onclick="toggleDetails('p2')">
-    2. School Allocation to Students
-  </div>
-  <div class="details" id="p2">
-    <b>Concept Used:</b> Graph Matching + Recursion Overhead + Greedy<br><br>
-    Students and schools form a bipartite graph.  
-    We compute minimum travel assignment using:<br>
-    • <b>Brute-Force String Search–like</b> matching iteration  
-    • <b>Greedy improvement</b> until stable  
-  </div>
+    <div class="problem" onclick="showDescription('Smart Parking Slot Allocation', desc3)">
+      3. Smart Parking Slot Allocation
+    </div>
 
-  <!-- 3 -->
-  <div class="problem" onclick="toggleDetails('p3')">
-    3. Smart Parking Slot Allocation
-  </div>
-  <div class="details" id="p3">
-    <b>Concept Used:</b> Dynamic Programming + Sorting + Greedy<br><br>
-    Cars and parking slots are sorted using <b>Heap Sort / Merge Sort</b>.  
-    Minimum walking distance is achieved using a DP cost-minimization table (Lookup Table).  
-  </div>
+    <div class="problem" onclick="showDescription('Industrial vs Residential Separation', desc4)">
+      4. Industrial vs Residential Separation
+    </div>
 
-  <!-- 4 -->
-  <div class="problem" onclick="toggleDetails('p4')">
-    4. Industrial vs Residential Separation
-  </div>
-  <div class="details" id="p4">
-    <b>Concept Used:</b> Graph Coloring + Recursion + BFS/DFS<br><br>
-    Regions are nodes, adjacency forms edges.  
-    Use <b>2-coloring</b> (like bipartite test) using<br>
-    • DFS (recursive), or  
-    • BFS Queue  
+    <div class="problem" onclick="showDescription('Public Park Placement Optimization', desc5)">
+      5. Public Park Placement Optimization
+    </div>
+
+    <div class="problem" onclick="showDescription('Land Subdivision Optimization', desc6)">
+      6. Land Subdivision Optimization
+    </div>
+
+    <div class="problem" onclick="showDescription('High Footfall Commercial Zone Prediction', desc7)">
+      7. High Footfall Commercial Zone Prediction
+    </div>
+
+    <div class="problem" onclick="showDescription('Creation of Green Belt Buffers', desc8)">
+      8. Creation of Green Belt Buffers
+    </div>
+
+    <div class="problem" onclick="showDescription('Footpath Connectivity Plan', desc9)">
+      9. Footpath Connectivity Plan
+    </div>
+
+    <div class="problem" onclick="showDescription('Underground Utility Routing', desc10)">
+      10. Underground Utility Routing
+    </div>
   </div>
 
-  <!-- 5 -->
-  <div class="problem" onclick="toggleDetails('p5')">
-    5. Public Park Placement Optimization
-  </div>
-  <div class="details" id="p5">
-    <b>Concept Used:</b> Max Coverage + Greedy + Segment Tree / Fenwick Tree<br><br>
-    People distribution over regions is stored in a <b>Fenwick Tree</b> for fast range queries.  
-    A greedy max-coverage algorithm selects k-locations maximizing total served population.  
+  <!-- CENTER DESCRIPTION -->
+  <div class="content">
+    <h2 id="title">Select a Problem</h2>
+    <p id="description">Click on any problem from the left to view its explanation.</p>
   </div>
 
-  <!-- 6 -->
-  <div class="problem" onclick="toggleDetails('p6')">
-    6. Land Subdivision Optimization
-  </div>
-  <div class="details" id="p6">
-    <b>Concept Used:</b> Divide & Conquer + Recursion + Binary Tree Splitting<br><br>
-    Large land is recursively split into two valid subplots (like <b>Quick Sort partitioning</b>).  
-    A <b>Binary Tree</b> represents subdivision hierarchy.  
+  <!-- RIGHT EMPTY CODE PANEL -->
+  <div class="code-panel">
+    <div class="placeholder">
+      Space reserved for future code implementation
+    </div>
   </div>
 
-  <!-- 7 -->
-  <div class="problem" onclick="toggleDetails('p7')">
-    7. High Footfall Commercial Zone Prediction
-  </div>
-  <div class="details" id="p7">
-    <b>Concept Used:</b> Clustering + Heaps + Sorting<br><br>
-    Data points representing visitor density are grouped via:<br>
-    • <b>Heap-based cluster centroid updates</b><br>
-    • Sorting (Merge/Quick Sort) for region grouping<br>
-  </div>
+  <!-- JAVASCRIPT DESCRIPTIONS -->
+  <script>
+    const desc1 = `
+      <b>Concept Used:</b> Math Foundations + Divide & Conquer + Recursion.<br><br>
+      Sorting (Quick Sort / Merge Sort) is used to find medians.<br>
+      Median minimizes travel distance → optimal hospital placement.
+    `;
 
-  <!-- 8 -->
-  <div class="problem" onclick="toggleDetails('p8')">
-    8. Creation of Green Belt Buffers
-  </div>
-  <div class="details" id="p8">
-    <b>Concept Used:</b> Constraint Solving + Backtracking + Recursion<br><br>
-    Buffer zones around industries are placed using constraints (minimum required distance).  
-    Backtracking tries all placements, pruning invalid ones early.  
-  </div>
+    const desc2 = `
+      <b>Concept Used:</b> Bipartite Matching + Greedy + BFS/DFS.<br><br>
+      Model students and schools as two sets.  
+      Graph matching assigns students to nearest schools efficiently.
+    `;
 
-  <!-- 9 -->
-  <div class="problem" onclick="toggleDetails('p9')">
-    9. Footpath Connectivity Plan
-  </div>
-  <div class="details" id="p9">
-    <b>Concept Used:</b> Graph Traversal + BFS/DFS + Floyd/Warshall<br><br>
-    To identify disconnected pedestrian pathways:<br>
-    • DFS/BFS finds connected components  
-    • Floyd–Warshall gives all-pairs shortest paths  
-    • Dijkstra computes shortest walking routes  
-  </div>
+    const desc3 = `
+      <b>Concept Used:</b> Sorting + Dynamic Programming.<br><br>
+      Cars and slots sorted using Merge Sort.<br>
+      DP computes minimum-walking-distance assignments.
+    `;
 
-  <!-- 10 -->
-  <div class="problem" onclick="toggleDetails('p10')">
-    10. Underground Utility Routing
-  </div>
-  <div class="details" id="p10">
-    <b>Concept Used:</b> Shortest Path Algorithms (Dijkstra, Bellman-Ford) + Tree Structures<br><br>
-    Pipes/cables must not intersect.  
-    The routing uses:<br>
-    • <b>Dijkstra</b> for cost-optimal paths  
-    • <b>Bellman–Ford</b> if negative costs exist  
-    • <b>Trie-like path compression</b> for storing reusable segments  
-  </div>
+    const desc4 = `
+      <b>Concept Used:</b> Graph Coloring + DFS/BFS.<br><br>
+      Ensure industrial and residential zones do not touch.  
+      Uses 2-coloring similar to bipartite graphs.
+    `;
 
-</div>
+    const desc5 = `
+      <b>Concept Used:</b> Greedy + Fenwick Tree (Binary Indexed Tree).<br><br>
+      Select k parks covering maximum population using fast range queries.
+    `;
+
+    const desc6 = `
+      <b>Concept Used:</b> Divide & Conquer + Binary Partition Trees.<br><br>
+      Land recursively subdivided, similar to Quick Sort partitioning.
+    `;
+
+    const desc7 = `
+      <b>Concept Used:</b> Clustering + Heap + Sorting.<br><br>
+      Predict high-footfall zones by grouping dense regions.
+    `;
+
+    const desc8 = `
+      <b>Concept Used:</b> Backtracking + Recursion.<br><br>
+      Green belts are placed respecting constraints on minimum separation.
+    `;
+
+    const desc9 = `
+      <b>Concept Used:</b> Graph Connectivity Algorithms.<br><br>
+      BFS/DFS → find disconnected footpaths.  
+      Floyd-Warshall → compute all-pairs walking distances.
+    `;
+
+    const desc10 = `
+      <b>Concept Used:</b> Dijkstra + Bellman-Ford + Shortest Path Trees.<br><br>
+      Compute utility routes (water, electricity) without crossing paths.
+    `;
+  </script>
 
 </body>
 </html>
