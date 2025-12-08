@@ -905,81 +905,83 @@ int main() {
     {
       id: 5,
       number: 5,
-      title: "Food Processing & Packaging Unit",
+      title: "Traffic Signal Optimization",
       categoryTag: "",
-      shortTag: "Insertion+AVL Tree",
+      shortTag: "Dijkstra",
       time: "O(n)",
       space: "O(1)",
-      algorithm: "Insertion+AVL Tree",
+      algorithm: "Dijkstra",
       sdgs: [
-        "SDG 2 – Zero Hunger Reduces food wastage and improves food availability",
-        "SDG 12 – Responsible Consumption & Production Ensures efficient food management and processing",
+        "SDG 11 – Sustainable Cities and Communities",
+        "SDG 9 – Industry, Innovation and Infrastructure",
         "SDG 3 – Good Health & Well-being Ensures safe and fresh food handling"
       ],
       problemText:
-        "Food items like milk, grains, and fruits have expiry dates. The factory must ensure that items with earlier expiry dates are processed and sold first. Also, the inventory needs to be managed efficiently.",
+        "Urban traffic congestion increases travel time, fuel consumption, and delays emergency vehicles due to inefficient route usage.",
       solutionText:
-        "Food items are sorted by freshness so that older items are not wasted. Inventory must also be tracked using a structure that supports quick searching for any product.",
+        "The road network is modeled as a weighted graph. Dijkstra’s algorithm is applied to find the shortest path from a source junction to all other junctions, helping optimize traffic signal decisions.",
      code:
-       `Insertion
-       void insertionSort(vector<int>& a) {
-    for (int i = 1; i < a.size(); i++) {
-        int key = a[i], j = i - 1;
-        while (j >= 0 && a[j] > key)
-            a[j-- + 1] = a[j];
-        a[j + 1] = key;
+       `Dijkstra
+       #include <iostream>
+#include <vector>
+#include <climits>
+using namespace std;
+
+#define V 6
+
+int minDistance(int dist[], bool visited[]) {
+    int min = INT_MAX, index;
+    for(int i = 0; i < V; i++) {
+        if(!visited[i] && dist[i] <= min) {
+            min = dist[i];
+            index = i;
+        }
     }
-}
-AVL Tree
-struct Node {
-    int v, h;
-    Node *l, *r;
-    Node(int x) : v(x), h(1), l(NULL), r(NULL) {}
-};
-
-int h(Node* n) { return n ? n->h : 0; }
-
-Node* rotR(Node* y) {
-    Node* x = y->l;
-    y->l = x->r;
-    x->r = y;
-    y->h = max(h(y->l), h(y->r)) + 1;
-    x->h = max(h(x->l), h(x->r)) + 1;
-    return x;
+    return index;
 }
 
-Node* rotL(Node* x) {
-    Node* y = x->r;
-    x->r = y->l;
-    y->l = x;
-    x->h = max(h(x->l), h(x->r)) + 1;
-    y->h = max(h(y->l), h(y->r)) + 1;
-    return y;
-}
+void dijkstra(int graph[V][V], int src) {
+    int dist[V];
+    bool visited[V];
 
-Node* insertAVL(Node* n, int v) {
-    if (!n) return new Node(v);
-
-    if (v < n->v) n->l = insertAVL(n->l, v);
-    else n->r = insertAVL(n->r, v);
-
-    n->h = max(h(n->l), h(n->r)) + 1;
-
-    int bal = h(n->l) - h(n->r);
-
-    if (bal > 1 && v < n->l->v) return rotR(n);
-    if (bal < -1 && v > n->r->v) return rotL(n);
-    if (bal > 1 && v > n->l->v) {
-        n->l = rotL(n->l);
-        return rotR(n);
-    }
-    if (bal < -1 && v < n->r->v) {
-        n->r = rotR(n->r);
-        return rotL(n);
+    for(int i = 0; i < V; i++) {
+        dist[i] = INT_MAX;
+        visited[i] = false;
     }
 
-    return n;
+    dist[src] = 0;
+
+    for(int count = 0; count < V - 1; count++) {
+        int u = minDistance(dist, visited);
+        visited[u] = true;
+
+        for(int v = 0; v < V; v++) {
+            if(!visited[v] && graph[u][v] &&
+               dist[u] != INT_MAX &&
+               dist[u] + graph[u][v] < dist[v])
+                dist[v] = dist[u] + graph[u][v];
+        }
+    }
+
+    cout << "Shortest distances from junction " << src << ":\n";
+    for(int i = 0; i < V; i++)
+        cout << "To junction " << i << " = " << dist[i] << endl;
 }
+
+int main() {
+    int graph[V][V] = {
+        {0, 4, 0, 0, 0, 0},
+        {4, 0, 8, 0, 0, 0},
+        {0, 8, 0, 7, 0, 4},
+        {0, 0, 7, 0, 9, 14},
+        {0, 0, 0, 9, 0, 10},
+        {0, 0, 4, 14, 10, 0}
+    };
+
+    dijkstra(graph, 0);
+    return 0;
+}
+
 `,
  
     },
