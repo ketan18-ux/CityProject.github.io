@@ -840,66 +840,64 @@ int main() {
     {
       id: "4",
       number: 4,
-      title: "Renewable Energy Company (Solar/Wind Solutions)",
+      title: "Emergency Shelter Connectivity Planning",
       categoryTag: "",
-      shortTag: "Kruskal’s+Merge",
+      shortTag: "Floyd–Warshall",
       time: "O((V+E) log V) using a heap",
       space: "O(V)",
-      algorithm: "Kruskal’s+Merge",
+      algorithm: "Floyd–Warshall",
       sdgs: [
-        "SDG 7 – Affordable & Clean Energy Promotes clean and renewable energy sources",
-        "SDG 9 – Industry, Innovation & Infrastructure Builds efficient green energy networks",
+        "SDG 11 – Sustainable Cities and Communities",
+        "SDG 3 – Good health and Wealth Being",
         "SDG 13 - Climate Action Reduces dependence on fossil fuels"
       ],
       problemText:
-        "Solar panels and windmills must be connected through cables. If cables are placed inefficiently, the overall installation becomes expensive. Also, customers must be managed based on their energy usage.",
+        "Poor connectivity between emergency shelters delays evacuation during natural disasters.",
       solutionText:
-        "To reduce installation costs, the system must find the cheapest way to connect energy units. Customer usage information can then be sorted to plan maintenance, bills, or upgrades.",
-     code:`Kruskal’s
-     struct Edge { int u, v, w; };
+        "Floyd–Warshall algorithm computes the shortest distance between all pairs of shelters, ensuring faster rescue and evacuation planning.",
+     code:`Floyd–Warshall
+     #include <iostream>
+using namespace std;
 
-int find(int x, vector<int>& p) {
-    return p[x] == x ? x : p[x] = find(p[x], p);
-}
+#define INF 9999
+#define V 4
 
-void unite(int a, int b, vector<int>& p) {
-    a = find(a, p); b = find(b, p);
-    if (a != b) p[b] = a;
-}
+void floydWarshall(int graph[V][V]) {
+    int dist[V][V];
 
-vector<Edge> kruskal(vector<Edge>& e, int n) {
-    sort(e.begin(), e.end(), [](auto& a, auto& b){ return a.w < b.w; });
-    vector<int> p(n); iota(p.begin(), p.end(), 0);
-    vector<Edge> mst;
+    for(int i = 0; i < V; i++)
+        for(int j = 0; j < V; j++)
+            dist[i][j] = graph[i][j];
 
-    for (auto& x : e)
-        if (find(x.u, p) != find(x.v, p)) {
-            unite(x.u, x.v, p);
-            mst.push_back(x);
+    for(int k = 0; k < V; k++) {
+        for(int i = 0; i < V; i++) {
+            for(int j = 0; j < V; j++) {
+                if(dist[i][k] + dist[k][j] < dist[i][j])
+                    dist[i][j] = dist[i][k] + dist[k][j];
+            }
         }
+    }
 
-    return mst;
+    cout << "Shortest distances between shelters:\n";
+    for(int i = 0; i < V; i++) {
+        for(int j = 0; j < V; j++)
+            cout << dist[i][j] << " ";
+        cout << endl;
+    }
 }
-Merge
-void mergeSort(vector<int>& a, int l, int r) {
-    if (l >= r) return;
 
-    int m = (l + r) / 2;
-    mergeSort(a, l, m);
-    mergeSort(a, m + 1, r);
+int main() {
+    int graph[V][V] = {
+        {0, 5, INF, 10},
+        {5, 0, 3, INF},
+        {INF, 3, 0, 1},
+        {10, INF, 1, 0}
+    };
 
-    vector<int> t;
-    int i = l, j = m + 1;
-
-    while (i <= m && j <= r)
-        t.push_back(a[i] < a[j] ? a[i++] : a[j++]);
-
-    while (i <= m) t.push_back(a[i++]);
-    while (j <= r) t.push_back(a[j++]);
-
-    for (int k = 0; k < t.size(); k++)
-        a[l + k] = t[k];
+    floydWarshall(graph);
+    return 0;
 }
+
 
 `,
  
