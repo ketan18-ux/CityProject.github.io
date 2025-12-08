@@ -15,7 +15,6 @@
       overflow-x: hidden;
     }
 
-    /* NAVBAR */
     nav {
       width: 100%;
       background: #003366;
@@ -46,7 +45,6 @@
 
     .container { max-width: 1100px; margin: auto; padding: 30px; }
 
-    /* HEADER */
     .header {
       background: linear-gradient(120deg, #003366, #0077cc);
       color: white;
@@ -63,7 +61,6 @@
       100% { opacity: 1; transform: translateY(0); }
     }
 
-    /* GRID */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
@@ -111,7 +108,6 @@
       opacity: 0.9;
     }
 
-    /* BACK BUTTON */
     .back-btn {
       display: inline-block;
       margin: 45px auto 30px;
@@ -131,7 +127,6 @@
       box-shadow: 0px 10px 25px rgba(0,0,0,0.3);
     }
 
-    /* FOOTER */
     footer {
       text-align: center;
       padding: 20px;
@@ -140,13 +135,11 @@
       margin-top: 25px;
       border-radius: 12px;
     }
-
   </style>
 </head>
 
 <body>
 
-  <!-- NAVBAR -->
   <nav>
     <h2>Govind Reddy</h2>
     <div>
@@ -156,78 +149,75 @@
 
   <div class="container">
 
-    <!-- HEADER -->
     <div class="header">
-      <h1>Resource, Budget & Revenue Optimization Projects</h1>
-      <p>Algorithmic models for budgeting, energy management, forecasting, scheduling and revenue optimization.</p>
+      <h1>Algorithmic Solutions to City Problems</h1>
+      <p>Applying core CS algorithms (recursion, trees, sorting, graphs, string search) to real-world optimization.</p>
     </div>
 
-    <!-- GRID -->
     <div class="grid">
 
       <div class="card">
         <h3>1. Best Allocation of City Budget</h3>
-        <p class="algo">Algorithm: 0/1 Knapsack DP</p>
-        <p class="desc">Choose the best combination of city projects under a fixed budget.</p>
+        <p class="algo">Algorithm: 0/1 Knapsack (DP)</p>
+        <p class="desc">Dynamic programming ensures maximum benefit under fixed budget constraints.</p>
       </div>
 
       <div class="card">
         <h3>2. Tax Officer Route Optimization</h3>
-        <p class="algo">Algorithm: TSP</p>
-        <p class="desc">Compute minimum-distance routes for tax or inspection officers.</p>
+        <p class="algo">Algorithm: Dijkstra / Bellman-Ford</p>
+        <p class="desc">Shortest path algorithms compute minimum travel routes for inspection officers.</p>
       </div>
 
       <div class="card">
         <h3>3. Smart Parking Fee Prediction</h3>
-        <p class="algo">Algorithm: DP / Regression</p>
-        <p class="desc">Predict optimal parking fees based on usage trends.</p>
+        <p class="algo">Algorithm: Regression + Lookup Table</p>
+        <p class="desc">Lookup tables and regression models predict optimal fees based on usage history.</p>
       </div>
 
       <div class="card">
         <h3>4. City Energy Demand Forecasting</h3>
-        <p class="algo">Algorithm: Time-Series / Recurrence</p>
-        <p class="desc">Predict future energy usage for efficient planning.</p>
+        <p class="algo">Algorithm: Recursion + Segment Tree</p>
+        <p class="desc">Segment trees efficiently forecast demand by aggregating time-series data.</p>
       </div>
 
       <div class="card">
         <h3>5. Metro Construction Phase Optimization</h3>
-        <p class="algo">Algorithm: Greedy Benefit/Cost</p>
-        <p class="desc">Prioritize metro construction phases based on ROI.</p>
+        <p class="algo">Algorithm: Greedy + Heap</p>
+        <p class="desc">Heap-based greedy selection prioritizes construction phases with highest ROI.</p>
       </div>
 
       <div class="card">
         <h3>6. Streetlight Energy Reduction</h3>
-        <p class="algo">Algorithm: Scheduling</p>
-        <p class="desc">Compute dynamic dimming schedules to save electricity.</p>
+        <p class="algo">Algorithm: Scheduling + AVL Tree</p>
+        <p class="desc">AVL trees maintain balanced schedules for dynamic dimming and energy savings.</p>
       </div>
 
       <div class="card">
         <h3>7. Transport Ticket Dynamic Pricing</h3>
-        <p class="algo">Algorithm: DP Optimization</p>
-        <p class="desc">Maximize revenue by adjusting prices based on demand.</p>
+        <p class="algo">Algorithm: Heap Sort + Fenwick Tree</p>
+        <p class="desc">Heap sort ranks demand levels; Fenwick tree updates pricing dynamically.</p>
       </div>
 
       <div class="card">
         <h3>8. Garbage Plant Load Balancing</h3>
-        <p class="algo">Algorithm: Queue Simulation</p>
-        <p class="desc">Balance incoming waste across multiple processing plants.</p>
+        <p class="algo">Algorithm: Queue Simulation + Skip List</p>
+        <p class="desc">Skip lists and queues distribute waste loads evenly across plants.</p>
       </div>
 
       <div class="card">
         <h3>9. Building Maintenance Prediction</h3>
-        <p class="algo">Algorithm: Divide & Conquer</p>
-        <p class="desc">Predict maintenance needs using historical patterns.</p>
+        <p class="algo">Algorithm: Divide & Conquer + Trie</p>
+        <p class="desc">Tries store historical maintenance patterns; divide & conquer predicts future needs.</p>
       </div>
 
       <div class="card">
         <h3>10. Subsidy Distribution Optimization</h3>
-        <p class="algo">Algorithm: Knapsack / Greedy</p>
-        <p class="desc">Select beneficiaries to maximize total welfare impact.</p>
+        <p class="algo">Algorithm: Kruskal / Prim + N-Queens Backtracking</p>
+        <p class="desc">Graph MST algorithms ensure fair distribution; backtracking handles complex beneficiary constraints.</p>
       </div>
 
     </div>
 
-    <!-- BOTTOM BACK BUTTON -->
     <center>
       <a class="back-btn" href="index.html">⬅ Back to Home</a>
     </center>
