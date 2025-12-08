@@ -1,3 +1,16 @@
+None selected
+
+Skip to content
+Using KLE Technological University Mail with screen readers
+Enable desktop notifications for KLE Technological University Mail.
+   OK  No thanks
+
+Conversations
+ 
+Program Policies
+Powered by Google
+Last account activity: 0 minutes ago
+Details
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1269,7 +1282,7 @@ bool search(Node* root, int x) {
 
       const left = document.createElement("div");
       left.className = "problem-name";
-      left.textContent = #${p.number} · ${p.title};
+      left.textContent = `#${p.number} · ${p.title}`;
 
       const right = document.createElement("div");
       right.className = "problem-tag";
@@ -1290,7 +1303,7 @@ bool search(Node* root, int x) {
 
   function renderProblem(problem) {
     const sdgHtml = problem.sdgs
-      .map(s => <span class="sdg-chip">${s}</span>)
+      .map(s => `<span class="sdg-chip">${s}</span>`)
       .join("");
 
     viewEl.innerHTML = `
@@ -1359,7 +1372,7 @@ bool search(Node* root, int x) {
         const text = codeBlock.innerText;
         navigator.clipboard?.writeText(text).then(
           () => { copyBtn.textContent = "✅ Copied"; },
-          () => { copyBtn.textContent = "⚠ Failed"; }
+          () => { copyBtn.textContent = "⚠️ Failed"; }
         );
         setTimeout(() => (copyBtn.innerHTML = '<span>📋</span> Copy Code'), 1200);
       });
@@ -1412,3 +1425,5 @@ bool search(Node* root, int x) {
 </script>
 </body>
 </html>
+index.html
+Displaying index.html.
