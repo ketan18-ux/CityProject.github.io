@@ -634,51 +634,75 @@ vector<int> dijkstra(vector<vector<int>>& g, int src) {
     {
       id: 2,
       number: 2,
-      title: "Public Transport Management System",
+      title: "Smart Waste Segregation Automation",
       categoryTag: "",
-      shortTag: "Dijkstra’s+Floyd–Warshall",
+      shortTag: "Binary Tree",
       time: "O(n log n)",
       space: "O(n)",
-      algorithm: "Dijkstra’s+Floyd–Warshall",
+      algorithm: "Binary Tree",
       sdgs: [
-        "SDG 9 – Industry, Innovation & Infrastructure Improves transport infrastructure using technology",
-        "SDG 11 – Sustainable Cities & Communities Promotes efficient and eco-friendly public transport",
-        "SDG 13 – Climate Action Reduces carbon emissions through better mobility"
+        "SDG 11 – sustainable cities and communities",
+        "SDG 11 – Responsible Consumption and Production",
+        "SDG 13 – Good Health and Well-Being"
       ],
       problemText:
-        "Modern cities need a transport system that tells passengers which bus to take, what the best route is, and how long the journey will take. Managing hundreds of buses and stops manually becomes very difficult.",
+        "Bins overflow and waste collection is inefficient, causing unhygienic conditions and wasted resources.",
       solutionText:
-        "The system must calculate the fastest route between stops and also maintain a table of travel times between every pair of locations for planning schedules. This helps passengers receive accurate real-time information.",
+        "Use smart bins with sensors to detect fill levels. Data is sent to a server, and collection is optimized using routing algorithms to reduce overflow and save time.",
       
        
-        code:`Dijkstra’s 
-        vector<int> dijkstra(vector<vector<int>>& g, int src) {
-    int n = g.size();
-    vector<int> dist(n, INT_MAX), vis(n, 0);
-    dist[src] = 0;
+        code:`Binary Tree 
+     #include <iostream>
+using namespace std;
 
-    for (int i = 0; i < n; i++) {
-        int u = -1;
-        for (int j = 0; j < n; j++)
-            if (!vis[j] && (u == -1 || dist[j] < dist[u]))
-                u = j;
+// Binary Tree Node
+struct Node {
+    string question;
+    string result;
+    Node* left;
+    Node* right;
 
-        vis[u] = 1;
+    Node(string q = "", string r = "") {
+        question = q;
+        result = r;
+        left = right = NULL;
+    }
+};
 
-        for (int v = 0; v < n; v++)
-            if (g[u][v] && dist[u] + g[u][v] < dist[v])
-                dist[v] = dist[u] + g[u][v];
+// Function to classify waste
+void classify(Node* root) {
+    if (root->left == NULL && root->right == NULL) {
+        cout << "Waste Category: " << root->result << endl;
+        return;
     }
 
-    return dist;  
+    char choice;
+    cout << root->question << " (y/n): ";
+    cin >> choice;
+
+    if (choice == 'y')
+        classify(root->left);
+    else
+        classify(root->right);
 }
-Floyd–Warshall
-void floydWarshall(vector<vector<int>>& d) {
-    int n = d.size();
-    for (int k = 0; k < n; k++)
-        for (int i = 0; i < n; i++)
-            for (int j = 0; j < n; j++)
-                d[i][j] = min(d[i][j], d[i][k] + d[k][j]);
+
+int main() {
+    // Building the decision tree
+    Node* root = new Node("Is the waste biodegradable?");
+
+    root->left = new Node("Is it food waste?");
+    root->right = new Node("Is it plastic?");
+
+    root->left->left = new Node("", "Organic Waste");
+    root->left->right = new Node("", "Garden Waste");
+
+    root->right->left = new Node("", "Recyclable Waste");
+    root->right->right = new Node("", "Non-Recyclable Waste (Landfill)");
+
+    cout << "Smart Waste Segregation System\n";
+    classify(root);
+
+    return 0;
 }
 `,
  
