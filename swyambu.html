@@ -772,94 +772,68 @@ int main() {
     {
       id: "3",
       number: 3,
-      title: "Smart Water Supply & Purification Unit",
+      title: "Smart Water Pipeline Leak Detection",
       categoryTag: "",
-      shortTag: "Prim’s+AVL Tree",
+      shortTag: "DFS + Binary Tree ",
       time: "O(log n)",
       space: "O(1)",
-      algorithm: "Prim’s+AVL Tree",
+      algorithm: "DFS + Binary Tree",
       sdgs: [
         "SDG 6 – Clean Water & Sanitation Ensures safe water supply and efficient usage",
         "SDG 9 – Industry, Innovation & Infrastructure Builds smart pipeline and distribution systems",
         "SDG 11 – Sustainable Cities & Communities Supports sustainable water management"
       ],
       problemText:
-        "Water needs to be delivered from purification units to homes and public places. If the pipeline layout is not optimized, a lot of money is wasted. Also, every household’s water usage must be recorded quickly and accurately.",
+        "Undetected water leaks in pipelines result in major water loss and infrastructure damage.",
       solutionText:
-        "The city pipeline network should be built using the cheapest possible layout. At the same time, water usage data needs to be stored in a structure that allows fast insertions and quick lookups.",
+        "DFS is used to traverse the pipeline network to detect disconnected or faulty sections. Leak records are stored using a Binary Tree for organized monitoring.",
       
-       code:`Prim’s
-       vector<int> prim(vector<vector<int>>& g) {
-    int n = g.size();
-    vector<int> key(n, INT_MAX), used(n, 0), parent(n, -1);
-    key[0] = 0;
+       code:`DFS + Binary Tree
+      #include <iostream>
+using namespace std;
 
-    for (int i = 0; i < n - 1; i++) {
-        int u = -1;
-        for (int v = 0; v < n; v++)
-            if (!used[v] && (u == -1 || key[v] < key[u]))
-                u = v;
-
-        used[u] = 1;
-
-        for (int v = 0; v < n; v++)
-            if (g[u][v] && !used[v] && g[u][v] < key[v]) {
-                key[v] = g[u][v];
-                parent[v] = u;
-            }
-    }
-    return parent;  
-}
-AVL Tree
 struct Node {
-    int v, h;
-    Node *l, *r;
-    Node(int x) : v(x), h(1), l(NULL), r(NULL) {}
+    int id;
+    Node *left, *right;
 };
 
-int h(Node* n) { return n ? n->h : 0; }
-
-Node* rotR(Node* y) {
-    Node* x = y->l;
-    y->l = x->r;
-    x->r = y;
-    y->h = max(h(y->l), h(y->r)) + 1;
-    x->h = max(h(x->l), h(x->r)) + 1;
-    return x;
+Node* newNode(int id) {
+    Node* temp = new Node();
+    temp->id = id;
+    temp->left = temp->right = NULL;
+    return temp;
 }
 
-Node* rotL(Node* x) {
-    Node* y = x->r;
-    x->r = y->l;
-    y->l = x;
-    x->h = max(h(x->l), h(x->r)) + 1;
-    y->h = max(h(y->l), h(y->r)) + 1;
-    return y;
+Node* insert(Node* root, int id) {
+    if(root == NULL)
+        return newNode(id);
+    if(id < root->id)
+        root->left = insert(root->left, id);
+    else
+        root->right = insert(root->right, id);
+    return root;
 }
 
-Node* insertAVL(Node* n, int v) {
-    if (!n) return new Node(v);
-
-    if (v < n->v) n->l = insertAVL(n->l, v);
-    else n->r = insertAVL(n->r, v);
-
-    n->h = max(h(n->l), h(n->r)) + 1;
-
-    int bal = h(n->l) - h(n->r);
-
-    if (bal > 1 && v < n->l->v) return rotR(n);
-    if (bal < -1 && v > n->r->v) return rotL(n);
-    if (bal > 1 && v > n->l->v) {
-        n->l = rotL(n->l);
-        return rotR(n);
+void inorder(Node* root) {
+    if(root != NULL) {
+        inorder(root->left);
+        cout << root->id << " ";
+        inorder(root->right);
     }
-    if (bal < -1 && v < n->r->v) {
-        n->r = rotR(n->r);
-        return rotL(n);
-    }
-
-    return n;
 }
+
+int main() {
+    Node* root = NULL;
+    root = insert(root, 20);
+    root = insert(root, 10);
+    root = insert(root, 30);
+    root = insert(root, 25);
+
+    cout << "Leak affected pipeline sections:\n";
+    inorder(root);
+    return 0;
+}
+
 `,
  
     },
