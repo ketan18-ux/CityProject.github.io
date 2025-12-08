@@ -572,200 +572,113 @@
    {
       id: 1,
       number: 1,
-      title: "Air Quality Prediction Network",
+      title: "Waste Recycling & Management Center",
       categoryTag: "",
-      shortTag: "Regression + DP Smoothing",
+      shortTag: "merge+dijkstra",
       time: "O(n)",
       space: "O(n)",
-      algorithm: "Regression + DP Smoothing",
+      algorithm: "Merge Sort,Dijkstra’s",
       sdgs: [
-        "SDG 3 – Good Health and Well-being",
-        "SDG 11 – Sustainable Cities and Communities"
+        "SDG 11 – Sustainable Cities & Communities Reduces waste in the city and improves cleanliness",
+        "SDG 12 – Responsible Consumption & Production Promotes recycling and proper waste management",
+        "SDG 13 – Climate Action Reduces pollution and carbon emissions"
       ],
       problemText:
-        "Air pollution varies over time and is measured using multiple sensors such as PM2.5, NO₂, and CO. Raw sensor data is often noisy, making AQI prediction inaccurate. Therefore, a reliable method is required to predict AQI values accurately and reduce sudden fluctuations.",
-      solutionText: "Linear Regression is used to predict AQI from historical multi-sensor data. To handle noise and sudden changes in predictions, Dynamic Programming–based smoothing is applied. This produces stable and realistic AQI values.",
-      code: `Regression + DP Smoothing
-      #include <iostream>
-#include <vector>
-using namespace std;
+        "A recycling center receives mixed waste from different households—plastic, metal, paper, glass, and organic materials. Before recycling, the waste must be organized properly, and trucks must follow efficient routes to collect waste from various parts of the city.",
+      solutionText: "To make the recycling process efficient, the waste must first be sorted based on its type or importance. Then, garbage trucks should collect waste using the shortest possible route so that fuel and time are saved. This reduces operational cost and helps the environment.",
+      code: `merge sort
+      void mergeSort(vector<int>& a, int l, int r) {
+    if (l >= r) return;
 
-/* --------------------------
-   Linear Regression Model
---------------------------------*/
-class LinearRegression {
-    vector<double> weights;
-    double bias;
-    double lr;
-    int epochs;
+    int m = (l + r) / 2;
+    mergeSort(a, l, m);
+    mergeSort(a, m + 1, r);
 
-public:
-    LinearRegression(int features, double lr=0.01, int epochs=1000) {
-        weights.resize(features, 0.0);
-        bias = 0.0;
-        this->lr = lr;
-        this->epochs = epochs;
-    }
+    vector<int> t;
+    int i = l, j = m + 1;
 
-    void train(const vector<vector<double>>& X, const vector<double>& y) {
-        int n = X.size();
-        int m = weights.size();
+    while (i <= m && j <= r)
+        t.push_back(a[i] < a[j] ? a[i++] : a[j++]);
 
-        for (int e = 0; e < epochs; e++) {
-            vector<double> dw(m, 0.0);
-            double db = 0.0;
+    while (i <= m) t.push_back(a[i++]);
+    while (j <= r) t.push_back(a[j++]);
 
-            for (int i = 0; i < n; i++) {
-                double y_pred = bias;
-                for (int j = 0; j < m; j++)
-                    y_pred += weights[j] * X[i][j];
-
-                double error = y_pred - y[i];
-
-                for (int j = 0; j < m; j++)
-                    dw[j] += error * X[i][j];
-                db += error;
-            }
-
-            for (int j = 0; j < m; j++)
-                weights[j] -= lr * dw[j] / n;
-            bias -= lr * db / n;
-        }
-    }
-
-    double predict(const vector<double>& x) {
-        double result = bias;
-        for (int i = 0; i < x.size(); i++)
-            result += weights[i] * x[i];
-        return result;
-    }
-};
-
-/* --------------------------
-   DP-based Smoothing
---------------------------------*/
-vector<double> DPSmoothing(const vector<double>& preds, double alpha) {
-    int n = preds.size();
-    vector<double> smooth(n);
-
-    smooth[0] = preds[0];
-    for (int i = 1; i < n; i++)
-        smooth[i] = (preds[i] + alpha * smooth[i - 1]) / (1 + alpha);
-
-    return smooth;
+    for (int k = 0; k < t.size(); k++)
+        a[l + k] = t[k];
 }
 
-/* --------------------------
-   Main Function
---------------------------------*/
-int main() {
+Dijkstra
+vector<int> dijkstra(vector<vector<int>>& g, int src) {
+    int n = g.size();
+    vector<int> dist(n, INT_MAX), vis(n, 0);
+    dist[src] = 0;
 
-    vector<vector<double>> sensors = {
-        {40, 20, 0.5},
-        {45, 22, 0.6},
-        {50, 24, 0.7},
-        {55, 26, 0.8},
-        {60, 28, 0.9}
-    };
+    for (int i = 0; i < n; i++) {
+        int u = -1;
+        for (int j = 0; j < n; j++)
+            if (!vis[j] && (u == -1 || dist[j] < dist[u]))
+                u = j;
 
-    vector<double> AQI = {90, 95, 100, 110, 120};
+        vis[u] = 1;
 
-    LinearRegression model(3);
-    model.train(sensors, AQI);
+        for (int v = 0; v < n; v++)
+            if (g[u][v] && dist[u] + g[u][v] < dist[v])
+                dist[v] = dist[u] + g[u][v];
+    }
 
-    vector<double> predictions;
-    for (int i = 0; i < sensors.size(); i++)
-        predictions.push_back(model.predict(sensors[i]));
-
-    double alpha = 5.0;
-    vector<double> smoothAQI = DPSmoothing(predictions, alpha);
-
-    cout << "Predicted AQI (Raw):\n";
-    for (double v : predictions)
-        cout << v << " ";
-
-    cout << "\n\nSmoothed AQI:\n";
-    for (double v : smoothAQI)
-        cout << v << " ";
-
-    return 0;
+    return dist;  
 }
-
 `,
  
     },
     {
       id: 2,
       number: 2,
-      title: "Smart Waste Segregation Automation",
+      title: "Public Transport Management System",
       categoryTag: "",
-      shortTag: "Binary Tree",
+      shortTag: "Dijkstra’s+Floyd–Warshall",
       time: "O(n log n)",
       space: "O(n)",
-      algorithm: "Binary Tree",
+      algorithm: "Dijkstra’s+Floyd–Warshall",
       sdgs: [
-        "SDG 11 – sustaiable cities and communities",
-        "SDG 12 – Responsible Consumption and Production",
-        "SDG 3 – Good Health and Well-Being"
+        "SDG 9 – Industry, Innovation & Infrastructure Improves transport infrastructure using technology",
+        "SDG 11 – Sustainable Cities & Communities Promotes efficient and eco-friendly public transport",
+        "SDG 13 – Climate Action Reduces carbon emissions through better mobility"
       ],
       problemText:
-        "Bins overflow and waste collection is inefficient, causing unhygienic conditions and wasted resources.",
+        "Modern cities need a transport system that tells passengers which bus to take, what the best route is, and how long the journey will take. Managing hundreds of buses and stops manually becomes very difficult.",
       solutionText:
-        "Use smart bins with sensors to detect fill levels. Data is sent to a server, and collection is optimized using routing algorithms to reduce overflow and save time.",
+        "The system must calculate the fastest route between stops and also maintain a table of travel times between every pair of locations for planning schedules. This helps passengers receive accurate real-time information.",
       
        
-        code:`Binary Tree
-        #include <iostream>
-using namespace std;
+        code:`Dijkstra’s 
+        vector<int> dijkstra(vector<vector<int>>& g, int src) {
+    int n = g.size();
+    vector<int> dist(n, INT_MAX), vis(n, 0);
+    dist[src] = 0;
 
-// Binary Tree Node
-struct Node {
-    string question;
-    string result;
-    Node* left;
-    Node* right;
+    for (int i = 0; i < n; i++) {
+        int u = -1;
+        for (int j = 0; j < n; j++)
+            if (!vis[j] && (u == -1 || dist[j] < dist[u]))
+                u = j;
 
-    Node(string q = "", string r = "") {
-        question = q;
-        result = r;
-        left = right = NULL;
-    }
-};
+        vis[u] = 1;
 
-// Function to classify waste
-void classify(Node* root) {
-    if (root->left == NULL && root->right == NULL) {
-        cout << "Waste Category: " << root->result << endl;
-        return;
+        for (int v = 0; v < n; v++)
+            if (g[u][v] && dist[u] + g[u][v] < dist[v])
+                dist[v] = dist[u] + g[u][v];
     }
 
-    char choice;
-    cout << root->question << " (y/n): ";
-    cin >> choice;
-
-    if (choice == 'y')
-        classify(root->left);
-    else
-        classify(root->right);
+    return dist;  
 }
-
-int main() {
-    // Building the decision tree
-    Node* root = new Node("Is the waste biodegradable?");
-
-    root->left = new Node("Is it food waste?");
-    root->right = new Node("Is it plastic?");
-
-    root->left->left = new Node("", "Organic Waste");
-    root->left->right = new Node("", "Garden Waste");
-
-    root->right->left = new Node("", "Recyclable Waste");
-    root->right->right = new Node("", "Non-Recyclable Waste (Landfill)");
-
-    cout << "Smart Waste Segregation System\n";
-    classify(root);
-
-    return 0;
+Floyd–Warshall
+void floydWarshall(vector<vector<int>>& d) {
+    int n = d.size();
+    for (int k = 0; k < n; k++)
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++)
+                d[i][j] = min(d[i][j], d[i][k] + d[k][j]);
 }
 `,
  
@@ -1499,5 +1412,3 @@ bool search(Node* root, int x) {
 </script>
 </body>
 </html>
-index.html
-Displaying index.html.
