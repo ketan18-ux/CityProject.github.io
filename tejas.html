@@ -1,215 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Land Use, Zoning & Location Optimization</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Land Use Optimization – Algorithms</title>
 
-    <style>
-        body {
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f3f7fa;
-        }
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #eef5ff;
+      margin: 0;
+    }
 
-        header {
-            background: #0a4fa3;
-            color: white;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.25);
-        }
+    header {
+      background: #0a67d1;
+      color: white;
+      padding: 20px;
+      font-size: 26px;
+      font-weight: bold;
+      text-align: center;
+    }
 
-        header h1 {
-            margin: 0;
-            font-size: 22px;
-        }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-        }
+    .problem {
+      background: white;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      transition: 0.2s;
+    }
 
-        .main-layout {
-            display: flex;
-            height: calc(100vh - 80px);
-            overflow: hidden;
-        }
+    .problem:hover {
+      background: #e6f1ff;
+    }
 
-        /* LEFT PROBLEM LIST */
-        .sidebar {
-            width: 28%;
-            background: white;
-            padding: 20px;
-            border-right: 3px solid #d9e4f2;
-            overflow-y: auto;
-        }
+    .details {
+      display: none;
+      background: #ffffff;
+      border-left: 4px solid #0a67d1;
+      padding: 15px;
+      margin-top: 5px;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      font-size: 16px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+  </style>
 
-        .problem-item {
-            padding: 14px 16px;
-            background: #ffffff;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            border-left: 6px solid #0a4fa3;
-            cursor: pointer;
-            transition: 0.25s;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.12);
-        }
-
-        .problem-item:hover {
-            transform: translateX(6px);
-            background: #e9f1ff;
-        }
-
-        /* CENTER DISPLAY AREA */
-        .content-area {
-            flex-grow: 1;
-            padding: 30px;
-            background: #f3f7fa;
-            overflow-y: auto;
-        }
-
-        #details-box {
-            background: white;
-            padding: 25px;
-            border-radius: 14px;
-            max-width: 90%;
-            margin: auto;
-            min-height: 300px;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.18);
-        }
-
-        #details-box h2 {
-            margin-top: 0;
-            color: #0a4fa3;
-            font-size: 26px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: white;
-            background: #0a4fa3;
-            font-size: 14px;
-        }
-    </style>
+  <script>
+    function toggleDetails(id) {
+      const box = document.getElementById(id);
+      box.style.display = box.style.display === "block" ? "none" : "block";
+    }
+  </script>
 </head>
 
 <body>
 
-<header>
-    <h1>Tejas Keri</h1>
-    <nav>
-        <a href="#">Home</a>
-    </nav>
-</header>
+<header>Land Use, Zoning & Location Optimization (with Algorithms Taught in Class)</header>
 
-<div class="main-layout">
+<div class="container">
 
-    <!-- LEFT VERTICAL PROBLEM LIST -->
-    <div class="sidebar">
-        <div class="problem-item" onclick="showDetails(1)">1. Optimal Hospital Location</div>
-        <div class="problem-item" onclick="showDetails(2)">2. School Allocation to Students</div>
-        <div class="problem-item" onclick="showDetails(3)">3. Smart Parking Slot Allocation</div>
-        <div class="problem-item" onclick="showDetails(4)">4. Industrial vs Residential Separation</div>
-        <div class="problem-item" onclick="showDetails(5)">5. Public Park Placement Optimization</div>
-        <div class="problem-item" onclick="showDetails(6)">6. Land Subdivision Optimization</div>
-        <div class="problem-item" onclick="showDetails(7)">7. High Footfall Commercial Zone Prediction</div>
-        <div class="problem-item" onclick="showDetails(8)">8. Creation of Green Belt Buffers</div>
-        <div class="problem-item" onclick="showDetails(9)">9. Footpath Connectivity Plan</div>
-        <div class="problem-item" onclick="showDetails(10)">10. Underground Utility Routing</div>
-    </div>
+  <!-- 1 -->
+  <div class="problem" onclick="toggleDetails('p1')">
+    1. Optimal Hospital Location
+  </div>
+  <div class="details" id="p1">
+    <b>Concept Used:</b> Math Foundations + Greedy Strategy + Recursion (Median Finding)<br><br>
+    To minimize average travel distance, the problem reduces to finding a <b>1-D or 2-D median location</b>.
+    <br><br>
+    If sorted list is used → <b>Quick Sort / Merge Sort</b> to sort coordinates.  
+    Median is computed efficiently using a <b>divide-and-conquer selection algorithm</b>.  
+  </div>
 
-    <!-- CENTER DISPLAY AREA -->
-    <div class="content-area">
-        <div id="details-box">
-            <h2>Select a Problem</h2>
-            <p>The details will appear here.</p>
-        </div>
-    </div>
+  <!-- 2 -->
+  <div class="problem" onclick="toggleDetails('p2')">
+    2. School Allocation to Students
+  </div>
+  <div class="details" id="p2">
+    <b>Concept Used:</b> Graph Matching + Recursion Overhead + Greedy<br><br>
+    Students and schools form a bipartite graph.  
+    We compute minimum travel assignment using:<br>
+    • <b>Brute-Force String Search–like</b> matching iteration  
+    • <b>Greedy improvement</b> until stable  
+  </div>
+
+  <!-- 3 -->
+  <div class="problem" onclick="toggleDetails('p3')">
+    3. Smart Parking Slot Allocation
+  </div>
+  <div class="details" id="p3">
+    <b>Concept Used:</b> Dynamic Programming + Sorting + Greedy<br><br>
+    Cars and parking slots are sorted using <b>Heap Sort / Merge Sort</b>.  
+    Minimum walking distance is achieved using a DP cost-minimization table (Lookup Table).  
+  </div>
+
+  <!-- 4 -->
+  <div class="problem" onclick="toggleDetails('p4')">
+    4. Industrial vs Residential Separation
+  </div>
+  <div class="details" id="p4">
+    <b>Concept Used:</b> Graph Coloring + Recursion + BFS/DFS<br><br>
+    Regions are nodes, adjacency forms edges.  
+    Use <b>2-coloring</b> (like bipartite test) using<br>
+    • DFS (recursive), or  
+    • BFS Queue  
+  </div>
+
+  <!-- 5 -->
+  <div class="problem" onclick="toggleDetails('p5')">
+    5. Public Park Placement Optimization
+  </div>
+  <div class="details" id="p5">
+    <b>Concept Used:</b> Max Coverage + Greedy + Segment Tree / Fenwick Tree<br><br>
+    People distribution over regions is stored in a <b>Fenwick Tree</b> for fast range queries.  
+    A greedy max-coverage algorithm selects k-locations maximizing total served population.  
+  </div>
+
+  <!-- 6 -->
+  <div class="problem" onclick="toggleDetails('p6')">
+    6. Land Subdivision Optimization
+  </div>
+  <div class="details" id="p6">
+    <b>Concept Used:</b> Divide & Conquer + Recursion + Binary Tree Splitting<br><br>
+    Large land is recursively split into two valid subplots (like <b>Quick Sort partitioning</b>).  
+    A <b>Binary Tree</b> represents subdivision hierarchy.  
+  </div>
+
+  <!-- 7 -->
+  <div class="problem" onclick="toggleDetails('p7')">
+    7. High Footfall Commercial Zone Prediction
+  </div>
+  <div class="details" id="p7">
+    <b>Concept Used:</b> Clustering + Heaps + Sorting<br><br>
+    Data points representing visitor density are grouped via:<br>
+    • <b>Heap-based cluster centroid updates</b><br>
+    • Sorting (Merge/Quick Sort) for region grouping<br>
+  </div>
+
+  <!-- 8 -->
+  <div class="problem" onclick="toggleDetails('p8')">
+    8. Creation of Green Belt Buffers
+  </div>
+  <div class="details" id="p8">
+    <b>Concept Used:</b> Constraint Solving + Backtracking + Recursion<br><br>
+    Buffer zones around industries are placed using constraints (minimum required distance).  
+    Backtracking tries all placements, pruning invalid ones early.  
+  </div>
+
+  <!-- 9 -->
+  <div class="problem" onclick="toggleDetails('p9')">
+    9. Footpath Connectivity Plan
+  </div>
+  <div class="details" id="p9">
+    <b>Concept Used:</b> Graph Traversal + BFS/DFS + Floyd/Warshall<br><br>
+    To identify disconnected pedestrian pathways:<br>
+    • DFS/BFS finds connected components  
+    • Floyd–Warshall gives all-pairs shortest paths  
+    • Dijkstra computes shortest walking routes  
+  </div>
+
+  <!-- 10 -->
+  <div class="problem" onclick="toggleDetails('p10')">
+    10. Underground Utility Routing
+  </div>
+  <div class="details" id="p10">
+    <b>Concept Used:</b> Shortest Path Algorithms (Dijkstra, Bellman-Ford) + Tree Structures<br><br>
+    Pipes/cables must not intersect.  
+    The routing uses:<br>
+    • <b>Dijkstra</b> for cost-optimal paths  
+    • <b>Bellman–Ford</b> if negative costs exist  
+    • <b>Trie-like path compression</b> for storing reusable segments  
+  </div>
 
 </div>
-
-<footer>
-    © 2024 Tejas Keri – Portfolio
-</footer>
-
-<script>
-const details = {
-    1: {
-        title: "Optimal Hospital Location",
-        algorithm: "K-Means / k-Medians",
-        desc: "Place hospitals to minimize average distance for citizens."
-    },
-    2: {
-        title: "School Allocation to Students",
-        algorithm: "Bipartite Matching",
-        desc: "Match students to nearest valid schools with minimal travel distance."
-    },
-    3: {
-        title: "Smart Parking Slot Allocation",
-        algorithm: "Hungarian Algorithm",
-        desc: "Assign cars to parking slots with minimum total walking distance."
-    },
-    4: {
-        title: "Industrial vs Residential Separation",
-        algorithm: "Graph Coloring",
-        desc: "Assign zone colors ensuring harmful industries don’t touch residential areas."
-    },
-    5: {
-        title: "Public Park Placement Optimization",
-        algorithm: "Max Coverage",
-        desc: "Select park locations maximizing total population served."
-    },
-    6: {
-        title: "Land Subdivision Optimization",
-        algorithm: "Divide & Conquer",
-        desc: "Divide large land into smaller optimal usable plots."
-    },
-    7: {
-        title: "High Footfall Commercial Zone Prediction",
-        algorithm: "Clustering",
-        desc: "Cluster regions to predict future commercial hotspots."
-    },
-    8: {
-        title: "Creation of Green Belt Buffers",
-        algorithm: "Constraint Solver",
-        desc: "Maximize green belt buffers around city limits with minimal relocation."
-    },
-    9: {
-        title: "Footpath Connectivity Plan",
-        algorithm: "Graph Connectivity",
-        desc: "Identify disconnected pedestrian paths & repair with minimal added footpaths."
-    },
-    10: {
-        title: "Underground Utility Routing",
-        algorithm: "Disjoint Shortest Paths",
-        desc: "Lay sewer, fiber, and power lines without crossing each other."
-    }
-};
-
-function showDetails(id) {
-    const box = document.getElementById("details-box");
-    const d = details[id];
-
-    box.innerHTML = `
-        <h2>${d.title}</h2>
-        <p><strong>Algorithm:</strong> ${d.algorithm}</p>
-        <p>${d.desc}</p>
-
-        <br><br>
-        <h3>Code Area (You can fill this later)</h3>
-        <div style="width: 100%; height: 200px; border: 2px dashed #bbb; border-radius: 10px;"></div>
-    `;
-}
-</script>
 
 </body>
 </html>
