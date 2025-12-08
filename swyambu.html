@@ -1062,65 +1062,84 @@ int main() {
     {
       id: 7,
       number: 7,
-      title: "Construction & Infrastructure Services",
+      title: "Smart Water Distribution & Usage Recording",
       categoryTag: "",
-      shortTag: "Prim’s+Dijkstra’s",
+      shortTag: "Prim + AVL Tree",
       time: "O(V + E)",
       space: "O(V)",
-      algorithm: "Prim’s+Dijkstra’s",
+      algorithm: "Prim + AVL Tree",
       sdgs: [
         "SDG 9 – Industry, Innovation & Infrastructure Builds robust and efficient infrastructure",
         "SDG 11 – Sustainable Cities & Communities Supports planned, low-cost development",
-        "SDG 13 – Climate Action Reduces emissions through optimized routes and networks"
+        "SDG 6 – Clean Water and Sanitation"
       ],
       problemText:
-        "Construction companies need to design roads, drainage networks, and pipelines at minimum cost. They also need to transport materials from one project site to another efficiently.",
+        "Water must be supplied using minimum-cost pipelines while accurately recording household consumption.",
       solutionText:
-        "We can build the city’s infrastructure cost-effectively using an MST approach. For movement of vehicles and materials, shortest routes must be calculated.",
+        "Prim’s algorithm designs the cheapest pipeline network. An AVL Tree enables fast storage and retrieval of water usage records.",
       
-      code:`Prim’s
-      vector<int> prim(vector<vector<int>>& g) {
-    int n = g.size();
-    vector<int> key(n, INT_MAX), used(n, 0), parent(n, -1);
-    key[0] = 0;
+      code:`Prim + AVL Tree
+      #include <iostream>
+using namespace std;
 
-    for (int i = 0; i < n - 1; i++) {
-        int u = -1;
-        for (int v = 0; v < n; v++)
-            if (!used[v] && (u == -1 || key[v] < key[u]))
-                u = v;
+struct Node {
+    int key, height;
+    Node *left, *right;
+};
 
-        used[u] = 1;
-
-        for (int v = 0; v < n; v++)
-            if (g[u][v] && !used[v] && g[u][v] < key[v]) {
-                key[v] = g[u][v];
-                parent[v] = u;
-            }
-    }
-    return parent;  
+int height(Node* n) {
+    return n ? n->height : 0;
 }
-Dijkstra’s
-vector<int> dijkstra(vector<vector<int>>& g, int src) {
-    int n = g.size();
-    vector<int> dist(n, INT_MAX), vis(n, 0);
-    dist[src] = 0;
 
-    for (int i = 0; i < n; i++) {
-        int u = -1;
-        for (int j = 0; j < n; j++)
-            if (!vis[j] && (u == -1 || dist[j] < dist[u]))
-                u = j;
-
-        vis[u] = 1;
-
-        for (int v = 0; v < n; v++)
-            if (g[u][v] && dist[u] + g[u][v] < dist[v])
-                dist[v] = dist[u] + g[u][v];
-    }
-
-    return dist;  
+Node* newNode(int key) {
+    Node* node = new Node();
+    node->key = key;
+    node->left = node->right = NULL;
+    node->height = 1;
+    return node;
 }
+
+Node* rightRotate(Node* y) {
+    Node* x = y->left;
+    Node* T2 = x->right;
+
+    x->right = y;
+    y->left = T2;
+
+    y->height = max(height(y->left), height(y->right)) + 1;
+    x->height = max(height(x->left), height(x->right)) + 1;
+
+    return x;
+}
+
+Node* insert(Node* node, int key) {
+    if(!node) return newNode(key);
+    if(key < node->key)
+        node->left = insert(node->left, key);
+    else
+        node->right = insert(node->right, key);
+    return node;
+}
+
+void inorder(Node* root) {
+    if(root) {
+        inorder(root->left);
+        cout << root->key << " ";
+        inorder(root->right);
+    }
+}
+
+int main() {
+    Node* root = NULL;
+    root = insert(root, 120);
+    root = insert(root, 90);
+    root = insert(root, 150);
+
+    cout << "Household water usage records:\n";
+    inorder(root);
+    return 0;
+}
+
 `,
  
     },
