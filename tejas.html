@@ -3,437 +3,188 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Land Use Optimization – Algorithms</title>
+<title>Problem Display With Code</title>
 
-<!-- Prism.js Syntax Highlighting -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.css" rel="stylesheet"/>
+<!-- Font: JetBrains Mono -->
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<!-- Prism.js (Syntax Highlighting) -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
 
 <style>
-/* -------------------------------------------
-   GLOBAL STYLING
-------------------------------------------- */
-:root {
-  --bg: #eef5ff;
-  --text: #000;
-  --sidebar-bg: #104e99;
-  --panel-bg: #f9fbff;
-  --code-bg: #1e1e1e;
-}
+    body {
+        margin: 0;
+        padding: 0;
+        background: #0F0F0F;
+        color: #EAEAEA;
+        font-family: Arial, sans-serif;
+        transition: background 0.4s, color 0.4s;
+    }
 
-.dark {
-  --bg: #0c0f15;
-  --text: #e6e6e6;
-  --sidebar-bg: #0d3a6b;
-  --panel-bg: #141821;
-  --code-bg: #000;
-}
+    .container {
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 20px;
+    }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  display: flex;
-  height: 100vh;
-  overflow: hidden;
-  transition: background 0.5s ease;
-}
+    h1 {
+        text-align: center;
+        font-size: 34px;
+        margin-bottom: 10px;
+    }
 
-/* -------------------------------------------
-   LEFT SIDEBAR
-------------------------------------------- */
-.sidebar {
-  width: 25%;
-  background: var(--sidebar-bg);
-  color: white;
-  padding: 20px;
-  overflow-y: auto;
-  animation: slideIn 0.7s ease;
-}
+    .toggle-btn {
+        background: #1F1F1F;
+        border: 1px solid #444;
+        color: #fff;
+        padding: 10px 18px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 15px;
+        transition: 0.3s;
+        display: block;
+        margin: 0 auto 30px;
+    }
+    .toggle-btn:hover {
+        background: #333;
+        transform: scale(1.05);
+    }
 
-.sidebar h2 {
-  font-size: 22px;
-  margin-bottom: 12px;
-  text-align: center;
-}
+    .card {
+        background: #1A1A1A;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 0 18px rgba(0,0,0,0.4);
+        animation: fadeIn 0.8s ease;
+    }
 
-.problem {
-  background: rgba(255,255,255,0.15);
-  padding: 12px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.2s;
-  font-size: 15px;
-}
-.problem:hover {
-  background: rgba(255,255,255,0.35);
-  transform: scale(1.03);
-}
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
 
-/* -------------------------------------------
-   CENTER CONTENT
-------------------------------------------- */
-.content {
-  width: 75%;
-  padding: 25px;
-  overflow-y: auto;
-  background: var(--panel-bg);
-  animation: fadeIn 1s ease;
-}
+    /* Code styling */
+    pre, code {
+        font-family: "JetBrains Mono", monospace !important;
+        font-size: 16px;
+        letter-spacing: 0.3px;
+    }
 
-.content h2 {
-  margin-top: 0;
-  font-size: 28px;
-}
+    pre {
+        border-radius: 12px;
+        padding: 20px;
+        background: #0D0D0D !important;
+        box-shadow: 0 0 15px rgba(0,255,150,0.15);
+        animation: slideUp 0.9s ease;
+    }
 
-pre {
-  background: var(--code-bg) !important;
-  padding: 18px;
-  border-radius: 8px;
-  margin-top: 20px;
-  overflow-x: auto;
-  font-size: 15px;
-  transition: background 0.4s ease;
-}
-
-/* -------------------------------------------
-   DARK MODE TOGGLE BUTTON
-------------------------------------------- */
-.toggle-container {
-  text-align: center;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-.toggle-btn {
-  background: white;
-  color: black;
-  padding: 8px 15px;
-  font-size: 14px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  transition: 0.3s;
-}
-.toggle-btn:hover {
-  transform: scale(1.05);
-}
-
-/* -------------------------------------------
-   ANIMATIONS
-------------------------------------------- */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideIn {
-  from { transform: translateX(-60px); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
-}
+    @keyframes slideUp {
+        from { opacity: 0; transform: translateY(25px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
 </style>
-
-<script>
-function toggleDarkMode() {
-  document.body.classList.toggle("dark");
-}
-
-function loadProblem(title, desc, code) {
-  document.getElementById("title").innerHTML = title;
-  document.getElementById("description").innerHTML = desc;
-  document.getElementById("code").innerHTML = code;
-  Prism.highlightAll();
-}
-</script>
-
 </head>
 
 <body>
 
-<!-- SIDEBAR -->
-<div class="sidebar">
-  <div class="toggle-container">
-    <button class="toggle-btn" onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
-  </div>
+<div class="container">
 
-  <h2>Problems</h2>
+    <h1>Algorithm Problem Display</h1>
 
-  <div class="problem" onclick="loadProblem('Optimal Hospital Location', desc1, code1)">1. Optimal Hospital Location</div>
-  <div class="problem" onclick="loadProblem('School Allocation to Students', desc2, code2)">2. School Allocation to Students</div>
-  <div class="problem" onclick="loadProblem('Smart Parking Slot Allocation', desc3, code3)">3. Smart Parking Slot Allocation</div>
-  <div class="problem" onclick="loadProblem('Industrial vs Residential Separation', desc4, code4)">4. Industrial vs Residential Separation</div>
-  <div class="problem" onclick="loadProblem('Public Park Placement Optimization', desc5, code5)">5. Public Park Placement Optimization</div>
-  <div class="problem" onclick="loadProblem('Land Subdivision Optimization', desc6, code6)">6. Land Subdivision Optimization</div>
-  <div class="problem" onclick="loadProblem('High Footfall Commercial Zone Prediction', desc7, code7)">7. High Footfall Commercial Zone Prediction</div>
-  <div class="problem" onclick="loadProblem('Creation of Green Belt Buffers', desc8, code8)">8. Creation of Green Belt Buffers</div>
-  <div class="problem" onclick="loadProblem('Footpath Connectivity Plan', desc9, code9)">9. Footpath Connectivity Plan</div>
-  <div class="problem" onclick="loadProblem('Underground Utility Routing', desc10, code10)">10. Underground Utility Routing</div>
-</div>
+    <!-- Dark Mode Toggle -->
+    <button class="toggle-btn" onclick="toggleMode()">Toggle Dark / Light Mode</button>
 
-<!-- CENTER PANEL -->
-<div class="content">
-  <h2 id="title">Select a Problem</h2>
-  <p id="description">Click a problem from the left to view its description, time complexity, and code.</p>
-  <pre><code id="code" class="language-python"># Code will appear here</code></pre>
+    <div class="card">
+        <h2>📝 Problem Description</h2>
+        <p>
+            <strong>Problem:</strong> Given an array of integers, implement Merge Sort to sort the array efficiently.<br><br>
+            <strong>Time Complexity:</strong>  
+            Best: O(n log n)  
+            Average: O(n log n)  
+            Worst: O(n log n)  
+        </p>
+
+        <h2 style="margin-top: 30px;">💻 Code Implementation</h2>
+
+        <!-- Code Block -->
+        <pre>
+<code class="language-javascript">
+// Merge Sort Implementation (Long + Optimized + Detailed Comments)
+// -----------------------------------------------------------------
+
+// Function to merge two sorted halves
+function merge(left, right) {
+    let result = [];
+    let i = 0, j = 0;
+
+    // Compare elements of left and right arrays
+    while (i < left.length && j < right.length) {
+        if (left[i] < right[j]) {
+            result.push(left[i]);
+            i++;
+        } else {
+            result.push(right[j]);
+            j++;
+        }
+    }
+
+    // Add remaining elements (if any)
+    return result.concat(left.slice(i)).concat(right.slice(j));
+}
+
+// Main Merge Sort function
+function mergeSort(arr) {
+    // Base case: single element
+    if (arr.length <= 1) return arr;
+
+    // Split array into halves
+    const mid = Math.floor(arr.length / 2);
+    const left = arr.slice(0, mid);
+    const right = arr.slice(mid);
+
+    // Recursively sort halves and merge
+    return merge(mergeSort(left), mergeSort(right));
+}
+
+// Driver Code
+let array = [64, 25, 12, 22, 11, 90, 34, 77, 55, 3];
+console.log("Original Array:", array);
+
+let sortedArray = mergeSort(array);
+console.log("Sorted Array:", sortedArray);
+
+/*
+OUTPUT:
+Original Array: [64, 25, 12, 22, 11, 90, 34, 77, 55, 3]
+Sorted Array:   [3, 11, 12, 22, 25, 34, 55, 64, 77, 90]
+
+Time Complexity:
+    Best:   O(n log n)
+    Worst:  O(n log n)
+    Avg:    O(n log n)
+
+Space Complexity:
+    O(n) due to merging process
+*/
+</code>
+        </pre>
+    </div>
 </div>
 
 <script>
-/* ===========================================================
-   PROBLEM 1 – MEDIAN-BASED OPTIMAL HOSPITAL LOCATION
-=========================================================== */
-const desc1 = `
-<b>Concepts Used:</b> Median, Sorting (Quick Sort), Divide & Conquer.<br><br>
-<b>Time Complexity:</b> O(n log n) due to sorting.<br><br>
-The hospital is placed at the statistical median to minimize total travel distance.
-`;
+function toggleMode() {
+    document.body.classList.toggle("light");
 
-const code1 = `
-def quick_sort(arr):
-    if len(arr) <= 1:
-        return arr
-    pivot = arr[len(arr)//2]
-    left = [x for x in arr if x < pivot]
-    mid  = [x for x in arr if x == pivot]
-    right = [x for x in arr if x > pivot]
-    return quick_sort(left) + mid + quick_sort(right)
-
-def optimal_hospital_location(points):
-    """
-    Computes the optimal hospital position by taking the median.
-    """
-    sorted_points = quick_sort(points)
-    n = len(sorted_points)
-    median = sorted_points[n // 2]
-    return median
-`;
-
-/* ===========================================================
-   PROBLEM 2 – SCHOOL ALLOCATION USING BIPARTITE MATCHING
-=========================================================== */
-const desc2 = `
-<b>Concepts Used:</b> DFS, Bipartite Matching, Recursion.<br><br>
-<b>Time Complexity:</b> O(V × E).<br><br>
-Assign students to schools using maximum matching.
-`;
-
-const code2 = `
-def bpm(student, graph, seen, match):
-    for school in graph[student]:
-        if not seen[school]:
-            seen[school] = True
-            if match[school] == -1 or bpm(match[school], graph, seen, match):
-                match[school] = student
-                return True
-    return False
-
-def max_matching(graph, n_students, n_schools):
-    match = [-1] * n_schools
-    result = 0
-
-    for student in range(n_students):
-        seen = [False] * n_schools
-        if bpm(student, graph, seen, match):
-            result += 1
-    return result, match
-`;
-
-/* ===========================================================
-   PROBLEM 3 – SMART PARKING USING DYNAMIC PROGRAMMING
-=========================================================== */
-const desc3 = `
-<b>Concepts Used:</b> Sorting, DP Table.<br><br>
-<b>Time Complexity:</b> O(n²).<br><br>
-Minimizes walking distance using dynamic programming.
-`;
-
-const code3 = `
-def min_distance_assignment(cars, slots):
-    cars.sort()
-    slots.sort()
-
-    n, m = len(cars), len(slots)
-    dp = [[10**9] * (m + 1) for _ in range(n + 1)]
-    for j in range(m + 1):
-        dp[0][j] = 0
-
-    for i in range(1, n+1):
-        for j in range(1, m+1):
-            cost = abs(cars[i-1] - slots[j-1])
-            dp[i][j] = min(dp[i][j-1], dp[i-1][j-1] + cost)
-
-    return dp[n][m]
-`;
-
-/* ===========================================================
-   PROBLEM 4 – GRAPH COLORING FOR ZONING
-=========================================================== */
-const desc4 = `
-<b>Concepts Used:</b> Greedy Coloring, Graph Theory.<br><br>
-<b>Time Complexity:</b> O(V²).<br><br>
-Ensures industrial and residential zones never touch.
-`;
-
-const code4 = `
-def graph_coloring(graph):
-    colors = {}
-    for node in graph:
-        neighbor_colors = {colors[n] for n in graph[node] if n in colors}
-        for c in range(1, 6):
-            if c not in neighbor_colors:
-                colors[node] = c
-                break
-    return colors
-`;
-
-/* ===========================================================
-   PROBLEM 5 – PUBLIC PARK OPTIMIZATION USING FENWICK TREE
-=========================================================== */
-const desc5 = `
-<b>Concepts Used:</b> Fenwick Tree, Range Queries.<br><br>
-<b>Time Complexity:</b> O(log n) per update/query.<br><br>
-Used to track and optimize green coverage in an area.
-`;
-
-const code5 = `
-class FenwickTree:
-    def __init__(self, n):
-        self.tree = [0]*(n+1)
-
-    def update(self, i, delta):
-        while i < len(self.tree):
-            self.tree[i] += delta
-            i += i & -i
-
-    def query(self, i):
-        s = 0
-        while i > 0:
-            s += self.tree[i]
-            i -= i & -i
-        return s
-
-    def range_query(self, l, r):
-        return self.query(r) - self.query(l-1)
-`;
-
-/* ===========================================================
-   PROBLEM 6 – LAND SUBDIVISION USING DIVIDE & CONQUER
-=========================================================== */
-const desc6 = `
-<b>Concepts Used:</b> Recursion, Divide & Conquer.<br><br>
-<b>Time Complexity:</b> O(log n).<br><br>
-Splits land optimally similar to Quick Sort partitioning.
-`;
-
-const code6 = `
-def subdivide(length):
-    if length <= 1:
-        return [length]
-    mid = length // 2
-    return subdivide(mid) + subdivide(length - mid)
-`;
-
-/* ===========================================================
-   PROBLEM 7 – FOOTFALL PREDICTION USING HEAPS
-=========================================================== */
-const desc7 = `
-<b>Concepts Used:</b> Heaps, Priority Queues.<br><br>
-<b>Time Complexity:</b> O(n log k).<br><br>
-Used to find highest footfall commercial zones.
-`;
-
-const code7 = `
-import heapq
-
-def top_k_zones(zones, k):
-    return heapq.nlargest(k, zones, key=lambda x: x.footfall)
-`;
-
-/* ===========================================================
-   PROBLEM 8 – GREEN BELT BUFFER USING BACKTRACKING
-=========================================================== */
-const desc8 = `
-<b>Concepts Used:</b> Backtracking, Recursion.<br><br>
-<b>Time Complexity:</b> O(2ⁿ).<br><br>
-Ensures valid eco-buffer placements around cities.
-`;
-
-const code8 = `
-def place_buffers(zones, idx, placed):
-    if idx == len(zones):
-        return True
-
-    for choose in [True, False]:
-        if choose:
-            if placed and zones[idx] - placed[-1] < 3:
-                continue
-            placed.append(zones[idx])
-
-        if place_buffers(zones, idx+1, placed):
-            return True
-
-        if choose:
-            placed.pop()
-
-    return False
-`;
-
-/* ===========================================================
-   PROBLEM 9 – FOOTPATH CONNECTIVITY USING FLOYD-WARSHALL
-=========================================================== */
-const desc9 = `
-<b>Concepts Used:</b> Floyd–Warshall, Dynamic Programming.<br><br>
-<b>Time Complexity:</b> O(n³).<br><br>
-Computes all-pairs shortest walking paths.
-`;
-
-const code9 = `
-def floyd_warshall(dist):
-    n = len(dist)
-
-    for k in range(n):
-        for i in range(n):
-            for j in range(n):
-                if dist[i][k] + dist[k][j] < dist[i][j]:
-                    dist[i][j] = dist[i][k] + dist[k][j]
-
-    return dist
-`;
-
-/* ===========================================================
-   PROBLEM 10 – UNDERGROUND ROUTING USING DIJKSTRA
-=========================================================== */
-const desc10 = `
-<b>Concepts Used:</b> Dijkstra, Priority Queue.<br><br>
-<b>Time Complexity:</b> O((V + E) log V).<br><br>
-Used to find minimal-cost routes for underground utilities.
-`;
-
-const code10 = `
-import heapq
-
-def dijkstra(graph, start):
-    pq = [(0, start)]
-    dist = {node: float("inf") for node in graph}
-    dist[start] = 0
-
-    while pq:
-        d, node = heapq.heappop(pq)
-
-        if d > dist[node]:
-            continue
-
-        for neighbor, weight in graph[node]:
-            new_cost = d + weight
-
-            if new_cost < dist[neighbor]:
-                dist[neighbor] = new_cost
-                heapq.heappush(pq, (new_cost, neighbor))
-
-    return dist
-`;
+    if (document.body.classList.contains("light")) {
+        document.body.style.background = "#FFFFFF";
+        document.body.style.color = "#000";
+    } else {
+        document.body.style.background = "#0F0F0F";
+        document.body.style.color = "#EAEAEA";
+    }
+}
 </script>
 
 </body>
