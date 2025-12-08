@@ -108,7 +108,7 @@
 
     /* LAYOUT */
     .layout {
-      max-width: 1350px;           /* slightly wider */
+      max-width: 1350px;
       margin: 18px auto 30px;
       padding: 0 18px 26px;
       position: relative;
@@ -126,20 +126,19 @@
 
     .city-shell {
       position: relative;
-      border-radius: 24px;        /* bigger rounded container */
+      border-radius: 24px;
       background: radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.2) 0, transparent 50%),
                   radial-gradient(circle at 100% 0%, rgba(34, 197, 94, 0.2) 0, transparent 55%),
                   #020617;
       box-shadow: var(--shadow-strong);
       overflow: hidden;
-      min-height: 560px;          /* taller big square */
+      min-height: 560px;
       border: 1px solid rgba(148, 163, 184, 0.45);
     }
 
-    /* CITY MAP PANEL */
     .city-map {
       position: relative;
-      padding: 22px 24px 26px;   /* more breathing space */
+      padding: 22px 24px 26px;
       overflow: hidden;
       min-height: 560px;
     }
@@ -222,15 +221,14 @@
       box-shadow: 0 0 8px rgba(56, 189, 248, 0.8);
     }
 
-    /* GRID OF ZONES */
     .city-grid {
       position: relative;
       z-index: 1;
       margin-top: 8px;
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      grid-auto-rows: minmax(110px, 1fr);   /* taller cards */
-      gap: 18px;                            /* more gap */
+      grid-auto-rows: minmax(110px, 1fr);
+      gap: 18px;
       padding: 6px 2px 8px;
     }
 
@@ -239,7 +237,7 @@
       border: 1px solid rgba(148, 163, 184, 0.55);
       background: radial-gradient(circle at 30% 0, rgba(15, 23, 42, 0.9) 0, #020617 55%);
       color: var(--text-main);
-      padding: 12px 14px;                  /* bigger card */
+      padding: 12px 14px;
       box-shadow: var(--shadow-soft);
       text-align: left;
       cursor: pointer;
@@ -315,11 +313,11 @@
       border-color: rgba(251, 191, 36, 0.95);
     }
 
-    /* FULLSCREEN OVERLAY PANEL */
+    /* FULLSCREEN OVERLAY */
     .overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.96); /* fully dark */
+      background: rgba(0, 0, 0, 0.96);
       display: none;
       z-index: 40;
       justify-content: center;
@@ -333,7 +331,7 @@
     }
 
     .panel-shell {
-      display: none;              /* KEY: hidden by default */
+      display: none;
       width: 100%;
       max-width: 950px;
       margin: 0 auto;
@@ -349,7 +347,7 @@
     }
 
     .panel-shell.open {
-      display: flex;              /* only clicked one becomes flex */
+      display: flex;
     }
 
     .panel-header {
@@ -398,10 +396,9 @@
       flex-wrap: wrap;
     }
 
-    .back-btn,
-    .close-btn {
+    .back-btn {
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.8);
+      border: 1px solid transparent;
       padding: 4px 10px;
       cursor: pointer;
       font-size: 12px;
@@ -409,25 +406,14 @@
       align-items: center;
       gap: 4px;
       transition: var(--transition-fast);
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--text-main);
-    }
-
-    .back-btn {
       background: linear-gradient(135deg, #22c1c3, #38bdf8);
       color: #020617;
-      border-color: transparent;
       box-shadow: 0 6px 18px rgba(56, 189, 248, 0.6);
     }
 
     .back-btn:hover {
       transform: translateY(-1px);
       box-shadow: 0 9px 26px rgba(56, 189, 248, 0.8);
-    }
-
-    .close-btn:hover {
-      background: rgba(15, 23, 42, 1);
-      transform: translateY(-1px);
     }
 
     .panel-scroll {
@@ -521,6 +507,80 @@
       margin-top: 4px;
     }
 
+    /* CODE SECTION */
+    .code-section {
+      margin-top: 6px;
+    }
+
+    .code-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+
+    .code-lang {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(248, 250, 252, 0.2);
+      background: rgba(15, 23, 42, 0.9);
+      color: #facc15;
+      font-family: "Montserrat", sans-serif;
+    }
+
+    .code-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .code-toggle-btn,
+    .code-copy-btn {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-main);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: var(--transition-fast);
+    }
+
+    .code-toggle-btn:hover,
+    .code-copy-btn:hover {
+      background: rgba(15, 23, 42, 1);
+      transform: translateY(-1px);
+    }
+
+    .code-box {
+      margin-top: 6px;
+      border-radius: 10px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      background: #0b1120;
+      padding: 8px 10px;
+      max-height: 260px;
+      overflow: auto;
+      font-size: 12px;
+      display: none; /* hidden by default */
+    }
+
+    .code-box pre {
+      margin: 0;
+      font-family: "Fira Code", "JetBrains Mono", "Consolas", monospace;
+      white-space: pre;
+      color: #e5e7eb;
+    }
+
+    /* Monokai-like colors via simple span classes (optional) */
+    .kw { color: #a855f7; }    /* keyword */
+    .fn { color: #22c55e; }    /* function */
+    .cm { color: #6b7280; }    /* comment */
+    .ty { color: #38bdf8; }    /* type */
+    .num { color: #f97316; }   /* number */
+
     /* RESPONSIVE */
     @media (max-width: 960px) {
       .panel-shell {
@@ -550,7 +610,7 @@
         border-radius: 18px;
       }
       .city-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 columns on mobile for bigger cards */
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
       .panel-header {
         flex-direction: column;
@@ -724,7 +784,6 @@
         </div>
         <div class="panel-controls">
           <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
-          <button class="close-btn" type="button" data-close>✕ Close</button>
         </div>
       </div>
       <div class="panel-scroll">
@@ -746,8 +805,7 @@
         <div class="panel-block">
           <div class="io-label">Input format (example)</div>
           <p>
-            <code>n</code> = number of junctions, <code>m</code> = number of candidate roads, followed by
-            <code>m</code> lines: <code>u v cost</code>.
+            Fixed small example: 5–6 junctions and edge list with construction costs (hard-coded for demo and diagrams).
           </p>
           <div class="io-label" style="margin-top:4px;">Output</div>
           <p>
@@ -759,20 +817,97 @@
           <div class="algo-row">
             <span class="algo-pill">Kruskal's MST</span>
             <span class="algo-pill">Union–Find (Disjoint Set)</span>
-            <span class="algo-pill">Prim's MST (adjacency list + heap)</span>
           </div>
           <p class="complexity" style="margin-top:6px;">
             Kruskal with sorting and Union–Find runs in <strong>O(m log n)</strong>.
             Space complexity: <strong>O(n + m)</strong>.
           </p>
         </div>
+
+        <!-- CODE SECTION: P1 -->
+        <div class="panel-block code-section">
+          <div class="code-header">
+            <span class="code-lang">C++ Code</span>
+            <div class="code-actions">
+              <button class="code-toggle-btn" data-code-target="code-p1">▶ View C++ Code</button>
+              <button class="code-copy-btn" data-code-copy="code-p1">⧉ Copy</button>
+            </div>
+          </div>
+          <div class="code-box" id="code-p1">
+            <pre><code>
+// Minimum Spanning Tree using Kruskal (Road Network)
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+struct Edge {
+    int u, v, w;
+};
+
+struct DSU {
+    vector<int> parent, rnk;
+    DSU(int n) {
+        parent.resize(n);
+        rnk.assign(n, 0);
+        for (int i = 0; i &lt; n; ++i) parent[i] = i;
+    }
+    int find(int x) {
+        if (parent[x] == x) return x;
+        return parent[x] = find(parent[x]);
+    }
+    bool unite(int a, int b) {
+        a = find(a);
+        b = find(b);
+        if (a == b) return false;
+        if (rnk[a] &lt; rnk[b]) swap(a, b);
+        parent[b] = a;
+        if (rnk[a] == rnk[b]) rnk[a]++;
+        return true;
+    }
+};
+
+int main() {
+    // Fixed example: 6 junctions, 8 candidate roads
+    int n = 6;
+    vector&lt;Edge&gt; edges = {
+        {0, 1, 4},
+        {0, 3, 2},
+        {1, 2, 6},
+        {1, 3, 3},
+        {1, 4, 5},
+        {2, 4, 2},
+        {3, 4, 4},
+        {4, 5, 1}
+    };
+
+    sort(edges.begin(), edges.end(),
+         [](const Edge &a, const Edge &b) { return a.w &lt; b.w; });
+
+    DSU dsu(n);
+    int totalCost = 0;
+    cout &lt;&lt; "MST edges (road network):\n";
+    for (auto &e : edges) {
+        if (dsu.unite(e.u, e.v)) {
+            cout &lt;&lt; "J" &lt;&lt; e.u &lt;&lt; " -- J" &lt;&lt; e.v
+                 &lt;&lt; "  cost = " &lt;&lt; e.w &lt;&lt; "\n";
+            totalCost += e.w;
+        }
+    }
+    cout &lt;&lt; "Total construction cost (MST) = " &lt;&lt; totalCost &lt;&lt; "\n";
+    return 0;
+}
+            </code></pre>
+          </div>
+        </div>
+
         <div class="panel-block">
           <h3>Impact &amp; Visual</h3>
           <p class="impact">
             Impact: Produces a cost-optimal road plan that still keeps the city fully connected.
           </p>
           <div class="figure-placeholder">
-            MST sketch between junctions – to be replaced with final diagram in the report.
+            MST sketch between junctions – match with the C++ program output.
           </div>
         </div>
       </div>
@@ -790,7 +925,6 @@
         </div>
         <div class="panel-controls">
           <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
-          <button class="close-btn" type="button" data-close>✕ Close</button>
         </div>
       </div>
       <div class="panel-scroll">
@@ -811,11 +945,11 @@
         <div class="panel-block">
           <div class="io-label">Input format (example)</div>
           <p>
-            <code>n</code> nodes, <code>m</code> directed edges, each edge: <code>u v time</code>, and a source node <code>s</code>.
+            Fixed adjacency list for 5 zones, with travel times as edge weights.
           </p>
           <div class="io-label" style="margin-top:4px;">Output</div>
           <p>
-            Minimum travel times and actual paths from <code>s</code> to all other nodes.
+            Minimum travel times and paths from the chosen source zone to all other zones.
           </p>
         </div>
         <div class="panel-block">
@@ -828,6 +962,79 @@
             With adjacency list and binary heap, complexity is <strong>O((n + m) log n)</strong>.
           </p>
         </div>
+
+        <!-- CODE SECTION: P2 -->
+        <div class="panel-block code-section">
+          <div class="code-header">
+            <span class="code-lang">C++ Code</span>
+            <div class="code-actions">
+              <button class="code-toggle-btn" data-code-target="code-p2">▶ View C++ Code</button>
+              <button class="code-copy-btn" data-code-copy="code-p2">⧉ Copy</button>
+            </div>
+          </div>
+          <div class="code-box" id="code-p2">
+            <pre><code>
+// Dijkstra's Algorithm (Shortest Travel Time)
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+#include &lt;limits&gt;
+using namespace std;
+
+struct Edge {
+    int to;
+    int w; // time in minutes
+};
+
+int main() {
+    const int INF = numeric_limits&lt;int&gt;::max();
+    int n = 5; // zones 0..4
+    vector&lt;vector&lt;Edge&gt;&gt; g(n);
+
+    // Fixed directed travel-time graph
+    g[0].push_back({1, 10});
+    g[0].push_back({2, 3});
+    g[1].push_back({2, 1});
+    g[1].push_back({3, 2});
+    g[2].push_back({1, 4});
+    g[2].push_back({3, 8});
+    g[2].push_back({4, 2});
+    g[3].push_back({4, 7});
+    g[4].push_back({3, 9});
+
+    int src = 0; // source zone
+    vector&lt;int&gt; dist(n, INF), parent(n, -1);
+    dist[src] = 0;
+
+    using P = pair&lt;int,int&gt;; // (dist, node)
+    priority_queue&lt;P, vector&lt;P&gt;, greater&lt;P&gt;&gt; pq;
+    pq.push({0, src});
+
+    while (!pq.empty()) {
+        auto [d, u] = pq.top();
+        pq.pop();
+        if (d != dist[u]) continue;
+        for (auto &e : g[u]) {
+            if (dist[u] != INF &amp;&amp; dist[u] + e.w &lt; dist[e.to]) {
+                dist[e.to] = dist[u] + e.w;
+                parent[e.to] = u;
+                pq.push({dist[e.to], e.to});
+            }
+        }
+    }
+
+    cout &lt;&lt; "Minimum travel-time from zone " &lt;&lt; src &lt;&lt; ":\n";
+    for (int i = 0; i &lt; n; ++i) {
+        cout &lt;&lt; "To zone " &lt;&lt; i &lt;&lt; " : ";
+        if (dist[i] == INF) cout &lt;&lt; "unreachable\n";
+        else cout &lt;&lt; dist[i] &lt;&lt; " minutes\n";
+    }
+    return 0;
+}
+            </code></pre>
+          </div>
+        </div>
+
         <div class="panel-block">
           <h3>Impact &amp; Visual</h3>
           <p class="impact">
@@ -852,7 +1059,6 @@
         </div>
         <div class="panel-controls">
           <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
-          <button class="close-btn" type="button" data-close>✕ Close</button>
         </div>
       </div>
       <div class="panel-scroll">
@@ -873,9 +1079,9 @@
         </div>
         <div class="panel-block">
           <div class="io-label">Input format (example)</div>
-          <p>Queue lengths and arrival rates for each lane over a short planning horizon.</p>
+          <p>Fixed queue-length values for 4 incoming lanes at one junction.</p>
           <div class="io-label" style="margin-top:4px;">Output</div>
-          <p>Sequence of green phases and per-lane durations for a full cycle.</p>
+          <p>Suggested green-time allocation per lane for one complete cycle.</p>
         </div>
         <div class="panel-block">
           <h3>Algorithms &amp; Complexity</h3>
@@ -887,6 +1093,59 @@
             Each recomputation step is roughly <strong>O(k log k)</strong>, where <code>k</code> is number of lanes.
           </p>
         </div>
+
+        <!-- CODE SECTION: P3 -->
+        <div class="panel-block code-section">
+          <div class="code-header">
+            <span class="code-lang">C++ Code</span>
+            <div class="code-actions">
+              <button class="code-toggle-btn" data-code-target="code-p3">▶ View C++ Code</button>
+              <button class="code-copy-btn" data-code-copy="code-p3">⧉ Copy</button>
+            </div>
+          </div>
+          <div class="code-box" id="code-p3">
+            <pre><code>
+// Greedy signal timing based on queue lengths
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+struct Lane {
+    string name;
+    int queue; // number of vehicles
+    double greenShare; // fraction of cycle
+};
+
+int main() {
+    // Fixed example: 4-approach junction
+    vector&lt;Lane&gt; lanes = {
+        {"North", 25, 0},
+        {"East",  15, 0},
+        {"South", 40, 0},
+        {"West",  20, 0}
+    };
+
+    int totalQueue = 0;
+    for (auto &L : lanes) totalQueue += L.queue;
+
+    double cycleTime = 120.0; // seconds
+    cout &lt;&lt; "Signal timing suggestion for one " &lt;&lt; cycleTime
+         &lt;&lt; " second cycle:\n";
+
+    for (auto &L : lanes) {
+        if (totalQueue == 0) L.greenShare = cycleTime / lanes.size();
+        else L.greenShare = (L.queue * 1.0 / totalQueue) * cycleTime;
+
+        cout &lt;&lt; L.name &lt;&lt; " lane: queue=" &lt;&lt; L.queue
+             &lt;&lt; " => green ~ " &lt;&lt; L.greenShare &lt;&lt; " seconds\n";
+    }
+    return 0;
+}
+            </code></pre>
+          </div>
+        </div>
+
         <div class="panel-block">
           <h3>Impact &amp; Visual</h3>
           <p class="impact">
@@ -906,12 +1165,11 @@
           <div class="panel-title">4. Emergency Vehicle Fastest Route Planner</div>
           <div class="panel-chip-row">
             <span class="panel-chip">Emergency Response</span>
-            <span class="panel-chip algo">A* · Real-time Dijkstra</span>
+            <span class="panel-chip algo">A* / Real-time Dijkstra</span>
           </div>
         </div>
         <div class="panel-controls">
           <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
-          <button class="close-btn" type="button" data-close>✕ Close</button>
         </div>
       </div>
       <div class="panel-scroll">
@@ -925,32 +1183,118 @@
         <div class="panel-block">
           <h3>Practical Solution</h3>
           <p>
-            Maintain a graph with live travel times and blocked edges. Use A* search from the emergency station
-            to the incident location, combining travel time so far with a heuristic (straight-line distance) to
-            explore promising paths first.
+            Maintain a graph with live travel times and blocked edges. Here, a simplified Dijkstra variant is
+            shown, where some edges are marked as blocked and ignored while computing the shortest path.
           </p>
         </div>
         <div class="panel-block">
           <div class="io-label">Input format (example)</div>
           <p>
-            City graph with edge times, a set of blocked edges, source node (station) and target node (incident).
+            Fixed graph with edge times and a small list of blocked edges between source (station) and target (incident).
           </p>
           <div class="io-label" style="margin-top:4px;">Output</div>
           <p>
-            Fastest feasible path and estimated arrival time; optionally an alternate backup path.
+            Fastest feasible path and estimated travel time from station to incident.
           </p>
         </div>
         <div class="panel-block">
           <h3>Algorithms &amp; Complexity</h3>
           <div class="algo-row">
-            <span class="algo-pill">A* Search</span>
-            <span class="algo-pill">Heuristic Design (straight-line)</span>
-            <span class="algo-pill">Real-time Graph Updates</span>
+            <span class="algo-pill">Dijkstra / A*</span>
+            <span class="algo-pill">Real-time graph updates</span>
           </div>
           <p class="complexity" style="margin-top:6px;">
-            Worst-case complexity similar to Dijkstra: <strong>O((n + m) log n)</strong>, often faster in practice.
+            Complexity similar to Dijkstra: <strong>O((n + m) log n)</strong>.
           </p>
         </div>
+
+        <!-- CODE SECTION: P4 -->
+        <div class="panel-block code-section">
+          <div class="code-header">
+            <span class="code-lang">C++ Code</span>
+            <div class="code-actions">
+              <button class="code-toggle-btn" data-code-target="code-p4">▶ View C++ Code</button>
+              <button class="code-copy-btn" data-code-copy="code-p4">⧉ Copy</button>
+            </div>
+          </div>
+          <div class="code-box" id="code-p4">
+            <pre><code>
+// Emergency routing: Dijkstra with blocked roads
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+#include &lt;set&gt;
+#include &lt;limits&gt;
+using namespace std;
+
+struct Edge {
+    int to, w;
+};
+
+int main() {
+    const int INF = numeric_limits&lt;int&gt;::max();
+    int n = 5; // nodes 0..4
+    vector&lt;vector&lt;Edge&gt;&gt; g(n);
+
+    // undirected graph with time weights
+    auto addRoad = [&] (int u, int v, int w) {
+        g[u].push_back({v, w});
+        g[v].push_back({u, w});
+    };
+
+    addRoad(0, 1, 5);
+    addRoad(1, 2, 7);
+    addRoad(0, 3, 10);
+    addRoad(3, 2, 2);
+    addRoad(2, 4, 3);
+    addRoad(1, 4, 15);
+
+    // Blocked edges (example): road 1-2 is blocked
+    set&lt;pair&lt;int,int&gt;&gt; blocked;
+    blocked.insert({1, 2});
+    blocked.insert({2, 1});
+
+    int src = 0; // station
+    int dst = 4; // incident
+    vector&lt;int&gt; dist(n, INF), parent(n, -1);
+    dist[src] = 0;
+
+    using P = pair&lt;int,int&gt;;
+    priority_queue&lt;P, vector&lt;P&gt;, greater&lt;P&gt;&gt; pq;
+    pq.push({0, src});
+
+    while (!pq.empty()) {
+        auto [d, u] = pq.top();
+        pq.pop();
+        if (d != dist[u]) continue;
+        for (auto &e : g[u]) {
+            if (blocked.count({u, e.to})) continue; // skip blocked
+            if (dist[u] != INF &amp;&amp; dist[u] + e.w &lt; dist[e.to]) {
+                dist[e.to] = dist[u] + e.w;
+                parent[e.to] = u;
+                pq.push({dist[e.to], e.to});
+            }
+        }
+    }
+
+    if (dist[dst] == INF) {
+        cout &lt;&lt; "No feasible route to incident.\n";
+    } else {
+        cout &lt;&lt; "Fastest route time = " &lt;&lt; dist[dst] &lt;&lt; " minutes\n";
+        cout &lt;&lt; "Path (reverse): ";
+        int cur = dst;
+        while (cur != -1) {
+            cout &lt;&lt; cur &lt;&lt; " ";
+            cur = parent[cur];
+        }
+        cout &lt;&lt; "\n";
+    }
+    return 0;
+}
+            </code></pre>
+          </div>
+        </div>
+
         <div class="panel-block">
           <h3>Impact &amp; Visual</h3>
           <p class="impact">
@@ -975,7 +1319,6 @@
         </div>
         <div class="panel-controls">
           <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
-          <button class="close-btn" type="button" data-close>✕ Close</button>
         </div>
       </div>
       <div class="panel-scroll">
@@ -996,20 +1339,111 @@
         </div>
         <div class="panel-block">
           <div class="io-label">Input format (example)</div>
-          <p>Nodes = junctions, edges = pipes with capacities, given source and sink nodes.</p>
+          <p>Fixed flow network with 6 nodes, one source, one sink and edge capacities.</p>
           <div class="io-label" style="margin-top:4px;">Output</div>
-          <p>Maximum flow value and list of saturated / min-cut edges.</p>
+          <p>Maximum flow value and the edges that become saturated.</p>
         </div>
         <div class="panel-block">
           <h3>Algorithms &amp; Complexity</h3>
           <div class="algo-row">
             <span class="algo-pill">Edmonds–Karp Max Flow</span>
-            <span class="algo-pill">Residual Graph Construction</span>
+            <span class="algo-pill">Residual Graph</span>
           </div>
           <p class="complexity" style="margin-top:6px;">
-            Edmonds–Karp runs in <strong>O(n · m²)</strong>, where <code>n</code> is nodes and <code>m</code> is edges.
+            Runs in <strong>O(V · E²)</strong> for Edmonds–Karp.
           </p>
         </div>
+
+        <!-- CODE SECTION: P5 -->
+        <div class="panel-block code-section">
+          <div class="code-header">
+            <span class="code-lang">C++ Code</span>
+            <div class="code-actions">
+              <button class="code-toggle-btn" data-code-target="code-p5">▶ View C++ Code</button>
+              <button class="code-copy-btn" data-code-copy="code-p5">⧉ Copy</button>
+            </div>
+          </div>
+          <div class="code-box" id="code-p5">
+            <pre><code>
+// Edmonds-Karp Max Flow (Water Network)
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+const int INF = 1e9;
+
+int bfs(int s, int t, vector&lt;vector&lt;int&gt;&gt; &cap,
+        vector&lt;vector&lt;int&gt;&gt; &adj, vector&lt;int&gt; &parent) {
+    fill(parent.begin(), parent.end(), -1);
+    parent[s] = -2;
+    queue&lt;pair&lt;int,int&gt;&gt; q;
+    q.push({s, INF});
+    while (!q.empty()) {
+        int u = q.front().first;
+        int flow = q.front().second;
+        q.pop();
+        for (int v : adj[u]) {
+            if (parent[v] == -1 &amp;&amp; cap[u][v] > 0) {
+                parent[v] = u;
+                int new_flow = min(flow, cap[u][v]);
+                if (v == t) return new_flow;
+                q.push({v, new_flow});
+            }
+        }
+    }
+    return 0;
+}
+
+int maxflow(int s, int t, vector&lt;vector&lt;int&gt;&gt; &cap,
+           vector&lt;vector&lt;int&gt;&gt; &adj) {
+    int n = cap.size();
+    vector&lt;int&gt; parent(n);
+    int flow = 0, new_flow;
+    while ((new_flow = bfs(s, t, cap, adj, parent))) {
+        flow += new_flow;
+        int cur = t;
+        while (cur != s) {
+            int prev = parent[cur];
+            cap[prev][cur] -= new_flow;
+            cap[cur][prev] += new_flow;
+            cur = prev;
+        }
+    }
+    return flow;
+}
+
+int main() {
+    int n = 6; // 0..5
+    int s = 0, t = 5;
+    vector&lt;vector&lt;int&gt;&gt; cap(n, vector&lt;int&gt;(n, 0));
+    vector&lt;vector&lt;int&gt;&gt; adj(n);
+
+    auto addEdge = [&] (int u, int v, int c) {
+        cap[u][v] = c;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    };
+
+    // Example capacities: junctions connected by pipes
+    addEdge(0, 1, 10);
+    addEdge(0, 2, 5);
+    addEdge(1, 2, 15);
+    addEdge(1, 3, 10);
+    addEdge(2, 4, 10);
+    addEdge(3, 4, 10);
+    addEdge(3, 5, 10);
+    addEdge(4, 5, 10);
+
+    cout &lt;&lt; "Maximum water flow from source to sink = "
+         &lt;&lt; maxflow(s, t, cap, adj) &lt;&lt; "\n";
+    return 0;
+}
+            </code></pre>
+          </div>
+        </div>
+
         <div class="panel-block">
           <h3>Impact &amp; Visual</h3>
           <p class="impact">
@@ -1034,7 +1468,6 @@
         </div>
         <div class="panel-controls">
           <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
-          <button class="close-btn" type="button" data-close>✕ Close</button>
         </div>
       </div>
       <div class="panel-scroll">
@@ -1055,20 +1488,100 @@
         </div>
         <div class="panel-block">
           <div class="io-label">Input format (example)</div>
-          <p>List of nodes, candidate edges with cost = f(distance, loss).</p>
+          <p>Fixed undirected graph of 6 substations with cost for each cable.</p>
           <div class="io-label" style="margin-top:4px;">Output</div>
-          <p>Chosen lines and total estimated cost/loss.</p>
+          <p>Set of lines chosen in the MST and total cost.</p>
         </div>
         <div class="panel-block">
           <h3>Algorithms &amp; Complexity</h3>
           <div class="algo-row">
             <span class="algo-pill">Prim's MST</span>
-            <span class="algo-pill">Binary Heap</span>
+            <span class="algo-pill">Heap / Priority queue</span>
           </div>
           <p class="complexity" style="margin-top:6px;">
-            Prim's algorithm using a heap takes <strong>O((n + m) log n)</strong>.
+            Prim's algorithm with heap runs in <strong>O((n + m) log n)</strong>.
           </p>
         </div>
+
+        <!-- CODE SECTION: P6 -->
+        <div class="panel-block code-section">
+          <div class="code-header">
+            <span class="code-lang">C++ Code</span>
+            <div class="code-actions">
+              <button class="code-toggle-btn" data-code-target="code-p6">▶ View C++ Code</button>
+              <button class="code-copy-btn" data-code-copy="code-p6">⧉ Copy</button>
+            </div>
+          </div>
+          <div class="code-box" id="code-p6">
+            <pre><code>
+// Prim's MST (Power Grid Layout)
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+#include &lt;limits&gt;
+using namespace std;
+
+struct Edge {
+    int to, w;
+};
+
+int main() {
+    int n = 6; // substations 0..5
+    vector&lt;vector&lt;Edge&gt;&gt; g(n);
+
+    auto addLine = [&] (int u, int v, int w) {
+        g[u].push_back({v, w});
+        g[v].push_back({u, w});
+    };
+
+    addLine(0, 1, 4);
+    addLine(0, 2, 6);
+    addLine(1, 2, 2);
+    addLine(1, 3, 5);
+    addLine(2, 4, 5);
+    addLine(3, 4, 3);
+    addLine(3, 5, 7);
+    addLine(4, 5, 4);
+
+    const int INF = numeric_limits&lt;int&gt;::max();
+    vector&lt;int&gt; key(n, INF), parent(n, -1);
+    vector&lt;bool&gt; inMST(n, false);
+
+    using P = pair&lt;int,int&gt;;
+    priority_queue&lt;P, vector&lt;P&gt;, greater&lt;P&gt;&gt; pq;
+    int src = 0;
+    key[src] = 0;
+    pq.push({0, src});
+
+    while (!pq.empty()) {
+        auto [w, u] = pq.top();
+        pq.pop();
+        if (inMST[u]) continue;
+        inMST[u] = true;
+
+        for (auto &e : g[u]) {
+            if (!inMST[e.to] &amp;&amp; e.w &lt; key[e.to]) {
+                key[e.to] = e.w;
+                parent[e.to] = u;
+                pq.push({key[e.to], e.to});
+            }
+        }
+    }
+
+    int total = 0;
+    cout &lt;&lt; "Power grid MST edges:\n";
+    for (int v = 1; v &lt; n; ++v) {
+        cout &lt;&lt; parent[v] &lt;&lt; " -- " &lt;&lt; v
+             &lt;&lt; "  cost = " &lt;&lt; key[v] &lt;&lt; "\n";
+        total += key[v];
+    }
+    cout &lt;&lt; "Total wiring cost = " &lt;&lt; total &lt;&lt; "\n";
+    return 0;
+}
+            </code></pre>
+          </div>
+        </div>
+
         <div class="panel-block">
           <h3>Impact &amp; Visual</h3>
           <p class="impact">
@@ -1088,12 +1601,11 @@
           <div class="panel-title">7. Garbage Truck Route Optimization</div>
           <div class="panel-chip-row">
             <span class="panel-chip">Solid Waste</span>
-            <span class="panel-chip algo">TSP Heuristic · 2-opt</span>
+            <span class="panel-chip algo">TSP Heuristic · Nearest Neighbour</span>
           </div>
         </div>
         <div class="panel-controls">
           <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
-          <button class="close-btn" type="button" data-close>✕ Close</button>
         </div>
       </div>
       <div class="panel-scroll">
@@ -1107,26 +1619,92 @@
           <h3>Practical Solution</h3>
           <p>
             Model the depot and each pickup location as cities in a Travelling Salesman Problem. Use a greedy
-            nearest-neighbour construction followed by 2-opt local improvement to get a short cyclic route that
-            visits all points and returns to the depot.
+            nearest-neighbour construction to get a short cyclic route that visits all points and returns to the depot.
           </p>
         </div>
         <div class="panel-block">
           <div class="io-label">Input format (example)</div>
-          <p>Coordinates or distance matrix for the depot and all pickup points.</p>
+          <p>Fixed distance matrix between depot and pickup points.</p>
           <div class="io-label" style="margin-top:4px;">Output</div>
           <p>Visiting order forming a cycle and total distance travelled.</p>
         </div>
         <div class="panel-block">
           <h3>Algorithms &amp; Complexity</h3>
           <div class="algo-row">
-            <span class="algo-pill">Greedy TSP</span>
-            <span class="algo-pill">2-opt Improvement</span>
+            <span class="algo-pill">Greedy TSP (Nearest Neighbour)</span>
           </div>
           <p class="complexity" style="margin-top:6px;">
-            Greedy construction: <strong>O(n²)</strong>; 2-opt refinement: roughly <strong>O(n²)</strong> per pass.
+            Roughly <strong>O(n²)</strong> for nearest neighbour on <code>n</code> locations.
           </p>
         </div>
+
+        <!-- CODE SECTION: P7 -->
+        <div class="panel-block code-section">
+          <div class="code-header">
+            <span class="code-lang">C++ Code</span>
+            <div class="code-actions">
+              <button class="code-toggle-btn" data-code-target="code-p7">▶ View C++ Code</button>
+              <button class="code-copy-btn" data-code-copy="code-p7">⧉ Copy</button>
+            </div>
+          </div>
+          <div class="code-box" id="code-p7">
+            <pre><code>
+// Greedy TSP (Nearest Neighbour) for garbage truck
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;limits&gt;
+using namespace std;
+
+int main() {
+    const int INF = 1e9;
+    int n = 6; // 0 = depot, 1..5 pickup points
+    int dist[6][6] = {
+        {0, 4, 6, 7, 3, 8},
+        {4, 0, 2, 3, 5, 6},
+        {6, 2, 0, 4, 2, 5},
+        {7, 3, 4, 0, 6, 3},
+        {3, 5, 2, 6, 0, 4},
+        {8, 6, 5, 3, 4, 0}
+    };
+
+    vector&lt;bool&gt; visited(n, false);
+    int cur = 0;
+    visited[0] = true;
+    vector&lt;int&gt; tour;
+    tour.push_back(cur);
+    int totalDist = 0;
+
+    for (int step = 0; step &lt; n - 1; ++step) {
+        int best = -1, bestD = INF;
+        for (int j = 0; j &lt; n; ++j) {
+            if (!visited[j] &amp;&amp; dist[cur][j] &lt; bestD) {
+                bestD = dist[cur][j];
+                best = j;
+            }
+        }
+        if (best == -1) break;
+        visited[best] = true;
+        tour.push_back(best);
+        totalDist += bestD;
+        cur = best;
+    }
+
+    // Return to depot
+    totalDist += dist[cur][0];
+    tour.push_back(0);
+
+    cout &lt;&lt; "Garbage truck route (nearest neighbour):\n";
+    for (int i = 0; i &lt; (int)tour.size(); ++i) {
+        cout &lt;&lt; tour[i];
+        if (i + 1 &lt; (int)tour.size()) cout &lt;&lt; " -> ";
+    }
+    cout &lt;&lt; "\nTotal distance = " &lt;&lt; totalDist &lt;&lt; "\n";
+    return 0;
+}
+            </code></pre>
+          </div>
+        </div>
+
         <div class="panel-block">
           <h3>Impact &amp; Visual</h3>
           <p class="impact">
@@ -1151,7 +1729,6 @@
         </div>
         <div class="panel-controls">
           <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
-          <button class="close-btn" type="button" data-close>✕ Close</button>
         </div>
       </div>
       <div class="panel-scroll">
@@ -1166,26 +1743,84 @@
           <h3>Practical Solution</h3>
           <p>
             Each candidate trip is an interval [start, end]. Using greedy interval scheduling
-            (sort by finish time), we assign each bus a maximum set of non-overlapping trips,
-            generating an efficient timetable.
+            (sort by finish time), we select a maximum set of non-overlapping trips for one bus,
+            then extend it to multiple buses.
           </p>
         </div>
         <div class="panel-block">
           <div class="io-label">Input format (example)</div>
-          <p>List of trips: route id, start time, end time, demand.</p>
+          <p>Fixed list of candidate trips with start and end times.</p>
           <div class="io-label" style="margin-top:4px;">Output</div>
-          <p>Assigned trips for each bus and the final timetable grid.</p>
+          <p>Set of non-overlapping trips for one bus (can be extended to more).</p>
         </div>
         <div class="panel-block">
           <h3>Algorithms &amp; Complexity</h3>
           <div class="algo-row">
-            <span class="algo-pill">Interval Scheduling</span>
-            <span class="algo-pill">Sorting by Finish Time</span>
+            <span class="algo-pill">Interval Scheduling (Greedy)</span>
           </div>
           <p class="complexity" style="margin-top:6px;">
-            Sorting trips: <strong>O(k log k)</strong> where <code>k</code> is number of trips.
+            Sorting trips by end time is <strong>O(k log k)</strong> for <code>k</code> trips.
           </p>
         </div>
+
+        <!-- CODE SECTION: P8 -->
+        <div class="panel-block code-section">
+          <div class="code-header">
+            <span class="code-lang">C++ Code</span>
+            <div class="code-actions">
+              <button class="code-toggle-btn" data-code-target="code-p8">▶ View C++ Code</button>
+              <button class="code-copy-btn" data-code-copy="code-p8">⧉ Copy</button>
+            </div>
+          </div>
+          <div class="code-box" id="code-p8">
+            <pre><code>
+// Interval Scheduling for one bus timetable
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+struct Trip {
+    int id;
+    int start, end;
+};
+
+int main() {
+    vector&lt;Trip&gt; trips = {
+        {1,  8, 10},
+        {2,  9, 11},
+        {3, 10, 12},
+        {4, 13, 15},
+        {5, 12, 13},
+        {6, 16, 18}
+    };
+
+    sort(trips.begin(), trips.end(),
+         [](const Trip &a, const Trip &b) {
+             return a.end &lt; b.end;
+         });
+
+    vector&lt;Trip&gt; chosen;
+    int lastEnd = -1;
+    for (auto &t : trips) {
+        if (t.start >= lastEnd) {
+            chosen.push_back(t);
+            lastEnd = t.end;
+        }
+    }
+
+    cout &lt;&lt; "Trips assigned to Bus 1:\n";
+    for (auto &t : chosen) {
+        cout &lt;&lt; "Trip " &lt;&lt; t.id
+             &lt;&lt; " from " &lt;&lt; t.start
+             &lt;&lt; " to " &lt;&lt; t.end &lt;&lt; "\n";
+    }
+    return 0;
+}
+            </code></pre>
+          </div>
+        </div>
+
         <div class="panel-block">
           <h3>Impact &amp; Visual</h3>
           <p class="impact">
@@ -1205,12 +1840,11 @@
           <div class="panel-title">9. Bridge Construction Priority Model</div>
           <div class="panel-chip-row">
             <span class="panel-chip">Critical Infrastructure</span>
-            <span class="panel-chip algo">Bridges / Min-Cut</span>
+            <span class="panel-chip algo">Bridges / Tarjan</span>
           </div>
         </div>
         <div class="panel-controls">
           <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
-          <button class="close-btn" type="button" data-close>✕ Close</button>
         </div>
       </div>
       <div class="panel-scroll">
@@ -1224,27 +1858,94 @@
         <div class="panel-block">
           <h3>Practical Solution</h3>
           <p>
-            Represent regions and roads as an undirected graph. Using articulation-edge / bridge algorithms
-            (or min-cut views), we find edges whose removal disconnects key parts of the graph. These edges
-            are ranked as critical bridges.
+            Represent regions and roads as an undirected graph. Using a bridge-finding algorithm (Tarjan),
+            we detect edges whose removal disconnects the graph. These edges represent critical bridges.
           </p>
         </div>
         <div class="panel-block">
           <div class="io-label">Input format (example)</div>
-          <p>Graph of regions and roads with edges marked as bridges where applicable.</p>
+          <p>Fixed undirected graph with edges representing bridges and roads.</p>
           <div class="io-label" style="margin-top:4px;">Output</div>
-          <p>List of bridges that are articulation edges along with priority scores.</p>
+          <p>List of bridges which, if removed, will disconnect some regions.</p>
         </div>
         <div class="panel-block">
           <h3>Algorithms &amp; Complexity</h3>
           <div class="algo-row">
             <span class="algo-pill">Tarjan's Bridge Algorithm</span>
-            <span class="algo-pill">DFS Discovery/Low Times</span>
           </div>
           <p class="complexity" style="margin-top:6px;">
-            Bridge detection via DFS takes <strong>O(n + m)</strong>.
+            Runs in <strong>O(n + m)</strong> using DFS.
           </p>
         </div>
+
+        <!-- CODE SECTION: P9 -->
+        <div class="panel-block code-section">
+          <div class="code-header">
+            <span class="code-lang">C++ Code</span>
+            <div class="code-actions">
+              <button class="code-toggle-btn" data-code-target="code-p9">▶ View C++ Code</button>
+              <button class="code-copy-btn" data-code-copy="code-p9">⧉ Copy</button>
+            </div>
+          </div>
+          <div class="code-box" id="code-p9">
+            <pre><code>
+// Tarjan's algorithm to find bridges
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+vector&lt;vector&lt;int&gt;&gt; g;
+vector&lt;int&gt; disc, low;
+vector&lt;bool&gt; visited;
+int timerVal = 0;
+
+void dfs(int u, int parent) {
+    visited[u] = true;
+    disc[u] = low[u] = ++timerVal;
+
+    for (int v : g[u]) {
+        if (v == parent) continue;
+        if (!visited[v]) {
+            dfs(v, u);
+            low[u] = min(low[u], low[v]);
+            if (low[v] > disc[u]) {
+                cout &lt;&lt; "Bridge: " &lt;&lt; u &lt;&lt; " - " &lt;&lt; v &lt;&lt; "\n";
+            }
+        } else {
+            low[u] = min(low[u], disc[v]);
+        }
+    }
+}
+
+int main() {
+    int n = 6;
+    g.assign(n, {});
+    auto addEdge = [&] (int u, int v) {
+        g[u].push_back(v);
+        g[v].push_back(u);
+    };
+
+    addEdge(0, 1);
+    addEdge(1, 2);
+    addEdge(2, 0);
+    addEdge(1, 3);
+    addEdge(3, 4);
+    addEdge(4, 5);
+
+    disc.assign(n, 0);
+    low.assign(n, 0);
+    visited.assign(n, false);
+
+    cout &lt;&lt; "Critical bridges in the network:\n";
+    for (int i = 0; i &lt; n; ++i) {
+        if (!visited[i]) dfs(i, -1);
+    }
+    return 0;
+}
+            </code></pre>
+          </div>
+        </div>
+
         <div class="panel-block">
           <h3>Impact &amp; Visual</h3>
           <p class="impact">
@@ -1269,7 +1970,6 @@
         </div>
         <div class="panel-controls">
           <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
-          <button class="close-btn" type="button" data-close>✕ Close</button>
         </div>
       </div>
       <div class="panel-scroll">
@@ -1290,22 +1990,100 @@
         </div>
         <div class="panel-block">
           <div class="io-label">Input format (example)</div>
-          <p>Graph of localities, list of flood-source nodes, list of shelter nodes.</p>
+          <p>Fixed graph of localities, with a set of flood sources and some shelter nodes.</p>
           <div class="io-label" style="margin-top:4px;">Output</div>
-          <p>
-            Time for water to reach each locality and recommended safe shelter for each area (if any).
-          </p>
+          <p>Flood arrival time for each locality and list of safe shelters (reachable before cutoff time).</p>
         </div>
         <div class="panel-block">
           <h3>Algorithms &amp; Complexity</h3>
           <div class="algo-row">
-            <span class="algo-pill">BFS</span>
             <span class="algo-pill">Multi-source BFS</span>
           </div>
           <p class="complexity" style="margin-top:6px;">
             Runs in <strong>O(n + m)</strong> time and <strong>O(n)</strong> space.
           </p>
         </div>
+
+        <!-- CODE SECTION: P10 -->
+        <div class="panel-block code-section">
+          <div class="code-header">
+            <span class="code-lang">C++ Code</span>
+            <div class="code-actions">
+              <button class="code-toggle-btn" data-code-target="code-p10">▶ View C++ Code</button>
+              <button class="code-copy-btn" data-code-copy="code-p10">⧉ Copy</button>
+            </div>
+          </div>
+          <div class="code-box" id="code-p10">
+            <pre><code>
+// Multi-source BFS for flood spread
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+#include &lt;limits&gt;
+using namespace std;
+
+int main() {
+    int n = 7; // localities 0..6
+    vector&lt;vector&lt;int&gt;&gt; g(n);
+    auto addRoad = [&] (int u, int v) {
+        g[u].push_back(v);
+        g[v].push_back(u);
+    };
+
+    addRoad(0, 1);
+    addRoad(1, 2);
+    addRoad(2, 3);
+    addRoad(1, 4);
+    addRoad(4, 5);
+    addRoad(5, 6);
+
+    // flood sources
+    vector&lt;int&gt; sources = {0};  // river-bank locality
+    // shelters
+    vector&lt;int&gt; shelters = {3, 6};
+
+    const int INF = 1e9;
+    vector&lt;int&gt; dist(n, INF);
+    queue&lt;int&gt; q;
+
+    for (int s : sources) {
+        dist[s] = 0;
+        q.push(s);
+    }
+
+    while (!q.empty()) {
+        int u = q.front();
+        q.pop();
+        for (int v : g[u]) {
+            if (dist[v] == INF) {
+                dist[v] = dist[u] + 1; // each step = 1 time unit
+                q.push(v);
+            }
+        }
+    }
+
+    cout &lt;&lt; "Flood arrival time (in time steps):\n";
+    for (int i = 0; i &lt; n; ++i) {
+        cout &lt;&lt; "Locality " &lt;&lt; i &lt;&lt; " : ";
+        if (dist[i] == INF) cout &lt;&lt; "never reached\n";
+        else cout &lt;&lt; dist[i] &lt;&lt; "\n";
+    }
+
+    int cutoff = 2; // safe if shelter reachable in &lt;= 2 steps
+    cout &lt;&lt; "\nShelter safety check (cutoff = " &lt;&lt; cutoff &lt;&lt; "):\n";
+    for (int s : shelters) {
+        if (dist[s] &gt; cutoff) {
+            cout &lt;&lt; "Shelter " &lt;&lt; s &lt;&lt; " becomes unsafe.\n";
+        } else {
+            cout &lt;&lt; "Shelter " &lt;&lt; s &lt;&lt; " is reachable before major flood.\n";
+        }
+    }
+    return 0;
+}
+            </code></pre>
+          </div>
+        </div>
+
         <div class="panel-block">
           <h3>Impact &amp; Visual</h3>
           <p class="impact">
@@ -1331,7 +2109,6 @@
         </div>
         <div class="panel-controls">
           <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
-          <button class="close-btn" type="button" data-close>✕ Close</button>
         </div>
       </div>
       <div class="panel-scroll">
@@ -1441,10 +2218,10 @@
     const panels = document.querySelectorAll(".panel-shell");
 
     function openPanel(id) {
-      panels.forEach(p => p.classList.remove("open")); // hide all
+      panels.forEach(p => p.classList.remove("open"));
       const target = document.getElementById(id + "-panel");
       if (target) {
-        target.classList.add("open"); // only one is open
+        target.classList.add("open");
         overlay.classList.add("open");
       }
     }
@@ -1467,11 +2244,40 @@
       });
     });
 
-    // Click on dark area closes overlay
     overlay.addEventListener("click", (e) => {
       if (e.target === overlay) {
         closeAll();
       }
+    });
+
+    // Code toggle buttons
+    document.querySelectorAll(".code-toggle-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const targetId = btn.getAttribute("data-code-target");
+        const box = document.getElementById(targetId);
+        if (!box) return;
+        const visible = box.style.display === "block";
+        box.style.display = visible ? "none" : "block";
+        btn.textContent = visible ? "▶ View C++ Code" : "▼ Hide C++ Code";
+      });
+    });
+
+    // Copy code buttons
+    document.querySelectorAll(".code-copy-btn").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const targetId = btn.getAttribute("data-code-copy");
+        const box = document.getElementById(targetId);
+        if (!box) return;
+        const codeText = box.innerText;
+        try {
+          await navigator.clipboard.writeText(codeText);
+          const old = btn.textContent;
+          btn.textContent = "✔ Copied";
+          setTimeout(() => { btn.textContent = old; }, 1200);
+        } catch (e) {
+          alert("Copy not supported in this browser. You can select and copy manually.");
+        }
+      });
     });
   </script>
 
