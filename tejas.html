@@ -10,6 +10,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f3f7fa;
         }
+
         header {
             background: #0a4fa3;
             color: #fff;
@@ -19,21 +20,24 @@
             align-items: center;
             box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
+
         header h1 {
             margin: 0;
             font-size: 22px;
         }
+
         nav a {
             color: white;
             text-decoration: none;
             font-size: 16px;
-            margin-left: 20px;
         }
+
         .container {
-            max-width: 1100px;
+            max-width: 900px;
             margin: auto;
             padding: 40px 20px;
         }
+
         .title-box {
             background: #0a4fa3;
             color: white;
@@ -43,47 +47,44 @@
             margin-bottom: 30px;
             box-shadow: 0 3px 10px rgba(0,0,0,0.2);
         }
-        .title-box h2 {
-            margin: 0;
-            font-size: 26px;
+
+        .problem-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
-        .title-box p {
-            margin-top: 8px;
-            font-size: 15px;
-            opacity: 0.9;
-        }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 20px;
-        }
-        .card {
+
+        .problem-item {
+            padding: 15px 20px;
             background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+            transition: 0.25s;
+            border-left: 6px solid #0a4fa3;
+        }
+
+        .problem-item:hover {
+            transform: translateX(6px);
+            background: #eef5ff;
+        }
+
+        #details-box {
+            margin-top: 30px;
             padding: 20px;
+            background: white;
             border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-            transition: 0.25s ease-in-out;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            display: none;
         }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.18);
-        }
-        .card h3 {
+
+        #details-box h2 {
             margin-top: 0;
             color: #0a4fa3;
-            font-size: 18px;
         }
-        .card p span {
-            font-weight: bold;
-            color: #000;
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            background: #0a4fa3;
-            color: white;
-            margin-top: 40px;
-        }
+
         .back-btn {
             display: inline-block;
             margin-top: 30px;
@@ -93,10 +94,17 @@
             text-decoration: none;
             border-radius: 8px;
             transition: 0.3s;
-            text-align: center;
         }
         .back-btn:hover {
             background: #083f82;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #0a4fa3;
+            color: white;
+            margin-top: 40px;
         }
     </style>
 </head>
@@ -116,69 +124,22 @@
         <p>These problems involve spatial allocation, clustering, matching, zoning, and optimal city planning using algorithms.</p>
     </div>
 
-    <div class="grid">
+    <div class="problem-list">
 
-        <div class="card">
-            <h3>1. Optimal Hospital Location</h3>
-            <p><span>Algorithm:</span> K-Means / k-Medians</p>
-            <p>Place hospitals to minimize average distance for citizens.</p>
-        </div>
-
-        <div class="card">
-            <h3>2. School Allocation to Students</h3>
-            <p><span>Algorithm:</span> Bipartite Matching</p>
-            <p>Match students to nearest valid schools with minimal travel distance.</p>
-        </div>
-
-        <div class="card">
-            <h3>3. Smart Parking Slot Allocation</h3>
-            <p><span>Algorithm:</span> Hungarian Algorithm</p>
-            <p>Assign cars to parking slots with minimum total walking distance.</p>
-        </div>
-
-        <div class="card">
-            <h3>4. Industrial vs Residential Separation</h3>
-            <p><span>Algorithm:</span> Graph Coloring</p>
-            <p>Assign zone colors ensuring harmful industries don’t touch residential areas.</p>
-        </div>
-
-        <div class="card">
-            <h3>5. Public Park Placement Optimization</h3>
-            <p><span>Algorithm:</span> Max Coverage</p>
-            <p>Select k park spots maximizing total population served.</p>
-        </div>
-
-        <div class="card">
-            <h3>6. Land Subdivision Optimization</h3>
-            <p><span>Algorithm:</span> Divide & Conquer</p>
-            <p>Divide large land plot into optimal smaller usable plots.</p>
-        </div>
-
-        <div class="card">
-            <h3>7. High Footfall Commercial Zone Prediction</h3>
-            <p><span>Algorithm:</span> Clustering</p>
-            <p>Cluster regions to predict future commercial hotspots.</p>
-        </div>
-
-        <div class="card">
-            <h3>8. Creation of Green Belt Buffers</h3>
-            <p><span>Algorithm:</span> Constraint Solver</p>
-            <p>Maximize green buffers around city limits with minimal relocation.</p>
-        </div>
-
-        <div class="card">
-            <h3>9. Footpath Connectivity Plan</h3>
-            <p><span>Algorithm:</span> Graph Connectivity</p>
-            <p>Identify disconnected pedestrian paths & repair with minimal new footpaths.</p>
-        </div>
-
-        <div class="card">
-            <h3>10. Underground Utility Routing</h3>
-            <p><span>Algorithm:</span> Disjoint Shortest Paths</p>
-            <p>Lay sewer, fiber, and power lines without crossing each other.</p>
-        </div>
+        <div class="problem-item" onclick="showDetails(1)">1. Optimal Hospital Location</div>
+        <div class="problem-item" onclick="showDetails(2)">2. School Allocation to Students</div>
+        <div class="problem-item" onclick="showDetails(3)">3. Smart Parking Slot Allocation</div>
+        <div class="problem-item" onclick="showDetails(4)">4. Industrial vs Residential Separation</div>
+        <div class="problem-item" onclick="showDetails(5)">5. Public Park Placement Optimization</div>
+        <div class="problem-item" onclick="showDetails(6)">6. Land Subdivision Optimization</div>
+        <div class="problem-item" onclick="showDetails(7)">7. High Footfall Commercial Zone Prediction</div>
+        <div class="problem-item" onclick="showDetails(8)">8. Creation of Green Belt Buffers</div>
+        <div class="problem-item" onclick="showDetails(9)">9. Footpath Connectivity Plan</div>
+        <div class="problem-item" onclick="showDetails(10)">10. Underground Utility Routing</div>
 
     </div>
+
+    <div id="details-box"></div>
 
     <a class="back-btn" href="#">← Back to Home</a>
 
@@ -187,6 +148,73 @@
 <footer>
     © 2024 Tejas Keri – Portfolio
 </footer>
+
+<script>
+const details = {
+    1: {
+        title: "Optimal Hospital Location",
+        algorithm: "K-Means / k-Medians",
+        desc: "Place hospitals to minimize average distance for citizens."
+    },
+    2: {
+        title: "School Allocation to Students",
+        algorithm: "Bipartite Matching",
+        desc: "Match students to nearest valid schools with minimal travel distance."
+    },
+    3: {
+        title: "Smart Parking Slot Allocation",
+        algorithm: "Hungarian Algorithm",
+        desc: "Assign cars to parking slots with minimum total walking distance."
+    },
+    4: {
+        title: "Industrial vs Residential Separation",
+        algorithm: "Graph Coloring",
+        desc: "Assign zone colors ensuring harmful industries don’t touch residential areas."
+    },
+    5: {
+        title: "Public Park Placement Optimization",
+        algorithm: "Max Coverage",
+        desc: "Select park locations maximizing total population served."
+    },
+    6: {
+        title: "Land Subdivision Optimization",
+        algorithm: "Divide & Conquer",
+        desc: "Divide large land into smaller optimal usable plots."
+    },
+    7: {
+        title: "High Footfall Commercial Zone Prediction",
+        algorithm: "Clustering",
+        desc: "Cluster regions to predict future commercial hotspots."
+    },
+    8: {
+        title: "Creation of Green Belt Buffers",
+        algorithm: "Constraint Solver",
+        desc: "Maximize protective green belt buffers with minimal relocation."
+    },
+    9: {
+        title: "Footpath Connectivity Plan",
+        algorithm: "Graph Connectivity",
+        desc: "Identify disconnected pedestrian paths & repair with minimal new paths."
+    },
+    10: {
+        title: "Underground Utility Routing",
+        algorithm: "Disjoint Shortest Paths",
+        desc: "Lay sewer, fiber, and power lines without crossing each other."
+    }
+};
+
+function showDetails(id) {
+    const box = document.getElementById("details-box");
+    const d = details[id];
+
+    box.style.display = "block";
+    box.innerHTML = `
+        <h2>${d.title}</h2>
+        <p><strong>Algorithm:</strong> ${d.algorithm}</p>
+        <p>${d.desc}</p>
+    `;
+}
+</script>
 
 </body>
 </html>
