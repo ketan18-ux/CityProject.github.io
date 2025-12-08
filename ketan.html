@@ -8,7 +8,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
 
     body {
       background: linear-gradient(145deg, #dfe9f3, #ffffff);
@@ -44,7 +49,11 @@
       transform: translateY(-3px);
     }
 
-    .container { max-width: 1100px; margin: auto; padding: 30px; }
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 30px;
+    }
 
     /* HEADER */
     .header {
@@ -61,6 +70,14 @@
     @keyframes fadeIn {
       0% { opacity: 0; transform: translateY(30px); }
       100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* SECTION TITLE */
+    .section-title {
+      margin: 50px 5px 20px;
+      font-size: 24px;
+      font-weight: 600;
+      color: #003366;
     }
 
     /* CARD GRID */
@@ -111,6 +128,12 @@
       opacity: 0.9;
     }
 
+    .card ul {
+      margin-left: 18px;
+      margin-top: 6px;
+      font-size: 14px;
+    }
+
     /* BACK TO HOME BUTTON */
     .back-btn {
       display: inline-block;
@@ -159,73 +182,214 @@
     <!-- HEADER -->
     <div class="header">
       <h1>Infrastructure & Network Optimization Projects</h1>
-      <p>Algorithmic solutions built for planning roads, traffic, pipelines, routing and emergency systems.</p>
+      <p>Algorithmic solutions built for planning roads, traffic, pipelines, routing and emergency systems in a smart city.</p>
     </div>
 
-    <!-- GRID -->
+    <!-- GRID : 10 BUSINESS CASES -->
     <div class="grid">
 
       <div class="card">
         <h3>1. Optimal Road Network Construction</h3>
-        <p class="algo">Algorithm: Minimum Spanning Tree</p>
-        <p class="desc">Compute the minimum-cost road network connecting all major locations.</p>
+        <p class="algo">Algorithm: Minimum Spanning Tree (Kruskal / Prim)</p>
+        <p class="desc">Compute the minimum-cost road network connecting all major locations while avoiding redundant roads.</p>
       </div>
 
       <div class="card">
         <h3>2. Shortest Travel-Time Routing</h3>
         <p class="algo">Algorithm: Dijkstra</p>
-        <p class="desc">Find the fastest route between important city zones.</p>
+        <p class="desc">Find the fastest route between important city zones based on weighted travel times.</p>
       </div>
 
       <div class="card">
         <h3>3. Traffic Signal Timing Optimization</h3>
-        <p class="algo">Algorithm: Scheduling</p>
-        <p class="desc">Optimize traffic signal timings based on flow data.</p>
+        <p class="algo">Algorithm: Scheduling / Greedy</p>
+        <p class="desc">Optimize traffic signal timings using peak hour flow to reduce waiting time at junctions.</p>
       </div>
 
       <div class="card">
         <h3>4. Emergency Vehicle Fastest Route Planner</h3>
         <p class="algo">Algorithm: A* / Real-Time Dijkstra</p>
-        <p class="desc">Compute the quickest path for emergency response teams.</p>
+        <p class="desc">Compute the quickest path for ambulances and fire services considering blocked/slow roads.</p>
       </div>
 
       <div class="card">
         <h3>5. Water Pipeline Pressure Optimization</h3>
-        <p class="algo">Algorithm: Max Flow</p>
-        <p class="desc">Determine maximum water flow and identify weak pipeline areas.</p>
+        <p class="algo">Algorithm: Max Flow / Min-Cut</p>
+        <p class="desc">Determine maximum water flow, detect bottlenecks and suggest reinforcement for critical pipes.</p>
       </div>
 
       <div class="card">
         <h3>6. Power Grid Load Minimization</h3>
         <p class="algo">Algorithm: MST</p>
-        <p class="desc">Design efficient transformer connections with minimal loss.</p>
+        <p class="desc">Design efficient transformer connections with minimal loss and redundancy in the power network.</p>
       </div>
 
       <div class="card">
         <h3>7. Garbage Truck Route Optimization</h3>
-        <p class="algo">Algorithm: TSP</p>
-        <p class="desc">Find shortest route for waste collection vehicles.</p>
+        <p class="algo">Algorithm: Travelling Salesman (TSP)</p>
+        <p class="desc">Plan shortest cyclic routes for waste collection vehicles covering all collection points.</p>
       </div>
 
       <div class="card">
         <h3>8. Public Transport Timetable Generation</h3>
         <p class="algo">Algorithm: Interval Scheduling</p>
-        <p class="desc">Create efficient transport schedules using limited buses.</p>
+        <p class="desc">Generate efficient bus schedules ensuring maximum coverage with limited buses.</p>
       </div>
 
       <div class="card">
         <h3>9. Bridge Construction Priority Model</h3>
-        <p class="algo">Algorithm: Min-Cut</p>
-        <p class="desc">Identify critical bridges whose failure disconnects the city.</p>
+        <p class="algo">Algorithm: Min-Cut / Articulation Points</p>
+        <p class="desc">Identify critical bridges whose failure disconnects the city and prioritize them for strengthening.</p>
       </div>
 
       <div class="card">
         <h3>10. Flood Evacuation Simulation</h3>
         <p class="algo">Algorithm: BFS Levels</p>
-        <p class="desc">Determine safe zones reachable during flooding.</p>
+        <p class="desc">Simulate flood spread, identify safe zones and fastest evacuation paths to shelters.</p>
       </div>
 
-    </div>
+    </div> <!-- end first grid -->
+
+    <!-- ================= EXTRA SECTIONS FROM GOOGLE FORM ================= -->
+
+    <h2 class="section-title">Project Technical Summary</h2>
+    <div class="grid">
+
+      <div class="card">
+        <h3>📌 Code & Modules Overview</h3>
+        <p class="desc"><strong>Lines of Code (Total for all 10 problems):</strong> 2001 – 2500</p>
+        <p class="desc"><strong>Total Functions:</strong> 21 – 25</p>
+        <p class="desc"><strong>Data/Input Files Generated:</strong> 6 – 10 (JSON, CSV, text, test cases)</p>
+        <p class="desc"><strong>Figures / Charts / Diagrams:</strong> 6 – 10 (flowcharts, graphs, route maps)</p>
+        <p class="desc"><strong>Efficiency Analysis:</strong> Yes – documented for all modules (time & space complexity).</p>
+      </div>
+
+      <div class="card">
+        <h3>🧠 Design Techniques Applied</h3>
+        <!-- Edit list if needed -->
+        <p class="desc">The following algorithm design techniques are demonstrated across the modules:</p>
+        <ul>
+          <li>Brute Force (baseline comparisons)</li>
+          <li>Divide and Conquer</li>
+          <li>Decrease and Conquer</li>
+          <li>Transform and Conquer</li>
+          <li>Dynamic Programming</li>
+          <li>Greedy Technique</li>
+          <li>Backtracking (route & scheduling exploration)</li>
+          <li>Randomized Algorithms (test data and tie-breaking)</li>
+          <li>Space and Time Trade-off (pre-computed structures)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>🧩 Principles Used in the Project</h3>
+        <p class="desc">Important algorithmic principles used while solving the smart city problems:</p>
+        <ul>
+          <li>Brave and Cautious Travel</li>
+          <li>Pruning of search space</li>
+          <li>Lazy Propagation (for range updates / queries)</li>
+          <li>Sliding Window (local traffic analysis)</li>
+          <li>Level Order Traversal</li>
+          <li>Hierarchical Data Modelling</li>
+          <li>Edge Relaxation & Shortest Path Trees</li>
+          <li>Pre-Computing and Memoization</li>
+          <li>Bit Manipulations (optimization in states)</li>
+          <li>Partition / Decomposition & Pattern Recognition</li>
+          <li>Recursion & Invariants</li>
+          <li>Search Space Exploration / Search as Decision</li>
+          <li>Relaxation and Convergence</li>
+          <li>Balance Maintenance, Cut & Cycle Properties</li>
+          <li>Connectivity and Reachability, Trade-off Principle</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>🧱 Basic Data Structures Used</h3>
+        <p class="desc">Core DS used as building blocks in all modules:</p>
+        <ul>
+          <li>Array</li>
+          <li>Stack</li>
+          <li>Queue</li>
+          <li>Lists (linked lists / adjacency lists)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>🛠 Advanced DS / Tools</h3>
+        <p class="desc">To efficiently support queries and updates, the following DS/Tools are used:</p>
+        <ul>
+          <li>Binary Tree, BST, AVL Tree, Red Black Tree, 2–3 Tree</li>
+          <li>Hashing (fast lookups for locations/edges)</li>
+          <li>Trie (prefix-based data like route codes)</li>
+          <li>Fenwick Tree (BIT) and Segment Tree</li>
+          <li>Sparse Table & Lookup Table</li>
+          <li>Heap / Priority Queue</li>
+          <li>Union-Find (Disjoint Set Union)</li>
+          <li>Skip List</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>⚙ Sorting Algorithms Implemented</h3>
+        <p class="desc">Sorting helps in ordering roads, events and schedules.</p>
+        <ul>
+          <li>Bubble Sort</li>
+          <li>Selection Sort</li>
+          <li>Insertion Sort</li>
+          <li>Merge Sort</li>
+          <li>Heap Sort</li>
+          <li>Quick Sort</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>🔍 String / Pattern Searching</h3>
+        <p class="desc">For searching routes, codes and logs:</p>
+        <ul>
+          <li>Brute Force String Search</li>
+          <li>Boyer Moore</li>
+          <li>KMP (Knuth–Morris–Pratt)</li>
+          <li>Rabin–Karp</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>🌐 Graph Algorithms</h3>
+        <p class="desc">City infrastructure is naturally modelled as a graph. Algorithms used:</p>
+        <ul>
+          <li>DFS (Depth First Search)</li>
+          <li>BFS (Breadth First Search)</li>
+          <li>Floyd–Warshall (all-pairs shortest paths)</li>
+          <li>Dijkstra (single-source shortest path)</li>
+          <li>Kruskal & Prim (minimum spanning tree)</li>
+          <li>Bellman–Ford (graphs with negative edges)</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>🧪 Additional DS / Algorithms</h3>
+        <p class="desc">Other components used to support the city design models:</p>
+        <ul>
+          <li>Custom Graph generators and test case builders</li>
+          <li>Random route and demand simulators</li>
+          <li>Utilities for path reconstruction and result verification</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>🌍 UN SDG Mapping</h3>
+        <p class="desc">The project supports sustainable and resilient city infrastructure.</p>
+        <p class="desc"><strong>SDG Targets mapped to (example set):</strong></p>
+        <ul>
+          <li>9.1 – Develop quality, reliable, sustainable infrastructure</li>
+          <li>9.C – Increase access to ICT and networks</li>
+          <li>11.2 – Provide access to safe, affordable, accessible and sustainable transport systems</li>
+          <li>11.5 – Reduce the impact of disasters (flood evacuation module)</li>
+        </ul>
+        <p class="desc"><strong>SDG Indicators used:</strong> 9.1.1, 11.2.1, 11.5.2</p>
+      </div>
+
+    </div> <!-- end second grid -->
 
     <!-- BOTTOM BACK TO HOME BUTTON -->
     <center>
