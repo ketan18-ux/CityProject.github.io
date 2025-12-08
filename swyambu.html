@@ -1146,51 +1146,59 @@ int main() {
     {
       id: "8",
       number: 8,
-      title: "Emergency & Security Services Company",
+      title: "City Park Connectivity Design",
       categoryTag: "",
-      shortTag: "Dijkstra’s+Warshall’s",
+      shortTag: "Kruskal’s",
       time: "O(n log n)",
       space: "O(n)",
-      algorithm: "Dijkstra’s+Warshall’s",
+      algorithm: "Kruskal’s",
       sdgs: [
-        "SDG 3 – Good Health & Well-being Provides fast emergency response and saves lives",
+        "SDG 9 – Industry, Innovation and Infrastructure",
         "SDG 11 – Sustainable Cities & Communities Improves safety and disaster management",
-        "SDG 16 – Peace, Justice & Strong Institutions Enhances law enforcement and public security"
+        "SDG 15 – Life on Land"
       ],
       problemText:
-        "Ambulances, fire trucks, and police vehicles must reach the destination immediately. The city also has different security zones that need to be monitored to know which areas are connected or isolated.",
+        "Multiple city parks need walking paths for public access. Constructing unnecessary paths increases project cost.",
       solutionText:
-        "Shortest routes save lives during emergencies. Connectivity analysis helps identify vulnerable or unmonitored areas.",
+        "Kruskal’s algorithm selects minimum cost paths without forming cycles, ensuring all parks are connected efficiently.",
      
-      code:`Dijkstra’s
-      vector<int> dijkstra(vector<vector<int>>& g, int src) {
-    int n = g.size();
-    vector<int> dist(n, INT_MAX), vis(n, 0);
-    dist[src] = 0;
+      code:`Kruskal’s
+      #include <iostream>
+#include <algorithm>
+using namespace std;
 
-    for (int i = 0; i < n; i++) {
-        int u = -1;
-        for (int j = 0; j < n; j++)
-            if (!vis[j] && (u == -1 || dist[j] < dist[u]))
-                u = j;
+struct Edge {
+    int u,v,w;
+} e[5];
 
-        vis[u] = 1;
+int parent[5];
 
-        for (int v = 0; v < n; v++)
-            if (g[u][v] && dist[u] + g[u][v] < dist[v])
-                dist[v] = dist[u] + g[u][v];
+int find(int x){
+    if(parent[x]==x) return x;
+    return parent[x]=find(parent[x]);
+}
+
+int main(){
+    e[0]={0,1,4};
+    e[1]={1,2,3};
+    e[2]={0,2,2};
+    e[3]={2,3,5};
+    e[4]={1,3,1};
+
+    for(int i=0;i<4;i++) parent[i]=i;
+
+    sort(e,e+5,[](Edge a, Edge b){return a.w<b.w;});
+
+    for(int i=0;i<5;i++){
+        int x=find(e[i].u);
+        int y=find(e[i].v);
+        if(x!=y){
+            cout<<e[i].u<<" - "<<e[i].v<<endl;
+            parent[x]=y;
+        }
     }
+}
 
-    return dist;  
-}
-Warshall’s
-void warshall(vector<vector<int>>& r) {
-    int n = r.size();
-    for (int k = 0; k < n; k++)
-        for (int i = 0; i < n; i++)
-            for (int j = 0; j < n; j++)
-                r[i][j] = r[i][j] || (r[i][k] && r[k][j]);
-}
 `,
  
     },
