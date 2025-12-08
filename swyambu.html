@@ -2,1439 +2,240 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Algorithms Portfolio | Your Name</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <style>
-    :root {
-      --bg: #020617;
-      --bg-alt: #020617;
-      --surface: #020617;
-      --border-subtle: #1f2937;
-      --border-strong: #374151;
-      --accent: #f97316;
-      --accent-soft: rgba(249, 115, 22, 0.16);
-      --text: #f9fafb;
-      --muted: #9ca3af;
-      --radius-lg: 18px;
-      --radius-xl: 22px;
-      --shadow-soft: 0 20px 40px rgba(0, 0, 0, 0.45);
-      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      --font-mono: "Fira Code", Consolas, Menlo, monospace;
-    }
+  <title>Swyambu Boli | Portfolio</title>
 
-    * {
-      box-sizing: border-box;
-    }
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
 
     body {
-      margin: 0;
-      font-family: var(--font-sans);
-      background: radial-gradient(circle at top, #020617 0, #000000 55%, #020617 100%);
-      color: var(--text);
-      -webkit-font-smoothing: antialiased;
+      background: linear-gradient(145deg, #dfe9f3, #ffffff);
+      overflow-x: hidden;
     }
 
-    a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-
-    .app {
-      min-height: 100vh;
+    /* NAVBAR */
+    nav {
+      width: 100%;
+      background: #003366;
+      padding: 16px 30px;
       display: flex;
-      flex-direction: column;
-    }
-
-    header {
+      justify-content: space-between;
+      align-items: center;
+      color: white;
       position: sticky;
       top: 0;
-      z-index: 20;
-      backdrop-filter: blur(18px);
-      background: linear-gradient(to right, rgba(15,23,42,0.96), rgba(15,23,42,0.92));
-      border-bottom: 1px solid rgba(75, 85, 99, 0.8);
+      z-index: 1000;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
     }
 
-    .nav {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .logo-circle {
-      width: 34px;
-      height: 34px;
-      border-radius: 999px;
-      background: conic-gradient(from 180deg, #f97316, #38bdf8, #8b5cf6, #f97316);
-      padding: 2px;
-      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.8);
-    }
-
-    .logo-inner {
-      width: 100%;
-      height: 100%;
-      border-radius: inherit;
-      background: #020617;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 14px;
-      color: var(--accent);
-    }
-
-    .nav-title {
-      display: flex;
-      flex-direction: column;
-      font-size: 13px;
-    }
-
-    .nav-title span:first-child {
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    .nav-title span:last-child {
-      font-weight: 600;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .nav-links a {
-      padding: 4px 8px;
-      border-radius: 999px;
-      color: var(--muted);
-    }
-
-    .nav-links a:hover {
-      background: rgba(30, 64, 175, 0.25);
-      color: var(--text);
+    nav a {
+      color: white;
       text-decoration: none;
+      margin-left: 20px;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: 0.3s ease;
     }
 
-    .nav-pill {
-      border-radius: 999px;
-      border: 1px solid rgba(249, 115, 22, 0.4);
-      padding: 5px 11px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: radial-gradient(circle at 0 0, rgba(249, 115, 22, 0.22), transparent 55%);
-      font-size: 11px;
-      color: var(--accent);
-      cursor: pointer;
+    nav a:hover {
+      background: rgba(255,255,255,0.15);
+      transform: translateY(-3px);
     }
 
-    .nav-pill span.icon {
-      font-size: 14px;
+    .container { max-width: 1100px; margin: auto; padding: 30px; }
+
+    /* HEADER */
+    .header {
+      background: linear-gradient(120deg, #003366, #0077cc);
+      color: white;
+      padding: 40px 30px;
+      border-radius: 18px;
+      text-align: center;
+      margin-bottom: 45px;
+      box-shadow: 0px 10px 25px rgba(0,0,0,0.25);
+      animation: fadeIn 1.2s ease-out;
     }
 
-    main {
-      flex: 1;
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 18px 16px 40px;
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* GRID */
+    .grid {
       display: grid;
-      grid-template-columns: 270px minmax(0, 1fr);
-      gap: 18px;
-      align-items: flex-start;
-    }
-
-    /* Sidebar */
-    .sidebar {
-      border-radius: var(--radius-xl);
-      background: radial-gradient(circle at top, rgba(15,23,42,0.95), #020617);
-      border: 1px solid var(--border-strong);
-      box-shadow: var(--shadow-soft);
-      padding: 14px 12px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .sidebar-header {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
-    .sidebar-header strong {
-      color: #e5e7eb;
-      font-size: 13px;
-    }
-
-    .problem-list {
-      list-style: none;
-      padding: 0;
-      margin: 4px 0 0;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      max-height: 480px;
-      overflow: auto;
-      scrollbar-width: thin;
-      scrollbar-color: #4b5563 transparent;
-    }
-
-    .problem-list::-webkit-scrollbar {
-      width: 5px;
-    }
-    .problem-list::-webkit-scrollbar-thumb {
-      background: #4b5563;
-      border-radius: 999px;
-    }
-
-    .problem-item {
-      border-radius: 12px;
-      border: 1px solid var(--border-subtle);
-      background: rgba(15,23,42,0.92);
-      padding: 7px 8px;
-      font-size: 12px;
-      color: var(--muted);
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      gap: 6px;
-      align-items: center;
-      transition: border 0.12s, background 0.12s, transform 0.08s;
-    }
-
-    .problem-item:hover {
-      border-color: rgba(96, 165, 250, 0.9);
-      background: rgba(15, 23, 42, 1);
-      transform: translateY(-1px);
-    }
-
-    .problem-item.active {
-      border-color: var(--accent);
-      background: rgba(15, 23, 42, 1);
-      color: #e5e7eb;
-    }
-
-    .problem-name {
-      flex: 1;
-    }
-
-    .problem-tag {
-      font-size: 10px;
-      padding: 2px 6px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      color: var(--muted);
-      white-space: nowrap;
-    }
-
-    .sidebar-footer {
-      margin-top: 4px;
-      font-size: 11px;
-      color: var(--muted);
-      border-top: 1px solid var(--border-subtle);
-      padding-top: 6px;
-    }
-
-    /* Main problem view */
-    .problem-view {
-      border-radius: var(--radius-xl);
-      background: radial-gradient(circle at top left, rgba(15,23,42,0.95), #020617);
-      border: 1px solid var(--border-strong);
-      box-shadow: var(--shadow-soft);
-      padding: 14px 14px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .crumbs {
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .crumbs span {
-      color: #e5e7eb;
-    }
-
-    .problem-header-main {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 8px;
-    }
-
-    .problem-title-block {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-
-    .problem-id-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 2px 7px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .problem-title-block h1 {
-      font-size: 20px;
-      margin: 0;
-    }
-
-    .problem-meta-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 7px;
-      font-size: 11px;
-      color: var(--muted);
-    }
-
-    .problem-meta-row strong {
-      color: #e5e7eb;
-      font-weight: 500;
-    }
-
-    .algo-chip {
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(96, 165, 250, 0.9);
-      font-size: 11px;
-      color: #bfdbfe;
-      background: rgba(15, 23, 42, 0.96);
-    }
-
-    .sdg-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-top: 3px;
-    }
-
-    .sdg-chip {
-      font-size: 10px;
-      padding: 2px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(45, 212, 191, 0.8);
-      background: rgba(15, 23, 42, 0.98);
-      color: #a7f3d0;
-    }
-
-    .problem-actions-main {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .btn-sm {
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.8);
-      padding: 5px 10px;
-      font-size: 11px;
-      color: var(--muted);
-      background: rgba(15, 23, 42, 0.9);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .btn-sm:hover {
-      background: rgba(15, 23, 42, 1);
-      color: #e5e7eb;
-    }
-
-    .content-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 12px;
-      align-items: stretch;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 25px;
     }
 
     .card {
-      border-radius: var(--radius-lg);
-      border: 1px solid var(--border-subtle);
-      background: rgba(15, 23, 42, 0.98);
-      padding: 10px 10px 9px;
-      font-size: 13px;
-      color: var(--muted);
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
+      background: white;
+      padding: 22px;
+      border-radius: 16px;
+      box-shadow: 0px 10px 25px rgba(0,0,0,0.12);
+      transition: 0.35s ease;
+      border-left: 6px solid #0077cc;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: cardRise 1s forwards ease-out;
     }
 
-    .card-header {
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      color: var(--muted);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    @keyframes cardRise {
+      0% { opacity: 0; transform: translateY(40px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
-    .card-header span.label {
-      font-weight: 500;
-      color: #e5e7eb;
-      text-transform: none;
-      letter-spacing: 0;
-      font-size: 12px;
+    .card:hover {
+      transform: translateY(-12px) scale(1.03);
+      box-shadow: 0px 16px 35px rgba(0,0,0,0.25);
     }
 
-    .card-body {
-      font-size: 12px;
-      line-height: 1.55;
+    .card h3 {
+      font-size: 20px;
+      margin-bottom: 8px;
+      color: #003366;
+      font-weight: 600;
     }
 
-    .code-card {
-      font-family: var(--font-mono);
+    .algo {
+      font-size: 14px;
+      font-weight: bold;
+      color: #0077cc;
+      margin-bottom: 5px;
     }
 
-    pre {
-      margin: 4px 0 0;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-      max-height: 260px;
-      overflow: auto;
-      scrollbar-width: thin;
-      scrollbar-color: #4b5563 transparent;
-    }
-
-    pre::-webkit-scrollbar {
-      width: 5px;
-    }
-    pre::-webkit-scrollbar-thumb {
-      background: #4b5563;
-      border-radius: 999px;
-    }
-
-    .photo-wrapper {
-      position: relative;
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1px solid rgba(75, 85, 99, 0.9);
-      min-height: 150px;
-      background: radial-gradient(circle at top, rgba(15,23,42,0.95), #020617);
-    }
-
-    .photo-wrapper img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+    .desc {
+      font-size: 14px;
       opacity: 0.9;
     }
 
-    .photo-overlay {
-      position: relative;
-      padding: 8px 8px 6px;
-      background: linear-gradient(to top, rgba(2,6,23,0.96), transparent 70%);
-      font-size: 11px;
-      color: #e5e7eb;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 6px;
-      margin-top: auto;
+    /* BACK BUTTON */
+    .back-btn {
+      display: inline-block;
+      margin: 45px auto 30px;
+      padding: 12px 22px;
+      background: #003366;
+      color: white;
+      font-size: 16px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: 0.3s ease;
+      box-shadow: 0px 6px 16px rgba(0,0,0,0.2);
     }
 
-    .photo-caption-sub {
-      color: var(--muted);
-      font-size: 10px;
+    .back-btn:hover {
+      background: #0055aa;
+      transform: translateY(-4px);
+      box-shadow: 0px 10px 25px rgba(0,0,0,0.3);
     }
 
-    .photo-tag {
-      font-size: 10px;
-      padding: 3px 7px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.9);
-      background: rgba(15,23,42,0.96);
-      color: var(--muted);
-      white-space: nowrap;
-    }
-
-    .hidden {
-      display: none;
-    }
-
+    /* FOOTER */
     footer {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 6px 16px 18px;
-      border-top: 1px solid var(--border-subtle);
-      font-size: 11px;
-      color: var(--muted);
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-    }
-
-    footer span.highlight {
-      color: #e5e7eb;
-    }
-
-    @media (max-width: 900px) {
-      main {
-        grid-template-columns: minmax(0,1fr);
-      }
-      .sidebar {
-        order: -1;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .content-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      .nav-links {
-        display: none;
-      }
+      text-align: center;
+      padding: 20px;
+      background: #003366;
+      color: white;
+      margin-top: 25px;
+      border-radius: 12px;
     }
   </style>
 </head>
+
 <body>
-<div class="app">
-  <header>
-    <div class="nav">
-      <div class="nav-left">
-        <div class="logo-circle">
-          <div class="logo-inner">YN</div>
-        </div>
-        <div class="nav-title">
-          <span>Algorithm Notebook</span>
-          <span>Your Name</span>
-        </div>
-      </div>
-      <div class="nav-links">
-        <a href="https://prajwalbiradar2006.github.io/citydesignproject.github.io/#">
-        <button class="nav-pill" id="glowToggle">
-          <span class="icon">🏠</span>
-          <span>Home</span>
-        </button>
-        </a>
-      </div>
+
+  <!-- NAVBAR -->
+  <nav>
+    <h2>Swyambu Boli</h2>
+    <div>
+      <a href="index.html">Home</a>
     </div>
-  </header>
+  </nav>
 
-  <main>
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <strong>10 Problems</strong><br />
-        Click a problem to open its dedicated page.
-      </div>
-      <ul class="problem-list" id="problemList">
-        <!-- Filled by JS -->
-      </ul>
-      <div class="sidebar-footer">
-        Tip: Each problem page shows<br />
-        <strong>Problem · Solution · SDG · Photo · Code</strong>.
-      </div>
-    </aside>
+  <div class="container">
 
-    <!-- MAIN PROBLEM VIEW -->
-    <section class="problem-view" id="problemView">
-      <!-- Filled by JS -->
-    </section>
-  </main>
+    <!-- HEADER -->
+    <div class="header">
+      <h1>Smart City, Environment & Sensor Analytics Projects</h1>
+      <p>These problems focus on sustainability, pollution control, climate prediction, safety analytics, and environmental optimization.</p>
+    </div>
+
+    <!-- GRID -->
+    <div class="grid">
+
+      <div class="card">
+        <h3>1. Air Quality Prediction Network</h3>
+        <p class="algo">Algorithm: Regression + DP Smoothing</p>
+        <p class="desc">Predict AQI values using historical multi-sensor data.</p>
+      </div>
+
+      <div class="card">
+        <h3>2. Smart Waste Segregation Automation</h3>
+        <p class="algo">Algorithm: Rule-Based Decision Tree</p>
+        <p class="desc">Automatically classify waste into categories for recycling.</p>
+      </div>
+
+      <div class="card">
+        <h3>3. Noise Barrier Placement Optimization</h3>
+        <p class="algo">Algorithm: Greedy / DP</p>
+        <p class="desc">Find minimum barriers needed to reduce sound pollution.</p>
+      </div>
+
+      <div class="card">
+        <h3>4. Flood-Susceptible Zone Detection</h3>
+        <p class="algo">Algorithm: DFS + Elevation Mapping</p>
+        <p class="desc">Identify low-lying areas vulnerable to flooding.</p>
+      </div>
+
+      <div class="card">
+        <h3>5. Renewable Energy Distribution</h3>
+        <p class="algo">Algorithm: Dynamic Programming</p>
+        <p class="desc">Distribute available solar/wind energy efficiently across the grid.</p>
+      </div>
+
+      <div class="card">
+        <h3>6. Health Risk Heatmap Generation</h3>
+        <p class="algo">Algorithm: K-Means Clustering</p>
+        <p class="desc">Cluster disease incidents to identify medical risk hotspots.</p>
+      </div>
+
+      <div class="card">
+        <h3>7. Smart Irrigation Scheduling</h3>
+        <p class="algo">Algorithm: Greedy / DP</p>
+        <p class="desc">Optimize water usage for parks and green zones.</p>
+      </div>
+
+      <div class="card">
+        <h3>8. CO₂ Offset Plantation Optimization</h3>
+        <p class="algo">Algorithm: Knapsack</p>
+        <p class="desc">Maximize pollution reduction through trees within land limits.</p>
+      </div>
+
+      <div class="card">
+        <h3>9. Crime Hotspot Detection</h3>
+        <p class="algo">Algorithm: Graph Centrality + Clustering</p>
+        <p class="desc">Identify high-crime zones and generate patrol loops.</p>
+      </div>
+
+      <div class="card">
+        <h3>10. Streetlight Fault Detection</h3>
+        <p class="algo">Algorithm: Graph Traversal + Anomaly Check</p>
+        <p class="desc">Detect faulty streetlights using connected sensor data.</p>
+      </div>
+
+    </div>
+
+    <!-- BOTTOM BACK BUTTON -->
+    <center>
+      <a class="back-btn" href="index.html">⬅ Back to Home</a>
+    </center>
+
+  </div>
 
   <footer>
-    <span>© <span class="highlight">Your Name</span> · Algorithms Portfolio</span>
-    <span>Hosted on <span class="highlight">GitHub Pages</span>.</span>
+    © 2024 Swyambu Boli – Portfolio
   </footer>
-</div>
 
-<script>
-  // ==== DATA: 10 PROBLEMS ====
-  const problems = [
-   {
-      id: 1,
-      number: 1,
-      title: "Waste Recycling & Management Center",
-      categoryTag: "",
-      shortTag: "merge+dijkstra",
-      time: "O(n)",
-      space: "O(n)",
-      algorithm: "Merge Sort,Dijkstra’s",
-      sdgs: [
-        "SDG 11 – Sustainable Cities & Communities Reduces waste in the city and improves cleanliness",
-        "SDG 12 – Responsible Consumption & Production Promotes recycling and proper waste management",
-        "SDG 13 – Climate Action Reduces pollution and carbon emissions"
-      ],
-      problemText:
-        "A recycling center receives mixed waste from different households—plastic, metal, paper, glass, and organic materials. Before recycling, the waste must be organized properly, and trucks must follow efficient routes to collect waste from various parts of the city.",
-      solutionText: "To make the recycling process efficient, the waste must first be sorted based on its type or importance. Then, garbage trucks should collect waste using the shortest possible route so that fuel and time are saved. This reduces operational cost and helps the environment.",
-      code: `merge sort
-      void mergeSort(vector<int>& a, int l, int r) {
-    if (l >= r) return;
-
-    int m = (l + r) / 2;
-    mergeSort(a, l, m);
-    mergeSort(a, m + 1, r);
-
-    vector<int> t;
-    int i = l, j = m + 1;
-
-    while (i <= m && j <= r)
-        t.push_back(a[i] < a[j] ? a[i++] : a[j++]);
-
-    while (i <= m) t.push_back(a[i++]);
-    while (j <= r) t.push_back(a[j++]);
-
-    for (int k = 0; k < t.size(); k++)
-        a[l + k] = t[k];
-}
-
-Dijkstra
-vector<int> dijkstra(vector<vector<int>>& g, int src) {
-    int n = g.size();
-    vector<int> dist(n, INT_MAX), vis(n, 0);
-    dist[src] = 0;
-
-    for (int i = 0; i < n; i++) {
-        int u = -1;
-        for (int j = 0; j < n; j++)
-            if (!vis[j] && (u == -1 || dist[j] < dist[u]))
-                u = j;
-
-        vis[u] = 1;
-
-        for (int v = 0; v < n; v++)
-            if (g[u][v] && dist[u] + g[u][v] < dist[v])
-                dist[v] = dist[u] + g[u][v];
-    }
-
-    return dist;  
-}
-`,
- 
-    },
-    {
-      id: 2,
-      number: 2,
-      title: "Smart Waste Segregation Automation",
-      categoryTag: "",
-      shortTag: "Binary Tree",
-      time: "O(n log n)",
-      space: "O(n)",
-      algorithm: "Binary Tree",
-      sdgs: [
-        "SDG 11 – sustainable cities and communities",
-        "SDG 11 – Responsible Consumption and Production",
-        "SDG 13 – Good Health and Well-Being"
-      ],
-      problemText:
-        "Bins overflow and waste collection is inefficient, causing unhygienic conditions and wasted resources.",
-      solutionText:
-        "Use smart bins with sensors to detect fill levels. Data is sent to a server, and collection is optimized using routing algorithms to reduce overflow and save time.",
-      
-       
-        code:`Binary Tree 
-     #include <iostream>
-using namespace std;
-
-// Binary Tree Node
-struct Node {
-    string question;
-    string result;
-    Node* left;
-    Node* right;
-
-    Node(string q = "", string r = "") {
-        question = q;
-        result = r;
-        left = right = NULL;
-    }
-};
-
-// Function to classify waste
-void classify(Node* root) {
-    if (root->left == NULL && root->right == NULL) {
-        cout << "Waste Category: " << root->result << endl;
-        return;
-    }
-
-    char choice;
-    cout << root->question << " (y/n): ";
-    cin >> choice;
-
-    if (choice == 'y')
-        classify(root->left);
-    else
-        classify(root->right);
-}
-
-int main() {
-    // Building the decision tree
-    Node* root = new Node("Is the waste biodegradable?");
-
-    root->left = new Node("Is it food waste?");
-    root->right = new Node("Is it plastic?");
-
-    root->left->left = new Node("", "Organic Waste");
-    root->left->right = new Node("", "Garden Waste");
-
-    root->right->left = new Node("", "Recyclable Waste");
-    root->right->right = new Node("", "Non-Recyclable Waste (Landfill)");
-
-    cout << "Smart Waste Segregation System\n";
-    classify(root);
-
-    return 0;
-}
-`,
- 
-    },
-    {
-      id: "3",
-      number: 3,
-      title: "Smart Water Supply & Purification Unit",
-      categoryTag: "",
-      shortTag: "Prim’s+AVL Tree",
-      time: "O(log n)",
-      space: "O(1)",
-      algorithm: "Prim’s+AVL Tree",
-      sdgs: [
-        "SDG 6 – Clean Water & Sanitation Ensures safe water supply and efficient usage",
-        "SDG 9 – Industry, Innovation & Infrastructure Builds smart pipeline and distribution systems",
-        "SDG 11 – Sustainable Cities & Communities Supports sustainable water management"
-      ],
-      problemText:
-        "Water needs to be delivered from purification units to homes and public places. If the pipeline layout is not optimized, a lot of money is wasted. Also, every household’s water usage must be recorded quickly and accurately.",
-      solutionText:
-        "The city pipeline network should be built using the cheapest possible layout. At the same time, water usage data needs to be stored in a structure that allows fast insertions and quick lookups.",
-      
-       code:`Prim’s
-       vector<int> prim(vector<vector<int>>& g) {
-    int n = g.size();
-    vector<int> key(n, INT_MAX), used(n, 0), parent(n, -1);
-    key[0] = 0;
-
-    for (int i = 0; i < n - 1; i++) {
-        int u = -1;
-        for (int v = 0; v < n; v++)
-            if (!used[v] && (u == -1 || key[v] < key[u]))
-                u = v;
-
-        used[u] = 1;
-
-        for (int v = 0; v < n; v++)
-            if (g[u][v] && !used[v] && g[u][v] < key[v]) {
-                key[v] = g[u][v];
-                parent[v] = u;
-            }
-    }
-    return parent;  
-}
-AVL Tree
-struct Node {
-    int v, h;
-    Node *l, *r;
-    Node(int x) : v(x), h(1), l(NULL), r(NULL) {}
-};
-
-int h(Node* n) { return n ? n->h : 0; }
-
-Node* rotR(Node* y) {
-    Node* x = y->l;
-    y->l = x->r;
-    x->r = y;
-    y->h = max(h(y->l), h(y->r)) + 1;
-    x->h = max(h(x->l), h(x->r)) + 1;
-    return x;
-}
-
-Node* rotL(Node* x) {
-    Node* y = x->r;
-    x->r = y->l;
-    y->l = x;
-    x->h = max(h(x->l), h(x->r)) + 1;
-    y->h = max(h(y->l), h(y->r)) + 1;
-    return y;
-}
-
-Node* insertAVL(Node* n, int v) {
-    if (!n) return new Node(v);
-
-    if (v < n->v) n->l = insertAVL(n->l, v);
-    else n->r = insertAVL(n->r, v);
-
-    n->h = max(h(n->l), h(n->r)) + 1;
-
-    int bal = h(n->l) - h(n->r);
-
-    if (bal > 1 && v < n->l->v) return rotR(n);
-    if (bal < -1 && v > n->r->v) return rotL(n);
-    if (bal > 1 && v > n->l->v) {
-        n->l = rotL(n->l);
-        return rotR(n);
-    }
-    if (bal < -1 && v < n->r->v) {
-        n->r = rotR(n->r);
-        return rotL(n);
-    }
-
-    return n;
-}
-`,
- 
-    },
-    {
-      id: "4",
-      number: 4,
-      title: "Renewable Energy Company (Solar/Wind Solutions)",
-      categoryTag: "",
-      shortTag: "Kruskal’s+Merge",
-      time: "O((V+E) log V) using a heap",
-      space: "O(V)",
-      algorithm: "Kruskal’s+Merge",
-      sdgs: [
-        "SDG 7 – Affordable & Clean Energy Promotes clean and renewable energy sources",
-        "SDG 9 – Industry, Innovation & Infrastructure Builds efficient green energy networks",
-        "SDG 13 - Climate Action Reduces dependence on fossil fuels"
-      ],
-      problemText:
-        "Solar panels and windmills must be connected through cables. If cables are placed inefficiently, the overall installation becomes expensive. Also, customers must be managed based on their energy usage.",
-      solutionText:
-        "To reduce installation costs, the system must find the cheapest way to connect energy units. Customer usage information can then be sorted to plan maintenance, bills, or upgrades.",
-     code:`Kruskal’s
-     struct Edge { int u, v, w; };
-
-int find(int x, vector<int>& p) {
-    return p[x] == x ? x : p[x] = find(p[x], p);
-}
-
-void unite(int a, int b, vector<int>& p) {
-    a = find(a, p); b = find(b, p);
-    if (a != b) p[b] = a;
-}
-
-vector<Edge> kruskal(vector<Edge>& e, int n) {
-    sort(e.begin(), e.end(), [](auto& a, auto& b){ return a.w < b.w; });
-    vector<int> p(n); iota(p.begin(), p.end(), 0);
-    vector<Edge> mst;
-
-    for (auto& x : e)
-        if (find(x.u, p) != find(x.v, p)) {
-            unite(x.u, x.v, p);
-            mst.push_back(x);
-        }
-
-    return mst;
-}
-Merge
-void mergeSort(vector<int>& a, int l, int r) {
-    if (l >= r) return;
-
-    int m = (l + r) / 2;
-    mergeSort(a, l, m);
-    mergeSort(a, m + 1, r);
-
-    vector<int> t;
-    int i = l, j = m + 1;
-
-    while (i <= m && j <= r)
-        t.push_back(a[i] < a[j] ? a[i++] : a[j++]);
-
-    while (i <= m) t.push_back(a[i++]);
-    while (j <= r) t.push_back(a[j++]);
-
-    for (int k = 0; k < t.size(); k++)
-        a[l + k] = t[k];
-}
-
-`,
- 
-    },
-    {
-      id: 5,
-      number: 5,
-      title: "Food Processing & Packaging Unit",
-      categoryTag: "",
-      shortTag: "Insertion+AVL Tree",
-      time: "O(n)",
-      space: "O(1)",
-      algorithm: "Insertion+AVL Tree",
-      sdgs: [
-        "SDG 2 – Zero Hunger Reduces food wastage and improves food availability",
-        "SDG 12 – Responsible Consumption & Production Ensures efficient food management and processing",
-        "SDG 3 – Good Health & Well-being Ensures safe and fresh food handling"
-      ],
-      problemText:
-        "Food items like milk, grains, and fruits have expiry dates. The factory must ensure that items with earlier expiry dates are processed and sold first. Also, the inventory needs to be managed efficiently.",
-      solutionText:
-        "Food items are sorted by freshness so that older items are not wasted. Inventory must also be tracked using a structure that supports quick searching for any product.",
-     code:
-       `Insertion
-       void insertionSort(vector<int>& a) {
-    for (int i = 1; i < a.size(); i++) {
-        int key = a[i], j = i - 1;
-        while (j >= 0 && a[j] > key)
-            a[j-- + 1] = a[j];
-        a[j + 1] = key;
-    }
-}
-AVL Tree
-struct Node {
-    int v, h;
-    Node *l, *r;
-    Node(int x) : v(x), h(1), l(NULL), r(NULL) {}
-};
-
-int h(Node* n) { return n ? n->h : 0; }
-
-Node* rotR(Node* y) {
-    Node* x = y->l;
-    y->l = x->r;
-    x->r = y;
-    y->h = max(h(y->l), h(y->r)) + 1;
-    x->h = max(h(x->l), h(x->r)) + 1;
-    return x;
-}
-
-Node* rotL(Node* x) {
-    Node* y = x->r;
-    x->r = y->l;
-    y->l = x;
-    x->h = max(h(x->l), h(x->r)) + 1;
-    y->h = max(h(y->l), h(y->r)) + 1;
-    return y;
-}
-
-Node* insertAVL(Node* n, int v) {
-    if (!n) return new Node(v);
-
-    if (v < n->v) n->l = insertAVL(n->l, v);
-    else n->r = insertAVL(n->r, v);
-
-    n->h = max(h(n->l), h(n->r)) + 1;
-
-    int bal = h(n->l) - h(n->r);
-
-    if (bal > 1 && v < n->l->v) return rotR(n);
-    if (bal < -1 && v > n->r->v) return rotL(n);
-    if (bal > 1 && v > n->l->v) {
-        n->l = rotL(n->l);
-        return rotR(n);
-    }
-    if (bal < -1 && v < n->r->v) {
-        n->r = rotR(n->r);
-        return rotL(n);
-    }
-
-    return n;
-}
-`,
- 
-    },
-    {
-      id: 6,
-      number: 6,
-      title: "Co-working Space / Startup Hub",
-      categoryTag: "",
-      shortTag: "AVL Tree+Merge Sort",
-      time: "O(V + E)",
-      space: "O(V)",
-      algorithm: "AVL Tree+Merge Sort",
-      sdgs: [
-        "SDG 8 – Decent Work & Economic Growth Encourages entrepreneurship and job creation",
-        "SDG 9 – Industry, Innovation & Infrastructure Creates an innovative and collaborative work environment",
-        "SDG 11 – Sustainable Cities & Communities Efficient use of shared space and resources"
-      ],
-      problemText:
-        "A co-working space has many seats, rooms, and time slots available for booking. Managing these bookings manually leads to confusion and double-booking.",
-      solutionText:
-        "A balanced tree can store all bookings in sorted order so that conflicts can be detected. Sorting time slots is also useful when generating daily usage reports.",
-     code:
-       `AVLTree
-       struct Node {
-    int v, h;
-    Node *l, *r;
-    Node(int x) : v(x), h(1), l(NULL), r(NULL) {}
-};
-
-int h(Node* n) { return n ? n->h : 0; }
-
-Node* rotR(Node* y) {
-    Node* x = y->l;
-    y->l = x->r;
-    x->r = y;
-    y->h = max(h(y->l), h(y->r)) + 1;
-    x->h = max(h(x->l), h(x->r)) + 1;
-    return x;
-}
-
-Node* rotL(Node* x) {
-    Node* y = x->r;
-    x->r = y->l;
-    y->l = x;
-    x->h = max(h(x->l), h(x->r)) + 1;
-    y->h = max(h(y->l), h(y->r)) + 1;
-    return y;
-}
-
-Node* insertAVL(Node* n, int v) {
-    if (!n) return new Node(v);
-
-    if (v < n->v) n->l = insertAVL(n->l, v);
-    else n->r = insertAVL(n->r, v);
-
-    n->h = max(h(n->l), h(n->r)) + 1;
-
-    int bal = h(n->l) - h(n->r);
-
-    if (bal > 1 && v < n->l->v) return rotR(n);
-    if (bal < -1 && v > n->r->v) return rotL(n);
-    if (bal > 1 && v > n->l->v) {
-        n->l = rotL(n->l);
-        return rotR(n);
-    }
-    if (bal < -1 && v < n->r->v) {
-        n->r = rotR(n->r);
-        return rotL(n);
-    }
-
-    return n;
-}
-Merge Sort
-void mergeSort(vector<int>& a, int l, int r) {
-    if (l >= r) return;
-
-    int m = (l + r) / 2;
-    mergeSort(a, l, m);
-    mergeSort(a, m + 1, r);
-
-    vector<int> t;
-    int i = l, j = m + 1;
-
-    while (i <= m && j <= r)
-        t.push_back(a[i] < a[j] ? a[i++] : a[j++]);
-
-    while (i <= m) t.push_back(a[i++]);
-    while (j <= r) t.push_back(a[j++]);
-
-    for (int k = 0; k < t.size(); k++)
-        a[l + k] = t[k];
-}
-`,
- 
-    },
-    {
-      id: 7,
-      number: 7,
-      title: "Construction & Infrastructure Services",
-      categoryTag: "",
-      shortTag: "Prim’s+Dijkstra’s",
-      time: "O(V + E)",
-      space: "O(V)",
-      algorithm: "Prim’s+Dijkstra’s",
-      sdgs: [
-        "SDG 9 – Industry, Innovation & Infrastructure Builds robust and efficient infrastructure",
-        "SDG 11 – Sustainable Cities & Communities Supports planned, low-cost development",
-        "SDG 13 – Climate Action Reduces emissions through optimized routes and networks"
-      ],
-      problemText:
-        "Construction companies need to design roads, drainage networks, and pipelines at minimum cost. They also need to transport materials from one project site to another efficiently.",
-      solutionText:
-        "We can build the city’s infrastructure cost-effectively using an MST approach. For movement of vehicles and materials, shortest routes must be calculated.",
-      
-      code:`Prim’s
-      vector<int> prim(vector<vector<int>>& g) {
-    int n = g.size();
-    vector<int> key(n, INT_MAX), used(n, 0), parent(n, -1);
-    key[0] = 0;
-
-    for (int i = 0; i < n - 1; i++) {
-        int u = -1;
-        for (int v = 0; v < n; v++)
-            if (!used[v] && (u == -1 || key[v] < key[u]))
-                u = v;
-
-        used[u] = 1;
-
-        for (int v = 0; v < n; v++)
-            if (g[u][v] && !used[v] && g[u][v] < key[v]) {
-                key[v] = g[u][v];
-                parent[v] = u;
-            }
-    }
-    return parent;  
-}
-Dijkstra’s
-vector<int> dijkstra(vector<vector<int>>& g, int src) {
-    int n = g.size();
-    vector<int> dist(n, INT_MAX), vis(n, 0);
-    dist[src] = 0;
-
-    for (int i = 0; i < n; i++) {
-        int u = -1;
-        for (int j = 0; j < n; j++)
-            if (!vis[j] && (u == -1 || dist[j] < dist[u]))
-                u = j;
-
-        vis[u] = 1;
-
-        for (int v = 0; v < n; v++)
-            if (g[u][v] && dist[u] + g[u][v] < dist[v])
-                dist[v] = dist[u] + g[u][v];
-    }
-
-    return dist;  
-}
-`,
- 
-    },
-    {
-      id: "8",
-      number: 8,
-      title: "Emergency & Security Services Company",
-      categoryTag: "",
-      shortTag: "Dijkstra’s+Warshall’s",
-      time: "O(n log n)",
-      space: "O(n)",
-      algorithm: "Dijkstra’s+Warshall’s",
-      sdgs: [
-        "SDG 3 – Good Health & Well-being Provides fast emergency response and saves lives",
-        "SDG 11 – Sustainable Cities & Communities Improves safety and disaster management",
-        "SDG 16 – Peace, Justice & Strong Institutions Enhances law enforcement and public security"
-      ],
-      problemText:
-        "Ambulances, fire trucks, and police vehicles must reach the destination immediately. The city also has different security zones that need to be monitored to know which areas are connected or isolated.",
-      solutionText:
-        "Shortest routes save lives during emergencies. Connectivity analysis helps identify vulnerable or unmonitored areas.",
-     
-      code:`Dijkstra’s
-      vector<int> dijkstra(vector<vector<int>>& g, int src) {
-    int n = g.size();
-    vector<int> dist(n, INT_MAX), vis(n, 0);
-    dist[src] = 0;
-
-    for (int i = 0; i < n; i++) {
-        int u = -1;
-        for (int j = 0; j < n; j++)
-            if (!vis[j] && (u == -1 || dist[j] < dist[u]))
-                u = j;
-
-        vis[u] = 1;
-
-        for (int v = 0; v < n; v++)
-            if (g[u][v] && dist[u] + g[u][v] < dist[v])
-                dist[v] = dist[u] + g[u][v];
-    }
-
-    return dist;  
-}
-Warshall’s
-void warshall(vector<vector<int>>& r) {
-    int n = r.size();
-    for (int k = 0; k < n; k++)
-        for (int i = 0; i < n; i++)
-            for (int j = 0; j < n; j++)
-                r[i][j] = r[i][j] || (r[i][k] && r[k][j]);
-}
-`,
- 
-    },
-    {
-      id: 9,
-      number: 9,
-      title: "Online Delivery & Logistics Hub",
-      categoryTag: "",
-      shortTag: "Dijkstra’s+Merge",
-      time: "O(n·W)",
-      space: "O(W)",
-      algorithm: "Dijkstra’s+Merge",
-      sdgs: [
-        "SDG 8 – Decent Work & Economic Growth Supports delivery businesses and job opportunities",
-        "SDG 9 – Industry, Innovation & Infrastructure Uses technology for efficient logistics",
-        "SDG 12 – Responsible Consumption & Production Optimizes delivery, reduces fuel waste"
-      ],
-      problemText:
-        "Packages must be delivered quickly and in proper order of priority. Delivery riders must follow the shortest routes to avoid delays and fuel waste.",
-      solutionText:
-        "Packages are sorted based on delivery time, and optimal routes are calculated to speed up delivery.", 
-      code:` Dijkstra’s
-      vector<int> dijkstra(vector<vector<int>>& g, int src) {
-    int n = g.size();
-    vector<int> dist(n, INT_MAX), vis(n, 0);
-    dist[src] = 0;
-
-    for (int i = 0; i < n; i++) {
-        int u = -1;
-        for (int j = 0; j < n; j++)
-            if (!vis[j] && (u == -1 || dist[j] < dist[u]))
-                u = j;
-
-        vis[u] = 1;
-
-        for (int v = 0; v < n; v++)
-            if (g[u][v] && dist[u] + g[u][v] < dist[v])
-                dist[v] = dist[u] + g[u][v];
-    }
-
-    return dist;  
-}
-Merge
-void mergeSort(vector<int>& a, int l, int r) {
-    if (l >= r) return;
-
-    int m = (l + r) / 2;
-    mergeSort(a, l, m);
-    mergeSort(a, m + 1, r);
-
-    vector<int> t;
-    int i = l, j = m + 1;
-
-    while (i <= m && j <= r)
-        t.push_back(a[i] < a[j] ? a[i++] : a[j++]);
-
-    while (i <= m) t.push_back(a[i++]);
-    while (j <= r) t.push_back(a[j++]);
-
-    for (int k = 0; k < t.size(); k++)
-        a[l + k] = t[k];
-}
-`,
- 
-    },
-    {
-      id: 10,
-      number: 10,
-      title: "Sports & Recreation Center",
-      categoryTag: "",
-      shortTag: "Merge Sort+Binary Tree",
-      time: "≈O(α(n)) per op",
-      space: "O(n)",
-      algorithm: "Merge Sort+Binary Tree",
-      sdgs: [
-        "SDG 3 – Good Health & Well-being Promotes physical activity and healthy lifestyles",
-        "SDG 4 – Quality Education Provides training, coaching, and skill development",
-        "SDG 11 – Sustainable Cities & Communities Encourages community engagement through sports"
-      ],
-      problemText:
-        "Sports centers maintain player details, match scores, coaching information, and event schedules. Players must be ranked and sorted properly.",
-      solutionText:
-        "Players’ scores can be sorted to generate rankings. Member and event records can be stored in a tree for fast retrieval and updates.",
-        code:` MergeSort
-        void mergeSort(vector<int>& a, int l, int r) {
-    if (l >= r) return;
-
-    int m = (l + r) / 2;
-    mergeSort(a, l, m);
-    mergeSort(a, m + 1, r);
-
-    vector<int> t;
-    int i = l, j = m + 1;
-
-    while (i <= m && j <= r)
-        t.push_back(a[i] < a[j] ? a[i++] : a[j++]);
-
-    while (i <= m) t.push_back(a[i++]);
-    while (j <= r) t.push_back(a[j++]);
-
-    for (int k = 0; k < t.size(); k++)
-        a[l + k] = t[k];
-}
-Binary Tre
-struct Node {
-    int data;
-    Node* left;
-    Node* right;
-    Node(int x) : data(x), left(NULL), right(NULL) {}
-};
-
-Node* insert(Node* root, int x) {
-    if (!root) return new Node(x);
-    if (x < root->data) root->left = insert(root->left, x);
-    else root->right = insert(root->right, x);
-    return root;
-}
-
-bool search(Node* root, int x) {
-    if (!root) return false;
-    if (root->data == x) return true;
-    return x < root->data ? search(root->left, x) : search(root->right, x);
-}
-`,
- 
-    }
-  ];
-
-  // ==== RENDER SIDEBAR ====
-  const problemListEl = document.getElementById("problemList");
-  function renderSidebar(activeId) {
-    problemListEl.innerHTML = "";
-    problems.forEach(p => {
-      const li = document.createElement("li");
-      li.className = "problem-item" + (p.id === activeId ? " active" : "");
-      li.dataset.id = p.id;
-
-      const left = document.createElement("div");
-      left.className = "problem-name";
-      left.textContent = `#${p.number} · ${p.title}`;
-
-      const right = document.createElement("div");
-      right.className = "problem-tag";
-      right.textContent = p.shortTag;
-
-      li.appendChild(left);
-      li.appendChild(right);
-      li.addEventListener("click", () => {
-        setActiveProblem(p.id, true);
-      });
-
-      problemListEl.appendChild(li);
-    });
-  }
-
-  // ==== RENDER MAIN PROBLEM PAGE ====
-  const viewEl = document.getElementById("problemView");
-
-  function renderProblem(problem) {
-    const sdgHtml = problem.sdgs
-      .map(s => `<span class="sdg-chip">${s}</span>`)
-      .join("");
-
-    viewEl.innerHTML = `
-      <div class="crumbs">
-        Algorithms / <span>Problem #${problem.number}</span>
-      </div>
-
-      <div class="problem-header-main">
-        <div class="problem-title-block">
-          <div class="problem-id-pill">
-            <span>Problem #${problem.number}</span>
-          </div>
-          <h1>${problem.title}</h1>
-          <div class="problem-meta-row">
-            <span class="algo-chip">${problem.algorithm}</span>
-            
-            <span><strong>Time:</strong> ${problem.time}</span>
-            <span><strong>Space:</strong> ${problem.space}</span>
-          </div>
-          <div class="sdg-chips">
-            ${sdgHtml}
-          </div>
-        </div>
-
-        
-      </div>
-
-      <div class="content-grid">
-        <div class="card">
-          <div class="card-header">
-            <span>Problem &amp; Solution</span>
-            <span class="label">Explanation</span>
-          </div>
-          <div class="card-body">
-            <strong>Problem:</strong><br />
-            <span>${problem.problemText}</span>
-            <br /><br />
-            <strong>High-level Solution:</strong><br />
-            <span>${problem.solutionText}</span>
-          </div>
-        </div>
-
-        
-
-      <div class="card code-card">
-        <div class="card-header">
-          <span>Reference Code</span>
-          <span class="label">JavaScript</span>
-        </div>
-        <div class="card-body">
-          <pre id="codeBlock"><code>${problem.code}</code></pre>
-        </div>
-      </div>
-      
-
-      
-    `;
-
-    // Hook up copy & raw buttons
-    const copyBtn = document.getElementById("copyCodeBtn");
-    const rawBtn = document.getElementById("openRawBtn");
-    const codeBlock = document.getElementById("codeBlock");
-
-    if (copyBtn && codeBlock) {
-      copyBtn.addEventListener("click", () => {
-        const text = codeBlock.innerText;
-        navigator.clipboard?.writeText(text).then(
-          () => { copyBtn.textContent = "✅ Copied"; },
-          () => { copyBtn.textContent = "⚠️ Failed"; }
-        );
-        setTimeout(() => (copyBtn.innerHTML = '<span>📋</span> Copy Code'), 1200);
-      });
-    }
-
-    if (rawBtn && codeBlock) {
-      rawBtn.addEventListener("click", () => {
-        const w = window.open("", "_blank");
-        if (!w) return;
-        w.document.write("<pre>" + codeBlock.innerText.replace(/</g, "&lt;") + "</pre>");
-        w.document.close();
-      });
-    }
-  }
-
-  // ==== ROUTING (HASH-BASED) ====
-  function setActiveProblem(id, updateHash) {
-    const problem = problems.find(p => p.id === id) || problems[0];
-    renderSidebar(problem.id);
-    renderProblem(problem);
-    if (updateHash) {
-      window.location.hash = "problem/" + problem.id;
-    }
-  }
-
-  function getProblemIdFromHash() {
-    const hash = window.location.hash || "";
-    const match = hash.match(/problem\/([a-z0-9\-]+)/i);
-    return match ? match[1] : null;
-  }
-
-  window.addEventListener("hashchange", () => {
-    const id = getProblemIdFromHash();
-    if (id) setActiveProblem(id, false);
-  });
-
-  // ==== GLOW TOGGLE ====
-  const glowToggle = document.getElementById("glowToggle");
-  let glowOn = true;
-  glowToggle?.addEventListener("click", () => {
-    document.body.style.filter = glowOn ? "saturate(0.9) brightness(0.95)" : "none";
-    glowOn = !glowOn;
-  });
-
-  // ==== INITIALISE ====
-  (function init() {
-    const initialId = getProblemIdFromHash() || problems[0].id;
-    setActiveProblem(initialId, true);
-  })();
-</script>
 </body>
 </html>
-index.html
-Displaying index.html.
