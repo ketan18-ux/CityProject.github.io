@@ -36,12 +36,13 @@
       border-radius: 8px;
       cursor: pointer;
       transition: 0.2s;
+      font-size: 15px;
     }
     .problem:hover {
       background: rgba(255,255,255,0.30);
     }
 
-    /* CENTER DESCRIPTION + CODE */
+    /* CENTER CONTENT */
     .content {
       width: 75%;
       padding: 20px;
@@ -54,21 +55,35 @@
       font-size: 26px;
     }
 
+    /* Time Complexity Box */
+    .complexity {
+      background: #d8e7ff;
+      border-left: 5px solid #104e99;
+      padding: 15px;
+      margin-top: 12px;
+      font-size: 16px;
+      border-radius: 6px;
+    }
+
+    /* Code Box Styling */
     pre {
       background: #1e1e1e;
       color: #b5e853;
-      padding: 15px;
+      padding: 18px;
       border-radius: 8px;
       margin-top: 20px;
       overflow-x: auto;
-      font-size: 15px;
+      font-size: 16px;
+      line-height: 1.4;
     }
+
   </style>
 
   <script>
-    function loadProblem(title, desc, code) {
+    function loadProblem(title, desc, complexity, code) {
       document.getElementById("title").innerHTML = title;
       document.getElementById("description").innerHTML = desc;
+      document.getElementById("complexity").innerHTML = complexity;
       document.getElementById("code").innerHTML = code;
     }
   </script>
@@ -80,193 +95,348 @@
   <div class="sidebar">
     <h2>Problems</h2>
 
-    <div class="problem" onclick="loadProblem('Optimal Hospital Location', desc1, code1)">1. Optimal Hospital Location</div>
-    <div class="problem" onclick="loadProblem('School Allocation to Students', desc2, code2)">2. School Allocation to Students</div>
-    <div class="problem" onclick="loadProblem('Smart Parking Slot Allocation', desc3, code3)">3. Smart Parking Slot Allocation</div>
-    <div class="problem" onclick="loadProblem('Industrial vs Residential Separation', desc4, code4)">4. Industrial vs Residential Separation</div>
-    <div class="problem" onclick="loadProblem('Public Park Placement Optimization', desc5, code5)">5. Public Park Placement Optimization</div>
-    <div class="problem" onclick="loadProblem('Land Subdivision Optimization', desc6, code6)">6. Land Subdivision Optimization</div>
-    <div class="problem" onclick="loadProblem('High Footfall Commercial Zone Prediction', desc7, code7)">7. High Footfall Commercial Zone Prediction</div>
-    <div class="problem" onclick="loadProblem('Creation of Green Belt Buffers', desc8, code8)">8. Creation of Green Belt Buffers</div>
-    <div class="problem" onclick="loadProblem('Footpath Connectivity Plan', desc9, code9)">9. Footpath Connectivity Plan</div>
-    <div class="problem" onclick="loadProblem('Underground Utility Routing', desc10, code10)">10. Underground Utility Routing</div>
+    <div class="problem" onclick="loadProblem('Optimal Hospital Location', desc1, tc1, code1)">1. Optimal Hospital Location</div>
+    <div class="problem" onclick="loadProblem('School Allocation to Students', desc2, tc2, code2)">2. School Allocation to Students</div>
+    <div class="problem" onclick="loadProblem('Smart Parking Slot Allocation', desc3, tc3, code3)">3. Smart Parking Slot Allocation</div>
+    <div class="problem" onclick="loadProblem('Industrial vs Residential Separation', desc4, tc4, code4)">4. Industrial vs Residential Separation</div>
+    <div class="problem" onclick="loadProblem('Public Park Placement Optimization', desc5, tc5, code5)">5. Public Park Placement Optimization</div>
+    <div class="problem" onclick="loadProblem('Land Subdivision Optimization', desc6, tc6, code6)">6. Land Subdivision Optimization</div>
+    <div class="problem" onclick="loadProblem('High Footfall Commercial Zone Prediction', desc7, tc7, code7)">7. High Footfall Commercial Zone Prediction</div>
+    <div class="problem" onclick="loadProblem('Creation of Green Belt Buffers', desc8, tc8, code8)">8. Creation of Green Belt Buffers</div>
+    <div class="problem" onclick="loadProblem('Footpath Connectivity Plan', desc9, tc9, code9)">9. Footpath Connectivity Plan</div>
+    <div class="problem" onclick="loadProblem('Underground Utility Routing', desc10, tc10, code10)">10. Underground Utility Routing</div>
   </div>
 
-  <!-- CENTER PANEL -->
+  <!-- CENTER CONTENT (DESCRIPTION + COMPLEXITY + CODE) -->
   <div class="content">
     <h2 id="title">Select a Problem</h2>
-    <p id="description">Click a problem on the left to view description and code.</p>
+    <p id="description">Click a problem from the left to view its algorithm explanation.</p>
+
+    <div class="complexity" id="complexity">Time Complexity will appear here.</div>
+
     <pre id="code">// Code will appear here</pre>
   </div>
 
-  <!-- PROBLEM DESCRIPTIONS + CODE -->
+  <!-- PROBLEM DATA -->
   <script>
-    /* -----------------------------------------
+
+    /* =======================
        PROBLEM 1
-    ----------------------------------------- */
+    ======================= */
     const desc1 = `
-      <b>Concepts Used:</b> Median, Divide & Conquer, Recursion.<br><br>
-      The best hospital location is the <b>median</b> of all coordinates.
+      <b>Concepts Used:</b> Mathematical Median, Sorting, Divide & Conquer.<br><br>
+      For minimizing total travel distance, the best hospital location is the median.<br>
+      Sorting + returning the middle value solves this optimally.
+    `;
+
+    const tc1 = `
+      <b>Time Complexity:</b><br>
+      Sorting: O(n log n)<br>
+      Median extraction: O(1)<br><br>
+      <b>Total:</b> O(n log n)
     `;
 
     const code1 = `
+# Optimal Hospital Location using Median (Impressive Version)
+
 def optimal_hospital_location(points):
-    points.sort()  # Quick Sort / Merge Sort
+    """
+    Given a list of 1D coordinates (citizen locations),
+    returns the coordinate where a hospital should be placed
+    to minimize total travel distance.
+
+    Strategy:
+    --------
+    The median minimizes the sum of absolute deviations.
+    """
+
+    # Step 1: Sort the locations - O(n log n)
+    points = sorted(points)
+
     n = len(points)
-    return points[n // 2]  # Median
+
+    # Step 2: Return the median - O(1)
+    if n % 2 == 1:
+        return points[n // 2]          # Middle element
+    else:
+        # If even count → average of two middle points
+        return (points[n//2 - 1] + points[n//2]) / 2
+
+# Example:
+# locations = [2, 8, 3, 5, 9]
+# print(optimal_hospital_location(locations))
 `;
 
-    /* -----------------------------------------
+    /* =======================
        PROBLEM 2
-    ----------------------------------------- */
+    ======================= */
     const desc2 = `
-      <b>Concepts Used:</b> Bipartite Matching using DFS.<br><br>
-      Students ↔ Schools assigned using maximum matching.
+      <b>Concepts Used:</b> Bipartite Matching, DFS, Graph Theory.<br><br>
+      Students must be matched to schools using a maximum matching algorithm.
+    `;
+
+    const tc2 = `
+      <b>Time Complexity:</b><br>
+      DFS-based matching: O(V × E)<br><br>
+      <b>Total:</b> O(VE)
     `;
 
     const code2 = `
-# Bipartite matching using DFS
+# School Allocation using Bipartite Matching
+
 def bpm(student, seen, match, graph):
+    """
+    DFS to find an augmenting path.
+    """
     for school in graph[student]:
         if not seen[school]:
             seen[school] = True
+            # If school unassigned OR reassignable
             if match[school] == -1 or bpm(match[school], seen, match, graph):
                 match[school] = student
                 return True
     return False
+
+def max_matching(graph, n_students, n_schools):
+    match = [-1] * n_schools
+    result = 0
+
+    for student in range(n_students):
+        seen = [False] * n_schools
+        if bpm(student, seen, match, graph):
+            result += 1
+
+    return result, match
 `;
 
-    /* -----------------------------------------
+    /* =======================
        PROBLEM 3
-    ----------------------------------------- */
+    ======================= */
     const desc3 = `
-      <b>Concepts Used:</b> Sorting + Dynamic Programming.<br><br>
-      Cars and slots aligned to minimize walking distance.
+      <b>Concepts Used:</b> Sorting + Dynamic Programming for assignments.<br><br>
+      Cars and slots sorted, DP table computes minimum walking distance.
+    `;
+
+    const tc3 = `
+      <b>Time Complexity:</b><br>
+      Sorting: O(n log n)<br>
+      DP table: O(n²)<br><br>
+      <b>Total:</b> O(n²)
     `;
 
     const code3 = `
+# Smart Parking Slot Allocation using DP (Detailed Version)
+
 def min_distance_assignment(cars, slots):
+    """
+    Assigns cars to parking slots to minimize walking distance.
+
+    DP State:
+    dp[i][j] = minimum distance after assigning
+               first i cars using first j slots.
+    """
+
     cars.sort()
     slots.sort()
-    dp = [[0]*len(slots) for _ in range(len(cars))]
 
-    for i in range(len(cars)):
-        for j in range(len(slots)):
-            cost = abs(cars[i] - slots[j])
-            if i == 0 and j == 0:
-                dp[i][j] = cost
-            elif i == 0:
-                dp[i][j] = dp[i][j-1] + cost
-            elif j == 0:
-                dp[i][j] = 10**9
-            else:
-                dp[i][j] = min(dp[i][j-1], dp[i-1][j-1] + cost)
-    return dp[-1][-1]
+    n = len(cars)
+    m = len(slots)
+
+    INF = float('inf')
+    dp = [[INF] * (m + 1) for _ in range(n + 1)]
+
+    for j in range(m + 1):
+        dp[0][j] = 0   # 0 cars → cost is 0
+
+    for i in range(1, n + 1):
+        for j in range(1, m + 1):
+            skip = dp[i][j - 1]
+            take = dp[i-1][j-1] + abs(cars[i-1] - slots[j-1])
+            dp[i][j] = min(skip, take)
+
+    return dp[n][m]
 `;
 
-    /* -----------------------------------------
+    /* =======================
        PROBLEM 4
-    ----------------------------------------- */
+    ======================= */
     const desc4 = `
-      <b>Concepts Used:</b> Graph Coloring.<br><br>
-      Zones must not be adjacent.
+      <b>Concepts Used:</b> Graph Coloring, DFS.<br><br>
+      Industrial and residential zones must avoid adjacency.
+    `;
+
+    const tc4 = `
+      <b>Time Complexity:</b><br>
+      DFS Coloring: O(V + E)
     `;
 
     const code4 = `
+# Graph Coloring with DFS
+
 def color_graph(graph):
-    colors = {}
+    color = {}
+
+    def dfs(node, c):
+        color[node] = c
+        for nb in graph[node]:
+            if nb not in color:
+                if not dfs(nb, 3 - c):  # alternate between 1 and 2
+                    return False
+            elif color[nb] == c:
+                return False
+        return True
+
     for node in graph:
-        used = {colors[nb] for nb in graph[node] if nb in colors}
-        for c in range(1, 5):
-            if c not in used:
-                colors[node] = c
-                break
-    return colors
+        if node not in color:
+            if not dfs(node, 1):
+                return None
+
+    return color
 `;
 
-    /* -----------------------------------------
+    /* =======================
        PROBLEM 5
-    ----------------------------------------- */
+    ======================= */
     const desc5 = `
-      <b>Concepts Used:</b> Fenwick Tree for range queries.</b>
+      <b>Concepts Used:</b> Fenwick Tree (Binary Indexed Tree).<br>
+      Efficient range sum queries used to choose best park sites.
+    `;
+
+    const tc5 = `
+      <b>Time Complexity:</b><br>
+      Update: O(log n)<br>
+      Range Query: O(log n)<br>
+      <b>Total:</b> O(n log n)
     `;
 
     const code5 = `
-class Fenwick:
+# Fenwick Tree Implementation (Optimized)
+
+class FenwickTree:
     def __init__(self, n):
-        self.fw = [0]*(n+1)
+        self.n = n
+        self.fw = [0] * (n + 1)
 
-    def update(self, i, val):
-        while i < len(self.fw):
-            self.fw[i] += val
-            i += i & -i
+    def update(self, idx, value):
+        while idx <= self.n:
+            self.fw[idx] += value
+            idx += idx & -idx
 
-    def sum(self, i):
+    def query(self, idx):
         s = 0
-        while i > 0:
-            s += self.fw[i]
-            i -= i & -i
+        while idx > 0:
+            s += self.fw[idx]
+            idx -= idx & -idx
         return s
+
+    def range_sum(self, l, r):
+        return self.query(r) - self.query(l-1)
 `;
 
-    /* -----------------------------------------
+    /* =======================  
        PROBLEM 6
-    ----------------------------------------- */
+    ======================= */
     const desc6 = `
-      <b>Concepts Used:</b> Divide & Conquer.</br>
-      Recursively split land just like Quick Sort partitions.
+      <b>Concepts Used:</b> Divide & Conquer.<br><br>
+      Land recursively subdivided just like Quick Sort.
+    `;
+
+    const tc6 = `
+      <b>Time Complexity:</b><br>
+      Recursion depth: O(log n)<br>
+      Work per level: O(1)<br><br>
+      <b>Total:</b> O(log n)
     `;
 
     const code6 = `
 def subdivide(land):
-    if land <= 1:
-        return [land]
-    mid = land // 2
-    return subdivide(mid) + subdivide(land - mid)
+    result = []
+
+    def helper(size):
+        if size <= 1:
+            result.append(size)
+            return
+        mid = size // 2
+        helper(mid)
+        helper(size - mid)
+
+    helper(land)
+    return result
 `;
 
-    /* -----------------------------------------
+    /* =======================
        PROBLEM 7
-    ----------------------------------------- */
+    ======================= */
     const desc7 = `
-      <b>Concepts Used:</b> Clustering + Heaps.</b>
+      <b>Concepts Used:</b> Clustering + Heaps.<br>
+      Predict zones with highest predicted crowd intensity.
+    `;
+
+    const tc7 = `
+      <b>Time Complexity:</b><br>
+      Clustering: O(n × iterations)<br>
+      Heap extraction: O(k log n)
     `;
 
     const code7 = `
 import heapq
 
 def top_k_zones(zones, k):
-    return heapq.nlargest(k, zones, key=lambda x: x.population)
+    """
+    zones → list of objects with population attribute
+    """
+
+    max_heap = [(-z.population, z) for z in zones]
+    heapq.heapify(max_heap)
+
+    top_zones = []
+    for _ in range(k):
+        pop, zone = heapq.heappop(max_heap)
+        top_zones.append(zone)
+
+    return top_zones
 `;
 
-    /* -----------------------------------------
+    /* =======================
        PROBLEM 8
-    ----------------------------------------- */
+    ======================= */
     const desc8 = `
-      <b>Concepts Used:</b> Backtracking.</b>
+      <b>Concepts Used:</b> Backtracking + Recursion.<br>
+      Select legal green belt placements with constraints.
+    `;
+
+    const tc8 = `
+      <b>Time Complexity:</b><br>
+      Worst-case Backtracking: O(2ⁿ)
     `;
 
     const code8 = `
 def place_greenbelts(zones, idx, placed):
     if idx == len(zones):
         return True
-    for choice in [True, False]:
-        if choice and (placed and zones[idx] - placed[-1] < 3):
-            continue
-        if choice:
-            placed.append(zones[idx])
-        if place_greenbelts(zones, idx+1, placed):
+
+    # Option 1: place a greenbelt here
+    if not placed or zones[idx] - placed[-1] >= 3:
+        placed.append(zones[idx])
+        if place_greenbelts(zones, idx + 1, placed):
             return True
-        if choice:
-            placed.pop()
-    return False
+        placed.pop()
+
+    # Option 2: skip placing
+    return place_greenbelts(zones, idx + 1, placed)
 `;
 
-    /* -----------------------------------------
+    /* =======================
        PROBLEM 9
-    ----------------------------------------- */
+    ======================= */
     const desc9 = `
-      <b>Concepts Used:</b> Floyd–Warshall for connectivity.</b>
+      <b>Concepts Used:</b> Floyd–Warshall.<br>
+      Computes all-pairs shortest paths between footpath nodes.
+    `;
+
+    const tc9 = `
+      <b>Time Complexity:</b><br>
+      Floyd–Warshall: O(n³)
     `;
 
     const code9 = `
@@ -275,15 +445,22 @@ def floyd_warshall(dist):
     for k in range(n):
         for i in range(n):
             for j in range(n):
-                dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j])
+                if dist[i][j] > dist[i][k] + dist[k][j]:
+                    dist[i][j] = dist[i][k] + dist[k][j]
     return dist
 `;
 
-    /* -----------------------------------------
+    /* =======================
        PROBLEM 10
-    ----------------------------------------- */
+    ======================= */
     const desc10 = `
-      <b>Concepts Used:</b> Dijkstra shortest path.</b>
+      <b>Concepts Used:</b> Dijkstra Algorithm.<br>
+      Used to route underground pipes ensuring shortest safe path.
+    `;
+
+    const tc10 = `
+      <b>Time Complexity:</b><br>
+      Dijkstra with Min-Heap: O((V + E) log V)
     `;
 
     const code10 = `
@@ -298,12 +475,16 @@ def dijkstra(graph, start):
         d, node = heapq.heappop(pq)
         if d > dist[node]:
             continue
+
         for nb, w in graph[node]:
-            if dist[node] + w < dist[nb]:
-                dist[nb] = dist[node] + w
+            new_dist = dist[node] + w
+            if new_dist < dist[nb]:
+                dist[nb] = new_dist
                 heapq.heappush(pq, (dist[nb], nb))
+
     return dist
 `;
+
   </script>
 
 </body>
