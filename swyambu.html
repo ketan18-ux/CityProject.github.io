@@ -1205,62 +1205,46 @@ int main(){
     {
       id: 9,
       number: 9,
-      title: "Online Delivery & Logistics Hub",
+      title: "Pollution Spread Reachability Analysis",
       categoryTag: "",
-      shortTag: "Dijkstra’s+Merge",
+      shortTag: "Warshall Algorithm",
       time: "O(n·W)",
       space: "O(W)",
-      algorithm: "Dijkstra’s+Merge",
+      algorithm: "Warshall Algorithm",
       sdgs: [
-        "SDG 8 – Decent Work & Economic Growth Supports delivery businesses and job opportunities",
-        "SDG 9 – Industry, Innovation & Infrastructure Uses technology for efficient logistics",
-        "SDG 12 – Responsible Consumption & Production Optimizes delivery, reduces fuel waste"
+        "SDG 13 – Climate Action",
+        "SDG 3 – Good Health and Well-Being",
+        "SDG 11 – Sustainable Cities and Communities"
       ],
       problemText:
-        "Packages must be delivered quickly and in proper order of priority. Delivery riders must follow the shortest routes to avoid delays and fuel waste.",
+        "Pollution from one industrial area can spread to other connected regions. Identifying reachable pollution zones is necessary.",
       solutionText:
-        "Packages are sorted based on delivery time, and optimal routes are calculated to speed up delivery.", 
-      code:` Dijkstra’s
-      vector<int> dijkstra(vector<vector<int>>& g, int src) {
-    int n = g.size();
-    vector<int> dist(n, INT_MAX), vis(n, 0);
-    dist[src] = 0;
+        "Warshall’s algorithm checks reachability between all regions, helping authorities analyze pollution spread.", 
+      code:`Warshall 
+     #include <iostream>
+using namespace std;
+#define V 4
 
-    for (int i = 0; i < n; i++) {
-        int u = -1;
-        for (int j = 0; j < n; j++)
-            if (!vis[j] && (u == -1 || dist[j] < dist[u]))
-                u = j;
+int main(){
+    int g[V][V]={
+        {0,1,0,0},
+        {0,0,1,0},
+        {0,0,0,1},
+        {0,0,0,0}
+    };
 
-        vis[u] = 1;
+    for(int k=0;k<V;k++)
+        for(int i=0;i<V;i++)
+            for(int j=0;j<V;j++)
+                g[i][j]=g[i][j] || (g[i][k] && g[k][j]);
 
-        for (int v = 0; v < n; v++)
-            if (g[u][v] && dist[u] + g[u][v] < dist[v])
-                dist[v] = dist[u] + g[u][v];
+    for(int i=0;i<V;i++){
+        for(int j=0;j<V;j++)
+            cout<<g[i][j]<<" ";
+        cout<<endl;
     }
-
-    return dist;  
 }
-Merge
-void mergeSort(vector<int>& a, int l, int r) {
-    if (l >= r) return;
 
-    int m = (l + r) / 2;
-    mergeSort(a, l, m);
-    mergeSort(a, m + 1, r);
-
-    vector<int> t;
-    int i = l, j = m + 1;
-
-    while (i <= m && j <= r)
-        t.push_back(a[i] < a[j] ? a[i++] : a[j++]);
-
-    while (i <= m) t.push_back(a[i++]);
-    while (j <= r) t.push_back(a[j++]);
-
-    for (int k = 0; k < t.size(); k++)
-        a[l + k] = t[k];
-}
 `,
  
     },
