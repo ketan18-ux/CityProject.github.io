@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>DAA Portfolio — TEJAS.B.KERI</title>
+<title>DAA Portfolio — Tejas B. Keri</title>
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -15,68 +15,94 @@
 
 <style>
   :root{
-    --bg:#061226;
+    --bg:#071025;
     --panel:#0b1530;
     --muted:#9aa6bf;
     --accent:#22d3ee;
     --glass: rgba(255,255,255,0.04);
     --card-shadow: 0 10px 30px rgba(2,6,23,0.6);
-    --radius-lg: 14px;
-    --radius-xl: 20px;
   }
 
+  /* Dark-friendly variables override when .light applied */
   .light {
-    --bg:#f6fbff;
-    --panel:#ffffff;
-    --muted:#475569;
-    --accent:#06b6d4;
-    --card-shadow: 0 8px 22px rgba(16,24,40,0.06);
+    --bg: #f4f7fb;
+    --panel: #ffffff;
+    --muted: #475569;
+    --accent: #0ea5e9;
+    --glass: rgba(2,6,23,0.04);
+    --card-shadow: 0 8px 22px rgba(16,24,40,0.08);
   }
 
   html,body{
     height:100%;
     margin:0;
     font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    background: radial-gradient(circle at top left, #041022 0%, #071025 40%, #071025 100%);
+    background: linear-gradient(180deg, #041022 0%, #071025 40%, #071025 100%);
     color: #e6eef8;
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale;
     transition: background 0.45s ease, color 0.35s ease;
   }
 
-  /* Header */
+  .light body{ /* for safety; actual switching is on body */
+    background: linear-gradient(180deg,#f6fbff 0%, #f0f6fb 40%, #f0f6fb 100%);
+    color: #0b1220;
+  }
+
+  /* top container (header) */
   .top {
     max-width:1200px;
     margin:28px auto 12px;
-    padding:22px;
-    border-radius: var(--radius-xl);
-    background: linear-gradient(90deg, rgba(16,36,59,0.88) 0%, rgba(17,44,62,0.78) 100%);
+    padding:18px;
+    border-radius:18px;
+    background: linear-gradient(90deg, rgba(16,36,59,0.85) 0%, rgba(17,44,62,0.75) 100%);
     box-shadow: var(--card-shadow);
     display:flex;
     align-items:center;
     justify-content:space-between;
     gap:20px;
-    backdrop-filter: blur(8px) saturate(120%);
+    backdrop-filter: blur(6px) saturate(120%);
   }
-  .top-left{ display:flex; flex-direction:column; gap:12px; }
-  .top-left h1{ margin:0; font-size:28px; letter-spacing:-0.3px; color:#def4ff; }
-  .badges{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+
+  .top-left{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+
+  .top-left h1{
+    margin:0;
+    font-size:26px;
+    letter-spacing:-0.3px;
+    color:#def4ff;
+  }
+
+  .badges{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+
   .badge{
     background: rgba(255,255,255,0.03);
-    border:1px solid rgba(255,255,255,0.04);
-    padding:8px 14px;
+    border:1px solid rgba(255,255,255,0.05);
+    padding:8px 12px;
     font-size:13px;
     color:var(--muted);
     border-radius:999px;
   }
-  .badge strong{ color:#fff; font-weight:600; margin-right:8px; }
+  .badge strong{ color:#fff; font-weight:600; margin-right:6px; }
 
-  .top-right { display:flex; align-items:center; gap:14px; }
+  .top-right{
+    display:flex;
+    align-items:center;
+    gap:14px;
+  }
   .home-btn{
     display:inline-flex;
     align-items:center;
     gap:10px;
-    padding:12px 18px;
+    padding:10px 16px;
     background:linear-gradient(90deg,#06b6d4,#0891b2);
     color:#022430;
     font-weight:700;
@@ -86,16 +112,17 @@
     transition: transform 0.16s ease;
   }
   .home-btn:hover{ transform: translateY(-3px); }
+
   .meta-pill{
-    background:rgba(255,255,255,0.03);
+    background:rgba(255,255,255,0.04);
     padding:8px 12px;
     border-radius:999px;
     color:var(--muted);
     font-size:13px;
-    border:1px solid rgba(255,255,255,0.03);
+    border:1px solid rgba(255,255,255,0.04);
   }
 
-  /* Layout */
+  /* main layout: left sidebar + center panel */
   .main {
     max-width:1200px;
     margin:18px auto 60px;
@@ -104,19 +131,23 @@
     padding:8px;
   }
 
-  /* Sidebar */
+  /* left sidebar */
   .sidebar{
     width:28%;
     background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    border-radius:var(--radius-lg);
+    border-radius:14px;
     padding:18px;
     box-shadow: var(--card-shadow);
     height:72vh;
     overflow:auto;
     border:1px solid rgba(255,255,255,0.03);
   }
-  .sidebar h3{ margin:0 0 12px 0; font-size:18px; color:#dff7ff; }
-  .sidebar p{ color:var(--muted); font-size:13px; margin-bottom:14px; }
+
+  .sidebar h3{
+    margin:0 0 12px 0;
+    font-size:18px;
+    color:#dff7ff;
+  }
 
   .problem-item{
     background: rgba(255,255,255,0.02);
@@ -144,10 +175,11 @@
     border-color: rgba(6,182,212,0.18);
     box-shadow: 0 10px 30px rgba(2,6,23,0.45);
   }
-  .problem-index{ font-weight:700; color:#9fe9ff; margin-right:12px; }
+  .problem-index{ font-weight:700; color:#9fe9ff; margin-right:8px; }
 
+  /* focus outline for accessibility */
   .problem-item:focus {
-    box-shadow: 0 0 0 4px rgba(34,211,238,0.14);
+    box-shadow: 0 0 0 4px rgba(34,211,238,0.16);
     transform: translateX(4px);
   }
 
@@ -155,15 +187,25 @@
   .center{
     width:72%;
     background: linear-gradient(180deg, rgba(10,20,45,0.72), rgba(8,16,32,0.78));
-    border-radius:var(--radius-lg);
+    border-radius:14px;
     padding:22px;
     min-height:72vh;
     box-shadow: var(--card-shadow);
     border:1px solid rgba(255,255,255,0.02);
     overflow:auto;
   }
-  .center h2{ margin:0 0 8px 0; font-size:22px; color:#e8fbff; }
-  .center .desc{ color:var(--muted); line-height:1.6; margin-bottom:12px; }
+
+  .center h2{
+    margin:0 0 8px 0;
+    font-size:22px;
+    color:#e8fbff;
+  }
+
+  .center .desc{
+    color:var(--muted);
+    line-height:1.6;
+    margin-bottom:12px;
+  }
 
   .complexity{
     margin-top:10px;
@@ -174,29 +216,6 @@
     color:#d9f7ff;
     border:1px solid rgba(255,255,255,0.03);
     font-size:14px;
-  }
-
-  /* Welcome screen styling */
-  .welcome {
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-    align-items:flex-start;
-    animation: fadeIn 0.6s ease;
-  }
-  .welcome h2 { font-size:26px; margin:0; color:#f0fbff; }
-  .welcome p { color:var(--muted); max-width:780px; }
-  .steps {
-    background: rgba(255,255,255,0.02);
-    padding:14px;
-    border-radius:12px;
-    border:1px solid rgba(255,255,255,0.02);
-  }
-  .cta-note { margin-top:8px; color:var(--muted); }
-
-  @keyframes fadeIn {
-    from { opacity:0; transform: translateY(8px); }
-    to { opacity:1; transform: translateY(0); }
   }
 
   /* code block */
@@ -210,59 +229,45 @@
   }
   code { font-family: "JetBrains Mono", monospace !important; font-size:14px; }
 
-  /* responsiveness */
+  /* small responsiveness */
   @media (max-width: 980px){
     .main{ flex-direction:column; padding:10px; }
-    .sidebar{ width:100%; height:28vh; }
-    .center{ width:100%; height:60vh; }
+    .sidebar{ width:100%; height:30vh; }
+    .center{ width:100%; height:58vh; }
   }
-
-  /* dark/light toggle button (floating) */
-  .toggle-floating {
-    position: fixed;
-    right: 18px;
-    bottom: 18px;
-    z-index: 9999;
-    padding: 10px 12px;
-    background: linear-gradient(90deg,#06b6d4,#0891b2);
-    color: #001b23;
-    border-radius: 10px;
-    cursor: pointer;
-    border: none;
-    font-weight: 700;
-    box-shadow: 0 10px 30px rgba(6,182,212,0.12);
-  }
-
 </style>
 </head>
 <body>
 
 <!-- Header -->
-<div class="top" role="banner" aria-label="Portfolio header">
+<div class="top" role="banner">
   <div class="top-left">
     <h1>Smart City Infrastructure & Routing Design — DAA Portfolio</h1>
-    <div class="badges" role="list" aria-label="portfolio badges">
-      <span class="badge" role="listitem"><strong>Student:</strong> TEJAS.B.KERI</span>
-      <span class="badge" role="listitem"><strong>Faculty:</strong> Prakash Hegade</span>
-      <span class="badge" role="listitem"><strong>Course:</strong> Design &amp; Analysis of Algorithms</span>
-      <span class="badge" role="listitem"><strong>Focus:</strong> Land Use, Zoning &amp; Location Optimization Projects</span>
+    <div class="badges">
+      <span class="badge"><strong>Student:</strong> TEJAS.B.KERI</span>
+      <span class="badge"><strong>Faculty:</strong> Prakash Hegade</span>
+      <span class="badge"><strong>Course:</strong> Design &amp; Analysis of Algorithms</span>
+      <span class="badge"><strong>Focus:</strong> Land Use, Zoning &amp; Location Optimization Projects</span>
     </div>
   </div>
 
   <div class="top-right">
-    <span class="meta-pill" aria-hidden="true">2024 · DAA City Design</span>
+    <span class="meta-pill">2024 · DAA City Design</span>
     <a class="home-btn" href="index.html" title="Back to home">← Back to Home</a>
   </div>
 </div>
 
 <!-- Main area -->
-<div class="main" role="main">
+<div class="main">
   <!-- Sidebar -->
-  <aside class="sidebar" aria-label="Case study gallery">
+  <aside class="sidebar" aria-label="Problem list">
     <h3>A. Case Study Gallery</h3>
-    <p>Ten real-world inspired problems. Click any item to expand its description, I/O model and complexity.</p>
+    <p style="color:var(--muted); font-size:13px; margin-bottom:14px;">
+      Ten real-world inspired problems. Click any item to expand its description, I/O model and complexity.
+    </p>
 
-    <div id="problemList" role="list" aria-label="Problem list">
+    <!-- Problem items inserted by JS for clarity but also provide accessible fallback -->
+    <div id="problemList" role="list">
       <noscript>
         <ul>
           <li>1. Optimal Hospital Location</li>
@@ -281,185 +286,108 @@
   </aside>
 
   <!-- Center panel -->
-  <main class="center" id="centerPanel" aria-live="polite">
-    <div id="centerContent" class="welcome">
-      <h2>Welcome — Smart City DAA Portfolio</h2>
-      <p>
-        This portfolio contains ten algorithmic case studies focused on land use, zoning and location optimization
-        for city design. Each case study includes:
-      </p>
-
-      <div class="steps">
-        <ul>
-          <li><strong>High-level problem summary</strong> — what the city problem is and why it's important.</li>
-          <li><strong>Time complexity</strong> — algorithmic complexity for the chosen approach.</li>
-          <li><strong>Reference code</strong> — an implementation with detailed comments and design notes.</li>
-        </ul>
-      </div>
-
-      <p class="cta-note">
-        How to access the portfolio:
-      </p>
-      <ol style="color:var(--muted); margin-left:18px;">
-        <li>Click any problem on the left column to load its summary and code.</li>
-        <li>Use the <em>Toggle Dark / Light</em> button to switch themes.</li>
-        <li>Use the keyboard arrow keys to navigate problems (Up / Down) and Enter / Space to select.</li>
-      </ol>
-
-      <p style="margin-top:10px; color:var(--muted);">
-        Click a problem on the left to begin →
-      </p>
+  <main class="center" id="centerPanel">
+    <h2 id="problemTitle">Select a problem from the left</h2>
+    <div class="desc" id="problemDesc">
+      Click a problem card on the left to view high-level explanation, time complexity and a detailed implementation.
     </div>
 
-    <!-- Problem title / description / complexity and code will replace the welcome content when loaded -->
-    <div id="problemArea" class="hidden" aria-hidden="true">
-      <h2 id="problemTitle">Title will appear here</h2>
-      <div class="desc" id="problemDesc">Description will appear here.</div>
-      <div class="complexity" id="problemComplexity">Time Complexity — (select a problem)</div>
-      <pre><code id="problemCode" class="language-python"># Code will appear here when you select a problem.</code></pre>
-    </div>
+    <div class="complexity" id="problemComplexity">Time Complexity — (select a problem)</div>
+
+    <pre><code id="problemCode" class="language-python"># Code will appear here when you select a problem.</code></pre>
   </main>
 </div>
 
-<!-- Floating toggle -->
-<button class="toggle-floating" id="toggleBtn" aria-label="Toggle dark light">Toggle Dark / Light</button>
-
 <script>
-/* ============================
-   Problems data (10 items)
-   Each problem includes:
-    - id
-    - title
-    - desc (HTML)
-    - complexity (HTML)
-    - code (string - Python)
-   (Long code blocks included.)
-   ============================ */
-
+/* --------------------------
+   Data: 10 problems
+---------------------------*/
 const problems = [
   {
     id: 1,
     title: "Optimal Hospital Location",
-    desc: `<strong>Problem summary:</strong> Place hospitals so that the total travel distance citizens take to their nearest hospital is minimized. Use median-based placement for 1D scenarios and k-median approximations (k-means++ seeds + Lloyd-style iterations) for 2D placement when multiple hospitals are needed.`,
-    complexity: `<strong>Time Complexity:</strong> Median (1D) approach: O(n log n) due to sorting. k-median (approx) with t iterations: O(k n t).`,
-
-    code:
-\`# Optimal Hospital Location — Extended Implementation & Notes
-# This example includes:
-#  - a 1D median method (exact minimizer for sum of distances)
-#  - a k-median approximate solver using kmeans++ style seeding and Lloyd iterations
-#  - helper utilities for distance and synthetic data generation
-#
-# Note: This implementation is educational and aims to show algorithmic design choices.
+    desc: `<strong>Problem summary:</strong> Place hospitals so that the total distance citizens travel to the closest hospital is minimized. Use median-based or clustering strategies for 1D/2D.`,
+    complexity: `<strong>Time Complexity:</strong> Sorting-based median approach: O(n log n). For k-median clustering with Lloyd iterations: O(k n t) where t is iterations.`,
+    code: `# Optimal Hospital Location (Detailed, multi-step)
+# Approach: 1) 1D median when points are on a line.
+#           2) For 2D, use k-median approximation via k-means++ seeding then Lloyd iterations.
 
 import random
 import math
 from collections import defaultdict
 
 def median_1d(points):
-    \"\"\"Compute 1D median (minimizes L1 distance)\"\"\"
-    pts = sorted(points)
-    n = len(pts)
-    if n == 0:
-        return None
+    points_sorted = sorted(points)
+    n = len(points_sorted)
     if n % 2 == 1:
-        return pts[n // 2]
-    # any point between the two middle elements is optimal; we return the midpoint
-    return 0.5 * (pts[n//2 - 1] + pts[n//2])
+        return points_sorted[n // 2]
+    else:
+        return 0.5 * (points_sorted[n//2 - 1] + points_sorted[n//2])
 
 def squared_distance(a, b):
     return (a[0]-b[0])**2 + (a[1]-b[1])**2
 
-def kmeans_plus_plus(points, k, rng=random):
-    \"\"\"k-means++ initialization: choose first center uniformly then pick new centers
-       with probability proportional to squared distance to nearest center.
-    \"\"\"
-    if not points or k <= 0:
-        return []
-    centers = []
-    centers.append(rng.choice(points))
+def kmeans_plus_plus(points, k):
+    """k-means++ initialization for better seed selection."""
+    n = len(points)
+    centers = [random.choice(points)]
     dist = [squared_distance(p, centers[0]) for p in points]
     for _ in range(1, k):
         s = sum(dist)
         if s == 0:
-            centers.append(rng.choice(points))
+            centers.append(random.choice(points))
             continue
-        r = rng.random() * s
-        acc = 0.0
-        chosen = None
+        r = random.random() * s
+        accum = 0
         for i, d in enumerate(dist):
-            acc += d
-            if acc >= r:
-                chosen = points[i]
+            accum += d
+            if accum >= r:
+                centers.append(points[i])
                 break
-        if chosen is None:
-            chosen = rng.choice(points)
-        centers.append(chosen)
-        # update distances
         for i, p in enumerate(points):
-            ds = squared_distance(p, centers[-1])
-            if ds < dist[i]:
-                dist[i] = ds
+            dist[i] = min(dist[i], squared_distance(p, centers[-1]))
     return centers
 
 def assign_points(points, centers):
     clusters = [[] for _ in centers]
     for p in points:
-        best_i = 0
-        best_d = squared_distance(p, centers[0])
-        for i in range(1, len(centers)):
-            d = squared_distance(p, centers[i])
-            if d < best_d:
-                best_d = d
-                best_i = i
-        clusters[best_i].append(p)
+        best_idx = min(range(len(centers)), key=lambda i: squared_distance(p, centers[i]))
+        clusters[best_idx].append(p)
     return clusters
 
 def recompute_centers(clusters):
     new_centers = []
     for c in clusters:
         if not c:
-            # keep a dummy placeholder to avoid shrinkage; in practice, you may reseed
-            new_centers.append((0.0, 0.0))
+            new_centers.append((0,0))
             continue
         x = sum(p[0] for p in c) / len(c)
         y = sum(p[1] for p in c) / len(c)
-        new_centers.append((x, y))
+        new_centers.append((x,y))
     return new_centers
 
-def k_median_approx(points, k=3, iterations=50):
-    if not points or k <= 0:
-        return []
+def k_median_approx(points, k=3, iterations=20):
     centers = kmeans_plus_plus(points, k)
-    for it in range(iterations):
+    for _ in range(iterations):
         clusters = assign_points(points, centers)
         new_centers = recompute_centers(clusters)
-        # check convergence with small tolerance
-        converged = True
-        for i in range(k):
-            if math.hypot(new_centers[i][0] - centers[i][0], new_centers[i][1] - centers[i][1]) > 1e-6:
-                converged = False
-                break
-        centers = new_centers
-        if converged:
+        if all(math.isclose(new_centers[i][0], centers[i][0], rel_tol=1e-6) and math.isclose(new_centers[i][1], centers[i][1], rel_tol=1e-6) for i in range(k)):
             break
+        centers = new_centers
     return centers
 
-# Example usage:
-# points2d = [(random.uniform(0, 100), random.uniform(0, 100)) for _ in range(300)]
-# centers = k_median_approx(points2d, k=4, iterations=40)
-# print('centers', centers)
-\`
+# Usage example:
+# points = [(x,y), ...]
+# print(k_median_approx(points, k=2))
+`
   },
-
   {
     id: 2,
     title: "School Allocation to Students",
-    desc: `<strong>Problem summary:</strong> Assign students to schools respecting capacity and geographic constraints. Model as a flow / matching problem. Solve using Dinic's max flow for robust capacity handling.`,
-    complexity: `<strong>Time Complexity:</strong> Dinic's algorithm average practical performance: O(E sqrt(V)) or O(min(V^{2/3}, sqrt(E)) E) depending on implementation; for bipartite matching it is efficient for city-scale graphs.`,
-
-    code:
-\`# School Allocation to Students — Dinic's implementation (detailed)
+    desc: `<strong>Problem summary:</strong> Assign students to the nearest valid school without capacity overflow. Model as bipartite assignment with capacities.`,
+    complexity: `<strong>Time Complexity:</strong> For max-flow (Dinic) based assignment: O(E sqrt(V)) - practical and efficient for city-sized graphs.`,
+    code: `# School Allocation using Max Flow (Dinic)
+# We model students as sources connected to schools with capacity constraints.
 
 from collections import deque
 
@@ -469,15 +397,12 @@ class Dinic:
         self.adj = [[] for _ in range(n)]
 
     def add_edge(self, u, v, cap):
-        # adjacency stores [to, cap, rev_index]
         self.adj[u].append([v, cap, len(self.adj[v])])
         self.adj[v].append([u, 0, len(self.adj[u]) - 1])
 
     def bfs(self, s, t, level):
-        for i in range(len(level)):
-            level[i] = -1
-        q = deque([s])
-        level[s] = 0
+        for i in range(len(level)): level[i] = -1
+        q = deque([s]); level[s] = 0
         while q:
             u = q.popleft()
             for v, cap, rev in self.adj[u]:
@@ -487,8 +412,7 @@ class Dinic:
         return level[t] >= 0
 
     def send(self, u, t, f, level, it):
-        if u == t:
-            return f
+        if u == t: return f
         for i in range(it[u], len(self.adj[u])):
             v, cap, rev = self.adj[u][i]
             if cap and level[v] == level[u] + 1:
@@ -504,44 +428,45 @@ class Dinic:
         flow = 0
         level = [-1] * self.n
         while self.bfs(s, t, level):
-            it = [0] * self.n
+            it = [0]*self.n
             while True:
                 pushed = self.send(s, t, 10**18, level, it)
-                if not pushed:
-                    break
+                if not pushed: break
                 flow += pushed
         return flow
 
-# Build a sample bipartite network:
-# nodes: source (0), students (1..S), schools (S+1..S+K), sink (S+K+1)
-# capacities from source->student = 1, student->school = 1 (if feasible), school->sink = school_capacity
+# Build network:
+# source -> students(1) -> school constraints edges -> sink
+# capacities for schools represent seats; edges from students to school are 1 if reachable.
 
-# Use case: compute maximum assignment count, then recover matches by inspecting edges
-\`
+# Example build (not executed here)
+# dinic = Dinic(N)
+# dinic.add_edge(source, student_node, 1)
+# dinic.add_edge(student_node, school_node, 1)  # if appropriate geographically
+# dinic.add_edge(school_node, sink, school_capacity)
+# result = dinic.max_flow(source, sink)
+`
   },
-
   {
     id: 3,
     title: "Smart Parking Slot Allocation",
-    desc: `<strong>Problem summary:</strong> Assign cars to parking slots to minimize total walking distance and honor slot suitability and priorities. The Hungarian algorithm provides an exact min-cost perfect matching for equal-sized sets; for unequal sizes consider padding costs or greedy + DP alternatives.`,
-    complexity: `<strong>Time Complexity:</strong> Hungarian algorithm O(n^3); greedy heuristics O(n^2).`,
+    desc: `<strong>Problem summary:</strong> Match cars to parking slots minimizing total walking time; consider priorities and slot suitability.`,
+    complexity: `<strong>Time Complexity:</strong> Hungarian algorithm O(n^3) for perfect matching; greedy + DP alternatives are O(n^2).`,
+    code: `# Smart Parking Allocation: Hungarian Algorithm (dense, but robust)
+# Implementation adapted for clarity: O(n^3) time but excellent for impressive demonstration.
 
-    code:
-\`# Smart Parking Slot Allocation — Hungarian algorithm (dense O(n^3) approach)
-# This code is a classical implementation adapted for clarity and educational use.
-
-def hungarian(cost):
-    # cost: n x n matrix (square). If rectangular, pad with zeros or large values.
-    n = len(cost)
-    u = [0] * (n + 1)
-    v = [0] * (n + 1)
-    p = [0] * (n + 1)
-    way = [0] * (n + 1)
+def hungarian(cost_matrix):
+    # cost_matrix: n x n
+    n = len(cost_matrix)
+    u = [0]*(n+1)
+    v = [0]*(n+1)
+    p = [0]*(n+1)
+    way = [0]*(n+1)
     for i in range(1, n+1):
         p[0] = i
         j0 = 0
-        minv = [float('inf')] * (n + 1)
-        used = [False] * (n + 1)
+        minv = [float('inf')]*(n+1)
+        used = [False]*(n+1)
         while True:
             used[j0] = True
             i0 = p[j0]
@@ -549,13 +474,12 @@ def hungarian(cost):
             j1 = 0
             for j in range(1, n+1):
                 if not used[j]:
-                    cur = cost[i0-1][j-1] - u[i0] - v[j]
+                    cur = cost_matrix[i0-1][j-1] - u[i0] - v[j]
                     if cur < minv[j]:
                         minv[j] = cur
                         way[j] = j0
                     if minv[j] < delta:
-                        delta = minv[j]
-                        j1 = j
+                        delta = minv[j]; j1 = j
             for j in range(n+1):
                 if used[j]:
                     u[p[j]] += delta
@@ -563,105 +487,88 @@ def hungarian(cost):
                 else:
                     minv[j] -= delta
             j0 = j1
-            if p[j0] == 0:
-                break
+            if p[j0] == 0: break
         while True:
             j1 = way[j0]
             p[j0] = p[j1]
             j0 = j1
-            if j0 == 0:
-                break
-    assignment = [-1] * n
+            if j0 == 0: break
+    assignment = [-1]*n
     for j in range(1, n+1):
         if p[j] != 0:
             assignment[p[j]-1] = j-1
     total_cost = -v[0]
     return assignment, total_cost
 
-# Example usage:
-# cars = [...]
-# slots = [...]
-# cost_matrix = [[abs(car_x - slot_x) + abs(car_y - slot_y) for slot in slots] for car in cars]
-# match, cost = hungarian(cost_matrix)
-\`
+# Example:
+# cost = [[abs(car - slot) for slot in slots] for car in cars]
+# assign, cost = hungarian(cost)
+`
   },
-
   {
     id: 4,
     title: "Industrial vs Residential Separation",
-    desc: `<strong>Problem summary:</strong> Color map regions such that industrial and residential zones do not touch; check if the region partition graph is bipartite, otherwise apply greedy recoloring or minimal-edge adjustments.`,
-    complexity: `<strong>Time Complexity:</strong> Bipartite check O(V + E). Greedy coloring O(V^2) in naive form.`,
+    desc: `<strong>Problem summary:</strong> Color regions so that industrial blocks don't touch residential zones; minimize colors and reassign problematic borders.`,
+    complexity: `<strong>Time Complexity:</strong> Graph coloring greedy approach O(V^2) in worst-case; bipartite check O(V+E).`,
+    code: `# Graph Coloring & Validation for Industrial vs Residential separation
 
-    code:
-\`# Industrial vs Residential Separation — bipartite check + greedy fallback
 def is_bipartite(graph):
     color = {}
-    for start in graph:
-        if start in color:
-            continue
-        stack = [start]
-        color[start] = 0
-        while stack:
-            u = stack.pop()
-            for v in graph[u]:
-                if v not in color:
-                    color[v] = color[u] ^ 1
-                    stack.append(v)
-                elif color[v] == color[u]:
-                    return False, None
+    for s in graph:
+        if s not in color:
+            stack = [s]
+            color[s] = 0
+            while stack:
+                u = stack.pop()
+                for v in graph[u]:
+                    if v not in color:
+                        color[v] = color[u]^1
+                        stack.append(v)
+                    elif color[v] == color[u]:
+                        return False, None
     return True, color
 
 def greedy_coloring(graph):
-    order = sorted(graph.keys(), key=lambda x: -len(graph[x]))
     color = {}
-    for node in order:
-        forbidden = {color.get(nb) for nb in graph[node] if nb in color}
+    for node in sorted(graph, key=lambda x: len(graph[x]), reverse=True):
+        forbidden = set(color.get(nb) for nb in graph[node] if nb in color)
         c = 0
-        while c in forbidden:
-            c += 1
+        while c in forbidden: c += 1
         color[node] = c
     return color
 
-# In practice, a combination of planar graph heuristics and local adjustments produces nicer visual zones.
-\`
+# Attempt bipartite first for separation; fallback to greedy coloring.
+`
   },
-
   {
     id: 5,
     title: "Public Park Placement Optimization",
-    desc: `<strong>Problem summary:</strong> Select park locations to maximize covered population within walking radius. Use greedy max-cover with efficient query structures (Fenwick/Segment tree) to track served population and recompute gains.`,
-    complexity: `<strong>Time Complexity:</strong> Greedy max cover with Fenwick tree: O(k * n * log n).`,
-
-    code:
-\`# Public Park Placement Optimization — Fenwick tree (BIT) demo for range sums
+    desc: `<strong>Problem summary:</strong> Select k park locations to maximize population coverage; use greedy max-cover with Fenwick tree for efficient population queries.`,
+    complexity: `<strong>Time Complexity:</strong> O(k n log n) using greedy + Fenwick updates; building Fenwick is O(n).`,
+    code: `# Fenwick-based greedy selection for park placement (max coverage approximation)
 
 class Fenwick:
     def __init__(self, n):
         self.n = n
-        self.bit = [0] * (n + 1)
-
+        self.bit = [0]*(n+1)
     def update(self, i, delta):
         while i <= self.n:
             self.bit[i] += delta
             i += i & -i
-
     def query(self, i):
         s = 0
         while i > 0:
             s += self.bit[i]
             i -= i & -i
         return s
-
     def range_sum(self, l, r):
-        if l > r:
-            return 0
-        return self.query(r) - self.query(l - 1)
+        return self.query(r) - self.query(l-1)
 
 def greedy_max_cover(population, candidate_positions, k, radius):
-    # population: list indexed 1..n (we will use 1-based indexing)
     n = len(population)
     fen = Fenwick(n)
-    for i, p in enumerate(population, start=1):
+    served = [0]*(n+1)
+    for i,p in enumerate(population, start=1):
         fen.update(i, p)
     chosen = []
     for _ in range(k):
@@ -672,86 +579,79 @@ def greedy_max_cover(population, candidate_positions, k, radius):
             r = min(n, pos + radius)
             gain = fen.range_sum(l, r)
             if gain > best_gain:
-                best_gain = gain
-                best_pos = pos
-        if best_pos is None or best_gain <= 0:
-            break
+                best_gain = gain; best_pos = pos
+        if best_pos is None or best_gain <= 0: break
         chosen.append((best_pos, best_gain))
-        l = max(1, best_pos - radius)
-        r = min(n, best_pos + radius)
-        # remove served population (mark as zero)
+        # "remove" served population in radius
+        l = max(1, best_pos - radius); r = min(n, best_pos + radius)
         for i in range(l, r+1):
-            val = population[i-1]
+            val = max(0, population[i-1])
             if val > 0:
                 fen.update(i, -val)
                 population[i-1] = 0
     return chosen
-\`
-  },
 
+# This code is a conceptual demonstration and can be optimized using segment trees for larger N.
+`
+  },
   {
     id: 6,
     title: "Land Subdivision Optimization",
-    desc: `<strong>Problem summary:</strong> Partition large land parcels into smaller usable lots optimizing for balance, accessibility and minimal infrastructure cost. A kd-tree-like recursive spatial partitioning works well for many heuristics.`,
-    complexity: `<strong>Time Complexity:</strong> Balanced recursive splits: O(n log n). Unbalanced worst-case: O(n^2).`,
+    desc: `<strong>Problem summary:</strong> Divide large land plots into smaller usable plots optimizing for area balance and accessibility using divide-and-conquer and kd-like partitioning.`,
+    complexity: `<strong>Time Complexity:</strong> Typical recursive splits cost O(n log n) for balanced partitions; worst-case unbalanced splits can reach O(n^2).`,
+    code: `# Land Subdivision via recursive partitioning (2D kd-split concept)
 
-    code:
-\`# Land Subdivision Optimization — recursive kd-like splitting (conceptual)
-
-def area_of_polygon(points):
-    \"\"\"Compute polygon area using shoelace formula.\"\"\"
+def area_of(polygon):
+    # simple polygon area via shoelace (points list)
     s = 0
-    n = len(points)
+    n = len(polygon)
     for i in range(n):
-        x1, y1 = points[i]
-        x2, y2 = points[(i+1) % n]
-        s += x1 * y2 - x2 * y1
-    return abs(s) / 2.0
+        x1,y1 = polygon[i]
+        x2,y2 = polygon[(i+1)%n]
+        s += x1*y2 - x2*y1
+    return abs(s)/2
 
-def split_bbox_midpoint(points, axis='x'):
-    xs = [p[0] for p in points]
-    ys = [p[1] for p in points]
-    if axis == 'x':
-        mid = (min(xs) + max(xs)) / 2.0
+def split_polygon(points, axis='x'):
+    # naive split of convex bbox midpoint for demonstration
+    xs = [p[0] for p in points]; ys = [p[1] for p in points]
+    if axis=='x':
+        mid = (min(xs) + max(xs))/2
         left = [p for p in points if p[0] <= mid]
         right = [p for p in points if p[0] > mid]
     else:
-        mid = (min(ys) + max(ys)) / 2.0
+        mid = (min(ys) + max(ys))/2
         left = [p for p in points if p[1] <= mid]
         right = [p for p in points if p[1] > mid]
     return left, right
 
-def recursive_partition(points, depth=0, max_depth=4):
-    if depth >= max_depth or len(points) <= 3:
-        return [points]
-    axis = 'x' if depth % 2 == 0 else 'y'
-    left, right = split_bbox_midpoint(points, axis=axis)
+def recursive_subdivide(polygon, depth=0, max_depth=4):
+    if depth >= max_depth or len(polygon) <= 3:
+        return [polygon]
+    left, right = split_polygon(polygon, axis=('x' if depth%2==0 else 'y'))
     if not left or not right:
-        return [points]
-    return recursive_partition(left, depth+1, max_depth) + recursive_partition(right, depth+1, max_depth)
-\`
-  },
+        return [polygon]
+    return recursive_subdivide(left, depth+1, max_depth) + recursive_subdivide(right, depth+1, max_depth)
 
+# For practical mapping systems, use planar subdivisions and graph connectivity checks for roads.
+`
+  },
   {
     id: 7,
     title: "High Footfall Commercial Zone Prediction",
-    desc: `<strong>Problem summary:</strong> Identify likely commercial hotspots using mobility density, clustering and temporal smoothing. Simple density estimation plus top-k extraction gives actionable candidates.`,
-    complexity: `<strong>Time Complexity:</strong> Naive density O(n^2); spatial indexing reduces to O(n log n).`,
-
-    code:
-\`# High Footfall Prediction — naive approach + heap selection example
+    desc: `<strong>Problem summary:</strong> Use clustering over mobility data and heatmap aggregation to predict commercial hotspots; combine density clustering + temporal smoothing.`,
+    complexity: `<strong>Time Complexity:</strong> Clustering (k-means) O(n k t), DBSCAN O(n log n) with indexing.`,
+    code: `# Predict high-footfall zones using density estimation + heap selection
 
 import heapq
-import math
+from math import sqrt
 
-def euclid(a, b):
-    return math.hypot(a[0] - b[0], a[1] - b[1])
+def euclid(a,b): return sqrt((a[0]-b[0])**2 + (a[1]-b[1])**2)
 
 def naive_density(points, radius):
-    densities = [0] * len(points)
-    for i, p in enumerate(points):
-        for j, q in enumerate(points):
-            if euclid(p, q) <= radius:
+    densities = [0]*len(points)
+    for i,p in enumerate(points):
+        for j,q in enumerate(points):
+            if euclid(p,q) <= radius:
                 densities[i] += 1
     return densities
 
@@ -761,26 +661,23 @@ def top_k_density(points, radius, k):
     heapq.heapify(heap)
     result = []
     for _ in range(min(k, len(heap))):
-        d, idx = heapq.heappop(heap)
-        result.append((idx, -d, points[idx]))
+        d,i = heapq.heappop(heap)
+        result.append((i, -d, points[i]))
     return result
 
-# Use spatial indices (kd-tree, r-tree) for large-scale data.
-\`
+# For large datasets, use spatial indices (R-tree, KD-tree) for efficiency.
+`
   },
-
   {
     id: 8,
     title: "Creation of Green Belt Buffers",
-    desc: `<strong>Problem summary:</strong> Place green belts such that minimum spacing constraints are satisfied and restricted land is avoided. Use backtracking with pruning heuristics and greedy ordering.`,
-    complexity: `<strong>Time Complexity:</strong> Backtracking worst-case O(2^n), pruning reduces practical runtime.`,
-
-    code:
-\`# Green Belt Buffers — backtracking with pruning demonstration
+    desc: `<strong>Problem summary:</strong> Place green belts respecting constraints (minimum distances, land restrictions); find feasible placements with backtracking and greedy pruning.`,
+    complexity: `<strong>Time Complexity:</strong> Backtracking worst-case O(2^n), with pruning often much faster in practice.`,
+    code: `# Green Belt placement using backtracking and pruning
 
 def feasible(placed, candidate, min_dist):
     for p in placed:
-        if abs(p - candidate) < min_dist:
+        if (p - candidate) < min_dist:
             return False
     return True
 
@@ -792,29 +689,26 @@ def place_belts(candidates, min_dist):
         if idx == len(candidates):
             solutions.append(list(placed))
             return
-        # Option 1: skip
-        dfs(idx + 1)
-        # Option 2: take if feasible
+        # option: skip
+        dfs(idx+1)
+        # option: place if feasible
         if feasible(placed, candidates[idx], min_dist):
             placed.append(candidates[idx])
-            dfs(idx + 1)
+            dfs(idx+1)
             placed.pop()
 
     dfs(0)
     return solutions
 
-# Heuristics: sort candidates by degree (more constrained candidates first)
-\`
+# Example: use heuristics to order candidates by degree of constraint to speed pruning.
+`
   },
-
   {
     id: 9,
     title: "Footpath Connectivity Plan",
-    desc: `<strong>Problem summary:</strong> Compute connectivity in pedestrian networks, detect disconnected components, compute all-pairs shortest paths, and propose minimal links to improve connectivity.`,
+    desc: `<strong>Problem summary:</strong> Identify disconnected pedestrian networks, compute all-pairs shortest paths, and suggest minimum new footpaths to maximize connectivity.`,
     complexity: `<strong>Time Complexity:</strong> Floyd-Warshall O(V^3) for dense graphs; Dijkstra O((V+E) log V) for sparse graphs.`,
-
-    code:
-\`# Footpath Connectivity — Floyd-Warshall & component heuristics
+    code: `# Footpath connectivity helpers and suggestion of new edges using disjoint components
 
 def floyd_warshall(adj_matrix):
     n = len(adj_matrix)
@@ -826,106 +720,99 @@ def floyd_warshall(adj_matrix):
                     dist[i][j] = dist[i][k] + dist[k][j]
     return dist
 
-def connected_components(adj_list):
+def connected_components(graph):
     visited = set()
     comps = []
-    for node in adj_list:
+    for node in graph:
         if node not in visited:
             stack = [node]; comp = []
             while stack:
                 u = stack.pop()
                 if u in visited: continue
                 visited.add(u); comp.append(u)
-                for v in adj_list[u]:
-                    if v not in visited:
-                        stack.append(v)
+                for v in graph[u]:
+                    if v not in visited: stack.append(v)
             comps.append(comp)
     return comps
 
-def propose_links(adj_list):
-    comps = connected_components(adj_list)
-    if len(comps) <= 1:
-        return []
+def propose_links_for_connectivity(graph):
+    comps = connected_components(graph)
+    if len(comps) <= 1: return []
+    # connect comps via nearest node pairs (simple heuristic)
     links = []
-    # naive heuristic: connect first node of each component pairwise
-    for i in range(len(comps) - 1):
-        a = comps[i][0]
-        b = comps[i+1][0]
-        links.append((a, b))
+    for i in range(len(comps)-1):
+        a = comps[i][0]; b = comps[i+1][0]
+        links.append((a,b))  # placeholder: in practice compute shortest geometric pair
     return links
-\`
+`
   },
-
   {
     id: 10,
     title: "Underground Utility Routing",
-    desc: `<strong>Problem summary:</strong> Route underground utilities (power, fiber, water) as disjoint paths or with minimal overlaps; sequential Dijkstra routing with reservations is a common heuristic for multi-commodity routing.`,
-    complexity: `<strong>Time Complexity:</strong> Dijkstra O((V+E) log V) per commodity; multi-commodity increases cost multiplicatively.`,
-
-    code:
-\`# Underground Utility Routing — sequential Dijkstra with reservation heuristic
+    desc: `<strong>Problem summary:</strong> Route utilities (water, fiber, power) as disjoint shortest paths with constraints to avoid crossing; use multi-commodity flow approximations or sequential shortest path with reservations.`,
+    complexity: `<strong>Time Complexity:</strong> Dijkstra per source O((V+E) log V) and repeated runs for multiple commodities; complexity grows with commodities and constraints.`,
+    code: `# Underground utility routing using Dijkstra with reservation (sequential heuristic)
 
 import heapq
 
 def dijkstra(graph, source):
+    # graph: adjacency list {u: [(v,weight), ...], ...}
     dist = {node: float('inf') for node in graph}
     prev = {node: None for node in graph}
     dist[source] = 0
     pq = [(0, source)]
     while pq:
-        d, u = heapq.heappop(pq)
-        if d != dist[u]:
-            continue
-        for v, w in graph[u]:
+        d,u = heapq.heappop(pq)
+        if d != dist[u]: continue
+        for v,w in graph[u]:
             nd = d + w
             if nd < dist[v]:
-                dist[v] = nd
-                prev[v] = u
+                dist[v] = nd; prev[v] = u
                 heapq.heappush(pq, (nd, v))
     return dist, prev
 
 def reserve_path(prev, target):
+    # reconstruct path from prev map and return edges
     path = []
     u = target
     while prev[u] is not None:
         v = prev[u]
-        path.append((v, u))
+        path.append((v,u))
         u = v
     return list(reversed(path))
 
 def sequential_routing(graph, commodities):
-    reserved = set()
+    # commodities: list of (source, target)
+    reserved_edges = set()
     routes = []
-    for s, t in commodities:
-        dist, prev = dijkstra(graph, s)
+    for s,t in commodities:
+        dist,prev = dijkstra(graph, s)
         if dist[t] == float('inf'):
             routes.append(None)
             continue
         path_edges = reserve_path(prev, t)
-        for e in path_edges:
-            reserved.add(e)
+        # reserve edges to prevent later crossing (heuristic)
+        for e in path_edges: reserved_edges.add(e)
         routes.append(path_edges)
     return routes
-\`
+
+# Note: Real disjoint paths require advanced combinatorial methods (Menger's theorem, flow reductions).
+`
   }
 ];
 
-/* ============================
-   DOM references
-   ============================ */
+/* -------------------------
+   Render sidebar & behavior
+--------------------------*/
 const listEl = document.getElementById('problemList');
-const centerContent = document.getElementById('centerContent');
-const problemArea = document.getElementById('problemArea');
 const titleEl = document.getElementById('problemTitle');
 const descEl = document.getElementById('problemDesc');
 const compEl = document.getElementById('problemComplexity');
 const codeEl = document.getElementById('problemCode');
-const toggleBtn = document.getElementById('toggleBtn');
 
-/* ============================
-   Render sidebar items
-   ============================ */
-function renderSidebar() {
+function escapeHtml(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+function renderSidebar(){
   listEl.innerHTML = '';
   problems.forEach(p => {
     const div = document.createElement('div');
@@ -933,14 +820,9 @@ function renderSidebar() {
     div.dataset.id = p.id;
     div.setAttribute('role', 'button');
     div.setAttribute('tabindex', '0');
-    div.setAttribute('aria-pressed', 'false');
-    div.innerHTML = \`
-      <div style="display:flex; align-items:center;">
-        <span class="problem-index">#\${p.id}</span>
-        <span style="font-weight:600;">\${p.title}</span>
-      </div>
-    \`;
-    div.addEventListener('click', () => setActiveProblem(p.id));
+    div.innerHTML = `<div><span class="problem-index">#${p.id}</span> <span>${p.title}</span></div>`;
+    div.onclick = () => setActiveProblem(p.id);
+    // keyboard: Enter & Space to activate
     div.addEventListener('keydown', (ev) => {
       if (ev.key === 'Enter' || ev.key === ' ') {
         ev.preventDefault();
@@ -951,119 +833,74 @@ function renderSidebar() {
   });
 }
 
-/* ============================
-   No selection by default:
-   Show welcome screen until user clicks a problem
-   ============================ */
-
 let activeId = null;
 
-function setActiveProblem(id) {
-  // find existing active element and class
+function setActiveProblem(id){
   activeId = id;
-  // update list active classes and aria pressed
-  Array.from(document.querySelectorAll('.problem-item')).forEach(el => {
-    if (String(el.dataset.id) === String(id)) {
-      el.classList.add('active');
-      el.setAttribute('aria-pressed', 'true');
-    } else {
-      el.classList.remove('active');
-      el.setAttribute('aria-pressed', 'false');
-    }
+  // update active class
+  Array.from(document.querySelectorAll('.problem-item')).forEach(el=>{
+    if (el.dataset.id == id) el.classList.add('active'); else el.classList.remove('active');
   });
-
-  const p = problems.find(x => x.id === id);
+  const p = problems.find(x=>x.id==id);
   if (!p) return;
-
-  // hide welcome, show problem area
-  centerContent.classList.add('hidden');
-  problemArea.classList.remove('hidden');
-  problemArea.setAttribute('aria-hidden', 'false');
-
-  // set title, desc, complexity
   titleEl.innerHTML = p.title;
   descEl.innerHTML = p.desc;
   compEl.innerHTML = p.complexity;
-
-  // set code safely and highlight
-  // Use textContent so indentation is preserved; then highlight with Prism
+  // display code with escaping to preserve indentation; use textContent so Prism can highlight
   codeEl.textContent = p.code.trim();
   try {
-    Prism.highlightElement(codeEl);
+    Prism.highlightElement(codeEl); // highlight only the changed code
   } catch (err) {
-    // ignore highlight errors
+    // fallback: do nothing
   }
-
-  // scroll center to top
+  // scroll center to top nicely
   document.querySelector('.center').scrollTop = 0;
 }
 
-/* ============================
-   Initialize: render list, but do NOT auto-select
-   ============================ */
+// init
 renderSidebar();
-// Leave activeId as null; welcome screen visible
-problemArea.classList.add('hidden');
-problemArea.setAttribute('aria-hidden', 'true');
-centerContent.classList.remove('hidden');
-
-/* ============================
-   Keyboard Up/Down navigation (changes focus in sidebar)
-   ============================ */
-document.addEventListener('keydown', (e) => {
-  const items = Array.from(document.querySelectorAll('.problem-item'));
-  if (!items.length) return;
-
-  // find focused index
-  const focusedIndex = items.findIndex(it => it === document.activeElement);
-  if (e.key === 'ArrowDown') {
-    e.preventDefault();
-    const next = (focusedIndex === -1) ? 0 : Math.min(items.length - 1, focusedIndex + 1);
-    items[next].focus();
-  } else if (e.key === 'ArrowUp') {
-    e.preventDefault();
-    const prev = (focusedIndex === -1) ? items.length - 1 : Math.max(0, focusedIndex - 1);
-    items[prev].focus();
-  }
-});
-
-/* ============================
-   Dark / Light toggle
-   ============================ */
-toggleBtn.addEventListener('click', () => {
-  document.documentElement.classList.toggle('light');
-  document.body.classList.toggle('light');
-  // leaving Prism theme as is; it's readable in both modes
-});
-
-/* ============================
-   Small accessibility improvement:
-   Allow clicking an already active item to re-show welcome screen (optional)
-   ============================ */
-function resetToWelcome() {
-  activeId = null;
-  Array.from(document.querySelectorAll('.problem-item')).forEach(el => {
-    el.classList.remove('active');
-    el.setAttribute('aria-pressed', 'false');
-  });
-  // hide problem area and show welcome
-  problemArea.classList.add('hidden');
-  problemArea.setAttribute('aria-hidden', 'true');
-  centerContent.classList.remove('hidden');
+// set first as active by default
+if (problems.length) {
+  setActiveProblem(problems[0].id);
 }
 
-// Optional: double-click header title to reset to welcome (developer convenience)
-document.querySelector('.top-left h1').addEventListener('dblclick', resetToWelcome);
-
-/* ============================
-   Small touch: if user presses ESC, go back to welcome
-   ============================ */
+/* -------------------------
+   Optional: keyboard navigation
+--------------------------*/
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    resetToWelcome();
+  if (!activeId) return;
+  const idx = problems.findIndex(p => p.id === activeId);
+  if (e.key === 'ArrowDown') {
+    const next = problems[(idx + 1) % problems.length];
+    setActiveProblem(next.id);
+  } else if (e.key === 'ArrowUp') {
+    const prev = problems[(idx - 1 + problems.length) % problems.length];
+    setActiveProblem(prev.id);
   }
 });
 
+/* -------------------------
+   Dark / Light toggle
+--------------------------*/
+(function addDarkToggle(){
+  const btn = document.createElement('button');
+  btn.textContent = 'Toggle Dark / Light';
+  btn.style.position = 'fixed';
+  btn.style.right = '18px';
+  btn.style.bottom = '18px';
+  btn.style.padding = '10px 12px';
+  btn.style.borderRadius = '10px';
+  btn.style.border = 'none';
+  btn.style.cursor = 'pointer';
+  btn.style.background = 'linear-gradient(90deg,#06b6d4,#0891b2)';
+  btn.style.color = '#001b23';
+  btn.style.boxShadow = '0 10px 30px rgba(6,182,212,0.12)';
+  document.body.appendChild(btn);
+  btn.addEventListener('click', () => {
+    document.documentElement.classList.toggle('light');
+    document.body.classList.toggle('light');
+  });
+})();
 </script>
 
 </body>
