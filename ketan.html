@@ -108,14 +108,14 @@
 
     /* LAYOUT */
     .layout {
-      max-width: 1250px;
-      margin: 14px auto 30px;
-      padding: 0 14px 26px;
+      max-width: 1350px;           /* slightly wider */
+      margin: 18px auto 30px;
+      padding: 0 18px 26px;
       position: relative;
     }
 
     .hero-strip {
-      margin-bottom: 10px;
+      margin-bottom: 14px;
       font-size: 12px;
       color: var(--text-muted);
     }
@@ -126,25 +126,24 @@
 
     .city-shell {
       position: relative;
-      border-radius: 22px;
-      background: radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.18) 0, transparent 45%),
-                  radial-gradient(circle at 100% 0%, rgba(34, 197, 94, 0.18) 0, transparent 50%),
+      border-radius: 24px;        /* bigger rounded container */
+      background: radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.2) 0, transparent 50%),
+                  radial-gradient(circle at 100% 0%, rgba(34, 197, 94, 0.2) 0, transparent 55%),
                   #020617;
       box-shadow: var(--shadow-strong);
       overflow: hidden;
-      min-height: 520px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
+      min-height: 560px;          /* taller big square */
+      border: 1px solid rgba(148, 163, 184, 0.45);
     }
 
     /* CITY MAP PANEL */
     .city-map {
       position: relative;
-      padding: 18px 18px 20px;
+      padding: 22px 24px 26px;   /* more breathing space */
       overflow: hidden;
-      min-height: 520px;
+      min-height: 560px;
     }
 
-    /* Animated grid + roads */
     .city-map::before,
     .city-map::after {
       content: "";
@@ -154,7 +153,6 @@
       pointer-events: none;
     }
 
-    /* Moving light grid */
     .city-map::before {
       background-image:
         linear-gradient(90deg, rgba(148, 163, 184, 0.28) 1px, transparent 1px),
@@ -163,7 +161,6 @@
       animation: panGrid 24s linear infinite;
     }
 
-    /* Glowing moving roads */
     .city-map::after {
       background:
         radial-gradient(circle at 15% 25%, rgba(56, 189, 248, 0.4) 0, transparent 45%),
@@ -185,7 +182,7 @@
     .city-header {
       position: relative;
       z-index: 1;
-      margin-bottom: 8px;
+      margin-bottom: 12px;
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
@@ -194,7 +191,7 @@
 
     .city-title {
       font-family: "Montserrat", sans-serif;
-      font-size: 17px;
+      font-size: 18px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
@@ -229,20 +226,20 @@
     .city-grid {
       position: relative;
       z-index: 1;
-      margin-top: 10px;
+      margin-top: 8px;
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      grid-auto-rows: minmax(90px, 1fr);
-      gap: 12px;
-      padding: 4px 2px 8px;
+      grid-auto-rows: minmax(110px, 1fr);   /* taller cards */
+      gap: 18px;                            /* more gap */
+      padding: 6px 2px 8px;
     }
 
     .map-node {
       border-radius: var(--radius-md);
-      border: 1px solid rgba(148, 163, 184, 0.5);
+      border: 1px solid rgba(148, 163, 184, 0.55);
       background: radial-gradient(circle at 30% 0, rgba(15, 23, 42, 0.9) 0, #020617 55%);
       color: var(--text-main);
-      padding: 9px 9px;
+      padding: 12px 14px;                  /* bigger card */
       box-shadow: var(--shadow-soft);
       text-align: left;
       cursor: pointer;
@@ -265,10 +262,10 @@
     }
 
     .map-node:hover {
-      transform: translateY(-2px) scale(1.02);
+      transform: translateY(-3px) scale(1.02);
       border-color: rgba(56, 189, 248, 0.9);
       box-shadow: 0 16px 35px rgba(15, 23, 42, 0.95);
-      background: radial-gradient(circle at 0% 0%, rgba(34, 193, 195, 0.2) 0, #020617 60%);
+      background: radial-gradient(circle at 0% 0%, rgba(34, 193, 195, 0.22) 0, #020617 60%);
     }
 
     .map-node:hover::after {
@@ -276,18 +273,18 @@
     }
 
     .map-node-icon {
-      font-size: 22px;
-      margin-bottom: 4px;
+      font-size: 24px;
+      margin-bottom: 6px;
     }
 
     .map-node-title {
       font-family: "Montserrat", sans-serif;
-      font-size: 12px;
+      font-size: 13px;
       line-height: 1.3;
     }
 
     .map-node-meta {
-      margin-top: 4px;
+      margin-top: 6px;
       font-size: 10px;
       color: var(--text-muted);
       display: flex;
@@ -308,7 +305,6 @@
       font-weight: 500;
     }
 
-    /* DOCS NODE SPECIAL */
     .map-node.docs-node {
       border-style: dashed;
       border-color: rgba(249, 115, 22, 0.8);
@@ -323,9 +319,7 @@
     .overlay {
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.35) 0, transparent 55%),
-                  radial-gradient(circle at 100% 100%, rgba(34, 197, 94, 0.28) 0, transparent 60%),
-                  rgba(0, 0, 0, 0.93);
+      background: rgba(0, 0, 0, 0.96); /* fully dark */
       display: none;
       z-index: 40;
       justify-content: center;
@@ -339,7 +333,7 @@
     }
 
     .panel-shell {
-      display: none;
+      display: none;              /* KEY: hidden by default */
       width: 100%;
       max-width: 950px;
       margin: 0 auto;
@@ -351,12 +345,11 @@
       border: 1px solid var(--panel-border);
       box-shadow: var(--shadow-strong);
       padding: 14px 14px 14px;
-      display: flex;
       flex-direction: column;
     }
 
     .panel-shell.open {
-      display: flex;
+      display: flex;              /* only clicked one becomes flex */
     }
 
     .panel-header {
@@ -554,10 +547,10 @@
         align-self: flex-end;
       }
       .city-shell {
-        border-radius: 16px;
+        border-radius: 18px;
       }
       .city-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 columns on mobile for bigger cards */
       }
       .panel-header {
         flex-direction: column;
@@ -614,7 +607,7 @@
 
           <!-- 2 -->
           <button class="map-node" data-target="p2">
-            <div class="map-node-icon">🚏</div>
+            <div class="map-node-icon">🧭</div>
             <div class="map-node-title">2. Shortest Travel-Time Routing</div>
             <div class="map-node-meta">
               <span class="node-id">Dijkstra</span>
@@ -954,7 +947,7 @@
             <span class="algo-pill">Heuristic Design (straight-line)</span>
             <span class="algo-pill">Real-time Graph Updates</span>
           </div>
-        <p class="complexity" style="margin-top:6px;">
+          <p class="complexity" style="margin-top:6px;">
             Worst-case complexity similar to Dijkstra: <strong>O((n + m) log n)</strong>, often faster in practice.
           </p>
         </div>
@@ -1448,11 +1441,10 @@
     const panels = document.querySelectorAll(".panel-shell");
 
     function openPanel(id) {
-      // hide all panels
-      panels.forEach(p => p.classList.remove("open"));
+      panels.forEach(p => p.classList.remove("open")); // hide all
       const target = document.getElementById(id + "-panel");
       if (target) {
-        target.classList.add("open");
+        target.classList.add("open"); // only one is open
         overlay.classList.add("open");
       }
     }
@@ -1464,7 +1456,6 @@
       });
     });
 
-    // Close all panels and overlay
     function closeAll() {
       overlay.classList.remove("open");
       panels.forEach(p => p.classList.remove("open"));
@@ -1476,7 +1467,7 @@
       });
     });
 
-    // Optional: close overlay by clicking outside panel (on dark area)
+    // Click on dark area closes overlay
     overlay.addEventListener("click", (e) => {
       if (e.target === overlay) {
         closeAll();
