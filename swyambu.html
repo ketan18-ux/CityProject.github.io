@@ -5,108 +5,281 @@
   <title>Algorithms Portfolio | Your Name</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <style>
-
-/* ===========================
-   CRYSTAL GLASS THEME (UNIQUE)
-   =========================== */
-
-@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600&display=swap');
+/* === Base Reset === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
-    margin: 0;
-    background: linear-gradient(145deg, #061421, #0b1c2b);
-    font-family: "Segoe UI", sans-serif;
-    color: #dff8ff;
+  font-family: 'Poppins', 'Arial', sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #f0f0f0;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/* HEADER */
+/* === Header === */
 header {
-    text-align: center;
-    padding: 40px;
-    color: #e7fdff;
-    text-shadow: 0 0 12px #8cfbff;
+  background: rgba(0,0,0,0.7);
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
-header h1 {
-    font-size: 42px;
-    margin-bottom: 10px;
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
-header p {
-    font-size: 16px;
-    opacity: 0.9;
+.logo-circle {
+  width: 45px;
+  height: 45px;
+  background: linear-gradient(135deg,#ff9800,#ff5722);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #fff;
+  font-size: 18px;
 }
 
-/* CARD / PROBLEM BOX */
+.nav-title span:first-child {
+  display: block;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.nav-title span:last-child {
+  display: block;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.nav-links .nav-pill {
+  background: linear-gradient(90deg,#ff9800,#ff5722);
+  border: none;
+  padding: 8px 15px;
+  border-radius: 25px;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.nav-links .nav-pill:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(255,152,0,0.4);
+}
+
+/* === Main Layout === */
+main {
+  display: flex;
+  flex: 1;
+  padding: 20px;
+  gap: 20px;
+}
+
+.sidebar {
+  width: 250px;
+  background: rgba(0,0,0,0.5);
+  padding: 20px;
+  border-radius: 15px;
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sidebar-header {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #ffeb3b;
+}
+
+.problem-list {
+  list-style: none;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.problem-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.05);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.problem-item:hover,
+.problem-item.active {
+  background: rgba(255,152,0,0.3);
+}
+
+.problem-name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.problem-tag {
+  font-size: 12px;
+  font-style: italic;
+  color: #ccc;
+}
+
+.sidebar-footer {
+  font-size: 11px;
+  color: #aaa;
+}
+
+/* === Problem View === */
+.problem-view {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.crumbs {
+  font-size: 12px;
+  color: #ccc;
+}
+
+.problem-header-main {
+  background: rgba(0,0,0,0.5);
+  padding: 20px;
+  border-radius: 15px;
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.problem-title-block h1 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.problem-meta-row {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  font-size: 13px;
+}
+
+.algo-chip {
+  background: #ff9800;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  color: #fff;
+}
+
+.sdg-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sdg-chip {
+  background: #4caf50;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  color: #fff;
+}
+
+/* === Cards === */
 .card {
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.14);
-    border-radius: 20px;
-    padding: 25px;
-    margin: 20px;
-    transition: 0.25s;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  background: rgba(0,0,0,0.5);
+  border-radius: 15px;
+  padding: 15px 20px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
 }
 
-.card:hover {
-    transform: translateY(-7px);
-    box-shadow: 0 0 20px #82faff;
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #ffeb3b;
 }
 
-/* TAGS (Algorithm type, complexity etc.) */
-.tag {
-    display: inline-block;
-    background: #7ef0ff3a;
-    padding: 5px 12px;
-    border-radius: 12px;
-    font-size: 12px;
-    margin-right: 6px;
-    margin-top: 8px;
+.card-body {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #eee;
 }
 
-/* TITLE INSIDE CARD */
-.card h2 {
-    margin: 0 0 10px;
-    color: #dffaff;
-    text-shadow: 0 0 5px #5ce8ff;
+.code-card pre {
+  background: rgba(0,0,0,0.3);
+  padding: 12px;
+  border-radius: 10px;
+  overflow-x: auto;
+  color: #fff;
 }
 
-/* DETAILS CONTAINER */
-.details-box {
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.15);
-    padding: 20px;
-    margin-top: 15px;
-    border-radius: 15px;
+/* === Footer === */
+footer {
+  background: rgba(0,0,0,0.7);
+  text-align: center;
+  padding: 15px;
+  font-size: 13px;
+  color: #ccc;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
-/* CODE BLOCK */
-pre {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.18);
-    border-radius: 15px;
-    padding: 18px;
-    overflow-x: auto;
-    color: #e6ffff;
-    font-size: 14px;
-    line-height: 1.4;
+.highlight {
+  color: #ff9800;
+  font-weight: 600;
 }
 
-/* SCROLLBAR */
-::-webkit-scrollbar {
-    height: 8px;
-    width: 8px;
+/* === Scrollbar Styling === */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
 }
 
-::-webkit-scrollbar-thumb {
-    background: #6cf7ff44;
-    border-radius: 10px;
+.sidebar::-webkit-scrollbar-thumb {
+  background: #ff9800;
+  border-radius: 3px;
 }
 
+.sidebar::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.05);
+}
+
+/* === Responsive === */
+@media (max-width: 900px) {
+  main {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+  }
+}
 </style>
-
-
 
 
 
@@ -1085,3 +1258,4 @@ int main() {
 </script>
 </body>
 </html>
+
