@@ -1,26 +1,27 @@
 <style>
 :root {
-  /* ==== CORE COLORS ==== */
-  --bg-dark: #050507;
-  --bg-deep: #0a0a0f;
+  /* ==== TERMINAL COLORS ==== */
+  --bg-black: #030403;
+  --bg-dark: #060807;
 
-  --yellow: #facc15;
-  --yellow-soft: rgba(250,204,21,0.25);
-  --yellow-glow: rgba(250,204,21,0.65);
+  --green: #22ff22;
+  --green-soft: rgba(34,255,34,0.25);
+  --green-glow: rgba(34,255,34,0.6);
 
-  --glass-bg: rgba(255,255,255,0.08);
-  --glass-strong: rgba(255,255,255,0.14);
+  --glass-bg: rgba(255,255,255,0.04);
+  --glass-strong: rgba(255,255,255,0.08);
 
-  --border-glass: rgba(255,255,255,0.18);
+  --border-green: rgba(34,255,34,0.45);
 
-  --text-main: #f9fafb;
-  --text-muted: #9ca3af;
+  --text-main: #caffca;
+  --text-dim: #6ee76e;
 
-  --radius: 18px;
-  --blur: blur(20px);
-  --shadow: 0 30px 60px rgba(0,0,0,0.6);
+  --radius: 16px;
+  --blur: blur(16px);
+  --shadow: 0 0 0 1px rgba(34,255,34,0.15),
+            0 20px 60px rgba(0,0,0,0.8);
 
-  --mono: "Fira Code", monospace;
+  --mono: "Fira Code", "JetBrains Mono", Consolas, monospace;
 }
 
 /* ==== BASE ==== */
@@ -28,86 +29,107 @@
 
 body {
   margin: 0;
-  font-family: system-ui, sans-serif;
+  font-family: var(--mono);
   color: var(--text-main);
   background:
-    radial-gradient(circle at top right, rgba(250,204,21,0.15), transparent 60%),
-    linear-gradient(180deg, var(--bg-dark), var(--bg-deep));
+    radial-gradient(circle at top, rgba(34,255,34,0.08), transparent 45%),
+    linear-gradient(180deg, var(--bg-black), var(--bg-dark));
+  text-shadow: 0 0 6px rgba(34,255,34,0.25);
+}
+
+/* ==== TERMINAL SCANLINES ==== */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.02),
+      rgba(255,255,255,0.02) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  opacity: 0.25;
 }
 
 /* ==== HEADER ==== */
 header {
   position: sticky;
   top: 0;
-  background: rgba(10,10,15,0.5);
+  background: rgba(2,5,2,0.75);
   backdrop-filter: var(--blur);
-  border-bottom: 1px solid var(--border-glass);
+  border-bottom: 1px solid var(--border-green);
 }
 
 /* ==== LOGO ==== */
 .logo-circle {
-  background: linear-gradient(135deg, #fde047, #facc15);
+  background: var(--green);
   border-radius: 50%;
   padding: 2px;
-  box-shadow: 0 0 18px var(--yellow-glow);
+  box-shadow: 0 0 25px var(--green-glow);
 }
 
 .logo-inner {
-  background: rgba(0,0,0,0.8);
-  color: var(--yellow);
+  background: var(--bg-black);
+  color: var(--green);
   font-weight: 700;
   border-radius: inherit;
 }
 
-/* ==== GLASS PANELS ==== */
+/* ==== TERMINAL PANELS ==== */
 .sidebar,
 .problem-view,
 .card {
-  background: var(--glass-bg);
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,0.6),
+    rgba(0,0,0,0.85)
+  );
   backdrop-filter: var(--blur);
-  border-radius: 22px;
-  border: 1px solid var(--border-glass);
+  border-radius: var(--radius);
+  border: 1px solid var(--border-green);
   box-shadow: var(--shadow);
 }
 
 /* ==== SIDEBAR ITEMS ==== */
 .problem-item {
-  background: rgba(255,255,255,0.06);
-  border-radius: 14px;
-  color: var(--text-muted);
-  border: 1px solid transparent;
+  background: rgba(34,255,34,0.03);
+  border: 1px solid rgba(34,255,34,0.25);
+  color: var(--text-dim);
   transition: all 0.2s ease;
 }
 
 .problem-item:hover {
-  background: var(--glass-strong);
-  border-color: var(--yellow-glow);
-  transform: translateY(-2px);
+  background: rgba(34,255,34,0.1);
+  box-shadow: 0 0 12px var(--green-glow);
+  transform: translateX(4px);
 }
 
 .problem-item.active {
-  background: rgba(250,204,21,0.22);
-  border-color: var(--yellow);
+  background: rgba(34,255,34,0.18);
   color: #fff;
+  box-shadow: inset 0 0 12px rgba(34,255,34,0.8);
 }
 
-/* ==== TAGS & PILLS ==== */
+/* ==== TAGS & CHIPS ==== */
 .problem-tag,
 .problem-id-pill,
 .sdg-chip,
 .algo-chip {
-  background: rgba(255,255,255,0.14);
-  border: 1px solid var(--yellow);
-  color: #fde047;
-  border-radius: 999px;
-  padding: 4px 10px;
+  background: rgba(0,0,0,0.8);
+  border: 1px solid var(--green);
+  color: var(--green);
+  border-radius: 6px;
+  font-size: 11px;
 }
 
-/* ==== CONTENT CARDS ==== */
+/* ==== CONTENT ==== */
 .card-header {
-  color: var(--text-muted);
-  letter-spacing: 0.12em;
+  color: var(--green);
   text-transform: uppercase;
+  letter-spacing: 0.14em;
 }
 
 .card-body {
@@ -115,57 +137,61 @@ header {
   line-height: 1.7;
 }
 
-/* ==== CODE ==== */
+/* ==== CODE BLOCKS ==== */
 .code-card {
-  background: linear-gradient(
-    180deg,
-    rgba(250,204,21,0.15),
-    rgba(0,0,0,0.55)
-  );
-  border: 1px solid var(--yellow-soft);
+  border: 1px dashed var(--green);
+  background: rgba(0,0,0,0.85);
 }
 
 pre {
-  background: rgba(0,0,0,0.8);
-  border-radius: 14px;
-  padding: 14px;
+  background: #000;
+  color: var(--green);
   font-family: var(--mono);
   font-size: 11px;
-  color: #fef9c3;
-  border: 1px solid rgba(255,255,255,0.15);
+  line-height: 1.5;
+  border-radius: 8px;
+  padding: 14px;
+  box-shadow: inset 0 0 10px rgba(34,255,34,0.45);
 }
 
 /* ==== BUTTONS ==== */
 .btn-sm,
 .nav-pill {
-  background: rgba(255,255,255,0.15);
-  border: 1px solid var(--yellow);
-  color: var(--yellow);
-  border-radius: 999px;
+  background: rgba(0,0,0,0.9);
+  border: 1px solid var(--green);
+  color: var(--green);
+  border-radius: 6px;
   transition: all 0.2s ease;
 }
 
 .btn-sm:hover,
 .nav-pill:hover {
-  background: var(--yellow);
+  background: var(--green);
   color: #000;
-  box-shadow: 0 0 20px var(--yellow-glow);
+  box-shadow: 0 0 18px var(--green-glow);
 }
 
-/* ==== FOOTER ==== */
-footer {
-  background: rgba(255,255,255,0.05);
-  border-top: 1px solid var(--border-glass);
-  color: var(--text-muted);
+/* ==== CARET BLINK ==== */
+@keyframes blink {
+  50% { opacity: 0; }
+}
+.cursor {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  background: var(--green);
+  animation: blink 1s steps(1) infinite;
+  margin-left: 4px;
 }
 
 /* ==== SCROLLBAR ==== */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(#fde047, #facc15);
-  border-radius: 999px;
+  background: var(--green);
+  box-shadow: 0 0 10px var(--green-glow);
 }
 </style>
+
 
 
 </head>
