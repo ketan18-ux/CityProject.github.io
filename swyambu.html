@@ -1022,61 +1022,84 @@ int main(){
     {
       id: 10,
       number: 10,
-      title: "Sports & Recreation Center",
+      title: ": Efficient Waste Sorting in Smart Bins",
       categoryTag: "",
-      shortTag: "Merge Sort+Binary Tree",
+      shortTag: "AVL Tree",
       time: "≈O(α(n)) per op",
       space: "O(n)",
-      algorithm: "Merge Sort+Binary Tree",
+      algorithm: "AVL Tree",
       sdgs: [
-        "SDG 3 – Good Health & Well-being Promotes physical activity and healthy lifestyles",
-        "SDG 4 – Quality Education Provides training, coaching, and skill development",
-        "SDG 11 – Sustainable Cities & Communities Encourages community engagement through sports"
+        "SDG 13 – Climate Action",
+        "SDG 12 – Responsible Consumption and Production",
+        "SDG 11 – Sustainable Cities & Communities Encourages community engagement through s"
       ],
       problemText:
-        "Sports centers maintain player details, match scores, coaching information, and event schedules. Players must be ranked and sorted properly.",
+        "A city wants to manage waste efficiently using smart bins. Each bin contains types of waste (organic, recyclable, hazardous). Design a system to quickly insert, delete, and search waste items to track recycling patterns.",
       solutionText:
-        "Players’ scores can be sorted to generate rankings. Member and event records can be stored in a tree for fast retrieval and updates.",
-        code:` MergeSort
-        void mergeSort(vector<int>& a, int l, int r) {
-    if (l >= r) return;
+        ".",
+        code:` AVL Tree
+       #include <iostream>
+using namespace std;
 
-    int m = (l + r) / 2;
-    mergeSort(a, l, m);
-    mergeSort(a, m + 1, r);
-
-    vector<int> t;
-    int i = l, j = m + 1;
-
-    while (i <= m && j <= r)
-        t.push_back(a[i] < a[j] ? a[i++] : a[j++]);
-
-    while (i <= m) t.push_back(a[i++]);
-    while (j <= r) t.push_back(a[j++]);
-
-    for (int k = 0; k < t.size(); k++)
-        a[l + k] = t[k];
-}
-Binary Tre
 struct Node {
-    int data;
-    Node* left;
-    Node* right;
-    Node(int x) : data(x), left(NULL), right(NULL) {}
+    int key, height;
+    Node *left, *right;
+    Node(int k) : key(k), height(1), left(nullptr), right(nullptr) {}
 };
 
-Node* insert(Node* root, int x) {
-    if (!root) return new Node(x);
-    if (x < root->data) root->left = insert(root->left, x);
-    else root->right = insert(root->right, x);
-    return root;
+int height(Node* n) { return n ? n->height : 0; }
+int getBalance(Node* n) { return n ? height(n->left)-height(n->right) : 0; }
+
+Node* rightRotate(Node* y) {
+    Node* x = y->left;
+    Node* T2 = x->right;
+    x->right = y;
+    y->left = T2;
+    y->height = max(height(y->left), height(y->right))+1;
+    x->height = max(height(x->left), height(x->right))+1;
+    return x;
 }
 
-bool search(Node* root, int x) {
-    if (!root) return false;
-    if (root->data == x) return true;
-    return x < root->data ? search(root->left, x) : search(root->right, x);
+Node* leftRotate(Node* x) {
+    Node* y = x->right;
+    Node* T2 = y->left;
+    y->left = x;
+    x->right = T2;
+    x->height = max(height(x->left), height(x->right))+1;
+    y->height = max(height(y->left), height(y->right))+1;
+    return y;
 }
+
+Node* insert(Node* node, int key) {
+    if(!node) return new Node(key);
+    if(key < node->key) node->left = insert(node->left, key);
+    else if(key > node->key) node->right = insert(node->right, key);
+    else return node;
+
+    node->height = 1 + max(height(node->left), height(node->right));
+    int balance = getBalance(node);
+
+    if(balance>1 && key<node->left->key) return rightRotate(node);
+    if(balance<-1 && key>node->right->key) return leftRotate(node);
+    if(balance>1 && key>node->left->key) { node->left=leftRotate(node->left); return rightRotate(node); }
+    if(balance<-1 && key<node->right->key) { node->right=rightRotate(node->right); return leftRotate(node); }
+    return node;
+}
+
+void preOrder(Node* root) {
+    if(root){ cout<<root->key<<" "; preOrder(root->left); preOrder(root->right);}
+}
+
+int main() {
+    Node* root = nullptr;
+    root = insert(root, 30);
+    root = insert(root, 20);
+    root = insert(root, 40);
+    root = insert(root, 10);
+    preOrder(root);
+    return 0;
+}
+
 `,
  
     }
