@@ -5,294 +5,105 @@
   <title>Algorithms Portfolio | Your Name</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <style>
-/* === Base Reset === */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+
+/* ===========================
+   CRYSTAL GLASS THEME (UNIQUE)
+   =========================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600&display=swap');
 
 body {
-  font-family: 'Orbitron', sans-serif;
-  background: #0d0d0d;
-  color: #e0e0ff;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  text-shadow: 0 0 5px #00ffff, 0 0 10px #ff00ff;
+    margin: 0;
+    background: linear-gradient(145deg, #061421, #0b1c2b);
+    font-family: "Segoe UI", sans-serif;
+    color: #dff8ff;
 }
 
-/* === Header === */
+/* HEADER */
 header {
-  background: linear-gradient(90deg, #0ff, #f0f);
-  padding: 12px 25px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 2px solid #0ff;
-  box-shadow: 0 0 15px #ff00ff;
+    text-align: center;
+    padding: 40px;
+    color: #e7fdff;
+    text-shadow: 0 0 12px #8cfbff;
 }
 
-.nav-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+header h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
 }
 
-.logo-circle {
-  width: 50px;
-  height: 50px;
-  background: linear-gradient(45deg,#ff00ff,#00ffff);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  color: #0d0d0d;
-  font-size: 20px;
-  text-shadow: 0 0 5px #fff;
+header p {
+    font-size: 16px;
+    opacity: 0.9;
 }
 
-.nav-title span:first-child {
-  display: block;
-  font-weight: 700;
-  font-size: 18px;
-  color: #fff;
-}
-
-.nav-title span:last-child {
-  display: block;
-  font-size: 13px;
-  color: #aaa;
-}
-
-.nav-links .nav-pill {
-  background: #ff00ff;
-  border: 1px solid #0ff;
-  padding: 7px 16px;
-  border-radius: 30px;
-  font-weight: 600;
-  color: #0d0d0d;
-  cursor: pointer;
-  text-transform: uppercase;
-  transition: 0.3s;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.nav-links .nav-pill:hover {
-  background: #0ff;
-  color: #000;
-  transform: scale(1.08);
-  box-shadow: 0 0 20px #ff00ff, 0 0 40px #0ff;
-}
-
-/* === Main Layout === */
-main {
-  display: flex;
-  flex: 1;
-  padding: 20px;
-  gap: 20px;
-}
-
-.sidebar {
-  width: 260px;
-  background: rgba(15, 15, 30, 0.8);
-  padding: 20px;
-  border-radius: 20px;
-  backdrop-filter: blur(12px);
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  border: 1px solid #0ff;
-  box-shadow: 0 0 20px #ff00ff inset;
-}
-
-.sidebar-header {
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #0ff;
-}
-
-.problem-list {
-  list-style: none;
-  overflow-y: auto;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.problem-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 14px;
-  border-radius: 12px;
-  background: rgba(255,255,255,0.03);
-  cursor: pointer;
-  transition: 0.3s;
-  border: 1px solid #ff00ff;
-}
-
-.problem-item:hover,
-.problem-item.active {
-  background: #0ff;
-  color: #000;
-  text-shadow: none;
-  box-shadow: 0 0 10px #ff00ff;
-}
-
-.problem-name {
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.problem-tag {
-  font-size: 12px;
-  font-style: italic;
-  color: #ff00ff;
-}
-
-.sidebar-footer {
-  font-size: 11px;
-  color: #888;
-}
-
-/* === Problem View === */
-.problem-view {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-}
-
-.crumbs {
-  font-size: 12px;
-  color: #0ff;
-}
-
-.problem-header-main {
-  background: rgba(20, 20, 50, 0.8);
-  padding: 22px;
-  border-radius: 18px;
-  backdrop-filter: blur(12px);
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  border: 1px solid #ff00ff;
-}
-
-.problem-title-block h1 {
-  font-size: 24px;
-  margin-bottom: 12px;
-  color: #ff00ff;
-}
-
-.problem-meta-row {
-  display: flex;
-  gap: 18px;
-  flex-wrap: wrap;
-  font-size: 13px;
-}
-
-.algo-chip {
-  background: #00ffff;
-  padding: 4px 12px;
-  border-radius: 25px;
-  font-size: 12px;
-  font-weight: 600;
-  color: #0d0d0d;
-  text-shadow: none;
-}
-
-.sdg-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.sdg-chip {
-  background: #ff00ff;
-  padding: 4px 12px;
-  border-radius: 25px;
-  font-size: 12px;
-  color: #0d0d0d;
-  font-weight: 600;
-}
-
-/* === Cards === */
+/* CARD / PROBLEM BOX */
 .card {
-  background: rgba(25, 25, 50, 0.85);
-  border-radius: 20px;
-  padding: 18px 22px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 20px rgba(0,255,255,0.3);
-  border: 1px solid #0ff;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 20px;
+    padding: 25px;
+    margin: 20px;
+    transition: 0.25s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  font-weight: 700;
-  margin-bottom: 12px;
-  font-size: 14px;
-  color: #00ffff;
+.card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 0 20px #82faff;
 }
 
-.card-body {
-  font-size: 14px;
-  line-height: 1.5;
-  color: #e0e0ff;
+/* TAGS (Algorithm type, complexity etc.) */
+.tag {
+    display: inline-block;
+    background: #7ef0ff3a;
+    padding: 5px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    margin-right: 6px;
+    margin-top: 8px;
 }
 
-.code-card pre {
-  background: rgba(0,0,0,0.2);
-  padding: 14px;
-  border-radius: 14px;
-  overflow-x: auto;
-  color: #0ff;
-  font-family: 'Courier New', monospace;
-  text-shadow: 0 0 3px #ff00ff;
+/* TITLE INSIDE CARD */
+.card h2 {
+    margin: 0 0 10px;
+    color: #dffaff;
+    text-shadow: 0 0 5px #5ce8ff;
 }
 
-/* === Footer === */
-footer {
-  background: linear-gradient(90deg,#ff00ff,#0ff);
-  text-align: center;
-  padding: 15px;
-  font-size: 13px;
-  color: #0d0d0d;
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
-  font-weight: 700;
+/* DETAILS CONTAINER */
+.details-box {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 20px;
+    margin-top: 15px;
+    border-radius: 15px;
 }
 
-/* === Scrollbar Styling === */
-.sidebar::-webkit-scrollbar {
-  width: 6px;
+/* CODE BLOCK */
+pre {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 15px;
+    padding: 18px;
+    overflow-x: auto;
+    color: #e6ffff;
+    font-size: 14px;
+    line-height: 1.4;
 }
 
-.sidebar::-webkit-scrollbar-thumb {
-  background: #ff00ff;
-  border-radius: 3px;
+/* SCROLLBAR */
+::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
 }
 
-.sidebar::-webkit-scrollbar-track {
-  background: rgba(255,255,255,0.02);
+::-webkit-scrollbar-thumb {
+    background: #6cf7ff44;
+    border-radius: 10px;
 }
 
-/* === Responsive === */
-@media (max-width: 900px) {
-  main {
-    flex-direction: column;
-  }
-  .sidebar {
-    width: 100%;
-  }
-}
 </style>
 
 
