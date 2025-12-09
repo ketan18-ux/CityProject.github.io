@@ -5,179 +5,72 @@
   <title>Algorithms Portfolio | Your Name</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
  <style>
-/* =====================
-   GLOBAL
-===================== */
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
-}
-
-body{
-  min-height:100vh;
-  background:
-    repeating-linear-gradient(
-      135deg,
-      #ffedd5 0px,
-      #ffedd5 30px,
-      #fed7aa 30px,
-      #fed7aa 60px
-    );
-  color:#1f2937;
-}
-
-/* =====================
-   MAIN LAYOUT
-===================== */
-.container{
-  display:flex;
-  gap:24px;
-  padding:26px;
-}
-
-/* =====================
-   SIDEBAR
-===================== */
-.sidebar{
-  width:290px;
-  flex-shrink:0;
-  background:linear-gradient(180deg,#fb923c,#f97316);
-  padding:26px 22px;
-  border-radius:24px;
-  color:#fff;
-  box-shadow:0 20px 40px rgba(249,115,22,.35);
-}
-
-.sidebar h2{
-  font-size:1.4rem;
-  margin-bottom:18px;
-}
-
-.problem-list{
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-}
-
-.problem-item{
-  background:rgba(255,255,255,.2);
-  padding:12px 16px;
-  border-radius:14px;
-  cursor:pointer;
-  transition:.3s ease;
-  font-size:.88rem;
-}
-
-.problem-item:hover{
-  transform:translateX(6px);
-  background:rgba(255,255,255,.35);
-}
-
-/* =====================
-   MAIN CONTENT
-===================== */
-.main{
-  flex:1;
-  padding:34px;
-  border-radius:32px;
-  background:linear-gradient(150deg,#ffffff,#fff7ed);
-  box-shadow:0 25px 60px rgba(0,0,0,.1);
-  position:relative;
-  overflow:hidden;
-}
-
-.main::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    radial-gradient(circle at 20% 20%,rgba(251,146,60,.18),transparent 45%),
-    radial-gradient(circle at 80% 10%,rgba(249,115,22,.18),transparent 45%);
-  pointer-events:none;
-}
-
-/* =====================
-   TITLES
-===================== */
-.main h1{
-  font-size:2.1rem;
-  color:#ea580c;
-  margin-bottom:14px;
-}
-
-.section-title{
-  margin-top:24px;
-  font-size:1.05rem;
-  color:#9a3412;
-}
-
-/* =====================
-   TAGS / BADGES
-===================== */
-.badges{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-bottom:20px;
-}
-
-.badge{
-  padding:6px 16px;
-  border-radius:999px;
-  background:linear-gradient(135deg,#f97316,#fb923c);
-  font-size:.75rem;
-  color:#fff;
-  box-shadow:0 6px 14px rgba(249,115,22,.35);
-}
-
-/* =====================
-   TEXT
-===================== */
-.main p{
-  font-size:.95rem;
-  line-height:1.65;
-  color:#374151;
-  margin-top:6px;
-  max-width:900px;
-}
-
-/* =====================
-   CODE BLOCK
-===================== */
-pre{
-  margin-top:22px;
-  background:#0f172a;
-  color:#fb923c;
-  padding:18px;
-  border-radius:18px;
-  font-size:.8rem;
-  overflow-x:auto;
-  box-shadow:inset 0 0 0 1px rgba(251,146,60,.3);
-}
-
-/* =====================
-   FOOTER NOTE
-===================== */
-.footer{
-  margin-top:30px;
-  font-size:.8rem;
-  color:#9ca3af;
-}
-
-/* =====================
-   RESPONSIVE
-===================== */
-@media(max-width:940px){
-  .container{
-    flex-direction:column;
+  /* === Base Styles === */
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    padding: 20px;
+    margin: 0;
   }
-  .sidebar{
-    width:100%;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
   }
-}
+
+  /* === Container for all rows === */
+  .container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  /* === Columns for Problems and Solutions === */
+  .column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  /* === Individual Problem & Solution Blocks === */
+  .problem, .solution {
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    min-width: 250px;
+  }
+
+  .problem {
+    background-color: #ffecb3; /* light orange */
+  }
+
+  .solution {
+    background-color: #c8e6c9; /* light green */
+  }
+
+  /* === Titles inside blocks === */
+  .problem h3, .solution h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  /* === Responsive Design === */
+  @media (max-width: 1000px) {
+    .container {
+      flex-direction: column;
+    }
+    .column {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    .problem, .solution {
+      flex: 1 1 45%;
+    }
+  }
 </style>
+
 
 
 </head>
