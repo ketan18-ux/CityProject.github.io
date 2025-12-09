@@ -18,29 +18,35 @@
     header h1 { font-size: 26px; margin-bottom: 10px; }
     header p { font-size: 15px; margin: 4px 0; }
     .container {
-      max-width: 1000px;
+      max-width: 1100px;
       margin: auto;
       padding: 30px;
     }
-    .gallery h2 {
-      font-size: 20px;
-      margin-bottom: 20px;
-      color: #003366;
-      border-bottom: 2px solid #0077cc;
-      padding-bottom: 6px;
+    .case-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 40px;
     }
-    .case {
-      background: white;
-      border-left: 6px solid #0077cc;
+    .left-box {
+      background: #fff;
+      border-left: 6px solid #cc0000;
       padding: 20px;
-      margin-bottom: 20px;
       border-radius: 12px;
       box-shadow: 0px 6px 16px rgba(0,0,0,0.08);
     }
-    .case h3 {
-      font-size: 18px;
-      margin-bottom: 8px;
+    .right-box {
+      background: #fff;
+      border-left: 6px solid #f2c200;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0px 6px 16px rgba(0,0,0,0.08);
+      overflow-x: auto;
+    }
+    .left-box h2 {
+      font-size: 20px;
       color: #003366;
+      margin-bottom: 10px;
     }
     .algo {
       font-size: 14px;
@@ -56,6 +62,21 @@
       font-size: 13px;
       color: #444;
       margin-left: 10px;
+    }
+    .code-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #003366;
+      margin-bottom: 10px;
+    }
+    .code-block {
+      background: #f7f7f7;
+      border-left: 4px solid #0077cc;
+      padding: 12px;
+      font-size: 13px;
+      font-family: monospace;
+      white-space: pre;
+      border-radius: 8px;
     }
     footer {
       text-align: center;
@@ -79,11 +100,12 @@
   </header>
 
   <div class="container">
-    <div class="gallery">
-      <h2>A. Case Study Gallery</h2>
 
-      <div class="case">
-        <h3>#1 Best Allocation of City Budget</h3>
+    <div class="case-row">
+
+      <!-- 🔴 Left Part: Case Study Info -->
+      <div class="left-box">
+        <h2>#1 Best Allocation of City Budget</h2>
         <p class="algo">Algorithm: 0/1 Knapsack (DP)</p>
         <p class="desc">Select projects under budget to maximize impact.</p>
         <p class="sdg">SDG 1: No Poverty</p>
@@ -91,88 +113,30 @@
         <p class="sdg">SDG 11: Sustainable Cities</p>
       </div>
 
-      <div class="case">
-        <h3>#2 Tax Officer Route Optimization</h3>
-        <p class="algo">Algorithm: Dijkstra / Floyd-Warshall</p>
-        <p class="desc">Compute shortest inspection routes across zones.</p>
-        <p class="sdg">SDG 9: Industry & Infrastructure</p>
-        <p class="sdg">SDG 11: Sustainable Cities</p>
-        <p class="sdg">SDG 16: Peace & Justice</p>
-      </div>
-
-      <div class="case">
-        <h3>#3 Smart Parking Fee Prediction</h3>
-        <p class="algo">Algorithm: Segment Tree + Lookup Table</p>
-        <p class="desc">Predict optimal fees based on usage trends.</p>
-        <p class="sdg">SDG 9: Industry & Infrastructure</p>
-        <p class="sdg">SDG 11: Sustainable Cities</p>
-        <p class="sdg">SDG 13: Climate Action</p>
-      </div>
-
-      <div class="case">
-        <h3>#4 City Energy Demand Forecasting</h3>
-        <p class="algo">Algorithm: Recurrence + Fenwick Tree</p>
-        <p class="desc">Forecast future energy needs using rolling sums.</p>
-        <p class="sdg">SDG 7: Clean Energy</p>
-        <p class="sdg">SDG 11: Sustainable Cities</p>
-        <p class="sdg">SDG 13: Climate Action</p>
-      </div>
-
-      <div class="case">
-        <h3>#5 Metro Construction Phase Optimization</h3>
-        <p class="algo">Algorithm: Heap + Heap Sort</p>
-        <p class="desc">Prioritize metro phases based on ROI.</p>
-        <p class="sdg">SDG 9: Infrastructure</p>
-        <p class="sdg">SDG 11: Sustainable Cities</p>
-        <p class="sdg">SDG 8: Economic Growth</p>
-      </div>
-
-      <div class="case">
-        <h3>#6 Streetlight Energy Reduction</h3>
-        <p class="algo">Algorithm: Backtracking + Scheduling</p>
-        <p class="desc">Generate dimming schedules to save electricity.</p>
-        <p class="sdg">SDG 7: Clean Energy</p>
-        <p class="sdg">SDG 11: Sustainable Cities</p>
-        <p class="sdg">SDG 13: Climate Action</p>
-      </div>
-
-      <div class="case">
-        <h3>#7 Transport Ticket Dynamic Pricing</h3>
-        <p class="algo">Algorithm: AVL Tree + Binary Heap</p>
-        <p class="desc">AVL tree stores price bands; heap tracks demand peaks for dynamic adjustments.</p>
-        <p class="sdg">SDG 8: Economic Growth</p>
-        <p class="sdg">SDG 9: Industry & Infrastructure</p>
-        <p class="sdg">SDG 11: Sustainable Cities</p>
-      </div>
-
-      <div class="case">
-        <h3>#8 Garbage Plant Load Balancing</h3>
-        <p class="algo">Algorithm: Min-Heap + Queue Simulation</p>
-        <p class="desc">Assign waste to least loaded plant using queue simulation.</p>
-        <p class="sdg">SDG 11: Sustainable Cities</p>
-        <p class="sdg">SDG 12: Responsible Consumption</p>
-        <p class="sdg">SDG 13: Climate Action</p>
-      </div>
-
-      <div class="case">
-        <h3>#9 Building Maintenance Prediction</h3>
-        <p class="algo">Algorithm: 2-3 Tree + Divide & Conquer</p>
-        <p class="desc">Logs indexed in 2-3 tree; divide & conquer detects recurring maintenance patterns.</p>
-        <p class="sdg">SDG 9: Industry & Infrastructure</p>
-        <p class="sdg">SDG 11: Sustainable Cities</p>
-        <p class="sdg">SDG 12: Responsible Consumption</p>
-      </div>
-
-      <div class="case">
-        <h3>#10 Subsidy Distribution Optimization</h3>
-        <p class="algo">Algorithm: Quick Sort + Knapsack</p>
-        <p class="desc">Quick sort orders beneficiaries by benefit/cost; knapsack DP selects optimal subset.</p>
-        <p class="sdg">SDG 1: No Poverty</p>
-        <p class="sdg">SDG 8: Decent Work & Economic Growth</p>
-        <p class="sdg">SDG 10: Reduced Inequalities</p>
+      <!-- 🟡 Right Part: Code -->
+      <div class="right-box">
+        <div class="code-title">C++ Code: 0/1 Knapsack</div>
+        <div class="code-block">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+int main() {
+  int n, W;
+  cin >> n >> W;
+  vector&lt;int&gt; wt(n), val(n);
+  for (int i = 0; i &lt; n; i++) cin >> wt[i] >> val[i];
+  vector&lt;int&gt; dp(W + 1, 0);
+  for (int i = 0; i &lt; n; i++) {
+    for (int w = W; w &gt;= wt[i]; w--) {
+      dp[w] = max(dp[w], dp[w - wt[i]] + val[i]);
+    }
+  }
+  cout &lt;&lt; dp[W];
+}
+        </div>
       </div>
 
     </div>
+
   </div>
 
   <footer>
