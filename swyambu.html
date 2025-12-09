@@ -4,72 +4,283 @@
   <meta charset="UTF-8" />
   <title>Algorithms Portfolio | Your Name</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
- <style>
-  /* === Base Styles === */
-  body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f5f5f5;
-    padding: 20px;
-    margin: 0;
-  }
+<style>
+/* === Base Reset === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
+body {
+  font-family: 'Poppins', 'Arial', sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #f0f0f0;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
-  /* === Container for all rows === */
-  .container {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    align-items: flex-start;
-  }
+/* === Header === */
+header {
+  background: rgba(0,0,0,0.7);
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
 
-  /* === Columns for Problems and Solutions === */
-  .column {
-    flex: 1;
-    display: flex;
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo-circle {
+  width: 45px;
+  height: 45px;
+  background: linear-gradient(135deg,#ff9800,#ff5722);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #fff;
+  font-size: 18px;
+}
+
+.nav-title span:first-child {
+  display: block;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.nav-title span:last-child {
+  display: block;
+  font-size: 14px;
+  color: #ccc;
+}
+
+.nav-links .nav-pill {
+  background: linear-gradient(90deg,#ff9800,#ff5722);
+  border: none;
+  padding: 8px 15px;
+  border-radius: 25px;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.nav-links .nav-pill:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(255,152,0,0.4);
+}
+
+/* === Main Layout === */
+main {
+  display: flex;
+  flex: 1;
+  padding: 20px;
+  gap: 20px;
+}
+
+.sidebar {
+  width: 250px;
+  background: rgba(0,0,0,0.5);
+  padding: 20px;
+  border-radius: 15px;
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sidebar-header {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #ffeb3b;
+}
+
+.problem-list {
+  list-style: none;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.problem-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.05);
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.problem-item:hover,
+.problem-item.active {
+  background: rgba(255,152,0,0.3);
+}
+
+.problem-name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.problem-tag {
+  font-size: 12px;
+  font-style: italic;
+  color: #ccc;
+}
+
+.sidebar-footer {
+  font-size: 11px;
+  color: #aaa;
+}
+
+/* === Problem View === */
+.problem-view {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.crumbs {
+  font-size: 12px;
+  color: #ccc;
+}
+
+.problem-header-main {
+  background: rgba(0,0,0,0.5);
+  padding: 20px;
+  border-radius: 15px;
+  backdrop-filter: blur(8px);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.problem-title-block h1 {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.problem-meta-row {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  font-size: 13px;
+}
+
+.algo-chip {
+  background: #ff9800;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  color: #fff;
+}
+
+.sdg-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sdg-chip {
+  background: #4caf50;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  color: #fff;
+}
+
+/* === Cards === */
+.card {
+  background: rgba(0,0,0,0.5);
+  border-radius: 15px;
+  padding: 15px 20px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #ffeb3b;
+}
+
+.card-body {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #eee;
+}
+
+.code-card pre {
+  background: rgba(0,0,0,0.3);
+  padding: 12px;
+  border-radius: 10px;
+  overflow-x: auto;
+  color: #fff;
+}
+
+/* === Footer === */
+footer {
+  background: rgba(0,0,0,0.7);
+  text-align: center;
+  padding: 15px;
+  font-size: 13px;
+  color: #ccc;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.highlight {
+  color: #ff9800;
+  font-weight: 600;
+}
+
+/* === Scrollbar Styling === */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #ff9800;
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.05);
+}
+
+/* === Responsive === */
+@media (max-width: 900px) {
+  main {
     flex-direction: column;
-    gap: 15px;
   }
-
-  /* === Individual Problem & Solution Blocks === */
-  .problem, .solution {
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    min-width: 250px;
+  .sidebar {
+    width: 100%;
   }
-
-  .problem {
-    background-color: #ffecb3; /* light orange */
-  }
-
-  .solution {
-    background-color: #c8e6c9; /* light green */
-  }
-
-  /* === Titles inside blocks === */
-  .problem h3, .solution h3 {
-    margin-top: 0;
-    margin-bottom: 10px;
-  }
-
-  /* === Responsive Design === */
-  @media (max-width: 1000px) {
-    .container {
-      flex-direction: column;
-    }
-    .column {
-      flex-direction: row;
-      flex-wrap: wrap;
-    }
-    .problem, .solution {
-      flex: 1 1 45%;
-    }
-  }
+}
 </style>
+
 
 
 
