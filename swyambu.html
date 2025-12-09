@@ -343,7 +343,7 @@ footer {
    {
       id: 1,
       number: 1,
-      title: "Historical Data Sorting for Resource Allocation",
+      title: "Air Quality Prediction Network",
       categoryTag: "",
       shortTag: "Merge Sort",
       time: "O(n)",
@@ -352,113 +352,90 @@ footer {
       sdgs: [
         
         "SDG 11 – Sustainable Cities and Communities",
-        "SDG 16 – Peace, Justice, and Strong Institutions"
+        "SDG 3 – Good Health and Well-Being"
       ],
       problemText:
-        "The city generates massive amounts of historical data  that needs to be efficiently sorted by time, severity, or location code to analyze trends and prioritize the allocation of limited resources.",
-      solutionText: "Apply Merge Sort to the data. This algorithm is ideal for large datasets due to its reliable O(n \log n) time complexity. By sorting the records, city planners can quickly identify high-frequency or high-severity clusters.",
-      code: `Merge sort
+        "AQI readings are recorded at different times and need organizing. A simple method is required to sort past AQI data and predict the next value.",
+      solutionText: "Historical data is sorted using Merge Sort. The average change between readings is computed and added to the latest value to estimate the next AQ.",
+      code: `Merge Sort + AQI Trend Prediction
 
     #include <iostream>
 #include <vector>
-#include <algorithm>
-
 using namespace std;
 
-// --- 1. The Merge Function (Combines two sorted subarrays) ---
-void merge(vector<int>& arr, int l, int m, int r) {
-    // Calculate sizes of the two subarrays to be merged
-    int n1 = m - l + 1;
-    int n2 = r - m;
+// Structure to store AQI reading with timestamp
+struct Reading {
+    int time;
+    int aqi;
+};
 
-    // Create temporary arrays to hold the data
-    vector<int> L(n1); 
-    vector<int> R(n2);
+// Merge function for merge sort
+void merge(vector<Reading>& arr, int left, int mid, int right) {
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
 
-    // Copy data to temp arrays L[] and R[]
-    for (int i = 0; i < n1; i++) {
-        L[i] = arr[l + i];
-    }
-    for (int j = 0; j < n2; j++) {
-        R[j] = arr[m + 1 + j];
-    }
+    vector<Reading> L(n1), R(n2);
 
-    // Initialize indices for L[], R[], and the merged array arr[]
-    int i = 0; // Initial index of first subarray
-    int j = 0; // Initial index of second subarray
-    int k = l; // Initial index of merged subarray
+    for (int i = 0; i < n1; i++)
+        L[i] = arr[left + i];
+    for (int j = 0; j < n2; j++)
+        R[j] = arr[mid + 1 + j];
 
-    // Merge the temporary arrays back into arr[l..r]
+    int i = 0, j = 0, k = left;
+
     while (i < n1 && j < n2) {
-        if (L[i] <= R[j]) {
-            arr[k] = L[i];
-            i++;
-        } else {
-            arr[k] = R[j];
-            j++;
-        }
-        k++;
+        if (L[i].time <= R[j].time)
+            arr[k++] = L[i++];
+        else
+            arr[k++] = R[j++];
     }
 
-    // Copy the remaining elements of L[], if there are any
-    while (i < n1) {
-        arr[k] = L[i];
-        i++;
-        k++;
-    }
-
-    // Copy the remaining elements of R[], if there are any
-    while (j < n2) {
-        arr[k] = R[j];
-        j++;
-        k++;
-    }
-}
-//  and [2, 6]) being merged into a single sorted list [1, 2, 5, 6]]
-
-// --- 2. The mergeSort Function (The recursive dividing function) ---
-void mergeSort(vector<int>& arr, int l, int r) {
-    if (l >= r) {
-        return; // Base case: the subarray has 0 or 1 element, already sorted
-    }
-    
-    // Find the middle point to divide the array into two halves
-    int m = l + (r - l) / 2;
-
-    // Recursively call mergeSort for the first half
-    mergeSort(arr, l, m);
-
-    // Recursively call mergeSort for the second half
-    mergeSort(arr, m + 1, r);
-
-    // Merge the two sorted halves
-    merge(arr, l, m, r);
+    while (i < n1) arr[k++] = L[i++];
+    while (j < n2) arr[k++] = R[j++];
 }
 
-// --- 3. Example Driver Code ---
+// Merge Sort for AQI readings
+void mergeSort(vector<Reading>& arr, int left, int right) {
+    if (left < right) {
+        int mid = left + (right - left) / 2;
+        mergeSort(arr, left, mid);
+        mergeSort(arr, mid + 1, right);
+        merge(arr, left, mid, right);
+    }
+}
+
+// Function to predict next AQI value
+int predictAQI(const vector<Reading>& sorted) {
+    if (sorted.size() < 2) return sorted.back().aqi;
+
+    int totalSlope = 0;
+    for (size_t i = 1; i < sorted.size(); i++) {
+        totalSlope += (sorted[i].aqi - sorted[i - 1].aqi);
+    }
+
+    int avgSlope = totalSlope / (sorted.size() - 1);
+    return sorted.back().aqi + avgSlope;
+}
+
 int main() {
-    // Example: Pothole report severity (10 = highest severity, 1 = lowest)
-    // The city wants to sort these reports to prioritize repairs.
-    vector<int> report_severities = {9, 2, 10, 5, 1, 7, 3, 8};
-    
-    cout << "Original Report Severities (Unsorted): ";
-    for (int severity : report_severities) {
-        cout << severity << " ";
-    }
-    cout << endl;
+    vector<Reading> data = {
+        {5, 120}, {1, 80}, {4, 110}, {2, 90}, {3, 100}
+    };
 
-    // Call the Merge Sort function
-    int n = report_severities.size();
-    mergeSort(report_severities, 0, n - 1);
+    // Sort data by timestamp
+    mergeSort(data, 0, data.size() - 1);
 
-    cout << "Sorted Report Severities (Highest Priority Last): ";
-    for (int severity : report_severities) {
-        cout << severity << " ";
+    cout << "Sorted AQI data (time, AQI):\n";
+    for (auto& r : data) {
+        cout << r.time << " -> " << r.aqi << endl;
     }
-    cout << endl; // Output: 1 2 3 5 7 8 9 10
-    
+
+    int predicted = predictAQI(data);
+    cout << "\nPredicted next AQI: " << predicted << endl;
+
     return 0;
 }
+
 `,
  
     },
