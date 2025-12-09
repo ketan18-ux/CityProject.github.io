@@ -19,9 +19,19 @@ nav a:hover { background: rgba(255,255,255,0.15); transform:translateY(-3px); }
 .card { background:white; padding:25px; border-radius:16px; box-shadow:0px 10px 25px rgba(0,0,0,0.12); }
 .title { font-size:18px; font-weight:600; color:#003366; margin-bottom:10px; }
 .section-title { font-weight:600; color:#0077cc; margin-top:10px; }
-.tag { display:inline-block; padding:4px 8px; margin:3px 3px 3px 0; border-radius:4px; font-size:12px; color:white; }
-.sdg1{background:#28a745} .sdg7{background:#ffc107} .sdg8{background:#17a2b8} .sdg9{background:#6f42c1} .sdg10{background:#fd7e14} .sdg11{background:#007bff} .sdg12{background:#20c997} .sdg13{background:#e83e8c} .sdg16{background:#6610f2}
-.code-block { background:#f7f7f7; border-left:4px solid #0077cc; padding:12px; font-size:13px; font-family:monospace; white-space:pre; overflow-x:auto; border-radius:8px; margin-top:8px; }
+.tag { display:inline-block; padding:6px 10px; margin:3px 3px 3px 0; border-radius:6px; font-size:13px; color:white; font-weight:600; }
+.sdg1{background:#28a745} 
+.sdg3{background:#dc3545} 
+.sdg6{background:#17a2b8} 
+.sdg7{background:#ffc107} 
+.sdg8{background:#fd7e14} 
+.sdg9{background:#6f42c1} 
+.sdg10{background:#20c997} 
+.sdg11{background:#007bff} 
+.sdg12{background:#20c997} 
+.sdg13{background:#e83e8c} 
+.sdg16{background:#6610f2}
+.code-block { background:#f7f7f7; border-left:4px solid #0077cc; padding:12px; font-size:14px; font-family:monospace; white-space:pre; overflow-x:auto; border-radius:8px; margin-top:8px; line-height:1.5em; }
 footer { text-align:center; padding:20px; background:#003366; color:white; margin-top:40px; border-radius:12px; }
 </style>
 </head>
@@ -29,7 +39,7 @@ footer { text-align:center; padding:20px; background:#003366; color:white; margi
 
 <nav>
 <h2>Govindaraddi.H.U</h2>
-<div><a href="index.html">Home</a></div>
+<div><a href="#">Home</a></div>
 </nav>
 
 <div class="container">
@@ -57,18 +67,22 @@ footer { text-align:center; padding:20px; background:#003366; color:white; margi
 <span class="tag sdg8">SDG8: Decent Work & Economic Growth</span>
 <span class="tag sdg11">SDG11: Sustainable Cities</span>
 <div class="section-title">C++ Code:</div>
-<div class="code-block">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-int main(){
-int n,W; cin&gt;&gt;n&gt;&gt;W;
-vector&lt;int&gt; w(n), v(n);
-for(int i=0;i&lt;n;i++) cin&gt;&gt;w[i]&gt;&gt;v[i];
-vector&lt;long long&gt; dp(W+1,0);
-for(int i=0;i&lt;n;i++){
-for(int cap=W; cap&gt;=w[i]; --cap) dp[cap]=max(dp[cap], dp[cap-w[i]]+v[i]);
+<div class="code-block">
+#include &lt;bits/stdc++.h&gt;<br>
+using namespace std;<br><br>
+int main() {<br>
+&nbsp;&nbsp;int n, W;<br>
+&nbsp;&nbsp;cin &gt;&gt; n &gt;&gt; W;<br>
+&nbsp;&nbsp;vector&lt;int&gt; w(n), v(n);<br>
+&nbsp;&nbsp;for(int i=0;i&lt;n;i++) cin &gt;&gt; w[i] &gt;&gt; v[i];<br>
+&nbsp;&nbsp;vector&lt;long long&gt; dp(W+1,0);<br>
+&nbsp;&nbsp;for(int i=0;i&lt;n;i++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for(int cap=W; cap&gt;=w[i]; --cap)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dp[cap] = max(dp[cap], dp[cap-w[i]] + v[i]);<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;cout &lt;&lt; *max_element(dp.begin(), dp.end());<br>
 }
-cout&lt;&lt;*max_element(dp.begin(), dp.end());
-}</div>
+</div>
 </div>
 
 <!-- Problem 2 -->
@@ -85,24 +99,37 @@ cout&lt;&lt;*max_element(dp.begin(), dp.end());
 <span class="tag sdg11">SDG11: Sustainable Cities</span>
 <span class="tag sdg16">SDG16: Peace & Justice</span>
 <div class="section-title">C++ Code:</div>
-<div class="code-block">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-int main(){
-int n,m; cin&gt;&gt;n&gt;&gt;m;
-vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; g(n);
-for(int i=0;i&lt;m;i++){int u,v,w;cin&gt;&gt;u&gt;&gt;v&gt;&gt;w; g[u].push_back({v,w}); g[v].push_back({u,w});}
-int s; cin&gt;&gt;s;
-const long long INF=1e18;
-vector&lt;long long&gt; d(n,INF); d[s]=0;
-priority_queue&lt;pair&lt;long long,int>,vector&lt;pair&lt;long long,int>>,greater&lt;pair&lt;long long,int>>> pq;
-pq.push({0,s});
-while(!pq.empty()){
-auto [du,u]=pq.top(); pq.pop();
-if(du!=d[u]) continue;
-for(auto [v,w]:g[u]) if(d[v]&gt;du+w){d[v]=du+w; pq.push({d[v],v});}
+<div class="code-block">
+#include &lt;bits/stdc++.h&gt;<br>
+using namespace std;<br><br>
+int main() {<br>
+&nbsp;&nbsp;int n, m;<br>
+&nbsp;&nbsp;cin &gt;&gt; n &gt;&gt; m;<br>
+&nbsp;&nbsp;vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; g(n);<br>
+&nbsp;&nbsp;for(int i=0;i&lt;m;i++) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int u,v,w;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cin &gt;&gt; u &gt;&gt; v &gt;&gt; w;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;g[u].push_back({v,w});<br>
+&nbsp;&nbsp;&nbsp;&nbsp;g[v].push_back({u,w});<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;int s; cin &gt;&gt; s;<br>
+&nbsp;&nbsp;const long long INF = 1e18;<br>
+&nbsp;&nbsp;vector&lt;long long&gt; d(n, INF);<br>
+&nbsp;&nbsp;d[s] = 0;<br>
+&nbsp;&nbsp;priority_queue&lt;pair&lt;long long,int>, vector&lt;pair&lt;long long,int&gt;&gt;, greater&lt;pair&lt;long long,int&gt;&gt; pq;<br>
+&nbsp;&nbsp;pq.push({0, s});<br>
+&nbsp;&nbsp;while(!pq.empty()) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;auto [du,u] = pq.top(); pq.pop();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if(du != d[u]) continue;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for(auto [v,w] : g[u])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(d[v] &gt; du + w) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d[v] = du + w;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pq.push({d[v], v});<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;for(int i=0;i&lt;n;i++) cout &lt;&lt; d[i] &lt;&lt; " ";<br>
 }
-for(int i=0;i&lt;n;i++) cout&lt;&lt;d[i]&lt;&lt;" ";
-}</div>
+</div>
 </div>
 
 <!-- Problem 3 -->
@@ -111,17 +138,51 @@ for(int i=0;i&lt;n;i++) cout&lt;&lt;d[i]&lt;&lt;" ";
 <div class="section-title">Algorithm:</div>
 <p>Segment Tree + Lookup Table</p>
 <div class="section-title">Problem:</div>
-<p>Predict optimal parking fees based on historical usage trends.</p>
+<p>Predict optimal parking fees based on usage trends.</p>
 <div class="section-title">Solution:</div>
-<p>Build a segment tree for parking demand and map total demand to fee levels via lookup.</p>
+<p>Use Segment Tree to compute demand in ranges and Lookup Table to assign fees.</p>
 <div class="section-title">SDGs:</div>
 <span class="tag sdg9">SDG9: Industry & Infrastructure</span>
 <span class="tag sdg11">SDG11: Sustainable Cities</span>
 <span class="tag sdg13">SDG13: Climate Action</span>
 <div class="section-title">C++ Code:</div>
-<div class="code-block">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-struct Seg { int n; vector&lt;long long&gt; st; Seg(int n):n(n),st(4*n,0){} void build(vector&lt;int&gt;&amp;a,int p,int l,int r){if(l==r){st[p]=a[l];return;}int m=(l+r)/2; build(a,2*p,l,m); build(a,2*p+1,m+1,r); st[p]=st[2*p]+st[2*p+1];} long long qry(int p,int l,int r,int ql,int qr){if(qr&lt;l||r&lt;ql)return 0;if(ql&lt;=l&amp;&amp;r&lt;=qr)return st[p];int m=(l+r)/2; return qry(2*p,l,m,ql,qr)+qry(2*p+1,m+1,r,ql,qr);}}; int main(){int n; cin&gt;&gt;n; vector&lt;int&gt;a(n); for(int i=0;i&lt;n;i++) cin&gt;&gt;a[i]; Seg seg(n); seg.build(a,1,0,n-1); int q; cin&gt;&gt;q; auto fee=[&](long long d){if(d&lt;=100) return 10; if(d&lt;=500) return 20; if(d&lt;=1000) return 30; return 50;}; while(q--){int l,r; cin&gt;&gt;l&gt;&gt;r; cout&lt;&lt;fee(seg.qry(1,0,n-1,l,r))&lt;&lt;"\n";}}</div>
+<div class="code-block">
+#include &lt;bits/stdc++.h&gt;<br>
+using namespace std;<br>
+struct Seg {<br>
+&nbsp;&nbsp;int n;<br>
+&nbsp;&nbsp;vector&lt;long long&gt; st;<br>
+&nbsp;&nbsp;Seg(int n):n(n),st(4*n,0){}<br>
+&nbsp;&nbsp;void build(vector&lt;int&gt;&amp;a,int p,int l,int r){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if(l==r){ st[p]=a[l]; return;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int m=(l+r)/2;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;build(a,2*p,l,m); build(a,2*p+1,m+1,r);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;st[p]=st[2*p]+st[2*p+1];<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;long long qry(int p,int l,int r,int ql,int qr){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if(qr&lt;l||r&lt;ql) return 0;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if(ql&lt;=l &amp;&amp; r&lt;=qr) return st[p];<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int m=(l+r)/2;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return qry(2*p,l,m,ql,qr)+qry(2*p+1,m+1,r,ql,qr);<br>
+&nbsp;&nbsp;}<br>
+};<br>
+int main(){<br>
+&nbsp;&nbsp;int n; cin&gt;&gt;n; vector&lt;int&gt;a(n); for(int i=0;i&lt;n;i++) cin&gt;&gt;a[i];<br>
+&nbsp;&nbsp;Seg seg(n); seg.build(a,1,0,n-1);<br>
+&nbsp;&nbsp;int q; cin&gt;&gt;q;<br>
+&nbsp;&nbsp;auto fee=[&](long long demand){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if(demand&lt;=100) return 10;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if(demand&lt;=500) return 20;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if(demand&lt;=1000) return 30;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return 50;<br>
+&nbsp;&nbsp;};<br>
+&nbsp;&nbsp;while(q--){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int l,r; cin&gt;&gt;l&gt;&gt;r;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;long long d = seg.qry(1,0,n-1,l,r);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;fee(d)&lt;&lt;"\n";<br>
+&nbsp;&nbsp;}<br>
+}
+</div>
 </div>
 
 <!-- Problem 4 -->
