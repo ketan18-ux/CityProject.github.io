@@ -1,27 +1,17 @@
 <style>
-/* ===== ORANGE DARK THEME ===== */
 :root {
-  --bg-dark: #060708;
-  --bg-deep: #0b0d10;
+  --bg-main: #0b0d10;
+  --bg-panel: #141820;
 
   --orange: #ff8c1a;
-  --orange-soft: rgba(255,140,26,0.25);
-  --orange-glow: rgba(255,140,26,0.6);
+  --orange-soft: rgba(255,140,26,0.15);
 
-  --glass-bg: rgba(255,255,255,0.08);
-  --glass-strong: rgba(255,255,255,0.14);
+  --border: #2a2f3a;
 
-  --border-orange: rgba(255,140,26,0.45);
+  --text-main: #f1f5f9;
+  --text-muted: #a1a7b3;
 
-  --text-main: #f9fafb;
-  --text-muted: #b9bfc9;
-
-  --radius-xl: 22px;
-  --radius-lg: 16px;
-  --blur: blur(18px);
-  --shadow: 0 30px 70px rgba(0,0,0,0.7);
-
-  --mono: "Fira Code", Consolas, monospace;
+  --radius: 14px;
 }
 
 /* ===== BASE ===== */
@@ -33,143 +23,122 @@ body {
   margin: 0;
   font-family: system-ui, sans-serif;
   color: var(--text-main);
+
+  /* ✅ SAME TYPE of ORANGE BACKGROUND AS YESTERDAY */
   background:
-    radial-gradient(circle at top left, rgba(255,140,26,0.18), transparent 45%),
-    radial-gradient(circle at bottom right, rgba(255,90,0,0.12), transparent 55%),
-    linear-gradient(180deg, var(--bg-dark), var(--bg-deep));
+    linear-gradient(
+      90deg,
+      rgba(255,140,26,0.15) 0%,
+      rgba(0,0,0,0.0) 30%
+    ),
+    linear-gradient(180deg, #07090c, var(--bg-main));
 }
 
 /* ===== HEADER ===== */
 header {
-  position: sticky;
-  top: 0;
-  background: rgba(10,10,15,0.7);
-  backdrop-filter: var(--blur);
-  border-bottom: 1px solid var(--border-orange);
+  padding: 14px 20px;
+  font-size: 18px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border);
+  background: #0c0f14;
 }
 
-/* ===== LOGO ===== */
-.logo-circle {
-  background: linear-gradient(135deg, #ffb347, #ff7a00);
-  border-radius: 50%;
-  padding: 2px;
-  box-shadow: 0 0 22px var(--orange-glow);
+/* ===== MAIN LAYOUT ===== */
+.main-container {
+  display: grid;
+  grid-template-columns: 340px 1fr;   /* ✅ LEFT / RIGHT */
+  gap: 20px;
+  padding: 20px;
 }
 
-.logo-inner {
-  background: #080808;
+/* ===== LEFT : PROBLEM LIST ===== */
+.sidebar {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.sidebar h3 {
+  margin: 0 0 12px;
   color: var(--orange);
-  font-weight: 700;
-  border-radius: inherit;
+  font-size: 14px;
+  letter-spacing: 0.04em;
 }
 
-/* ===== PANELS ===== */
-.sidebar,
-.problem-view,
-.card {
-  background: var(--glass-bg);
-  backdrop-filter: var(--blur);
-  border-radius: var(--radius-xl);
-  border: 1px solid var(--border-orange);
-  box-shadow: var(--shadow);
-}
-
-/* ===== SIDEBAR ITEMS ===== */
 .problem-item {
-  background: rgba(255,255,255,0.06);
-  border-radius: 14px;
-  border: 1px solid transparent;
+  padding: 12px 14px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background: #10131a;
+  border: 1px solid var(--border);
   color: var(--text-muted);
-  transition: all 0.2s ease;
+  cursor: pointer;
 }
 
 .problem-item:hover {
-  border-color: var(--orange);
   background: rgba(255,140,26,0.12);
-  transform: translateX(6px);
+  color: #fff;
 }
 
 .problem-item.active {
-  background: rgba(255,140,26,0.22);
+  background: rgba(255,140,26,0.25);
   border-color: var(--orange);
   color: #fff;
 }
 
-/* ===== TAGS ===== */
-.problem-tag,
-.problem-id-pill,
-.sdg-chip,
-.algo-chip {
-  background: rgba(255,255,255,0.12);
-  border: 1px solid var(--orange);
-  color: #ffddb8;
-  border-radius: 999px;
-  font-size: 11px;
+/* ===== RIGHT : CONTENT ===== */
+.problem-view {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
 }
 
-/* ===== CONTENT ===== */
-.card-header {
+.problem-view h2 {
+  margin-top: 0;
   color: var(--orange);
-  letter-spacing: 0.14em;
+}
+
+/* ===== CARDS INSIDE RIGHT PANEL ===== */
+.card {
+  background: #10131a;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.card-title {
+  font-size: 13px;
+  color: var(--orange);
+  margin-bottom: 8px;
   text-transform: uppercase;
 }
 
 .card-body {
-  font-size: 12px;
-  line-height: 1.7;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-muted);
 }
 
-/* ===== CODE BLOCK ===== */
-.code-card {
-  background: linear-gradient(
-    180deg,
-    rgba(255,140,26,0.18),
-    rgba(0,0,0,0.6)
-  );
-  border: 1px solid var(--orange-soft);
-}
-
+/* ===== CODE ===== */
 pre {
-  background: #020202;
-  border-radius: 12px;
+  background: #050608;
+  border: 1px solid var(--border);
+  border-radius: 10px;
   padding: 14px;
-  font-family: var(--mono);
-  font-size: 11px;
-  color: #ffe8cc;
-  border: 1px solid rgba(255,255,255,0.12);
-}
-
-/* ===== BUTTONS ===== */
-.btn-sm,
-.nav-pill {
-  background: rgba(255,255,255,0.14);
-  border: 1px solid var(--orange);
-  color: var(--orange);
-  border-radius: 999px;
-  transition: all 0.2s ease;
-}
-
-.btn-sm:hover,
-.nav-pill:hover {
-  background: var(--orange);
-  color: #000;
-  box-shadow: 0 0 20px var(--orange-glow);
+  font-size: 12px;
+  color: #ffd9b3;
+  overflow-x: auto;
 }
 
 /* ===== FOOTER ===== */
 footer {
-  background: rgba(255,255,255,0.05);
-  border-top: 1px solid var(--border-orange);
+  padding: 12px;
+  text-align: center;
+  border-top: 1px solid var(--border);
   color: var(--text-muted);
-}
-
-/* ===== SCROLLBAR ===== */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(#ffb347, #ff7a00);
-  border-radius: 999px;
 }
 </style>
 
