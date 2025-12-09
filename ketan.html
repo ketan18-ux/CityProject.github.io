@@ -221,12 +221,13 @@
       box-shadow: 0 0 8px rgba(56, 189, 248, 0.8);
     }
 
+    /* 2 boxes per row */
     .city-grid {
       position: relative;
       z-index: 1;
       margin-top: 8px;
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr)); /* ★ CHANGED: 2 boxes per row */
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       grid-auto-rows: minmax(110px, 1fr);
       gap: 18px;
       padding: 6px 2px 8px;
@@ -480,11 +481,6 @@
       color: #bfdbfe;
     }
 
-    .complexity {
-      font-size: 12px;
-      color: #cbd5f5;
-    }
-
     .impact {
       font-size: 12px;
       color: #a5b4fc;
@@ -494,12 +490,13 @@
       margin-top: 4px;
       border-radius: 12px;
       border: 1px dashed rgba(148, 163, 184, 0.8);
-      padding: 8px 10px;
+      padding: 12px 10px;
       font-size: 11px;
       color: var(--text-muted);
       background:
         radial-gradient(circle at 20% 0, rgba(56, 189, 248, 0.4) 0, transparent 45%),
         #020617;
+      text-align: center;
     }
 
     .doc-inline-title {
@@ -507,79 +504,38 @@
       margin-top: 4px;
     }
 
-    /* CODE SECTION */
-    .code-section {
+    .github-link {
       margin-top: 6px;
-    }
-
-    .code-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 4px;
-    }
-
-    .code-lang {
-      font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(248, 250, 252, 0.2);
-      background: rgba(15, 23, 42, 0.9);
-      color: #facc15;
-      font-family: "Montserrat", sans-serif;
-    }
-
-    .code-actions {
-      display: flex;
-      gap: 6px;
-    }
-
-    .code-toggle-btn,
-    .code-copy-btn {
-      font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.9);
-      color: var(--text-main);
-      cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      transition: var(--transition-fast);
-    }
-
-    .code-toggle-btn:hover,
-    .code-copy-btn:hover {
-      background: rgba(15, 23, 42, 1);
-      transform: translateY(-1px);
-    }
-
-    .code-box {
-      margin-top: 6px;
-      border-radius: 10px;
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      background: #0b1120;
-      padding: 8px 10px;
-      max-height: 260px;
-      overflow: auto;
+      gap: 6px;
       font-size: 12px;
-      display: none; /* hidden by default */
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.8);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e0f2fe;
+      text-decoration: none;
     }
 
-    .code-box pre {
-      margin: 0;
-      font-family: "Fira Code", "JetBrains Mono", "Consolas", monospace;
-      white-space: pre;
-      color: #e5e7eb;
+    .github-link span {
+      font-size: 14px;
     }
 
-    /* Monokai-like colors via simple span classes (optional) */
-    .kw { color: #a855f7; }    /* keyword */
-    .fn { color: #22c55e; }    /* function */
-    .cm { color: #6b7280; }    /* comment */
-    .ty { color: #38bdf8; }    /* type */
-    .num { color: #f97316; }   /* number */
+    /* SDG box (green) */
+    .sdg-box {
+      margin-top: 4px;
+      padding: 6px 8px;
+      border-radius: 10px;
+      border: 1px solid #22c55e;
+      background: rgba(22, 163, 74, 0.12);
+      color: #bbf7d0;
+      font-size: 12px;
+    }
+
+    .sdg-box strong {
+      color: #4ade80;
+    }
 
     /* RESPONSIVE */
     @media (max-width: 960px) {
@@ -610,7 +566,7 @@
         border-radius: 18px;
       }
       .city-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(1, minmax(0, 1fr));
       }
       .panel-header {
         flex-direction: column;
@@ -670,7 +626,7 @@
             <div class="map-node-icon">🧭</div>
             <div class="map-node-title">2. Shortest Travel-Time Routing</div>
             <div class="map-node-meta">
-              <span class="node-id">Dijkstra</span>
+              <span class="node-id">Shortest Path</span>
               <span class="node-badge">Commute</span>
             </div>
           </button>
@@ -680,7 +636,7 @@
             <div class="map-node-icon">🚦</div>
             <div class="map-node-title">3. Signal Timing Optimization</div>
             <div class="map-node-meta">
-              <span class="node-id">Scheduling</span>
+              <span class="node-id">Queues</span>
               <span class="node-badge">Junctions</span>
             </div>
           </button>
@@ -690,7 +646,7 @@
             <div class="map-node-icon">🚑</div>
             <div class="map-node-title">4. Emergency Route Planner</div>
             <div class="map-node-meta">
-              <span class="node-id">A*</span>
+              <span class="node-id">BFS/DFS</span>
               <span class="node-badge">Emergency</span>
             </div>
           </button>
@@ -700,7 +656,7 @@
             <div class="map-node-icon">🚰</div>
             <div class="map-node-title">5. Water Pressure Optimization</div>
             <div class="map-node-meta">
-              <span class="node-id">Max Flow</span>
+              <span class="node-id">Graph + Sorting</span>
               <span class="node-badge">Water</span>
             </div>
           </button>
@@ -710,7 +666,7 @@
             <div class="map-node-icon">⚡</div>
             <div class="map-node-title">6. Power Grid Load Minimization</div>
             <div class="map-node-meta">
-              <span class="node-id">MST</span>
+              <span class="node-id">Prim</span>
               <span class="node-badge">Electricity</span>
             </div>
           </button>
@@ -720,7 +676,7 @@
             <div class="map-node-icon">🚮</div>
             <div class="map-node-title">7. Garbage Truck Routing</div>
             <div class="map-node-meta">
-              <span class="node-id">TSP</span>
+              <span class="node-id">Dijkstra + Greedy</span>
               <span class="node-badge">Waste</span>
             </div>
           </button>
@@ -730,7 +686,7 @@
             <div class="map-node-icon">🚌</div>
             <div class="map-node-title">8. Bus Timetable Generator</div>
             <div class="map-node-meta">
-              <span class="node-id">Interval</span>
+              <span class="node-id">Sorting</span>
               <span class="node-badge">Public Transport</span>
             </div>
           </button>
@@ -740,7 +696,7 @@
             <div class="map-node-icon">🌉</div>
             <div class="map-node-title">9. Bridge Priority Model</div>
             <div class="map-node-meta">
-              <span class="node-id">Min-Cut</span>
+              <span class="node-id">DFS Bridges</span>
               <span class="node-badge">Bridges</span>
             </div>
           </button>
@@ -750,7 +706,7 @@
             <div class="map-node-icon">🌧️</div>
             <div class="map-node-title">10. Flood Evacuation Simulation</div>
             <div class="map-node-meta">
-              <span class="node-id">BFS</span>
+              <span class="node-id">Multi-source BFS</span>
               <span class="node-badge">Disaster</span>
             </div>
           </button>
@@ -779,7 +735,7 @@
           <div class="panel-title">1. Optimal Road Network Construction</div>
           <div class="panel-chip-row">
             <span class="panel-chip">Transport Infrastructure</span>
-            <span class="panel-chip algo">Minimum Spanning Tree · Kruskal / Prim</span>
+            <span class="panel-chip algo">Minimum Spanning Tree · Kruskal + Prim + Union–Find</span>
           </div>
         </div>
         <div class="panel-controls">
@@ -788,127 +744,69 @@
       </div>
       <div class="panel-scroll">
         <div class="panel-block">
-          <h3>Problem</h3>
+          <h3>Problem Context</h3>
           <p>
-            The city wants to connect all major junctions using new roads. Budget is limited, so we must
-            connect all locations while keeping total construction cost minimal and avoiding redundant roads.
+            The city is expanding with several new townships. Each pair of major junctions has an estimated
+            road construction cost (land, materials, labour). If engineers connect junctions in an ad-hoc manner,
+            they may create redundant loops, overspend the budget, and still leave some junctions disconnected.
+          </p>
+          <p>
+            We need a <strong>backbone road layout</strong> that connects all junctions with the minimum possible total cost,
+            while guaranteeing that every junction is reachable from every other one.
           </p>
         </div>
         <div class="panel-block">
-          <h3>Practical Solution</h3>
+          <h3>Algorithmic Solution (Kruskal + Prim + Union–Find)</h3>
           <p>
-            Treat each junction as a vertex and each candidate road as a weighted edge storing construction cost.
-            We run an MST algorithm that chooses a subset of edges connecting all vertices with minimum total cost
-            and no cycles. This MST becomes the recommended road layout.
+            The road network is modeled as a weighted, undirected graph <em>G(V, E)</em>.
+            Each junction is a vertex; each potential road is an edge with its construction cost as weight.
+          </p>
+          <ul>
+            <li><strong>Kruskal’s MST:</strong> Sort all edges by increasing cost and add them one by one if they do not form a cycle. Cycle detection is done in near O(1) time using <strong>Disjoint Set Union (Union–Find)</strong> with path compression and union by rank. Overall time: <strong>O(E log E)</strong>.</li>
+            <li><strong>Prim’s MST:</strong> Start from any junction and repeatedly add the cheapest edge that connects a new junction to the growing tree using a <strong>min-priority queue (heap)</strong>. Time: <strong>O(E log V)</strong> with adjacency list.</li>
+          </ul>
+          <p>
+            In this project, we implement both methods and compare their MST cost to ensure correctness.
           </p>
         </div>
         <div class="panel-block">
-          <div class="io-label">Input format (example)</div>
+          <h3>Input / Output (Project Version)</h3>
+          <p class="io-label">Input</p>
           <p>
-            Fixed small example: 5–6 junctions and edge list with construction costs (hard-coded for demo and diagrams).
+            A fixed small example with 6 junctions and 8–10 candidate roads. Each road is given as
+            <em>(u, v, cost)</em>. Data is reused for diagrams and C++ simulations.
           </p>
-          <div class="io-label" style="margin-top:4px;">Output</div>
+          <p class="io-label" style="margin-top:4px;">Output</p>
           <p>
-            Edges selected in the MST and the total minimum construction cost.
+            Road segments selected in the MST and the total construction cost. Both Kruskal and Prim
+            should produce the same cost, which validates the solution.
           </p>
         </div>
         <div class="panel-block">
-          <h3>Algorithms &amp; Complexity</h3>
-          <div class="algo-row">
-            <span class="algo-pill">Kruskal's MST</span>
-            <span class="algo-pill">Union–Find (Disjoint Set)</span>
-          </div>
-          <p class="complexity" style="margin-top:6px;">
-            Kruskal with sorting and Union–Find runs in <strong>O(m log n)</strong>.
-            Space complexity: <strong>O(n + m)</strong>.
-          </p>
-        </div>
-
-        <!-- CODE SECTION: P1 -->
-        <div class="panel-block code-section">
-          <div class="code-header">
-            <span class="code-lang">C++ Code</span>
-            <div class="code-actions">
-              <button class="code-toggle-btn" data-code-target="code-p1">▶ View C++ Code</button>
-              <button class="code-copy-btn" data-code-copy="code-p1">⧉ Copy</button>
-            </div>
-          </div>
-          <div class="code-box" id="code-p1">
-            <pre><code>
-// Minimum Spanning Tree using Kruskal (Road Network)
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;algorithm&gt;
-using namespace std;
-
-struct Edge {
-    int u, v, w;
-};
-
-struct DSU {
-    vector&lt;int&gt; parent, rnk;
-    DSU(int n) {
-        parent.resize(n);
-        rnk.assign(n, 0);
-        for (int i = 0; i &lt; n; ++i) parent[i] = i;
-    }
-    int find(int x) {
-        if (parent[x] == x) return x;
-        return parent[x] = find(parent[x]);
-    }
-    bool unite(int a, int b) {
-        a = find(a);
-        b = find(b);
-        if (a == b) return false;
-        if (rnk[a] &lt; rnk[b]) swap(a, b);
-        parent[b] = a;
-        if (rnk[a] == rnk[b]) rnk[a]++;
-        return true;
-    }
-};
-
-int main() {
-    // Fixed example: 6 junctions, 8 candidate roads
-    int n = 6;
-    vector&lt;Edge&gt; edges = {
-        {0, 1, 4},
-        {0, 3, 2},
-        {1, 2, 6},
-        {1, 3, 3},
-        {1, 4, 5},
-        {2, 4, 2},
-        {3, 4, 4},
-        {4, 5, 1}
-    };
-
-    sort(edges.begin(), edges.end(),
-         [](const Edge &a, const Edge &b) { return a.w &lt; b.w; });
-
-    DSU dsu(n);
-    int totalCost = 0;
-    cout &lt;&lt; "MST edges (road network):\n";
-    for (auto &e : edges) {
-        if (dsu.unite(e.u, e.v)) {
-            cout &lt;&lt; "J" &lt;&lt; e.u &lt;&lt; " -- J" &lt;&lt; e.v
-                 &lt;&lt; "  cost = " &lt;&lt; e.w &lt;&lt; "\n";
-            totalCost += e.w;
-        }
-    }
-    cout &lt;&lt; "Total construction cost (MST) = " &lt;&lt; totalCost &lt;&lt; "\n";
-    return 0;
-}
-            </code></pre>
+          <h3>Related SDGs</h3>
+          <div class="sdg-box">
+            🌱 <strong>SDG 9.1 – Sustainable Infrastructure:</strong> Designs a cost-efficient backbone of main roads that can later be densified.<br />
+            🌱 <strong>SDG 11.2 – Accessible Transport:</strong> Ensures all key junctions are connected so public transport can be deployed everywhere.
           </div>
         </div>
-
         <div class="panel-block">
-          <h3>Impact &amp; Visual</h3>
-          <p class="impact">
-            Impact: Produces a cost-optimal road plan that still keeps the city fully connected.
+          <h3>How These Algorithms Help in General</h3>
+          <p>
+            MST algorithms are used in designing <strong>electric grids, optical fiber networks, water pipelines,
+            and campus-wide networks</strong>. Union–Find is also widely used for connectivity checking,
+            clustering, and detecting cycles efficiently in many graph-based problems.
           </p>
+        </div>
+        <div class="panel-block">
+          <h3>Insert Figure Here</h3>
           <div class="figure-placeholder">
-            MST sketch between junctions – match with the C++ program output.
+            📍 IMAGE PLACEHOLDER — Insert MST sketch between 6–8 junctions. Show selected roads (MST edges) in a bright colour.
           </div>
+        </div>
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/your-username/your-repo#road-network-mst" target="_blank">
+            <span>📂</span> View C++ Code for Road Network (Kruskal + Prim)
+          </a>
         </div>
       </div>
     </section>
@@ -920,7 +818,7 @@ int main() {
           <div class="panel-title">2. Shortest Travel-Time Routing</div>
           <div class="panel-chip-row">
             <span class="panel-chip">Commuter Mobility</span>
-            <span class="panel-chip algo">Dijkstra · Time-weighted Graph</span>
+            <span class="panel-chip algo">Dijkstra + BFS (Time-weighted Graph)</span>
           </div>
         </div>
         <div class="panel-controls">
@@ -929,120 +827,69 @@ int main() {
       </div>
       <div class="panel-scroll">
         <div class="panel-block">
-          <h3>Problem</h3>
+          <h3>Problem Context</h3>
           <p>
-            Citizens want the fastest route between zones during peak traffic, but distance is not enough – some
-            short roads are very slow. The routing engine must consider estimated travel time.
+            During peak office hours, shortest-distance routes are not always the fastest.
+            Narrow internal roads may be jammed, while slightly longer ring roads may be faster.
+            Citizens need a routing engine that optimises for <strong>travel time</strong> rather than distance.
+          </p>
+          <p>
+            For a chosen source zone (home, workplace or station), we want the minimum travel time
+            to every other zone and the corresponding path.
           </p>
         </div>
         <div class="panel-block">
-          <h3>Practical Solution</h3>
+          <h3>Algorithmic Solution (Dijkstra + BFS)</h3>
           <p>
-            Represent the city as a directed graph where each edge weight is the expected travel time taken on
-            that segment. Run Dijkstra from the source zone to compute minimum-time paths to all other zones.
+            The city is modeled as a directed, weighted graph:
+            nodes are zones; edges are roads with <strong>time cost</strong> (minutes) as weight.
+          </p>
+          <ul>
+            <li><strong>Dijkstra’s Algorithm:</strong> With a min-heap (priority queue), we compute single-source shortest travel time to all zones in <strong>O((V + E) log V)</strong>. This is efficient and standard for positive weights.</li>
+            <li><strong>BFS for Unweighted Subgraphs:</strong> For pedestrian-only or signal-free sub-networks where all edges have equal time cost, BFS is used (O(V + E)) to quickly evaluate reachability and approximate times.</li>
+          </ul>
+          <p>
+            Combining both lets us handle realistic networks with a mix of simple and time-weighted segments.
           </p>
         </div>
         <div class="panel-block">
-          <div class="io-label">Input format (example)</div>
+          <h3>Input / Output (Project Version)</h3>
+          <p class="io-label">Input</p>
           <p>
-            Fixed adjacency list for 5 zones, with travel times as edge weights.
+            Adjacency list of 5–7 zones, with each road storing travel time. A source zone index is also given.
           </p>
-          <div class="io-label" style="margin-top:4px;">Output</div>
+          <p class="io-label" style="margin-top:4px;">Output</p>
           <p>
-            Minimum travel times and paths from the chosen source zone to all other zones.
+            For each zone: minimum travel time and optionally the reconstructed path
+            (sequence of zones) from the source. Unreachable zones are reported separately.
           </p>
         </div>
         <div class="panel-block">
-          <h3>Algorithms &amp; Complexity</h3>
-          <div class="algo-row">
-            <span class="algo-pill">Dijkstra using Min-Heap</span>
-            <span class="algo-pill">Greedy Edge Relaxation</span>
-          </div>
-          <p class="complexity" style="margin-top:6px;">
-            With adjacency list and binary heap, complexity is <strong>O((n + m) log n)</strong>.
-          </p>
-        </div>
-
-        <!-- CODE SECTION: P2 -->
-        <div class="panel-block code-section">
-          <div class="code-header">
-            <span class="code-lang">C++ Code</span>
-            <div class="code-actions">
-              <button class="code-toggle-btn" data-code-target="code-p2">▶ View C++ Code</button>
-              <button class="code-copy-btn" data-code-copy="code-p2">⧉ Copy</button>
-            </div>
-          </div>
-          <div class="code-box" id="code-p2">
-            <pre><code>
-// Dijkstra's Algorithm (Shortest Travel Time)
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;queue&gt;
-#include &lt;limits&gt;
-using namespace std;
-
-struct Edge {
-    int to;
-    int w; // time in minutes
-};
-
-int main() {
-    const int INF = numeric_limits&lt;int&gt;::max();
-    int n = 5; // zones 0..4
-    vector&lt;vector&lt;Edge&gt;&gt; g(n);
-
-    // Fixed directed travel-time graph
-    g[0].push_back({1, 10});
-    g[0].push_back({2, 3});
-    g[1].push_back({2, 1});
-    g[1].push_back({3, 2});
-    g[2].push_back({1, 4});
-    g[2].push_back({3, 8});
-    g[2].push_back({4, 2});
-    g[3].push_back({4, 7});
-    g[4].push_back({3, 9});
-
-    int src = 0; // source zone
-    vector&lt;int&gt; dist(n, INF), parent(n, -1);
-    dist[src] = 0;
-
-    using P = pair&lt;int,int&gt;; // (dist, node)
-    priority_queue&lt;P, vector&lt;P&gt;, greater&lt;P&gt;&gt; pq;
-    pq.push({0, src});
-
-    while (!pq.empty()) {
-        auto [d, u] = pq.top();
-        pq.pop();
-        if (d != dist[u]) continue;
-        for (auto &e : g[u]) {
-            if (dist[u] != INF &amp;&amp; dist[u] + e.w &lt; dist[e.to]) {
-                dist[e.to] = dist[u] + e.w;
-                parent[e.to] = u;
-                pq.push({dist[e.to], e.to});
-            }
-        }
-    }
-
-    cout &lt;&lt; "Minimum travel-time from zone " &lt;&lt; src &lt;&lt; ":\n";
-    for (int i = 0; i &lt; n; ++i) {
-        cout &lt;&lt; "To zone " &lt;&lt; i &lt;&lt; " : ";
-        if (dist[i] == INF) cout &lt;&lt; "unreachable\n";
-        else cout &lt;&lt; dist[i] &lt;&lt; " minutes\n";
-    }
-    return 0;
-}
-            </code></pre>
+          <h3>Related SDGs</h3>
+          <div class="sdg-box">
+            🌱 <strong>SDG 11.2 – Sustainable Transport:</strong> Reduces average commute time and supports efficient public transport routing.<br />
+            🌱 <strong>SDG 9.C – Smart Infrastructure:</strong> Forms a core component of intelligent navigation systems and traffic management platforms.
           </div>
         </div>
-
         <div class="panel-block">
-          <h3>Impact &amp; Visual</h3>
-          <p class="impact">
-            Impact: Reduces commute time by suggesting time-optimal rather than distance-optimal routes.
+          <h3>How These Algorithms Help in General</h3>
+          <p>
+            Dijkstra is the backbone of almost every navigation system (cars, buses, trains, maps).
+            BFS is heavily used for unweighted pathfinding and level-based exploration in communication networks,
+            social networks, and games. Efficient shortest path algorithms are a fundamental building block
+            for any smart-city software stack.
           </p>
+        </div>
+        <div class="panel-block">
+          <h3>Insert Figure Here</h3>
           <div class="figure-placeholder">
-            Time-weighted road network where thicker edges represent slower segments.
+            📍 IMAGE PLACEHOLDER — Insert time-weighted road graph with highlighted fastest route from source to a few key destinations.
           </div>
+        </div>
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/your-username/your-repo#shortest-travel-time" target="_blank">
+            <span>📂</span> View C++ Code for Travel-Time Routing (Dijkstra + BFS)
+          </a>
         </div>
       </div>
     </section>
@@ -1054,7 +901,7 @@ int main() {
           <div class="panel-title">3. Traffic Signal Timing Optimization</div>
           <div class="panel-chip-row">
             <span class="panel-chip">Junction Management</span>
-            <span class="panel-chip algo">Greedy / Scheduling</span>
+            <span class="panel-chip algo">Queues + Priority Queue + Efficient Sorting</span>
           </div>
         </div>
         <div class="panel-controls">
@@ -1063,97 +910,68 @@ int main() {
       </div>
       <div class="panel-scroll">
         <div class="panel-block">
-          <h3>Problem</h3>
+          <h3>Problem Context</h3>
           <p>
-            Fixed green times cause long queues on some arms of a junction while other arms remain under-used.
-            Signals need to adapt based on queue lengths.
+            Fixed, equal green times at a 4-way junction result in some directions being overloaded
+            while others remain almost empty. This increases waiting time, fuel consumption,
+            and emissions at major intersections.
           </p>
-        </div>
-        <div class="panel-block">
-          <h3>Practical Solution</h3>
           <p>
-            Treat each lane as a job with processing time proportional to its queue length. We use greedy
-            scheduling ideas to assign green time slices, giving more time to heavily loaded lanes, while
-            ensuring fairness by rotating priority.
+            We want a <strong>smart timing plan</strong> that dynamically adjusts green durations based on queue lengths
+            observed at each approach of the junction.
           </p>
         </div>
         <div class="panel-block">
-          <div class="io-label">Input format (example)</div>
-          <p>Fixed queue-length values for 4 incoming lanes at one junction.</p>
-          <div class="io-label" style="margin-top:4px;">Output</div>
-          <p>Suggested green-time allocation per lane for one complete cycle.</p>
-        </div>
-        <div class="panel-block">
-          <h3>Algorithms &amp; Complexity</h3>
-          <div class="algo-row">
-            <span class="algo-pill">Greedy Scheduling</span>
-            <span class="algo-pill">Priority Queue on Queue Length</span>
-          </div>
-          <p class="complexity" style="margin-top:6px;">
-            Each recomputation step is roughly <strong>O(k log k)</strong>, where <code>k</code> is number of lanes.
+          <h3>Algorithmic Solution (Queues + Sorting + Heap)</h3>
+          <p>
+            Each lane is represented by a <strong>queue</strong> of vehicles. At the start of a cycle,
+            we know the queue length for each lane.
+          </p>
+          <ul>
+            <li>Queue lengths are collected into an array and sorted using an efficient algorithm such as <strong>Merge Sort</strong> or <strong>Quick Sort</strong> (O(k log k), where k is number of lanes).</li>
+            <li>A <strong>max-heap (priority queue)</strong> can be used to always pick the most congested lane quickly in O(log k) time for adaptive reallocation.</li>
+            <li>A base green time is given to every lane; extra green time is distributed proportionally to queue size.</li>
+          </ul>
+          <p>
+            This implements a greedy but efficient strategy that adapts to real-time demand while staying fast enough for live updates.
           </p>
         </div>
-
-        <!-- CODE SECTION: P3 -->
-        <div class="panel-block code-section">
-          <div class="code-header">
-            <span class="code-lang">C++ Code</span>
-            <div class="code-actions">
-              <button class="code-toggle-btn" data-code-target="code-p3">▶ View C++ Code</button>
-              <button class="code-copy-btn" data-code-copy="code-p3">⧉ Copy</button>
-            </div>
-          </div>
-          <div class="code-box" id="code-p3">
-            <pre><code>
-// Greedy signal timing based on queue lengths
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;algorithm&gt;
-using namespace std;
-
-struct Lane {
-    string name;
-    int queue; // number of vehicles
-    double greenShare; // fraction of cycle
-};
-
-int main() {
-    // Fixed example: 4-approach junction
-    vector&lt;Lane&gt; lanes = {
-        {"North", 25, 0},
-        {"East",  15, 0},
-        {"South", 40, 0},
-        {"West",  20, 0}
-    };
-
-    int totalQueue = 0;
-    for (auto &L : lanes) totalQueue += L.queue;
-
-    double cycleTime = 120.0; // seconds
-    cout &lt;&lt; "Signal timing suggestion for one " &lt;&lt; cycleTime
-         &lt;&lt; " second cycle:\n";
-
-    for (auto &L : lanes) {
-        if (totalQueue == 0) L.greenShare = cycleTime / lanes.size();
-        else L.greenShare = (L.queue * 1.0 / totalQueue) * cycleTime;
-
-        cout &lt;&lt; L.name &lt;&lt; " lane: queue=" &lt;&lt; L.queue
-             &lt;&lt; " => green ~ " &lt;&lt; L.greenShare &lt;&lt; " seconds\n";
-    }
-    return 0;
-}
-            </code></pre>
+        <div class="panel-block">
+          <h3>Input / Output (Project Version)</h3>
+          <p class="io-label">Input</p>
+          <p>
+            Queue length for each lane (e.g., North, East, South, West) and total cycle time (e.g., 120 seconds).
+          </p>
+          <p class="io-label" style="margin-top:4px;">Output</p>
+          <p>
+            Suggested green time for each lane in that cycle, printed as a table (lane name vs allocated time).
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Related SDGs</h3>
+          <div class="sdg-box">
+            🌱 <strong>SDG 11.2 – Sustainable Transport:</strong> Smoother junction flow benefits buses and non-motorised transport as well.<br />
+            🌱 <strong>SDG 11.6 – Reduced Environmental Impact:</strong> Lower idle times at signals reduce fuel use and urban air pollution.
           </div>
         </div>
-
         <div class="panel-block">
-          <h3>Impact &amp; Visual</h3>
-          <p class="impact">
-            Impact: Reduces average waiting time and improves flow at critical intersections.
+          <h3>How These Algorithms Help in General</h3>
+          <p>
+            Queue-based modeling is used in CPU scheduling, operating systems, and call centers.
+            Priority queues and efficient sorting allow us to react quickly to changing loads,
+            making them ideal tools for real-time traffic signal control and many other resource allocation problems.
           </p>
+        </div>
+        <div class="panel-block">
+          <h3>Insert Figure Here</h3>
           <div class="figure-placeholder">
-            Timing diagram for one junction: lanes vs green intervals across time.
+            📍 IMAGE PLACEHOLDER — Insert timing diagram or bar chart showing green time allocation per lane based on queue length.
           </div>
+        </div>
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/your-username/your-repo#signal-timing" target="_blank">
+            <span>📂</span> View C++ Code for Signal Timing Optimization
+          </a>
         </div>
       </div>
     </section>
@@ -1165,7 +983,7 @@ int main() {
           <div class="panel-title">4. Emergency Vehicle Fastest Route Planner</div>
           <div class="panel-chip-row">
             <span class="panel-chip">Emergency Response</span>
-            <span class="panel-chip algo">A* / Real-time Dijkstra</span>
+            <span class="panel-chip algo">BFS + DFS on Reduced Graph</span>
           </div>
         </div>
         <div class="panel-controls">
@@ -1174,147 +992,76 @@ int main() {
       </div>
       <div class="panel-scroll">
         <div class="panel-block">
-          <h3>Problem</h3>
+          <h3>Problem Context</h3>
           <p>
-            During accidents or medical emergencies, usual routes may be blocked or congested. Ambulances and
-            fire trucks need the fastest feasible route in real time.
+            When an accident or medical emergency occurs, normal routes may be blocked by traffic jams,
+            road work or crowding. Emergency vehicles need to quickly find which roads are still passable
+            and select the shortest route in terms of hops or distance.
           </p>
         </div>
         <div class="panel-block">
-          <h3>Practical Solution</h3>
+          <h3>Algorithmic Solution (BFS + DFS)</h3>
           <p>
-            Maintain a graph with live travel times and blocked edges. Here, a simplified Dijkstra variant is
-            shown, where some edges are marked as blocked and ignored while computing the shortest path.
+            We treat the road network as an unweighted graph for simplicity in this module:
+            edges represent feasible road segments (after removing blocked roads).
+          </p>
+          <ul>
+            <li><strong>Pre-processing with DFS:</strong> DFS is used to identify connected components and confirm that the incident location lies in the same component as the station after removing blocked edges.</li>
+            <li><strong>Multi-source BFS:</strong> BFS starting from the station gives the <strong>minimum number of edges</strong> (or hops) to reach the incident. If each hop is considered approximately equal time, BFS gives the fastest route in O(V + E) time.</li>
+          </ul>
+          <p>
+            This combination is efficient and robust enough for small to medium-size networks and can be extended with weights later.
           </p>
         </div>
         <div class="panel-block">
-          <div class="io-label">Input format (example)</div>
+          <h3>Input / Output (Project Version)</h3>
+          <p class="io-label">Input</p>
           <p>
-            Fixed graph with edge times and a small list of blocked edges between source (station) and target (incident).
+            Undirected graph with 5–7 nodes, list of edges, list of blocked roads, station node index, and incident node index.
           </p>
-          <div class="io-label" style="margin-top:4px;">Output</div>
+          <p class="io-label" style="margin-top:4px;">Output</p>
           <p>
-            Fastest feasible path and estimated travel time from station to incident.
+            Whether a feasible route exists or not, shortest hop-count distance, and one example path (sequence of nodes)
+            from station to incident.
           </p>
         </div>
         <div class="panel-block">
-          <h3>Algorithms &amp; Complexity</h3>
-          <div class="algo-row">
-            <span class="algo-pill">Dijkstra / A*</span>
-            <span class="algo-pill">Real-time graph updates</span>
-          </div>
-          <p class="complexity" style="margin-top:6px;">
-            Complexity similar to Dijkstra: <strong>O((n + m) log n)</strong>.
-          </p>
-        </div>
-
-        <!-- CODE SECTION: P4 -->
-        <div class="panel-block code-section">
-          <div class="code-header">
-            <span class="code-lang">C++ Code</span>
-            <div class="code-actions">
-              <button class="code-toggle-btn" data-code-target="code-p4">▶ View C++ Code</button>
-              <button class="code-copy-btn" data-code-copy="code-p4">⧉ Copy</button>
-            </div>
-          </div>
-          <div class="code-box" id="code-p4">
-            <pre><code>
-// Emergency routing: Dijkstra with blocked roads
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;queue&gt;
-#include &lt;set&gt;
-#include &lt;limits&gt;
-using namespace std;
-
-struct Edge {
-    int to, w;
-};
-
-int main() {
-    const int INF = numeric_limits&lt;int&gt;::max();
-    int n = 5; // nodes 0..4
-    vector&lt;vector&lt;Edge&gt;&gt; g(n);
-
-    // undirected graph with time weights
-    auto addRoad = [&] (int u, int v, int w) {
-        g[u].push_back({v, w});
-        g[v].push_back({u, w});
-    };
-
-    addRoad(0, 1, 5);
-    addRoad(1, 2, 7);
-    addRoad(0, 3, 10);
-    addRoad(3, 2, 2);
-    addRoad(2, 4, 3);
-    addRoad(1, 4, 15);
-
-    // Blocked edges (example): road 1-2 is blocked
-    set&lt;pair&lt;int,int&gt;&gt; blocked;
-    blocked.insert({1, 2});
-    blocked.insert({2, 1});
-
-    int src = 0; // station
-    int dst = 4; // incident
-    vector&lt;int&gt; dist(n, INF), parent(n, -1);
-    dist[src] = 0;
-
-    using P = pair&lt;int,int&gt;;
-    priority_queue&lt;P, vector&lt;P&gt;, greater&lt;P&gt;&gt; pq;
-    pq.push({0, src});
-
-    while (!pq.empty()) {
-        auto [d, u] = pq.top();
-        pq.pop();
-        if (d != dist[u]) continue;
-        for (auto &e : g[u]) {
-            if (blocked.count({u, e.to})) continue; // skip blocked
-            if (dist[u] != INF &amp;&amp; dist[u] + e.w &lt; dist[e.to]) {
-                dist[e.to] = dist[u] + e.w;
-                parent[e.to] = u;
-                pq.push({dist[e.to], e.to});
-            }
-        }
-    }
-
-    if (dist[dst] == INF) {
-        cout &lt;&lt; "No feasible route to incident.\n";
-    } else {
-        cout &lt;&lt; "Fastest route time = " &lt;&lt; dist[dst] &lt;&lt; " minutes\n";
-        cout &lt;&lt; "Path (reverse): ";
-        int cur = dst;
-        while (cur != -1) {
-            cout &lt;&lt; cur &lt;&lt; " ";
-            cur = parent[cur];
-        }
-        cout &lt;&lt; "\n";
-    }
-    return 0;
-}
-            </code></pre>
+          <h3>Related SDGs</h3>
+          <div class="sdg-box">
+            🌱 <strong>SDG 3 – Good Health & Well-being:</strong> Faster emergency response directly improves survival rates.<br />
+            🌱 <strong>SDG 11.5 – Disaster Risk Reduction:</strong> The same framework can be reused for evacuation and fire safety planning.
           </div>
         </div>
-
         <div class="panel-block">
-          <h3>Impact &amp; Visual</h3>
-          <p class="impact">
-            Impact: Reduces response time to incidents, directly improving survival chances.
+          <h3>How These Algorithms Help in General</h3>
+          <p>
+            BFS and DFS are core building blocks of graph theory: they are used to detect connectivity,
+            find shortest paths in unweighted graphs, and explore states in many AI search problems.
+            Mastering BFS/DFS is essential for any infrastructure or routing-related algorithm.
           </p>
+        </div>
+        <div class="panel-block">
+          <h3>Insert Figure Here</h3>
           <div class="figure-placeholder">
-            Emergency route overlay on city map highlighting avoided blocked segments.
+            📍 IMAGE PLACEHOLDER — Insert city map with blocked roads crossed out and a highlighted BFS path from station to incident.
           </div>
+        </div>
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/your-username/your-repo#emergency-routing" target="_blank">
+            <span>📂</span> View C++ Code for Emergency Routing (BFS + DFS)
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- 5: WATER MAX FLOW -->
+    <!-- 5: WATER PRESSURE -->
     <section class="panel-shell" id="p5-panel">
       <div class="panel-header">
         <div class="panel-title-group">
           <div class="panel-title">5. Water Pipeline Pressure Optimization</div>
           <div class="panel-chip-row">
             <span class="panel-chip">Water Distribution</span>
-            <span class="panel-chip algo">Max Flow / Min-Cut</span>
+            <span class="panel-chip algo">Graph Traversal + Efficient Sorting / Ranking</span>
           </div>
         </div>
         <div class="panel-controls">
@@ -1323,135 +1070,70 @@ int main() {
       </div>
       <div class="panel-scroll">
         <div class="panel-block">
-          <h3>Problem</h3>
+          <h3>Problem Context</h3>
           <p>
-            During peak usage, some regions face low water pressure while others have excess. Planners want
-            to identify bottleneck pipes limiting total supply.
+            In the water distribution network, a few trunk pipelines feed many residential branches.
+            Some tail-end colonies report very low water pressure during peak hours, while other
+            regions receive excess supply.
           </p>
-        </div>
-        <div class="panel-block">
-          <h3>Practical Solution</h3>
           <p>
-            Represent the pipeline as a directed flow network with capacities on edges. Using a maximum flow
-            algorithm, we compute overall deliverable water and examine the min-cut edges that saturate – these
-            correspond to bottleneck pipes that need upgradation.
+            We want to identify which pipelines (edges) are the most critical “choke points”
+            so that they can be upgraded first within a limited budget.
           </p>
         </div>
         <div class="panel-block">
-          <div class="io-label">Input format (example)</div>
-          <p>Fixed flow network with 6 nodes, one source, one sink and edge capacities.</p>
-          <div class="io-label" style="margin-top:4px;">Output</div>
-          <p>Maximum flow value and the edges that become saturated.</p>
-        </div>
-        <div class="panel-block">
-          <h3>Algorithms &amp; Complexity</h3>
-          <div class="algo-row">
-            <span class="algo-pill">Edmonds–Karp Max Flow</span>
-            <span class="algo-pill">Residual Graph</span>
-          </div>
-          <p class="complexity" style="margin-top:6px;">
-            Runs in <strong>O(V · E²)</strong> for Edmonds–Karp.
+          <h3>Algorithmic Solution (DFS/BFS + Sorting)</h3>
+          <p>
+            Instead of implementing full max-flow (which is heavy), we adopt an efficient, syllabus-friendly approach:
+          </p>
+          <ul>
+            <li>Use <strong>BFS/DFS</strong> to compute how many consumer nodes are downstream of each pipe
+                (roughly how many households depend on that edge).</li>
+            <li>Store each pipe with its usage score (downstream demand / capacity ratio) in an array.</li>
+            <li>Sort all pipes using an efficient sorting algorithm such as <strong>Merge Sort</strong> or <strong>Quick Sort</strong>
+                in O(E log E) to rank them from most critical to least critical.</li>
+          </ul>
+          <p>
+            The top-ranked pipes are reported as the main bottlenecks where upgrades will have maximum impact on pressure.
           </p>
         </div>
-
-        <!-- CODE SECTION: P5 -->
-        <div class="panel-block code-section">
-          <div class="code-header">
-            <span class="code-lang">C++ Code</span>
-            <div class="code-actions">
-              <button class="code-toggle-btn" data-code-target="code-p5">▶ View C++ Code</button>
-              <button class="code-copy-btn" data-code-copy="code-p5">⧉ Copy</button>
-            </div>
-          </div>
-          <div class="code-box" id="code-p5">
-            <pre><code>
-// Edmonds-Karp Max Flow (Water Network)
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;queue&gt;
-#include &lt;algorithm&gt;
-using namespace std;
-
-const int INF = 1e9;
-
-int bfs(int s, int t, vector&lt;vector&lt;int&gt;&gt; &cap,
-        vector&lt;vector&lt;int&gt;&gt; &adj, vector&lt;int&gt; &parent) {
-    fill(parent.begin(), parent.end(), -1);
-    parent[s] = -2;
-    queue&lt;pair&lt;int,int&gt;&gt; q;
-    q.push({s, INF});
-    while (!q.empty()) {
-        int u = q.front().first;
-        int flow = q.front().second;
-        q.pop();
-        for (int v : adj[u]) {
-            if (parent[v] == -1 &amp;&amp; cap[u][v] > 0) {
-                parent[v] = u;
-                int new_flow = min(flow, cap[u][v]);
-                if (v == t) return new_flow;
-                q.push({v, new_flow});
-            }
-        }
-    }
-    return 0;
-}
-
-int maxflow(int s, int t, vector&lt;vector&lt;int&gt;&gt; &cap,
-           vector&lt;vector&lt;int&gt;&gt; &adj) {
-    int n = cap.size();
-    vector&lt;int&gt; parent(n);
-    int flow = 0, new_flow;
-    while ((new_flow = bfs(s, t, cap, adj, parent))) {
-        flow += new_flow;
-        int cur = t;
-        while (cur != s) {
-            int prev = parent[cur];
-            cap[prev][cur] -= new_flow;
-            cap[cur][prev] += new_flow;
-            cur = prev;
-        }
-    }
-    return flow;
-}
-
-int main() {
-    int n = 6; // 0..5
-    int s = 0, t = 5;
-    vector&lt;vector&lt;int&gt;&gt; cap(n, vector&lt;int&gt;(n, 0));
-    vector&lt;vector&lt;int&gt;&gt; adj(n);
-
-    auto addEdge = [&] (int u, int v, int c) {
-        cap[u][v] = c;
-        adj[u].push_back(v);
-        adj[v].push_back(u);
-    };
-
-    // Example capacities: junctions connected by pipes
-    addEdge(0, 1, 10);
-    addEdge(0, 2, 5);
-    addEdge(1, 2, 15);
-    addEdge(1, 3, 10);
-    addEdge(2, 4, 10);
-    addEdge(3, 4, 10);
-    addEdge(3, 5, 10);
-    addEdge(4, 5, 10);
-
-    cout &lt;&lt; "Maximum water flow from source to sink = "
-         &lt;&lt; maxflow(s, t, cap, adj) &lt;&lt; "\n";
-    return 0;
-}
-            </code></pre>
+        <div class="panel-block">
+          <h3>Input / Output (Project Version)</h3>
+          <p class="io-label">Input</p>
+          <p>
+            A small directed graph of pipes, capacities for each pipe, and demand values at consumer nodes.
+          </p>
+          <p class="io-label" style="margin-top:4px;">Output</p>
+          <p>
+            A sorted list of pipes with their criticality score, showing which ones to reinforce first
+            to improve water pressure across the network.
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Related SDGs</h3>
+          <div class="sdg-box">
+            🌱 <strong>SDG 6.1 – Safe and Affordable Drinking Water:</strong> Prioritised pipeline upgrades help ensure reliable supply to all colonies.<br />
+            🌱 <strong>SDG 9.1 – Sustainable Infrastructure:</strong> Data-driven identification of bottlenecks ensures infrastructure investments are optimally used.
           </div>
         </div>
-
         <div class="panel-block">
-          <h3>Impact &amp; Visual</h3>
-          <p class="impact">
-            Impact: Guides which pipeline segments to strengthen to improve water service.
+          <h3>How These Algorithms Help in General</h3>
+          <p>
+            Combining graph traversal (BFS/DFS) with efficient sorting is a common pattern:
+            we first compute metrics for each component and then rank them by importance.
+            The same approach can be applied to traffic hotspots, power line loads, and even social network influence analysis.
           </p>
+        </div>
+        <div class="panel-block">
+          <h3>Insert Figure Here</h3>
           <div class="figure-placeholder">
-            Flow network with capacities; bottleneck pipes highlighted in red.
+            📍 IMAGE PLACEHOLDER — Insert water network diagram showing main trunk, branches and top 2–3 critical pipes marked.
           </div>
+        </div>
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/your-username/your-repo#water-pressure" target="_blank">
+            <span>📂</span> View C++ Code for Water Pressure Analysis
+          </a>
         </div>
       </div>
     </section>
@@ -1463,7 +1145,7 @@ int main() {
           <div class="panel-title">6. Power Grid Load Minimization</div>
           <div class="panel-chip-row">
             <span class="panel-chip">Electric Grid</span>
-            <span class="panel-chip algo">MST on Substations</span>
+            <span class="panel-chip algo">Prim’s MST + Heap (O(E log V))</span>
           </div>
         </div>
         <div class="panel-controls">
@@ -1472,136 +1154,76 @@ int main() {
       </div>
       <div class="panel-scroll">
         <div class="panel-block">
-          <h3>Problem</h3>
+          <h3>Problem Context</h3>
           <p>
-            The city needs to extend electricity to new residential layouts with minimum transmission
-            infrastructure and reduced losses.
+            A new housing layout must be connected to the main power grid. Multiple candidate cable routes
+            exist between substations and new transformers. Each cable has a cost and expected energy loss.
+            The goal is to connect all substations and new colonies with minimal total wiring cost and loss.
           </p>
         </div>
         <div class="panel-block">
-          <h3>Practical Solution</h3>
+          <h3>Algorithmic Solution (Prim’s MST with Priority Queue)</h3>
           <p>
-            Nodes represent substations and colonies; edges represent candidate transmission lines with weights
-            combining distance and expected power loss. An MST over this graph yields a connection plan with minimum
-            total cost that still powers all zones.
+            We model substations and colonies as nodes and cables as weighted edges (weight = cost + loss).
+            Prim’s algorithm is ideal for this dense-ish network:
+          </p>
+          <ul>
+            <li>Start from a root substation and push all outgoing edges into a <strong>min-heap</strong>.</li>
+            <li>Repeatedly extract the minimum-weight edge that connects a new node to the growing tree.</li>
+            <li>Complexity is <strong>O(E log V)</strong>, efficient for typical grid sizes.</li>
+          </ul>
+          <p>
+            The resulting MST represents the recommended power backbone network for the new region.
           </p>
         </div>
         <div class="panel-block">
-          <div class="io-label">Input format (example)</div>
-          <p>Fixed undirected graph of 6 substations with cost for each cable.</p>
-          <div class="io-label" style="margin-top:4px;">Output</div>
-          <p>Set of lines chosen in the MST and total cost.</p>
-        </div>
-        <div class="panel-block">
-          <h3>Algorithms &amp; Complexity</h3>
-          <div class="algo-row">
-            <span class="algo-pill">Prim's MST</span>
-            <span class="algo-pill">Heap / Priority queue</span>
-          </div>
-          <p class="complexity" style="margin-top:6px;">
-            Prim's algorithm with heap runs in <strong>O((n + m) log n)</strong>.
+          <h3>Input / Output (Project Version)</h3>
+          <p class="io-label">Input</p>
+          <p>
+            An undirected graph of 6–7 substations/colonies with cable weights. Input is stored as adjacency lists.
+          </p>
+          <p class="io-label" style="margin-top:4px;">Output</p>
+          <p>
+            List of MST edges chosen, showing which substations/colonies get directly connected and the final total cost.
           </p>
         </div>
-
-        <!-- CODE SECTION: P6 -->
-        <div class="panel-block code-section">
-          <div class="code-header">
-            <span class="code-lang">C++ Code</span>
-            <div class="code-actions">
-              <button class="code-toggle-btn" data-code-target="code-p6">▶ View C++ Code</button>
-              <button class="code-copy-btn" data-code-copy="code-p6">⧉ Copy</button>
-            </div>
-          </div>
-          <div class="code-box" id="code-p6">
-            <pre><code>
-// Prim's MST (Power Grid Layout)
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;queue&gt;
-#include &lt;limits&gt;
-using namespace std;
-
-struct Edge {
-    int to, w;
-};
-
-int main() {
-    int n = 6; // substations 0..5
-    vector&lt;vector&lt;Edge&gt;&gt; g(n);
-
-    auto addLine = [&] (int u, int v, int w) {
-        g[u].push_back({v, w});
-        g[v].push_back({u, w});
-    };
-
-    addLine(0, 1, 4);
-    addLine(0, 2, 6);
-    addLine(1, 2, 2);
-    addLine(1, 3, 5);
-    addLine(2, 4, 5);
-    addLine(3, 4, 3);
-    addLine(3, 5, 7);
-    addLine(4, 5, 4);
-
-    const int INF = numeric_limits&lt;int&gt;::max();
-    vector&lt;int&gt; key(n, INF), parent(n, -1);
-    vector&lt;bool&gt; inMST(n, false);
-
-    using P = pair&lt;int,int&gt;;
-    priority_queue&lt;P, vector&lt;P&gt;, greater&lt;P&gt;&gt; pq;
-    int src = 0;
-    key[src] = 0;
-    pq.push({0, src});
-
-    while (!pq.empty()) {
-        auto [w, u] = pq.top();
-        pq.pop();
-        if (inMST[u]) continue;
-        inMST[u] = true;
-
-        for (auto &e : g[u]) {
-            if (!inMST[e.to] &amp;&amp; e.w &lt; key[e.to]) {
-                key[e.to] = e.w;
-                parent[e.to] = u;
-                pq.push({key[e.to], e.to});
-            }
-        }
-    }
-
-    int total = 0;
-    cout &lt;&lt; "Power grid MST edges:\n";
-    for (int v = 1; v &lt; n; ++v) {
-        cout &lt;&lt; parent[v] &lt;&lt; " -- " &lt;&lt; v
-             &lt;&lt; "  cost = " &lt;&lt; key[v] &lt;&lt; "\n";
-        total += key[v];
-    }
-    cout &lt;&lt; "Total wiring cost = " &lt;&lt; total &lt;&lt; "\n";
-    return 0;
-}
-            </code></pre>
+        <div class="panel-block">
+          <h3>Related SDGs</h3>
+          <div class="sdg-box">
+            🌱 <strong>SDG 7 – Affordable and Clean Energy:</strong> Efficient grid layouts reduce technical losses and cost of expansion.<br />
+            🌱 <strong>SDG 9 – Industry, Innovation and Infrastructure:</strong> Supports expansion of reliable and sustainable power infrastructure.
           </div>
         </div>
-
         <div class="panel-block">
-          <h3>Impact &amp; Visual</h3>
-          <p class="impact">
-            Impact: Reduces cost of electrifying new areas and ensures reliable supply.
+          <h3>How This Algorithm Helps in General</h3>
+          <p>
+            Prim’s MST is widely used in network design problems: computer networks, cable TV, and backbone layouts.
+            It is particularly preferred when the graph is dense and adjacency lists are available,
+            since it gives a near-optimal performance with heaps.
           </p>
+        </div>
+        <div class="panel-block">
+          <h3>Insert Figure Here</h3>
           <div class="figure-placeholder">
-            Tree connecting substations and new layouts with minimal line cost.
+            📍 IMAGE PLACEHOLDER — Insert power grid diagram showing MST cables between substations and colonies.
           </div>
+        </div>
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/your-username/your-repo#power-grid" target="_blank">
+            <span>📂</span> View C++ Code for Power Grid MST
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- 7: GARBAGE TSP -->
+    <!-- 7: GARBAGE ROUTING -->
     <section class="panel-shell" id="p7-panel">
       <div class="panel-header">
         <div class="panel-title-group">
           <div class="panel-title">7. Garbage Truck Route Optimization</div>
           <div class="panel-chip-row">
             <span class="panel-chip">Solid Waste</span>
-            <span class="panel-chip algo">TSP Heuristic · Nearest Neighbour</span>
+            <span class="panel-chip algo">Dijkstra + Greedy Ordering + Sorting</span>
           </div>
         </div>
         <div class="panel-controls">
@@ -1610,109 +1232,64 @@ int main() {
       </div>
       <div class="panel-scroll">
         <div class="panel-block">
-          <h3>Problem</h3>
+          <h3>Problem Context</h3>
           <p>
-            Manually designed routes cause extra travel for garbage trucks and some bins remain uncollected for long.
+            Garbage trucks often travel long unnecessary distances because routes are manually planned
+            or repeated daily without optimisation. This leads to high fuel cost, long collection times,
+            and inconsistent service in some wards.
           </p>
         </div>
         <div class="panel-block">
-          <h3>Practical Solution</h3>
+          <h3>Algorithmic Solution (Shortest Paths + Greedy Selection)</h3>
           <p>
-            Model the depot and each pickup location as cities in a Travelling Salesman Problem. Use a greedy
-            nearest-neighbour construction to get a short cyclic route that visits all points and returns to the depot.
+            We do not use full TSP here. Instead, we combine:
+          </p>
+          <ul>
+            <li><strong>Dijkstra’s algorithm</strong> to pre-compute shortest distances between all key points (depot and pickup locations).</li>
+            <li><strong>Greedy nearest-neighbour route construction</strong>: starting from depot, repeatedly go to the nearest unvisited pickup point based on precomputed distances.</li>
+            <li>Efficient <strong>sorting</strong> can be used to order candidate next locations or to compare alternative heuristic tours (O(n log n)).</li>
+          </ul>
+          <p>
+            This gives a good-quality, efficient route planning method suitable for small- to medium-sized wards.
           </p>
         </div>
         <div class="panel-block">
-          <div class="io-label">Input format (example)</div>
-          <p>Fixed distance matrix between depot and pickup points.</p>
-          <div class="io-label" style="margin-top:4px;">Output</div>
-          <p>Visiting order forming a cycle and total distance travelled.</p>
-        </div>
-        <div class="panel-block">
-          <h3>Algorithms &amp; Complexity</h3>
-          <div class="algo-row">
-            <span class="algo-pill">Greedy TSP (Nearest Neighbour)</span>
-          </div>
-          <p class="complexity" style="margin-top:6px;">
-            Roughly <strong>O(n²)</strong> for nearest neighbour on <code>n</code> locations.
+          <h3>Input / Output (Project Version)</h3>
+          <p class="io-label">Input</p>
+          <p>
+            Number of pickup points, distance matrix between all locations (including depot),
+            and starting depot index.
+          </p>
+          <p class="io-label" style="margin-top:4px;">Output</p>
+          <p>
+            An ordered sequence of locations forming the garbage collection tour and the total travel distance.
           </p>
         </div>
-
-        <!-- CODE SECTION: P7 -->
-        <div class="panel-block code-section">
-          <div class="code-header">
-            <span class="code-lang">C++ Code</span>
-            <div class="code-actions">
-              <button class="code-toggle-btn" data-code-target="code-p7">▶ View C++ Code</button>
-              <button class="code-copy-btn" data-code-copy="code-p7">⧉ Copy</button>
-            </div>
-          </div>
-          <div class="code-box" id="code-p7">
-            <pre><code>
-// Greedy TSP (Nearest Neighbour) for garbage truck
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;limits&gt;
-using namespace std;
-
-int main() {
-    const int INF = 1e9;
-    int n = 6; // 0 = depot, 1..5 pickup points
-    int dist[6][6] = {
-        {0, 4, 6, 7, 3, 8},
-        {4, 0, 2, 3, 5, 6},
-        {6, 2, 0, 4, 2, 5},
-        {7, 3, 4, 0, 6, 3},
-        {3, 5, 2, 6, 0, 4},
-        {8, 6, 5, 3, 4, 0}
-    };
-
-    vector&lt;bool&gt; visited(n, false);
-    int cur = 0;
-    visited[0] = true;
-    vector&lt;int&gt; tour;
-    tour.push_back(cur);
-    int totalDist = 0;
-
-    for (int step = 0; step &lt; n - 1; ++step) {
-        int best = -1, bestD = INF;
-        for (int j = 0; j &lt; n; ++j) {
-            if (!visited[j] &amp;&amp; dist[cur][j] &lt; bestD) {
-                bestD = dist[cur][j];
-                best = j;
-            }
-        }
-        if (best == -1) break;
-        visited[best] = true;
-        tour.push_back(best);
-        totalDist += bestD;
-        cur = best;
-    }
-
-    // Return to depot
-    totalDist += dist[cur][0];
-    tour.push_back(0);
-
-    cout &lt;&lt; "Garbage truck route (nearest neighbour):\n";
-    for (int i = 0; i &lt; (int)tour.size(); ++i) {
-        cout &lt;&lt; tour[i];
-        if (i + 1 &lt; (int)tour.size()) cout &lt;&lt; " -> ";
-    }
-    cout &lt;&lt; "\nTotal distance = " &lt;&lt; totalDist &lt;&lt; "\n";
-    return 0;
-}
-            </code></pre>
+        <div class="panel-block">
+          <h3>Related SDGs</h3>
+          <div class="sdg-box">
+            🌱 <strong>SDG 11.6 – Waste Management:</strong> Efficient routing helps ensure bins are cleared before overflow.<br />
+            🌱 <strong>SDG 13 – Climate Action:</strong> Shorter routes directly reduce fuel consumption and emissions.
           </div>
         </div>
-
         <div class="panel-block">
-          <h3>Impact &amp; Visual</h3>
-          <p class="impact">
-            Impact: Saves fuel, reduces time and ensures timely collection in all wards.
+          <h3>How These Algorithms Help in General</h3>
+          <p>
+            Combining shortest path computation with greedy ordering is a common approach in logistics:
+            courier deliveries, school bus routes, and supply chain optimisation.
+            Even if the route is not globally optimal, it is much better than a human-designed ad-hoc path.
           </p>
+        </div>
+        <div class="panel-block">
+          <h3>Insert Figure Here</h3>
           <div class="figure-placeholder">
-            Map of garbage truck cycle passing through all pickup locations exactly once.
+            📍 IMAGE PLACEHOLDER — Insert ward map showing garbage truck path passing through all pickup points efficiently.
           </div>
+        </div>
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/your-username/your-repo#garbage-routing" target="_blank">
+            <span>📂</span> View C++ Code for Garbage Truck Routing
+          </a>
         </div>
       </div>
     </section>
@@ -1724,7 +1301,7 @@ int main() {
           <div class="panel-title">8. Public Transport Timetable Generation</div>
           <div class="panel-chip-row">
             <span class="panel-chip">Public Transport</span>
-            <span class="panel-chip algo">Greedy Interval Scheduling</span>
+            <span class="panel-chip algo">Efficient Sorting + Greedy Interval Selection</span>
           </div>
         </div>
         <div class="panel-controls">
@@ -1733,102 +1310,64 @@ int main() {
       </div>
       <div class="panel-scroll">
         <div class="panel-block">
-          <h3>Problem</h3>
+          <h3>Problem Context</h3>
           <p>
-            A limited number of buses must serve many possible trips. Overlapping trips cause shortages on some
-            routes and idle buses at other times.
+            The city has limited buses but many possible trips. If all trips are blindly scheduled,
+            some buses will have overlapping assignments, or buses may remain idle during busy periods.
           </p>
         </div>
         <div class="panel-block">
-          <h3>Practical Solution</h3>
+          <h3>Algorithmic Solution (Interval Scheduling with Sorting)</h3>
           <p>
-            Each candidate trip is an interval [start, end]. Using greedy interval scheduling
-            (sort by finish time), we select a maximum set of non-overlapping trips for one bus,
-            then extend it to multiple buses.
+            Each candidate bus trip is an interval [start time, end time].
+            We want to select a maximum number of non-overlapping trips for each bus.
+          </p>
+          <ul>
+            <li>Trips are sorted by finishing time using <strong>Merge Sort</strong> / <strong>Quick Sort</strong> in O(n log n).</li>
+            <li>Then we greedily pick the earliest finishing trip that does not overlap with the last chosen trip.</li>
+          </ul>
+          <p>
+            This is the classic optimal solution to the interval scheduling problem and is very efficient in both
+            theory and practice.
           </p>
         </div>
         <div class="panel-block">
-          <div class="io-label">Input format (example)</div>
-          <p>Fixed list of candidate trips with start and end times.</p>
-          <div class="io-label" style="margin-top:4px;">Output</div>
-          <p>Set of non-overlapping trips for one bus (can be extended to more).</p>
-        </div>
-        <div class="panel-block">
-          <h3>Algorithms &amp; Complexity</h3>
-          <div class="algo-row">
-            <span class="algo-pill">Interval Scheduling (Greedy)</span>
-          </div>
-          <p class="complexity" style="margin-top:6px;">
-            Sorting trips by end time is <strong>O(k log k)</strong> for <code>k</code> trips.
+          <h3>Input / Output (Project Version)</h3>
+          <p class="io-label">Input</p>
+          <p>
+            List of candidate trips with start and end times (e.g., in hours or minutes for one day).
+          </p>
+          <p class="io-label" style="margin-top:4px;">Output</p>
+          <p>
+            A subset of trips assigned to a particular bus (Bus 1) such that no two selected trips overlap,
+            along with the number of trips served.
           </p>
         </div>
-
-        <!-- CODE SECTION: P8 -->
-        <div class="panel-block code-section">
-          <div class="code-header">
-            <span class="code-lang">C++ Code</span>
-            <div class="code-actions">
-              <button class="code-toggle-btn" data-code-target="code-p8">▶ View C++ Code</button>
-              <button class="code-copy-btn" data-code-copy="code-p8">⧉ Copy</button>
-            </div>
-          </div>
-          <div class="code-box" id="code-p8">
-            <pre><code>
-// Interval Scheduling for one bus timetable
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;algorithm&gt;
-using namespace std;
-
-struct Trip {
-    int id;
-    int start, end;
-};
-
-int main() {
-    vector&lt;Trip&gt; trips = {
-        {1,  8, 10},
-        {2,  9, 11},
-        {3, 10, 12},
-        {4, 13, 15},
-        {5, 12, 13},
-        {6, 16, 18}
-    };
-
-    sort(trips.begin(), trips.end(),
-         [](const Trip &a, const Trip &b) {
-             return a.end &lt; b.end;
-         });
-
-    vector&lt;Trip&gt; chosen;
-    int lastEnd = -1;
-    for (auto &t : trips) {
-        if (t.start >= lastEnd) {
-            chosen.push_back(t);
-            lastEnd = t.end;
-        }
-    }
-
-    cout &lt;&lt; "Trips assigned to Bus 1:\n";
-    for (auto &t : chosen) {
-        cout &lt;&lt; "Trip " &lt;&lt; t.id
-             &lt;&lt; " from " &lt;&lt; t.start
-             &lt;&lt; " to " &lt;&lt; t.end &lt;&lt; "\n";
-    }
-    return 0;
-}
-            </code></pre>
+        <div class="panel-block">
+          <h3>Related SDGs</h3>
+          <div class="sdg-box">
+            🌱 <strong>SDG 11.2 – Public Transport Access:</strong> Better timetables improve reliability and service frequency for commuters.<br />
+            🌱 <strong>SDG 9.4 – Resource Efficiency:</strong> Maximises utilisation of existing buses before demanding more vehicles.
           </div>
         </div>
-
         <div class="panel-block">
-          <h3>Impact &amp; Visual</h3>
-          <p class="impact">
-            Impact: Increases useful coverage of buses without increasing fleet size.
+          <h3>How These Algorithms Help in General</h3>
+          <p>
+            Sorting + greedy interval selection is used in CPU scheduling, room booking systems, exam timetables,
+            and many other scheduling tasks. It is a powerful simple pattern that gives mathematically optimal results
+            with O(n log n) time complexity.
           </p>
+        </div>
+        <div class="panel-block">
+          <h3>Insert Figure Here</h3>
           <div class="figure-placeholder">
-            Timetable-style grid showing assigned trips per bus along the day.
+            📍 IMAGE PLACEHOLDER — Insert timeline figure with non-overlapping trips highlighted for Bus 1.
           </div>
+        </div>
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/your-username/your-repo#bus-timetable" target="_blank">
+            <span>📂</span> View C++ Code for Bus Timetable Generation
+          </a>
         </div>
       </div>
     </section>
@@ -1840,7 +1379,7 @@ int main() {
           <div class="panel-title">9. Bridge Construction Priority Model</div>
           <div class="panel-chip-row">
             <span class="panel-chip">Critical Infrastructure</span>
-            <span class="panel-chip algo">Bridges / Tarjan</span>
+            <span class="panel-chip algo">DFS-Based Bridge Detection (Tarjan Idea)</span>
           </div>
         </div>
         <div class="panel-controls">
@@ -1849,111 +1388,65 @@ int main() {
       </div>
       <div class="panel-scroll">
         <div class="panel-block">
-          <h3>Problem</h3>
+          <h3>Problem Context</h3>
           <p>
-            Failure of some bridges can disconnect major parts of the city. Authorities want to know
-            which bridges are most critical and deserve priority strengthening.
+            Some bridges and elevated roads are so critical that if they fail, large regions of the city
+            would be disconnected from hospitals, schools, or workplaces. Authorities need to identify such
+            “critical links” and prioritise them for regular inspection and strengthening.
           </p>
         </div>
         <div class="panel-block">
-          <h3>Practical Solution</h3>
+          <h3>Algorithmic Solution (DFS Bridges)</h3>
           <p>
-            Represent regions and roads as an undirected graph. Using a bridge-finding algorithm (Tarjan),
-            we detect edges whose removal disconnects the graph. These edges represent critical bridges.
+            The road network is modeled as an undirected graph. We use a <strong>DFS-based bridge detection algorithm</strong>:
+          </p>
+          <ul>
+            <li>Perform DFS and maintain discovery time and lowest reachable discovery time (<code>disc[u]</code> and <code>low[u]</code>) for each vertex.</li>
+            <li>An edge (u, v) is a <strong>bridge</strong> if <code>low[v] > disc[u]</code>, meaning there is no alternate path from v back to u or its ancestors.</li>
+            <li>The algorithm runs in <strong>O(V + E)</strong> time, which is linear and efficient.</li>
+          </ul>
+          <p>
+            Identified bridges are added to a priority list for monitoring and retrofitting.
           </p>
         </div>
         <div class="panel-block">
-          <div class="io-label">Input format (example)</div>
-          <p>Fixed undirected graph with edges representing bridges and roads.</p>
-          <div class="io-label" style="margin-top:4px;">Output</div>
-          <p>List of bridges which, if removed, will disconnect some regions.</p>
-        </div>
-        <div class="panel-block">
-          <h3>Algorithms &amp; Complexity</h3>
-          <div class="algo-row">
-            <span class="algo-pill">Tarjan's Bridge Algorithm</span>
-          </div>
-          <p class="complexity" style="margin-top:6px;">
-            Runs in <strong>O(n + m)</strong> using DFS.
+          <h3>Input / Output (Project Version)</h3>
+          <p class="io-label">Input</p>
+          <p>
+            An undirected graph of regions connected by roads/bridges. For demo, a small network with
+            a mix of cycles and tree-like parts is used.
+          </p>
+          <p class="io-label" style="margin-top:4px;">Output</p>
+          <p>
+            List of edges that are bridges (critical links). These are the edges whose removal would increase the
+            number of connected components of the graph.
           </p>
         </div>
-
-        <!-- CODE SECTION: P9 -->
-        <div class="panel-block code-section">
-          <div class="code-header">
-            <span class="code-lang">C++ Code</span>
-            <div class="code-actions">
-              <button class="code-toggle-btn" data-code-target="code-p9">▶ View C++ Code</button>
-              <button class="code-copy-btn" data-code-copy="code-p9">⧉ Copy</button>
-            </div>
-          </div>
-          <div class="code-box" id="code-p9">
-            <pre><code>
-// Tarjan's algorithm to find bridges
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-using namespace std;
-
-vector&lt;vector&lt;int&gt;&gt; g;
-vector&lt;int&gt; disc, low;
-vector&lt;bool&gt; visited;
-int timerVal = 0;
-
-void dfs(int u, int parent) {
-    visited[u] = true;
-    disc[u] = low[u] = ++timerVal;
-
-    for (int v : g[u]) {
-        if (v == parent) continue;
-        if (!visited[v]) {
-            dfs(v, u);
-            low[u] = min(low[u], low[v]);
-            if (low[v] > disc[u]) {
-                cout &lt;&lt; "Bridge: " &lt;&lt; u &lt;&lt; " - " &lt;&lt; v &lt;&lt; "\n";
-            }
-        } else {
-            low[u] = min(low[u], disc[v]);
-        }
-    }
-}
-
-int main() {
-    int n = 6;
-    g.assign(n, {});
-    auto addEdge = [&] (int u, int v) {
-        g[u].push_back(v);
-        g[v].push_back(u);
-    };
-
-    addEdge(0, 1);
-    addEdge(1, 2);
-    addEdge(2, 0);
-    addEdge(1, 3);
-    addEdge(3, 4);
-    addEdge(4, 5);
-
-    disc.assign(n, 0);
-    low.assign(n, 0);
-    visited.assign(n, false);
-
-    cout &lt;&lt; "Critical bridges in the network:\n";
-    for (int i = 0; i &lt; n; ++i) {
-        if (!visited[i]) dfs(i, -1);
-    }
-    return 0;
-}
-            </code></pre>
+        <div class="panel-block">
+          <h3>Related SDGs</h3>
+          <div class="sdg-box">
+            🌱 <strong>SDG 9 – Resilient Infrastructure:</strong> Protects key transport links to ensure reliability.<br />
+            🌱 <strong>SDG 11 – Sustainable Cities:</strong> Helps in planning safer and more robust urban road networks.
           </div>
         </div>
-
         <div class="panel-block">
-          <h3>Impact &amp; Visual</h3>
-          <p class="impact">
-            Impact: Helps allocate funds and monitoring effort to the most risk-sensitive bridges first.
+          <h3>How This Algorithm Helps in General</h3>
+          <p>
+            Bridge detection is part of larger network reliability analysis. Similar ideas are applied in communication
+            networks (finding vulnerable links), social networks (critical connections between communities),
+            and power grids. DFS-based solutions are elegant and very efficient.
           </p>
+        </div>
+        <div class="panel-block">
+          <h3>Insert Figure Here</h3>
           <div class="figure-placeholder">
-            River crossing graph with critical bridges highlighted in a different colour.
+            📍 IMAGE PLACEHOLDER — Insert regional network graph with bridges highlighted in a strong colour.
           </div>
+        </div>
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/your-username/your-repo#bridge-priority" target="_blank">
+            <span>📂</span> View C++ Code for Bridge Priority Model
+          </a>
         </div>
       </div>
     </section>
@@ -1965,7 +1458,7 @@ int main() {
           <div class="panel-title">10. Flood Evacuation Simulation</div>
           <div class="panel-chip-row">
             <span class="panel-chip">Disaster Management</span>
-            <span class="panel-chip algo">Multi-source BFS</span>
+            <span class="panel-chip algo">Multi-source BFS (O(V + E))</span>
           </div>
         </div>
         <div class="panel-controls">
@@ -1974,124 +1467,65 @@ int main() {
       </div>
       <div class="panel-scroll">
         <div class="panel-block">
-          <h3>Problem</h3>
+          <h3>Problem Context</h3>
           <p>
-            In heavy rain, low-lying localities flood first. The city wants to estimate how flood water
-            spreads over time and which shelters remain reachable.
+            During intense rainfall, low-lying areas near rivers or lakes get flooded first and the water
+            gradually spreads to nearby localities. Authorities want to know which shelters remain reachable
+            before floodwaters cut off roads, so that people can be moved safely.
           </p>
         </div>
         <div class="panel-block">
-          <h3>Practical Solution</h3>
+          <h3>Algorithmic Solution (Multi-source BFS)</h3>
           <p>
-            Represent localities as nodes and roads as edges. Initialise a queue with all flood-source nodes
-            and run multi-source BFS. The BFS level of a node indicates the time step when water reaches that locality.
-            Localities and shelters reachable before a time limit are considered safe.
+            Localities are graph nodes and roads are edges. Initial flood sources (river bank, lakefront)
+            are inserted into a queue with distance/time = 0. Then we run <strong>multi-source BFS</strong>:
+          </p>
+          <ul>
+            <li>Each BFS level represents the time step when water reaches a new locality.</li>
+            <li>Arrival times at shelter nodes are compared with evacuation deadlines.</li>
+          </ul>
+          <p>
+            Time complexity is <strong>O(V + E)</strong>, so this method easily scales to reasonably large city graphs.
           </p>
         </div>
         <div class="panel-block">
-          <div class="io-label">Input format (example)</div>
-          <p>Fixed graph of localities, with a set of flood sources and some shelter nodes.</p>
-          <div class="io-label" style="margin-top:4px;">Output</div>
-          <p>Flood arrival time for each locality and list of safe shelters (reachable before cutoff time).</p>
-        </div>
-        <div class="panel-block">
-          <h3>Algorithms &amp; Complexity</h3>
-          <div class="algo-row">
-            <span class="algo-pill">Multi-source BFS</span>
-          </div>
-          <p class="complexity" style="margin-top:6px;">
-            Runs in <strong>O(n + m)</strong> time and <strong>O(n)</strong> space.
+          <h3>Input / Output (Project Version)</h3>
+          <p class="io-label">Input</p>
+          <p>
+            Undirected graph of 7–10 localities, a list of flood-source nodes, and a set of shelter nodes.
+            A time-step threshold is given as the safe evacuation limit.
+          </p>
+          <p class="io-label" style="margin-top:4px;">Output</p>
+          <p>
+            Flood arrival time for each locality and classification of each shelter as “safe” or “unsafe”
+            based on whether water reaches before the threshold.
           </p>
         </div>
-
-        <!-- CODE SECTION: P10 -->
-        <div class="panel-block code-section">
-          <div class="code-header">
-            <span class="code-lang">C++ Code</span>
-            <div class="code-actions">
-              <button class="code-toggle-btn" data-code-target="code-p10">▶ View C++ Code</button>
-              <button class="code-copy-btn" data-code-copy="code-p10">⧉ Copy</button>
-            </div>
-          </div>
-          <div class="code-box" id="code-p10">
-            <pre><code>
-// Multi-source BFS for flood spread
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;queue&gt;
-#include &lt;limits&gt;
-using namespace std;
-
-int main() {
-    int n = 7; // localities 0..6
-    vector&lt;vector&lt;int&gt;&gt; g(n);
-    auto addRoad = [&] (int u, int v) {
-        g[u].push_back(v);
-        g[v].push_back(u);
-    };
-
-    addRoad(0, 1);
-    addRoad(1, 2);
-    addRoad(2, 3);
-    addRoad(1, 4);
-    addRoad(4, 5);
-    addRoad(5, 6);
-
-    // flood sources
-    vector&lt;int&gt; sources = {0};  // river-bank locality
-    // shelters
-    vector&lt;int&gt; shelters = {3, 6};
-
-    const int INF = 1e9;
-    vector&lt;int&gt; dist(n, INF);
-    queue&lt;int&gt; q;
-
-    for (int s : sources) {
-        dist[s] = 0;
-        q.push(s);
-    }
-
-    while (!q.empty()) {
-        int u = q.front();
-        q.pop();
-        for (int v : g[u]) {
-            if (dist[v] == INF) {
-                dist[v] = dist[u] + 1; // each step = 1 time unit
-                q.push(v);
-            }
-        }
-    }
-
-    cout &lt;&lt; "Flood arrival time (in time steps):\n";
-    for (int i = 0; i &lt; n; ++i) {
-        cout &lt;&lt; "Locality " &lt;&lt; i &lt;&lt; " : ";
-        if (dist[i] == INF) cout &lt;&lt; "never reached\n";
-        else cout &lt;&lt; dist[i] &lt;&lt; "\n";
-    }
-
-    int cutoff = 2; // safe if shelter reachable in &lt;= 2 steps
-    cout &lt;&lt; "\nShelter safety check (cutoff = " &lt;&lt; cutoff &lt;&lt; "):\n";
-    for (int s : shelters) {
-        if (dist[s] &gt; cutoff) {
-            cout &lt;&lt; "Shelter " &lt;&lt; s &lt;&lt; " becomes unsafe.\n";
-        } else {
-            cout &lt;&lt; "Shelter " &lt;&lt; s &lt;&lt; " is reachable before major flood.\n";
-        }
-    }
-    return 0;
-}
-            </code></pre>
+        <div class="panel-block">
+          <h3>Related SDGs</h3>
+          <div class="sdg-box">
+            🌱 <strong>SDG 11.5 – Disaster Risk Reduction:</strong> Supports planning that reduces deaths and affected people due to disasters.<br />
+            🌱 <strong>SDG 13 – Climate Action:</strong> Models climate-related flood events and helps prepare adaptive responses.
           </div>
         </div>
-
         <div class="panel-block">
-          <h3>Impact &amp; Visual</h3>
-          <p class="impact">
-            Impact: Supports better evacuation planning and reduces disaster risk for vulnerable wards.
+          <h3>How This Algorithm Helps in General</h3>
+          <p>
+            Multi-source BFS is a natural model for spreading processes: floods, fire, disease, information,
+            or even viral rumours on social networks. Understanding wave-like propagation helps planners
+            locate safe zones, design barriers, and schedule timely evacuations.
           </p>
+        </div>
+        <div class="panel-block">
+          <h3>Insert Figure Here</h3>
           <div class="figure-placeholder">
-            BFS level map showing flood arrival times in concentric "waves" from sources.
+            📍 IMAGE PLACEHOLDER — Insert BFS-level map showing waves of flood spread and which shelters remain reachable in time.
           </div>
+        </div>
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/your-username/your-repo#flood-bfs" target="_blank">
+            <span>📂</span> View C++ Code for Flood Evacuation Simulation
+          </a>
         </div>
       </div>
     </section>
@@ -2104,7 +1538,7 @@ int main() {
           <div class="panel-chip-row">
             <span class="panel-chip">Project Metrics</span>
             <span class="panel-chip">Design Techniques &amp; DS</span>
-            <span class="panel-chip algo">SDG 9 · SDG 11</span>
+            <span class="panel-chip algo">SDG 9 · SDG 11 · SDG 6 · SDG 7</span>
           </div>
         </div>
         <div class="panel-controls">
@@ -2115,97 +1549,63 @@ int main() {
         <div class="panel-block">
           <h3>A. Project Metrics (All 10 Problems)</h3>
           <ul>
-            <li>Total lines of code (C++ / helpers): <strong>2001–2500</strong></li>
-            <li>Total functions implemented: <strong>21–25</strong></li>
-            <li>Data / input files generated: <strong>6–10</strong> (JSON, CSV, text, Excel)</li>
-            <li>Figures / charts / diagrams: <strong>6–10</strong></li>
-            <li>Efficiency analysis: <strong>Time &amp; space complexity documented for all modules</strong></li>
+            <li>Total lines of C++ code (approx.): <strong>2000–2500</strong></li>
+            <li>Total independent functions implemented: <strong>20+ core routines</strong></li>
+            <li>Data / input files prepared: <strong>6–10</strong> (JSON, CSV, plain text, Excel)</li>
+            <li>Figures / diagrams to be inserted: <strong>10+ (one per case study)</strong></li>
+            <li>Every module includes <strong>time and space complexity analysis</strong> in comments.</li>
           </ul>
         </div>
 
         <div class="panel-block">
           <h3>B. Design Techniques Used</h3>
           <ul>
-            <li>Brute Force (baseline comparisons).</li>
-            <li>Divide and Conquer / Decrease and Conquer.</li>
-            <li>Transform and Conquer (graph transformations, MST / TSP approximations).</li>
-            <li>Greedy Techniques (Dijkstra, Prim, interval scheduling, MST, routing).</li>
-            <li>Dynamic Programming (sub-problem based optimisation where required).</li>
-            <li>Backtracking for search-space exploration in routing problems.</li>
-            <li>Randomized ideas for test data generation / tie-breaking.</li>
-            <li>Space–Time Trade-off using pre-computation and lookup tables.</li>
+            <li>Greedy design (MST, routing, scheduling).</li>
+            <li>Graph modeling of physical networks (roads, water, power, waste, evacuation).</li>
+            <li>Efficient sorting (Merge Sort / Quick Sort) as a backbone step in multiple problems.</li>
+            <li>Traversal patterns: BFS, DFS, multi-source BFS.</li>
+            <li>Data-driven ranking and prioritisation through sorting and scoring.</li>
           </ul>
         </div>
 
         <div class="panel-block">
-          <h3>C. Principles Applied</h3>
+          <h3>C. Data Structures Used</h3>
+          <p class="doc-inline-title">Core Structures</p>
           <ul>
-            <li>Pruning, brave and cautious travel in graph search.</li>
-            <li>Lazy propagation and sliding window for local / range considerations.</li>
-            <li>Level-order traversal and hierarchical modelling of city regions.</li>
-            <li>Edge relaxation and shortest-path tree invariants.</li>
-            <li>Pre-computing, memoization and bit-level optimisations.</li>
-            <li>Partition / decomposition, pattern recognition and abstraction.</li>
-            <li>Search space exploration, search-as-decision and convergence.</li>
-            <li>Cut &amp; cycle properties, connectivity and reachability.</li>
-            <li>Trade-off principles between cost, time and quality of solutions.</li>
-          </ul>
-        </div>
-
-        <div class="panel-block">
-          <h3>D. Data Structures Used</h3>
-          <p class="doc-inline-title">Basic Structures</p>
-          <ul>
-            <li>Arrays, stacks, queues, linked lists.</li>
-          </ul>
-          <p class="doc-inline-title">Advanced Structures &amp; Tools</p>
-          <ul>
-            <li>Graphs (adjacency list &amp; adjacency matrix).</li>
-            <li>Binary trees, BST, AVL tree, Red–Black tree, 2–3 tree.</li>
-            <li>Hash tables, trie, skip list.</li>
-            <li>Fenwick tree (BIT), segment tree, sparse table.</li>
-            <li>Priority queue / min-heap for Dijkstra and Prim.</li>
+            <li>Arrays and vectors for lists of nodes, edges, queues, and trips.</li>
+            <li>Queues and stacks for BFS/DFS and simulation.</li>
+            <li>Priority queues (heaps) for Dijkstra and Prim.</li>
             <li>Disjoint Set Union (Union–Find) for Kruskal.</li>
-            <li>Lookup tables and prefix-structures for optimisation.</li>
+            <li>Adjacency lists for efficient graph storage.</li>
           </ul>
         </div>
 
         <div class="panel-block">
-          <h3>E. Algorithms Implemented</h3>
-          <p class="doc-inline-title">Sorting</p>
-          <ul>
-            <li>Bubble, Selection, Insertion, Merge, Heap, Quick Sort.</li>
-          </ul>
-          <p class="doc-inline-title">String / Pattern Searching</p>
-          <ul>
-            <li>Brute Force, Boyer–Moore, KMP, Rabin–Karp.</li>
-          </ul>
+          <h3>D. Algorithms Implemented in This Bucket</h3>
           <p class="doc-inline-title">Graph Algorithms</p>
           <ul>
-            <li>DFS, BFS, multi-source BFS.</li>
-            <li>Dijkstra, Bellman–Ford, Floyd–Warshall.</li>
-            <li>Kruskal &amp; Prim (MST).</li>
-            <li>Max Flow (Edmonds–Karp) and Min-Cut.</li>
-            <li>Tarjan bridge/articulation detection, connectivity checks.</li>
-            <li>Heuristic A* search for emergency routing.</li>
+            <li>BFS, DFS, Multi-source BFS.</li>
+            <li>Dijkstra’s shortest path (with heap).</li>
+            <li>Prim’s and Kruskal’s MST (with Union–Find).</li>
+            <li>DFS-based bridge detection (Tarjan-style low-link values).</li>
+          </ul>
+          <p class="doc-inline-title">Sorting &amp; Scheduling</p>
+          <ul>
+            <li>Merge Sort / Quick Sort to sort roads, trips, and pipes by cost, time or criticality.</li>
+            <li>Greedy interval scheduling for bus timetables.</li>
+            <li>Greedy nearest-neighbour routing for garbage collection after precomputing distances.</li>
           </ul>
         </div>
 
         <div class="panel-block">
-          <h3>F. UN Sustainable Development Goals (SDG) Mapping</h3>
-          <p class="doc-inline-title">Targets</p>
-          <ul>
-            <li><strong>SDG 9.1</strong> – Develop quality, reliable, sustainable infrastructure (roads, water, power).</li>
-            <li><strong>SDG 9.C</strong> – Improve access to ICT and transport networks.</li>
-            <li><strong>SDG 11.2</strong> – Provide access to safe, affordable and sustainable transport systems (routing, bus planning).</li>
-            <li><strong>SDG 11.5</strong> – Reduce impact of disasters such as floods (evacuation simulation).</li>
-          </ul>
-          <p class="doc-inline-title">Indicators</p>
-          <ul>
-            <li>9.1.1 – Access to all-season infrastructure (optimised network designs).</li>
-            <li>11.2.1 – Population with convenient access to public transport (bus and routing modules).</li>
-            <li>11.5.2 – Disaster economic loss reduction through better preparedness.</li>
-          </ul>
+          <h3>E. SDG Mapping Summary</h3>
+          <div class="sdg-box">
+            🌱 <strong>SDG 6 – Clean Water & Sanitation:</strong> Water pipeline analysis and pressure optimisation.<br />
+            🌱 <strong>SDG 7 – Affordable & Clean Energy:</strong> Power grid MST design for low-loss distribution.<br />
+            🌱 <strong>SDG 9 – Industry, Innovation & Infrastructure:</strong> Road, bridge and network planning modules.<br />
+            🌱 <strong>SDG 11 – Sustainable Cities & Communities:</strong> Mobility, waste routing, disaster evacuation and public transport scheduling.<br />
+            🌱 <strong>SDG 13 – Climate Action:</strong> Flood simulations and emission-reducing mobility strategies.
+          </div>
         </div>
       </div>
     </section>
@@ -2248,36 +1648,6 @@ int main() {
       if (e.target === overlay) {
         closeAll();
       }
-    });
-
-    // Code toggle buttons
-    document.querySelectorAll(".code-toggle-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const targetId = btn.getAttribute("data-code-target");
-        const box = document.getElementById(targetId);
-        if (!box) return;
-        const visible = box.style.display === "block";
-        box.style.display = visible ? "none" : "block";
-        btn.textContent = visible ? "▶ View C++ Code" : "▼ Hide C++ Code";
-      });
-    });
-
-    // Copy code buttons
-    document.querySelectorAll(".code-copy-btn").forEach(btn => {
-      btn.addEventListener("click", async () => {
-        const targetId = btn.getAttribute("data-code-copy");
-        const box = document.getElementById(targetId);
-        if (!box) return;
-        const codeText = box.innerText;
-        try {
-          await navigator.clipboard.writeText(codeText);
-          const old = btn.textContent;
-          btn.textContent = "✔ Copied";
-          setTimeout(() => { btn.textContent = old; }, 1200);
-        } catch (e) {
-          alert("Copy not supported in this browser. You can select and copy manually.");
-        }
-      });
     });
   </script>
 
