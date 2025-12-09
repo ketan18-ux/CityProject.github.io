@@ -343,121 +343,120 @@ footer {
    {
       id: 1,
       number: 1,
-      title: "Air Quality Prediction Network",
+      title: "Historical Data Sorting for Resource Allocation",
       categoryTag: "",
-      shortTag: "Regression + DP Smoothing",
+      shortTag: "Merge Sort",
       time: "O(n)",
       space: "O(n)",
-      algorithm: "Regression + DP Smoothing",
+      algorithm: "Merge Sort",
       sdgs: [
         
-        "SDG 3 – Good Health and Well-being",
-        "SDG 13 – Sustainable Cities and Communities"
+        "SDG 11 – Sustainable Cities and Communities",
+        "SDG 16 – Peace, Justice, and Strong Institutions"
       ],
       problemText:
-        "Air pollution varies over time and is measured using multiple sensors such as PM2.5, NO₂, and CO. Raw sensor data is often noisy, making AQI prediction inaccurate. Therefore, a reliable method is required to predict AQI values accurately and reduce sudden fluctuations.",
-      solutionText: "Linear Regression is used to predict AQI from historical multi-sensor data. To handle noise and sudden changes in predictions, Dynamic Programming–based smoothing is applied. This produces stable and realistic AQI value.",
-      code: `Regression + DP Smoothing
+        "The city generates massive amounts of historical data  that needs to be efficiently sorted by time, severity, or location code to analyze trends and prioritize the allocation of limited resources.",
+      solutionText: "Apply Merge Sort to the data. This algorithm is ideal for large datasets due to its reliable O(n \log n) time complexity. By sorting the records, city planners can quickly identify high-frequency or high-severity clusters.",
+      code: `Merge sort
 
-     #include <iostream>
+    #include <iostream>
 #include <vector>
+#include <algorithm>
+
 using namespace std;
 
-/* --------------------------
-   Linear Regression Model
---------------------------------*/
-class LinearRegression {
-    vector<double> weights;
-    double bias;
-    double lr;
-    int epochs;
+// --- 1. The Merge Function (Combines two sorted subarrays) ---
+void merge(vector<int>& arr, int l, int m, int r) {
+    // Calculate sizes of the two subarrays to be merged
+    int n1 = m - l + 1;
+    int n2 = r - m;
 
-public:
-    LinearRegression(int features, double lr=0.01, int epochs=1000) {
-        weights.resize(features, 0.0);
-        bias = 0.0;
-        this->lr = lr;
-        this->epochs = epochs;
+    // Create temporary arrays to hold the data
+    vector<int> L(n1); 
+    vector<int> R(n2);
+
+    // Copy data to temp arrays L[] and R[]
+    for (int i = 0; i < n1; i++) {
+        L[i] = arr[l + i];
+    }
+    for (int j = 0; j < n2; j++) {
+        R[j] = arr[m + 1 + j];
     }
 
-    void train(const vector<vector<double>>& X, const vector<double>& y) {
-        int n = X.size();
-        int m = weights.size();
-  for (int e = 0; e < epochs; e++) {
-            vector<double> dw(m, 0.0);
-            double db = 0.0;
+    // Initialize indices for L[], R[], and the merged array arr[]
+    int i = 0; // Initial index of first subarray
+    int j = 0; // Initial index of second subarray
+    int k = l; // Initial index of merged subarray
 
-            for (int i = 0; i < n; i++) {
-                double y_pred = bias;
-                for (int j = 0; j < m; j++)
-                    y_pred += weights[j] * X[i][j];
-
-                double error = y_pred - y[i];
-
-                for (int j = 0; j < m; j++)
-                    dw[j] += error * X[i][j];
-                db += error;
-            }
-
-            for (int j = 0; j < m; j++)
-                weights[j] -= lr * dw[j] / n;
-            bias -= lr * db / n;
+    // Merge the temporary arrays back into arr[l..r]
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            arr[k] = L[i];
+            i++;
+        } else {
+            arr[k] = R[j];
+            j++;
         }
+        k++;
     }
 
-    double predict(const vector<double>& x) {
-        double result = bias;
-        for (int i = 0; i < x.size(); i++)
-            result += weights[i] * x[i];
-        return result;
+    // Copy the remaining elements of L[], if there are any
+    while (i < n1) {
+        arr[k] = L[i];
+        i++;
+        k++;
     }
-};
 
-/* --------------------------
-   DP-based Smoothing
---------------------------------*/
-vector<double> DPSmoothing(const vector<double>& preds, double alpha) {
-    int n = preds.size();
-    vector<double> smooth(n);
+    // Copy the remaining elements of R[], if there are any
+    while (j < n2) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+}
+//  and [2, 6]) being merged into a single sorted list [1, 2, 5, 6]]
 
-    smooth[0] = preds[0];
-    for (int i = 1; i < n; i++)
-        smooth[i] = (preds[i] + alpha * smooth[i - 1]) / (1 + alpha);
+// --- 2. The mergeSort Function (The recursive dividing function) ---
+void mergeSort(vector<int>& arr, int l, int r) {
+    if (l >= r) {
+        return; // Base case: the subarray has 0 or 1 element, already sorted
+    }
+    
+    // Find the middle point to divide the array into two halves
+    int m = l + (r - l) / 2;
 
-    return smooth;
+    // Recursively call mergeSort for the first half
+    mergeSort(arr, l, m);
+
+    // Recursively call mergeSort for the second half
+    mergeSort(arr, m + 1, r);
+
+    // Merge the two sorted halves
+    merge(arr, l, m, r);
 }
 
-/* --------------------------
-   Main Function
---------------------------------*/
+// --- 3. Example Driver Code ---
 int main() {
-vector<vector<double>> sensors = {
-        {40, 20, 0.5},
-        {45, 22, 0.6},
-        {50, 24, 0.7},
-        {55, 26, 0.8},
-        {60, 28, 0.9}
-    };
+    // Example: Pothole report severity (10 = highest severity, 1 = lowest)
+    // The city wants to sort these reports to prioritize repairs.
+    vector<int> report_severities = {9, 2, 10, 5, 1, 7, 3, 8};
+    
+    cout << "Original Report Severities (Unsorted): ";
+    for (int severity : report_severities) {
+        cout << severity << " ";
+    }
+    cout << endl;
 
-    vector<double> AQI = {90, 95, 100, 110, 120};
+    // Call the Merge Sort function
+    int n = report_severities.size();
+    mergeSort(report_severities, 0, n - 1);
 
-    LinearRegression model(3);
-    model.train(sensors, AQI);
-
-    vector<double> predictions;
-    for (int i = 0; i < sensors.size(); i++)
-        predictions.push_back(model.predict(sensors[i]));
-
-    double alpha = 5.0;
-    vector<double> smoothAQI = DPSmoothing(predictions, alpha);
-
-    cout << "Predicted AQI (Raw):\n";
-    for (double v : predictions)
-        cout << v << " ";
-
-    cout << "\n\nSmoothed AQI:\n";
-    for (double v : smoothAQI)
-        cout << v << " ";
+    cout << "Sorted Report Severities (Highest Priority Last): ";
+    for (int severity : report_severities) {
+        cout << severity << " ";
+    }
+    cout << endl; // Output: 1 2 3 5 7 8 9 10
+    
     return 0;
 }
 `,
