@@ -187,148 +187,252 @@ int main(){<br>
 
 <!-- Problem 4 -->
 <div class="card">
-<div class="title">4) City Energy Demand Forecasting</div>
-<div class="section-title">Algorithm:</div>
-<p>Fenwick Tree + Recurrence</p>
-<div class="section-title">Problem:</div>
-<p>Forecast city energy consumption based on historical data.</p>
-<div class="section-title">Solution:</div>
-<p>Use Fenwick tree to store cumulative energy and recurrence to forecast next periods.</p>
-<div class="section-title">SDGs:</div>
-<span class="tag sdg7">SDG7: Clean Energy</span>
-<span class="tag sdg11">SDG11: Sustainable Cities</span>
-<span class="tag sdg13">SDG13: Climate Action</span>
-<div class="section-title">C++ Code:</div>
-<div class="code-block">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-struct BIT{ int n; vector&lt;long long&gt; f; BIT(int n):n(n),f(n+1,0){} void add(int i,long long v){for(++i;i&lt;=n;i+=i&-i) f[i]+=v;} long long sum(int i){long long s=0; for(++i;i&gt;0;i-=i&-i) s+=f[i]; return s;} long long range(int l,int r){return sum(r)-(l?sum(l-1):0);}}; int main(){int n; cin&gt;&gt;n; vector&lt;long long&gt;a(n); for(int i=0;i&lt;n;i++) cin&gt;&gt;a[i]; BIT bit(n); for(int i=0;i&lt;n;i++) bit.add(i,a[i]); int k; cin&gt;&gt;k; int w=3; vector&lt;long long&gt; forecast; for(int t=0;t&lt;k;t++){ long long lastw=bit.range(max(0,n-w),n-1); long long next=lastw/min(w,n); forecast.push_back(next); a.push_back(next); bit.add(n,next); n++; } for(auto x:forecast) cout&lt;&lt;x&lt;&lt;" ";}</div>
+  <div class="title">4) Public Transport Scheduling</div>
+  <div class="section-title">Algorithm:</div>
+  <p>Greedy Algorithm / Interval Scheduling</p>
+  <div class="section-title">Problem:</div>
+  <p>Schedule buses to maximize coverage without overlapping routes and reduce congestion.</p>
+  <div class="section-title">Solution:</div>
+  <p>Sort routes by end time and use greedy selection to assign buses to the maximum number of non-overlapping routes.</p>
+  <div class="section-title">SDGs:</div>
+  <span class="tag sdg9">SDG9: Industry & Infrastructure</span>
+  <span class="tag sdg11">SDG11: Sustainable Cities</span>
+  <div class="section-title">C++ Code:</div>
+  <div class="code-block">
+#include &lt;bits/stdc++.h&gt;<br>
+using namespace std;<br>
+struct Bus { int start, end; };<br>
+int main() {<br>
+&nbsp;&nbsp;int n; cin &gt;&gt; n;<br>
+&nbsp;&nbsp;vector&lt;Bus&gt; buses(n);<br>
+&nbsp;&nbsp;for(int i=0;i&lt;n;i++) cin &gt;&gt; buses[i].start &gt;&gt; buses[i].end;<br>
+&nbsp;&nbsp;sort(buses.begin(), buses.end(), [](Bus a, Bus b){ return a.end &lt; b.end; });<br>
+&nbsp;&nbsp;int count=0, lastEnd=0;<br>
+&nbsp;&nbsp;for(auto b : buses){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if(b.start &gt;= lastEnd){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;count++; lastEnd=b.end;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;cout &lt;&lt; count;<br>
+}
+  </div>
 </div>
 
 <!-- Problem 5 -->
 <div class="card">
-<div class="title">5) Metro Construction Phase Optimization</div>
-<div class="section-title">Algorithm:</div>
-<p>Heap + Heap Sort</p>
-<div class="section-title">Problem:</div>
-<p>Prioritize metro construction phases based on ROI.</p>
-<div class="section-title">Solution:</div>
-<p>Use heap to sort phases by benefit/cost ratio for optimal scheduling.</p>
-<div class="section-title">SDGs:</div>
-<span class="tag sdg8">SDG8: Economic Growth</span>
-<span class="tag sdg9">SDG9: Infrastructure</span>
-<span class="tag sdg11">SDG11: Sustainable Cities</span>
-<div class="section-title">C++ Code:</div>
-<div class="code-block">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-struct Phase{string name; double cost,benefit;};
-int main(){
-int n;cin&gt;&gt;n; vector&lt;Phase&gt; P(n);
-for(int i=0;i&lt;n;i++) cin&gt;&gt;P[i].name&gt;&gt;P[i].cost&gt;&gt;P[i].benefit;
-auto roi=[&](const Phase&p){return p.benefit/p.cost;};
-priority_queue&lt;pair&lt;double,int&gt;&gt; pq;
-for(int i=0;i&lt;n;i++) pq.push({roi(P[i]),i});
-while(!pq.empty()){auto [r,i]=pq.top(); pq.pop(); cout&lt;&lt;P[i].name&lt;&lt;" "&lt;&lt;fixed&lt;&lt;setprecision(3)&lt;&lt;r&lt;&lt;"\n";}}</div>
+  <div class="title">5) Waste Management Optimization</div>
+  <div class="section-title">Algorithm:</div>
+  <p>Minimum Spanning Tree (Prim / Kruskal)</p>
+  <div class="section-title">Problem:</div>
+  <p>Connect city waste collection points minimizing transportation cost.</p>
+  <div class="section-title">Solution:</div>
+  <p>Use MST to connect all collection points with minimal total distance/cost.</p>
+  <div class="section-title">SDGs:</div>
+  <span class="tag sdg6">SDG6: Clean Water & Sanitation</span>
+  <span class="tag sdg11">SDG11: Sustainable Cities</span>
+  <span class="tag sdg12">SDG12: Responsible Consumption</span>
+  <div class="section-title">C++ Code:</div>
+  <div class="code-block">
+#include &lt;bits/stdc++.h&gt;<br>
+using namespace std;<br>
+struct Edge { int u,v,w; };<br>
+int find(vector&lt;int&gt;&amp; parent,int x){ return parent[x]==x?x:parent[x]=find(parent,parent[x]); }<br>
+int main(){<br>
+&nbsp;&nbsp;int n,m; cin&gt;&gt;n&gt;&gt;m;<br>
+&nbsp;&nbsp;vector&lt;Edge&gt; edges(m);<br>
+&nbsp;&nbsp;for(int i=0;i&lt;m;i++) cin&gt;&gt;edges[i].u&gt;&gt;edges[i].v&gt;&gt;edges[i].w;<br>
+&nbsp;&nbsp;sort(edges.begin(), edges.end(), [](Edge a,Edge b){ return a.w&lt;b.w; });<br>
+&nbsp;&nbsp;vector&lt;int&gt; parent(n); iota(parent.begin(), parent.end(),0);<br>
+&nbsp;&nbsp;int cost=0;<br>
+&nbsp;&nbsp;for(auto e : edges){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int pu=find(parent,e.u), pv=find(parent,e.v);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if(pu!=pv){ parent[pu]=pv; cost+=e.w; }<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;cout&lt;&lt;cost;<br>
+}
+  </div>
 </div>
 
 <!-- Problem 6 -->
 <div class="card">
-<div class="title">6) Streetlight Energy Reduction</div>
-<div class="section-title">Algorithm:</div>
-<p>Backtracking + Scheduling</p>
-<div class="section-title">Problem:</div>
-<p>Generate dimming schedules for streetlights to reduce energy consumption.</p>
-<div class="section-title">Solution:</div>
-<p>Use backtracking to explore all dimming combinations that satisfy minimum brightness constraints.</p>
-<div class="section-title">SDGs:</div>
-<span class="tag sdg7">SDG7: Clean Energy</span>
-<span class="tag sdg11">SDG11: Sustainable Cities</span>
-<span class="tag sdg13">SDG13: Climate Action</span>
-<div class="section-title">C++ Code:</div>
-<div class="code-block">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-int H,minBright; vector&lt;int&gt; level,best; long long bestCost=LLONG_MAX;
-bool safe(int i){ return level[i]&gt;=minBright; }
-void bt(int i){ if(i==H){ long long cost=0; for(int j=0;j&lt;H;j++) cost+=level[j]; if(cost&lt;bestCost){bestCost=cost; best=level;} return;} for(int x=minBright;x&lt;=100;x+=10){ level[i]=x; if(safe(i)) bt(i+1);} }
-int main(){cin&gt;&gt;H&gt;&gt;minBright; level.assign(H,0); bt(0); cout&lt;&lt;"BestCost "&lt;&lt;bestCost&lt;&lt;"\n"; for(int x:best) cout&lt;&lt;x&lt;&lt;" ";}</div>
+  <div class="title">6) Water Supply Network Design</div>
+  <div class="section-title">Algorithm:</div>
+  <p>Floyd-Warshall / Shortest Path</p>
+  <div class="section-title">Problem:</div>
+  <p>Ensure optimal water distribution between all neighborhoods.</p>
+  <div class="section-title">Solution:</div>
+  <p>Compute all-pairs shortest paths to optimize pipeline routing and reduce losses.</p>
+  <div class="section-title">SDGs:</div>
+  <span class="tag sdg6">SDG6: Clean Water & Sanitation</span>
+  <span class="tag sdg11">SDG11: Sustainable Cities</span>
+  <span class="tag sdg13">SDG13: Climate Action</span>
+  <div class="section-title">C++ Code:</div>
+  <div class="code-block">
+#include &lt;bits/stdc++.h&gt;<br>
+using namespace std;<br>
+int main(){<br>
+&nbsp;&nbsp;int n; cin&gt;&gt;n;<br>
+&nbsp;&nbsp;vector&lt;vector&lt;int&gt;&gt; dist(n, vector&lt;int&gt;(n,1e9));<br>
+&nbsp;&nbsp;for(int i=0;i&lt;n;i++) dist[i][i]=0;<br>
+&nbsp;&nbsp;int m; cin&gt;&gt;m;<br>
+&nbsp;&nbsp;for(int i=0;i&lt;m;i++){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int u,v,w; cin&gt;&gt;u&gt;&gt;v&gt;&gt;w;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dist[u][v]=w; dist[v][u]=w;<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;for(int k=0;k&lt;n;k++)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for(int i=0;i&lt;n;i++)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(int j=0;j&lt;n;j++)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist[i][j]=min(dist[i][j], dist[i][k]+dist[k][j]);<br>
+&nbsp;&nbsp;for(int i=0;i&lt;n;i++){ for(int j=0;j&lt;n;j++) cout&lt;&lt;dist[i][j]&lt;&lt;" "; cout&lt;&lt;endl; }<br>
+}
+  </div>
 </div>
 
 <!-- Problem 7 -->
 <div class="card">
-<div class="title">7) Transport Ticket Dynamic Pricing</div>
-<div class="section-title">Algorithm:</div>
-<p>AVL Tree + Max Heap</p>
-<div class="section-title">Problem:</div>
-<p>Adjust public transport ticket prices dynamically based on demand peaks.</p>
-<div class="section-title">Solution:</div>
-<p>Use AVL tree (or set) to track price bands and max heap for demand peaks.</p>
-<div class="section-title">SDGs:</div>
-<span class="tag sdg8">SDG8: Economic Growth</span>
-<span class="tag sdg9">SDG9: Industry & Infrastructure</span>
-<span class="tag sdg11">SDG11: Sustainable Cities</span>
-<div class="section-title">C++ Code:</div>
-<div class="code-block">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-int main(){int n;cin&gt;&gt;n; set&lt;int&gt; bands; for(int i=0;i&lt;n;i++){int p;cin&gt;&gt;p; bands.insert(p);} priority_queue&lt;int&gt; demandMax; int m;cin&gt;&gt;m; for(int i=0;i&lt;m;i++){int d;cin&gt;&gt;d; demandMax.push(d);} int base=*bands.begin(); int peak=demandMax.top(); int price=base+(peak/100); cout&lt;&lt;price;}</div>
+  <div class="title">7) Electric Grid Load Balancing</div>
+  <div class="section-title">Algorithm:</div>
+  <p>Max Flow (Edmonds-Karp)</p>
+  <div class="section-title">Problem:</div>
+  <p>Distribute electricity to all city sectors without overloading lines.</p>
+  <div class="section-title">Solution:</div>
+  <p>Use Max Flow to model capacity of power lines and ensure balanced distribution.</p>
+  <div class="section-title">SDGs:</div>
+  <span class="tag sdg7">SDG7: Affordable Clean Energy</span>
+  <span class="tag sdg9">SDG9: Industry & Infrastructure</span>
+  <div class="section-title">C++ Code:</div>
+  <div class="code-block">
+#include &lt;bits/stdc++.h&gt;<br>
+using namespace std;<br>
+const int INF = 1e9;<br>
+int main(){<br>
+&nbsp;&nbsp;int n,m; cin&gt;&gt;n&gt;&gt;m;<br>
+&nbsp;&nbsp;vector&lt;vector&lt;int&gt;&gt; capacity(n, vector&lt;int&gt;(n,0));<br>
+&nbsp;&nbsp;for(int i=0;i&lt;m;i++){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int u,v,c; cin&gt;&gt;u&gt;&gt;v&gt;&gt;c;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;capacity[u][v]=c;<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;int s,t; cin&gt;&gt;s&gt;&gt;t;<br>
+&nbsp;&nbsp;int flow=0;<br>
+&nbsp;&nbsp;while(true){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;vector&lt;int&gt; parent(n,-1);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;queue&lt;int&gt; q; q.push(s);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;parent[s]=-2;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;while(!q.empty() &amp;&amp; parent[t]==-1){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int u=q.front(); q.pop();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(int v=0;v&lt;n;v++)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(parent[v]==-1 &amp;&amp; capacity[u][v]&gt;0){ parent[v]=u; q.push(v); }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if(parent[t]==-1) break;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int cur=t, f=INF;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;while(cur!=s){ f=min(f, capacity[parent[cur]][cur]); cur=parent[cur]; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cur=t;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;while(cur!=s){ capacity[parent[cur]][cur]-=f; capacity[cur][parent[cur]]+=f; cur=parent[cur]; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;flow+=f;<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;cout&lt;&lt;flow;<br>
+}
+  </div>
 </div>
 
 <!-- Problem 8 -->
 <div class="card">
-<div class="title">8) Garbage Plant Load Balancing</div>
-<div class="section-title">Algorithm:</div>
-<p>Min-Heap + Queue Simulation</p>
-<div class="section-title">Problem:</div>
-<p>Assign incoming garbage to plants in a way that balances loads.</p>
-<div class="section-title">Solution:</div>
-<p>Use a min-heap to track least loaded plants and assign waste accordingly.</p>
-<div class="section-title">SDGs:</div>
-<span class="tag sdg11">SDG11: Sustainable Cities</span>
-<span class="tag sdg12">SDG12: Responsible Consumption</span>
-<span class="tag sdg13">SDG13: Climate Action</span>
-<div class="section-title">C++ Code:</div>
-<div class="code-block">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-struct Plant{ long long load; int id; bool operator&lt;(const Plant&amp;&amp;o) const{return load&gt;o.load;}};
-int main(){int p,arrivals; cin&gt;&gt;p&gt;&gt;arrivals; priority_queue&lt;Plant&gt; pq; for(int i=0;i&lt;p;i++) pq.push({0,i}); for(int i=0;i&lt;arrivals;i++){auto cur=pq.top(); pq.pop(); int w;cin&gt;&gt;w; cur.load+=w; pq.push(cur); cout&lt;&lt;"Plant"&lt;&lt;cur.id&lt;&lt;" assigned "&lt;&lt;w&lt;&lt;"\n";}}</div>
+  <div class="title">8) Emergency Response Route Planning</div>
+  <div class="section-title">Algorithm:</div>
+  <p>A* / Dijkstra Algorithm</p>
+  <div class="section-title">Problem:</div>
+  <p>Plan fastest emergency vehicle routes during city crises.</p>
+  <div class="section-title">Solution:</div>
+  <p>Use shortest-path algorithm (A* or Dijkstra) for optimal routing under constraints.</p>
+  <div class="section-title">SDGs:</div>
+  <span class="tag sdg3">SDG3: Good Health & Well-being</span>
+  <span class="tag sdg11">SDG11: Sustainable Cities</span>
+  <div class="section-title">C++ Code:</div>
+  <div class="code-block">
+#include &lt;bits/stdc++.h&gt;<br>
+using namespace std;<br>
+int main(){<br>
+&nbsp;&nbsp;int n,m; cin&gt;&gt;n&gt;&gt;m;<br>
+&nbsp;&nbsp;vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; g(n);<br>
+&nbsp;&nbsp;for(int i=0;i&lt;m;i++){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;int u,v,w; cin&gt;&gt;u&gt;&gt;v&gt;&gt;w;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;g[u].push_back({v,w}); g[v].push_back({u,w});<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;int s; cin&gt;&gt;s;<br>
+&nbsp;&nbsp;vector&lt;long long&gt; d(n,1e18); d[s]=0;<br>
+&nbsp;&nbsp;priority_queue&lt;pair&lt;long long,int>, vector&lt;pair&lt;long long,int&gt;>, greater&lt;pair&lt;long long,int&gt;>> pq;<br>
+&nbsp;&nbsp;pq.push({0,s});<br>
+&nbsp;&nbsp;while(!pq.empty()){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;auto [du,u]=pq.top(); pq.pop();<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if(du!=d[u]) continue;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for(auto [v,w]: g[u]) if(d[v]&gt;du+w){ d[v]=du+w; pq.push({d[v],v}); }<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;for(int i=0;i&lt;n;i++) cout&lt;&lt;d[i]&lt;&lt;" ";<br>
+}
+  </div>
 </div>
 
 <!-- Problem 9 -->
 <div class="card">
-<div class="title">9) Hospital Ambulance Dispatch</div>
-<div class="section-title">Algorithm:</div>
-<p>BFS + Priority Queue</p>
-<div class="section-title">Problem:</div>
-<p>Assign ambulances to patients minimizing response time.</p>
-<div class="section-title">Solution:</div>
-<p>Use BFS to explore reachable patients and priority queue to pick nearest ambulance.</p>
-<div class="section-title">SDGs:</div>
-<span class="tag sdg3">SDG3: Good Health</span>
-<span class="tag sdg11">SDG11: Sustainable Cities</span>
-<span class="tag sdg16">SDG16: Peace & Justice</span>
-<div class="section-title">C++ Code:</div>
-<div class="code-block">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-int main(){int n,m; cin&gt;&gt;n&gt;&gt;m; vector&lt;vector&lt;int&gt;&gt; g(n); for(int i=0;i&lt;m;i++){int u,v;cin&gt;&gt;u&gt;&gt;v; g[u].push_back(v); g[v].push_back(u);} vector&lt;int&gt; dist(n,-1); queue&lt;int&gt;q; q.push(0); dist[0]=0; while(!q.empty()){int u=q.front();q.pop(); for(int v:g[u]) if(dist[v]==-1){dist[v]=dist[u]+1;q.push(v);} } for(int i=0;i&lt;n;i++) cout&lt;&lt;dist[i]&lt;&lt;" ";}</div>
+  <div class="title">9) Traffic Light Scheduling</div>
+  <div class="section-title">Algorithm:</div>
+  <p>Graph Coloring / Greedy</p>
+  <div class="section-title">Problem:</div>
+  <p>Schedule traffic lights to reduce congestion at intersections.</p>
+  <div class="section-title">Solution:</div>
+  <p>Model intersections as a graph, color nodes (green cycles) using greedy approach to avoid conflicts.</p>
+  <div class="section-title">SDGs:</div>
+  <span class="tag sdg11">SDG11: Sustainable Cities</span>
+  <span class="tag sdg13">SDG13: Climate Action</span>
+  <div class="section-title">C++ Code:</div>
+  <div class="code-block">
+#include &lt;bits/stdc++.h&gt;<br>
+using namespace std;<br>
+int main(){<br>
+&nbsp;&nbsp;int n,m; cin&gt;&gt;n&gt;&gt;m;<br>
+&nbsp;&nbsp;vector&lt;vector&lt;int&gt;&gt; g(n);<br>
+&nbsp;&nbsp;for(int i=0;i&lt;m;i++){ int u,v; cin&gt;&gt;u&gt;&gt;v; g[u].push_back(v); g[v].push_back(u); }<br>
+&nbsp;&nbsp;vector&lt;int&gt; color(n,-1);<br>
+&nbsp;&nbsp;for(int u=0;u&lt;n;u++){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;vector&lt;bool&gt; used(n,false);<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for(auto v:g[u]) if(color[v]!=-1) used[color[v]]=true;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;for(int c=0;c&lt;n;c++) if(!used[c]){ color[u]=c; break; }<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;for(int i=0;i&lt;n;i++) cout&lt;&lt;color[i]&lt;&lt;" ";<br>
+}
+  </div>
 </div>
 
 <!-- Problem 10 -->
 <div class="card">
-<div class="title">10) Emergency Water Supply Routing</div>
-<div class="section-title">Algorithm:</div>
-<p>Max Flow (Edmonds-Karp)</p>
-<div class="section-title">Problem:</div>
-<p>Route water efficiently to areas in emergency situations without exceeding pipeline capacities.</p>
-<div class="section-title">Solution:</div>
-<p>Use Max Flow algorithm to compute optimal water distribution in the network.</p>
-<div class="section-title">SDGs:</div>
-<span class="tag sdg6">SDG6: Clean Water</span>
-<span class="tag sdg11">SDG11: Sustainable Cities</span>
-<span class="tag sdg13">SDG13: Climate Action</span>
-<div class="section-title">C++ Code:</div>
-<div class="code-block">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-struct Edge{int to,rev,cap;};
-struct Flow{int n; vector&lt;vector&lt;Edge&gt;&gt; g; Flow(int n):n(n),g(n){} void add(int u,int v,int c){g[u].push_back({v,(int)g[v].size(),c}); g[v].push_back({u,(int)g[u].size()-1,0});} int bfs(int s,int t,vector&lt;int&gt;&amp; level){ fill(level.begin(),level.end(),-1); level[s]=0; queue&lt;int&gt;q; q.push(s); while(!q.empty()){int u=q.front();q.pop(); for(auto&e:g[u]) if(e.cap&gt;0 &amp;&amp; level[e.to]&lt;0){level[e.to]=level[u]+1; q.push(e.to);} } return level[t]!=-1;} int dfs(int u,int t,int f,vector&lt;int&gt;&amp; level,vector&lt;int&gt;&amp; iter){ if(u==t) return f; for(int &i=iter[u];i&lt;g[u].size();i++){Edge &e=g[u][i]; if(e.cap&gt;0 &amp;&amp; level[u]&lt;level[e.to]){int d=dfs(e.to,t,min(f,e.cap),level,iter); if(d&gt;0){e.cap-=d; g[e.to][e.rev].cap+=d; return d;} } } return 0;} int maxflow(int s,int t){int flow=0; vector&lt;int&gt; level(n); while(bfs(s,t,level)){ vector&lt;int&gt; iter(n,0); int f; while((f=dfs(s,t,INT_MAX,level,iter))&gt;0) flow+=f;} return flow;}};
-int main(){int n,m; cin&gt;&gt;n&gt;&gt;m; Flow F(n); for(int i=0;i&lt;m;i++){int u,v,c;cin&gt;&gt;u&gt;&gt;v&gt;&gt;c;F.add(u,v,c);} cout&lt;&lt;F.maxflow(0,n-1);}</div>
+  <div class="title">10) Renewable Energy Placement</div>
+  <div class="section-title">Algorithm:</div>
+  <p>Greedy / Knapsack</p>
+  <div class="section-title">Problem:</div>
+  <p>Place solar panels/wind turbines to maximize energy output under cost constraints.</p>
+  <div class="section-title">Solution:</div>
+  <p>Use greedy selection based on output/cost ratio to select locations efficiently.</p>
+  <div class="section-title">SDGs:</div>
+  <span class="tag sdg7">SDG7: Affordable Clean Energy</span>
+  <span class="tag sdg11">SDG11: Sustainable Cities</span>
+  <span class="tag sdg13">SDG13: Climate Action</span>
+  <div class="section-title">C++ Code:</div>
+  <div class="code-block">
+#include &lt;bits/stdc++.h&gt;<br>
+using namespace std;<br>
+struct Site{ int cost, output; };<br>
+int main(){<br>
+&nbsp;&nbsp;int n,budget; cin&gt;&gt;n&gt;&gt;budget;<br>
+&nbsp;&nbsp;vector&lt;Site&gt; sites(n);<br>
+&nbsp;&nbsp;for(int i=0;i&lt;n;i++) cin&gt;&gt;sites[i].cost&gt;&gt;sites[i].output;<br>
+&nbsp;&nbsp;sort(sites.begin(), sites.end(), [](Site a,Site b){ return (double)a.output/a.cost &gt; (double)b.output/b.cost; });<br>
+&nbsp;&nbsp;int total=0;<br>
+&nbsp;&nbsp;for(auto s:sites){<br>
+&nbsp;&nbsp;&nbsp;&nbsp;if(s.cost&lt;=budget){ budget-=s.cost; total+=s.output; }<br>
+&nbsp;&nbsp;}<br>
+&nbsp;&nbsp;cout&lt;&lt;total;<br>
+}
+  </div>
 </div>
 
 </div> <!-- end grid -->
