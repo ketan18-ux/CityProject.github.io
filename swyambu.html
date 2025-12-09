@@ -567,65 +567,91 @@ int main() {
     {
       id: "3",
       number: 3,
-      title: "Smart Water Pipeline Leak Detection",
+      title: "Noise Barrier Placement Optimisation",
       categoryTag: "",
-      shortTag: "DFS + Binary Tree ",
-      time: "O(log n)",
-      space: "O(1)",
-      algorithm: "DFS + Binary Tree",
+      shortTag: "Kruskal’s",
+      time: "O(ElogE)",
+      space: "O(V)",
+      algorithm: "Kruskal’s Algorithm",
       sdgs: [
-        "SDG 6 – Clean Water & Sanitation Ensures safe water supply and efficient usage",
+        "SDG 3 – Good Health and Well-Being",
         "SDG 9 – Industry, Innovation & Infrastructure Builds smart pipeline and distribution systems",
         "SDG 11 – Sustainable Cities & Communities Supports sustainable water management"
       ],
       problemText:
-        "Undetected water leaks in pipelines result in major water loss and infrastructure damage.",
+        "Cities need to place noise barriers around loud zones like highways and construction sites. To minimize construction cost, an efficient method is needed to determine the smallest total barrier length that still encloses all noisy points.",
       solutionText:
-        "DFS is used to traverse the pipeline network to detect disconnected or faulty sections. Leak records are stored using a Binary Tree for organized monitoring.",
+        "Each noise source is treated as a node, and distances are edges. Kruskal’s MST algorithm selects the minimum set of edges connecting all noise points, giving the minimum total barrier layout needed to cover the area.",
       
-       code:`DFS + Binary Tree
-      #include <iostream>
+       code:`Kruskal
+   #include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cmath>
 using namespace std;
 
-struct Node {
-    int id;
-    Node *left, *right;
+struct Edge {
+    int u, v;
+    double w;
 };
 
-Node* newNode(int id) {
-    Node* temp = new Node();
-    temp->id = id;
-    temp->left = temp->right = NULL;
-    return temp;
-}
+struct DSU {
+    vector<int> parent, rank;
 
-Node* insert(Node* root, int id) {
-    if(root == NULL)
-        return newNode(id);
-    if(id < root->id)
-        root->left = insert(root->left, id);
-    else
-        root->right = insert(root->right, id);
-    return root;
-}
-
-void inorder(Node* root) {
-    if(root != NULL) {
-        inorder(root->left);
-        cout << root->id << " ";
-        inorder(root->right);
+    DSU(int n) {
+        parent.resize(n);
+        rank.resize(n, 0);
+        for (int i = 0; i < n; i++) parent[i] = i;
     }
+
+    int find(int x) {
+        if (parent[x] != x)
+            parent[x] = find(parent[x]);
+        return parent[x];
+    }
+
+    void unite(int a, int b) {
+        a = find(a);
+        b = find(b);
+        if (a != b) {
+            if (rank[a] < rank[b]) swap(a, b);
+            parent[b] = a;
+            if (rank[a] == rank[b]) rank[a]++;
+        }
+    }
+};
+
+double dist(pair<int,int> a, pair<int,int> b) {
+    return sqrt((a.first - b.first)*(a.first - b.first) +
+                (a.second - b.second)*(a.second - b.second));
 }
 
 int main() {
-    Node* root = NULL;
-    root = insert(root, 20);
-    root = insert(root, 10);
-    root = insert(root, 30);
-    root = insert(root, 25);
+    vector<pair<int,int>> points = {{0,0}, {3,4}, {4,1}, {7,5}};
+    int n = points.size();
 
-    cout << "Leak affected pipeline sections:\n";
-    inorder(root);
+    vector<Edge> edges;
+    for (int i = 0; i < n; i++) {
+        for (int j = i+1; j < n; j++) {
+            edges.push_back({i, j, dist(points[i], points[j])});
+        }
+    }
+
+    sort(edges.begin(), edges.end(), [](Edge a, Edge b){
+        return a.w < b.w;
+    });
+
+    DSU dsu(n);
+    double totalWeight = 0;
+
+    for (auto &e : edges) {
+        if (dsu.find(e.u) != dsu.find(e.v)) {
+            dsu.unite(e.u, e.v);
+            totalWeight += e.w;
+        }
+    }
+
+    cout << "Minimum barrier length (MST total): " << totalWeight << endl;
     return 0;
 }
 
@@ -635,61 +661,73 @@ int main() {
     {
       id: "4",
       number: 4,
-      title: "Emergency Shelter Connectivity Planning",
+      title: "Flood-Susceptible Zone Detection",
       categoryTag: "",
-      shortTag: "Floyd–Warshall",
-      time: "O((V+E) log V) using a heap",
+      shortTag: "Dijkstra’s",
+      time: "O(ElogV)",
       space: "O(V)",
-      algorithm: "Floyd–Warshall",
+      algorithm: "Dijkstra’s Algorithm",
       sdgs: [
         "SDG 11 – Sustainable Cities and Communities",
         "SDG 3 – Good health and Wealth Being",
         "SDG 13 - Climate Action Reduces dependence on fossil fuels"
       ],
       problemText:
-        "Poor connectivity between emergency shelters delays evacuation during natural disasters.",
+        "Flooding often affects low-elevation or high-risk areas, and cities need a simple method to detect which locations are most likely to flood. A weighted model is required to compute the safest paths and identify zones with high flood vulnerability.",
       solutionText:
-        "Floyd–Warshall algorithm computes the shortest distance between all pairs of shelters, ensuring faster rescue and evacuation planning.",
-     code:`Floyd–Warshall
+        "Each land cell is treated as a graph node with risk as the weight. Dijkstra’s algorithm computes minimal-risk paths from a safe point, and cells with high accumulated cost are marked as flood-susceptible.",
+     code:`Dijkstra
      #include <iostream>
+#include <vector>
+#include <queue>
 using namespace std;
 
-#define INF 9999
-#define V 4
+const int INF = 1e9;
 
-void floydWarshall(int graph[V][V]) {
-    int dist[V][V];
+struct Node {
+    int v, w;
+    bool operator>(const Node& other) const {
+        return w > other.w;
+    }
+};
 
-    for(int i = 0; i < V; i++)
-        for(int j = 0; j < V; j++)
-            dist[i][j] = graph[i][j];
+int main() {
+    int n = 5; // number of areas
+    vector<vector<Node>> graph(n);
 
-    for(int k = 0; k < V; k++) {
-        for(int i = 0; i < V; i++) {
-            for(int j = 0; j < V; j++) {
-                if(dist[i][k] + dist[k][j] < dist[i][j])
-                    dist[i][j] = dist[i][k] + dist[k][j];
+    // Example risk edges (u -> v with risk weight)
+    graph[0].push_back({1, 4});
+    graph[0].push_back({2, 2});
+    graph[1].push_back({3, 5});
+    graph[2].push_back({3, 1});
+    graph[3].push_back({4, 3});
+
+    vector<int> dist(n, INF);
+    priority_queue<Node, vector<Node>, greater<Node>> pq;
+
+    int source = 0;
+    dist[source] = 0;
+    pq.push({source, 0});
+
+    while (!pq.empty()) {
+        Node curr = pq.top();
+        pq.pop();
+
+        if (curr.w != dist[curr.v]) continue;
+
+        for (auto& nxt : graph[curr.v]) {
+            if (dist[nxt.v] > dist[curr.v] + nxt.w) {
+                dist[nxt.v] = dist[curr.v] + nxt.w;
+                pq.push({nxt.v, dist[nxt.v]});
             }
         }
     }
 
-    cout << "Shortest distances between shelters:\n";
-    for(int i = 0; i < V; i++) {
-        for(int j = 0; j < V; j++)
-            cout << dist[i][j] << " ";
-        cout << endl;
+    cout << "Flood risk levels (lower = safer):\n";
+    for (int i = 0; i < n; i++) {
+        cout << "Area " << i << " risk: " << dist[i] << endl;
     }
-}
 
-int main() {
-    int graph[V][V] = {
-        {0, 5, INF, 10},
-        {5, 0, 3, INF},
-        {INF, 3, 0, 1},
-        {10, INF, 1, 0}
-    };
-
-    floydWarshall(graph);
     return 0;
 }
 
@@ -700,82 +738,59 @@ int main() {
     {
       id: 5,
       number: 5,
-      title: "Traffic Signal Optimization",
+      title: "Renewable Energy Distribution Optimization",
       categoryTag: "",
-      shortTag: "Dijkstra",
-      time: "O(n)",
-      space: "O(1)",
-      algorithm: "Dijkstra",
+      shortTag: "Floyd–Warshall",
+      time: "O(n^3)",
+      space: "O(n^2)",
+      algorithm: "Floyd–Warshall Algorithm",
       sdgs: [
-        "SDG 11 – Sustainable Cities and Communities",
+        "SDG 7 – Affordable and Clean Energy",
         "SDG 9 – Industry, Innovation and Infrastructure",
-        "SDG 3 – Good Health & Well-being Ensures safe and fresh food handling"
+        "SDG 13 – Climate Action"
       ],
       problemText:
-        "Urban traffic congestion increases travel time, fuel consumption, and delays emergency vehicles due to inefficient route usage.",
+        "Energy stations are connected through various transmission lines, each with a cost or distance. To distribute renewable energy efficiently, cities need a method that finds the shortest energy-transfer paths between every pair of stations.",
       solutionText:
-        "The road network is modeled as a weighted graph. Dijkstra’s algorithm is applied to find the shortest path from a source junction to all other junctions, helping optimize traffic signal decisions.",
+        "The Floyd–Warshall algorithm computes shortest paths between all stations. This identifies the optimal routes for transferring renewable energy with minimal loss or cost.",
      code:
-       `Dijkstra
+       `Floyd–Warshall
        #include <iostream>
 #include <vector>
-#include <climits>
 using namespace std;
 
-#define V 6
-
-int minDistance(int dist[], bool visited[]) {
-    int min = INT_MAX, index;
-    for(int i = 0; i < V; i++) {
-        if(!visited[i] && dist[i] <= min) {
-            min = dist[i];
-            index = i;
-        }
-    }
-    return index;
-}
-
-void dijkstra(int graph[V][V], int src) {
-    int dist[V];
-    bool visited[V];
-
-    for(int i = 0; i < V; i++) {
-        dist[i] = INT_MAX;
-        visited[i] = false;
-    }
-
-    dist[src] = 0;
-
-    for(int count = 0; count < V - 1; count++) {
-        int u = minDistance(dist, visited);
-        visited[u] = true;
-
-        for(int v = 0; v < V; v++) {
-            if(!visited[v] && graph[u][v] &&
-               dist[u] != INT_MAX &&
-               dist[u] + graph[u][v] < dist[v])
-                dist[v] = dist[u] + graph[u][v];
-        }
-    }
-
-    cout << "Shortest distances from junction " << src << ":\n";
-    for(int i = 0; i < V; i++)
-        cout << "To junction " << i << " = " << dist[i] << endl;
-}
+const int INF = 1e9;
 
 int main() {
-    int graph[V][V] = {
-        {0, 4, 0, 0, 0, 0},
-        {4, 0, 8, 0, 0, 0},
-        {0, 8, 0, 7, 0, 4},
-        {0, 0, 7, 0, 9, 14},
-        {0, 0, 0, 9, 0, 10},
-        {0, 0, 4, 14, 10, 0}
+    int n = 4; // number of power stations
+    vector<vector<int>> dist = {
+        {0,   5, INF, 10},
+        {INF, 0,   3, INF},
+        {INF, INF, 0,   1},
+        {INF, INF, INF, 0}
     };
 
-    dijkstra(graph, 0);
+    for (int k = 0; k < n; k++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (dist[i][k] + dist[k][j] < dist[i][j])
+                    dist[i][j] = dist[i][k] + dist[k][j];
+            }
+        }
+    }
+
+    cout << "Shortest energy transfer paths:\n";
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (dist[i][j] == INF) cout << "INF ";
+            else cout << dist[i][j] << " ";
+        }
+        cout << "\n";
+    }
+
     return 0;
 }
+
 
 `,
  
@@ -783,71 +798,56 @@ int main() {
     {
       id: 6,
       number: 6,
-      title: "Smart Power Line Network Design",
+      title: "Health Risk Heatmap Generation",
       categoryTag: "",
-      shortTag: "Prim",
-      time: "O(V + E)",
-      space: "O(V)",
-      algorithm: "Prim",
+      shortTag: "Floyd–Warshall",
+      time: "O(n^3)",
+      space: "O(n^2)",
+      algorithm: "Floyd–Warshall Algorithm",
       sdgs: [
-        "SDG 7 – Affordable and Clean Energy",
-        "SDG 9 – Industry, Innovation & Infrastructure Creates an innovative and collaborative work environment",
+        "SDG 3 – Good Health and Well-Being",
+        "SDG 13 – Climate Action",
         "SDG 11 – Sustainable Cities & Communities Efficient use of shared space and resources"
       ],
       problemText:
-        "Inefficient power line layouts increase installation and maintenance costs.",
+        "Health departments collect case data from many locations, but need a method to detect which areas have strong clustering of cases. A proximity-based system is required to identify hotspots.",
       solutionText:
-        "Prim’s algorithm is used to create a minimum spanning tree that connects all substations with minimum wiring cost.",
+        "The Floyd–Warshall algorithm computes shortest distances between all case points. Areas with small pairwise distances and high density are marked as hotspots on the heatmap.",
      code:
-       `Prim
-      #include <iostream>
-#include <climits>
+       `Floyd–Warshall
+#include <iostream>
+#include <vector>
 using namespace std;
 
-#define V 5
-
-int minKey(int key[], bool mstSet[]) {
-    int min = INT_MAX, index;
-    for(int v = 0; v < V; v++)
-        if(!mstSet[v] && key[v] < min)
-            min = key[v], index = v;
-    return index;
-}
-
-void primMST(int graph[V][V]) {
-    int parent[V], key[V];
-    bool mstSet[V];
-
-    for(int i = 0; i < V; i++)
-        key[i] = INT_MAX, mstSet[i] = false;
-
-    key[0] = 0;
-    parent[0] = -1;
-
-    for(int count = 0; count < V-1; count++) {
-        int u = minKey(key, mstSet);
-        mstSet[u] = true;
-
-        for(int v = 0; v < V; v++)
-            if(graph[u][v] && !mstSet[v] && graph[u][v] < key[v])
-                parent[v] = u, key[v] = graph[u][v];
-    }
-
-    cout << "Power line connections:\n";
-    for(int i = 1; i < V; i++)
-        cout << parent[i] << " - " << i << endl;
-}
+const int INF = 1e9;
 
 int main() {
-    int graph[V][V] = {
-        {0, 2, 0, 6, 0},
-        {2, 0, 3, 8, 5},
-        {0, 3, 0, 0, 7},
-        {6, 8, 0, 0, 9},
-        {0, 5, 7, 9, 0}
+    int n = 4; // number of health case locations
+    vector<vector<int>> dist = {
+        {0,   2, INF,  3},
+        {2,   0,   4, INF},
+        {INF, 4,   0,   1},
+        {3, INF,  1,   0}
     };
 
-    primMST(graph);
+    for (int k = 0; k < n; k++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (dist[i][k] + dist[k][j] < dist[i][j])
+                    dist[i][j] = dist[i][k] + dist[k][j];
+            }
+        }
+    }
+
+    cout << "Proximity matrix (lower = closer/higher risk):\n";
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (dist[i][j] == INF) cout << "INF ";
+            else cout << dist[i][j] << " ";
+        }
+        cout << "\n";
+    }
+
     return 0;
 }
 
@@ -857,41 +857,40 @@ int main() {
     {
       id: 7,
       number: 7,
-      title: "Smart Water Distribution & Usage Recording",
+      title: "Smart Irrigation Scheduling",
       categoryTag: "",
-      shortTag: "Prim + AVL Tree",
-      time: "O(V + E)",
-      space: "O(V)",
-      algorithm: "Prim + AVL Tree",
+      shortTag: "AVL Tree",
+      time: "O(log n)",
+      space: "O(n)",
+      algorithm: "AVL Tree",
       sdgs: [
-        "SDG 9 – Industry, Innovation & Infrastructure Builds robust and efficient infrastructure",
-        "SDG 11 – Sustainable Cities & Communities Supports planned, low-cost development",
+        "SDG 2 – Zero Hunger",
+        "SDG 12 – Responsible Consumption and Production",
         "SDG 6 – Clean Water and Sanitation"
       ],
       problemText:
-        "Water must be supplied using minimum-cost pipelines while accurately recording household consumption.",
+        "Farms need to schedule irrigation at the right times based on moisture and temperature data. An efficient way is needed to store and quickly retrieve the next available watering slot.",
       solutionText:
-        "Prim’s algorithm designs the cheapest pipeline network. An AVL Tree enables fast storage and retrieval of water usage records.",
+        "An AVL Tree stores irrigation time slots in sorted order. Its balanced structure enables fast insertion and retrieval, ensuring timely and efficient irrigation scheduling.",
       
-      code:`Prim + AVL Tree
-      #include <iostream>
+      code:`AVL Tree
+     #include <iostream>
 using namespace std;
 
 struct Node {
-    int key, height;
-    Node *left, *right;
+    int time;
+    Node* left;
+    Node* right;
+    int height;
+    Node(int t) : time(t), left(NULL), right(NULL), height(1) {}
 };
 
-int height(Node* n) {
+int getHeight(Node* n) {
     return n ? n->height : 0;
 }
 
-Node* newNode(int key) {
-    Node* node = new Node();
-    node->key = key;
-    node->left = node->right = NULL;
-    node->height = 1;
-    return node;
+int getBalance(Node* n) {
+    return n ? getHeight(n->left) - getHeight(n->right) : 0;
 }
 
 Node* rightRotate(Node* y) {
@@ -901,39 +900,87 @@ Node* rightRotate(Node* y) {
     x->right = y;
     y->left = T2;
 
-    y->height = max(height(y->left), height(y->right)) + 1;
-    x->height = max(height(x->left), height(x->right)) + 1;
+    y->height = max(getHeight(y->left), getHeight(y->right)) + 1;
+    x->height = max(getHeight(x->left), getHeight(x->right)) + 1;
 
     return x;
 }
 
-Node* insert(Node* node, int key) {
-    if(!node) return newNode(key);
-    if(key < node->key)
-        node->left = insert(node->left, key);
+Node* leftRotate(Node* x) {
+    Node* y = x->right;
+    Node* T2 = y->left;
+
+    y->left = x;
+    x->right = T2;
+
+    x->height = max(getHeight(x->left), getHeight(x->right)) + 1;
+    y->height = max(getHeight(y->left), getHeight(y->right)) + 1;
+
+    return y;
+}
+
+Node* insert(Node* node, int time) {
+    if (!node) return new Node(time);
+
+    if (time < node->time)
+        node->left = insert(node->left, time);
     else
-        node->right = insert(node->right, key);
+        node->right = insert(node->right, time);
+
+    node->height = 1 + max(getHeight(node->left), getHeight(node->right));
+
+    int balance = getBalance(node);
+
+    if (balance > 1 && time < node->left->time)
+        return rightRotate(node);
+    if (balance < -1 && time > node->right->time)
+        return leftRotate(node);
+    if (balance > 1 && time > node->left->time) {
+        node->left = leftRotate(node->left);
+        return rightRotate(node);
+    }
+    if (balance < -1 && time < node->right->time) {
+        node->right = rightRotate(node->right);
+        return leftRotate(node);
+    }
+
     return node;
 }
 
-void inorder(Node* root) {
-    if(root) {
-        inorder(root->left);
-        cout << root->key << " ";
-        inorder(root->right);
+Node* findNextSlot(Node* root, int target) {
+    Node* curr = root;
+    Node* candidate = NULL;
+
+    while (curr) {
+        if (curr->time >= target) {
+            candidate = curr;
+            curr = curr->left;
+        } else {
+            curr = curr->right;
+        }
     }
+    return candidate;
 }
 
 int main() {
     Node* root = NULL;
-    root = insert(root, 120);
-    root = insert(root, 90);
-    root = insert(root, 150);
 
-    cout << "Household water usage records:\n";
-    inorder(root);
+    root = insert(root, 8);
+    root = insert(root, 12);
+    root = insert(root, 5);
+    root = insert(root, 15);
+
+    int currentTime = 9;
+    Node* nextSlot = findNextSlot(root, currentTime);
+
+    if (nextSlot)
+        cout << "Next irrigation time: " << nextSlot->time << endl;
+    else
+        cout << "No upcoming slot.\n";
+
     return 0;
 }
+                           
 
 `,
  
@@ -941,57 +988,47 @@ int main() {
     {
       id: "8",
       number: 8,
-      title: "City Park Connectivity Design",
+      title: "CO₂ Offset Plantation Optimization",
       categoryTag: "",
-      shortTag: "Kruskal’s",
-      time: "O(n log n)",
-      space: "O(n)",
-      algorithm: "Kruskal’s",
+      shortTag: "Knapsack + sorting",
+      time: "O(n×W)",
+      space: "O(n×W)",
+      algorithm: "Knapsack Algorithm + sorting",
       sdgs: [
-        "SDG 9 – Industry, Innovation and Infrastructure",
+        "SDG 13– Climate Action",
         "SDG 11 – Sustainable Cities & Communities Improves safety and disaster management",
         "SDG 15 – Life on Land"
       ],
       problemText:
-        "Multiple city parks need walking paths for public access. Constructing unnecessary paths increases project cost.",
+        "Given several zones with different tree capacities and CO₂ absorption values, select the best combination that maximizes carbon offset within a limited land area.",
       solutionText:
-        "Kruskal’s algorithm selects minimum cost paths without forming cycles, ensuring all parks are connected efficiently.",
+        "Using the Knapsack algorithm, we choose plantation zones that give the highest CO₂ reduction while staying within the land limit, ensuring maximum environmental benefit.",
      
-      code:`Kruskal’s
-      #include <iostream>
-#include <algorithm>
+      code:`0/1 Knapsack
+   #include <iostream>
+#include <vector>
 using namespace std;
 
-struct Edge {
-    int u,v,w;
-} e[5];
+int main() {
+    vector<int> land = {3, 2, 4, 5};      // land required by each zone
+    vector<int> co2  = {6, 4, 5, 8};      // CO2 offset of each zone
+    int W = 7;                            // total land available
+    int n = land.size();
 
-int parent[5];
+    vector<vector<int>> dp(n+1, vector<int>(W+1, 0));
 
-int find(int x){
-    if(parent[x]==x) return x;
-    return parent[x]=find(parent[x]);
-}
-
-int main(){
-    e[0]={0,1,4};
-    e[1]={1,2,3};
-    e[2]={0,2,2};
-    e[3]={2,3,5};
-    e[4]={1,3,1};
-
-    for(int i=0;i<4;i++) parent[i]=i;
-
-    sort(e,e+5,[](Edge a, Edge b){return a.w<b.w;});
-
-    for(int i=0;i<5;i++){
-        int x=find(e[i].u);
-        int y=find(e[i].v);
-        if(x!=y){
-            cout<<e[i].u<<" - "<<e[i].v<<endl;
-            parent[x]=y;
+    for (int i = 1; i <= n; i++) {
+        for (int w = 1; w <= W; w++) {
+            if (land[i-1] <= w)
+                dp[i][w] = max(dp[i-1][w],
+                               co2[i-1] + dp[i-1][w - land[i-1]]);
+            else
+                dp[i][w] = dp[i-1][w];
         }
     }
+
+    cout << "Max CO2 offset = " << dp[n][W] << endl;
+    return 0;
 }
 
 `,
@@ -1000,45 +1037,80 @@ int main(){
     {
       id: 9,
       number: 9,
-      title: "Pollution Spread Reachability Analysis",
+      title: "Crime Hotspot Detection",
       categoryTag: "",
-      shortTag: "Warshall Algorithm",
-      time: "O(n·W)",
-      space: "O(W)",
-      algorithm: "Warshall Algorithm",
+      shortTag: "BFS+Priority Queue (Max-Heap)",
+      time: "O(V+E)+O(n logn)",
+      space: "O(V+E)",
+      algorithm: "BFS+Priority Queue (Max-Heap)",
       sdgs: [
-        "SDG 13 – Climate Action",
-        "SDG 3 – Good Health and Well-Being",
+        "SDG 9 – Industry, Innovation and Infrastructure",
+        "SDG 16 – Peace, Justice and Strong Institutions",
         "SDG 11 – Sustainable Cities and Communities"
       ],
       problemText:
-        "Pollution from one industrial area can spread to other connected regions. Identifying reachable pollution zones is necessary.",
+        "The city is divided into zones, and each zone has crime reports. Identify which zones form crime hotspots.",
       solutionText:
-        "Warshall’s algorithm checks reachability between all regions, helping authorities analyze pollution spread.", 
-      code:`Warshall 
-     #include <iostream>
+        "Use BFS to scan each zone and count crime occurrences; then use a priority queue to rank zones from highest to lowest crime density and pick the top hotspots.", 
+      code:`BFS+Priority Queue (Max-Heap)
+    #include <iostream>
+#include <vector>
+#include <queue>
 using namespace std;
-#define V 4
 
-int main(){
-    int g[V][V]={
-        {0,1,0,0},
-        {0,0,1,0},
-        {0,0,0,1},
-        {0,0,0,0}
+int main() {
+    // adjacency list of zones
+    vector<vector<int>> graph = {
+        {1,2},     // zone 0
+        {0,3},     // zone 1
+        {0},       // zone 2
+        {1,4},     // zone 3
+        {3}        // zone 4
     };
 
-    for(int k=0;k<V;k++)
-        for(int i=0;i<V;i++)
-            for(int j=0;j<V;j++)
-                g[i][j]=g[i][j] || (g[i][k] && g[k][j]);
+    // crime count in each zone
+    vector<int> crime = {4, 10, 2, 7, 3};
 
-    for(int i=0;i<V;i++){
-        for(int j=0;j<V;j++)
-            cout<<g[i][j]<<" ";
-        cout<<endl;
+    int n = graph.size();
+    vector<bool> visited(n, false);
+
+    // max-heap for ranking hotspots
+    priority_queue<pair<int,int>> pq;
+
+    // BFS over each component, accumulate crime counts
+    for (int i = 0; i < n; i++) {
+        if (!visited[i]) {
+            int totalCrime = 0;
+            queue<int> q;
+            q.push(i);
+            visited[i] = true;
+
+            while (!q.empty()) {
+                int u = q.front(); q.pop();
+                totalCrime += crime[u];
+
+                for (int v : graph[u]) {
+                    if (!visited[v]) {
+                        visited[v] = true;
+                        q.push(v);
+                    }
+                }
+            }
+
+            pq.push({totalCrime, i});  // store crime value with zone id
+        }
     }
+
+    cout << "Top crime hotspots:\n";
+    while (!pq.empty()) {
+        cout << "Zone " << pq.top().second
+             << " Crime Score: " << pq.top().first << "\n";
+        pq.pop();
+    }
+
+    return 0;
 }
+
 
 `,
  
@@ -1046,81 +1118,151 @@ int main(){
     {
       id: 10,
       number: 10,
-      title: ": Efficient Waste Sorting in Smart Bins",
+      title: ": Streetlight Fault Detection",
       categoryTag: "",
-      shortTag: "AVL Tree",
-      time: "≈O(α(n)) per op",
-      space: "O(n)",
-      algorithm: "AVL Tree",
+      shortTag: "Dijkstra’s+AVL",
+      time: "O(E log V)+O(log n) ",
+      space: "O(V+m)",
+      algorithm: "Dijkstra’s+AVL",
       sdgs: [
-        "SDG 13 – Climate Action",
-        "SDG 12 – Responsible Consumption and Production",
+        "SDG 7 – Affordable and Clean Energy",
+        "SDG 9 – Industry, Innovation and Infrastructure",
         "SDG 11 – Sustainable Cities & Communities Encourages community engagement through s"
       ],
       problemText:
-        "A city wants to manage waste efficiently using smart bins. Each bin contains types of waste (organic, recyclable, hazardous). Design a system to quickly insert, delete, and search waste items to track recycling patterns.",
+        "Detect faulty streetlights using their sensor telemetry and the road network: find lights with unusual sensor values and identify which networked nodes are affected.",
       solutionText:
-        ".",
-        code:` AVL Tree
-       #include <iostream>
+        "Run Dijkstra to map the streetlight network and gather telemetry per node; store recent readings in an AVL Tree. For each light, compare current reading to its historical average (computed from the AVL data) — if deviation exceeds a threshold, flag an anomaly.",
+        code:` Dijkstra’s+AVL
+      #include <bits/stdc++.h>
 using namespace std;
 
-struct Node {
-    int key, height;
-    Node *left, *right;
-    Node(int k) : key(k), height(1), left(nullptr), right(nullptr) {}
+/* ---------- AVL Tree (stores historical readings for one streetlight) ---------- */
+struct AVLNode {
+    int timestamp;
+    double reading;
+    AVLNode *l, *r;
+    int h;
+    AVLNode(int t, double r): timestamp(t), reading(r), l(NULL), r(NULL), h(1) {}
 };
 
-int height(Node* n) { return n ? n->height : 0; }
-int getBalance(Node* n) { return n ? height(n->left)-height(n->right) : 0; }
-
-Node* rightRotate(Node* y) {
-    Node* x = y->left;
-    Node* T2 = x->right;
-    x->right = y;
-    y->left = T2;
-    y->height = max(height(y->left), height(y->right))+1;
-    x->height = max(height(x->left), height(x->right))+1;
+int heightA(AVLNode* n){ return n ? n->h : 0; }
+AVLNode* rightRotateA(AVLNode* y){
+    AVLNode* x = y->l; AVLNode* T2 = x->r;
+    x->r = y; y->l = T2;
+    y->h = max(heightA(y->l), heightA(y->r)) + 1;
+    x->h = max(heightA(x->l), heightA(x->r)) + 1;
     return x;
 }
-
-Node* leftRotate(Node* x) {
-    Node* y = x->right;
-    Node* T2 = y->left;
-    y->left = x;
-    x->right = T2;
-    x->height = max(height(x->left), height(x->right))+1;
-    y->height = max(height(y->left), height(y->right))+1;
+AVLNode* leftRotateA(AVLNode* x){
+    AVLNode* y = x->r; AVLNode* T2 = y->l;
+    y->l = x; x->r = T2;
+    x->h = max(heightA(x->l), heightA(x->r)) + 1;
+    y->h = max(heightA(y->l), heightA(y->r)) + 1;
     return y;
 }
-
-Node* insert(Node* node, int key) {
-    if(!node) return new Node(key);
-    if(key < node->key) node->left = insert(node->left, key);
-    else if(key > node->key) node->right = insert(node->right, key);
-    else return node;
-
-    node->height = 1 + max(height(node->left), height(node->right));
-    int balance = getBalance(node);
-
-    if(balance>1 && key<node->left->key) return rightRotate(node);
-    if(balance<-1 && key>node->right->key) return leftRotate(node);
-    if(balance>1 && key>node->left->key) { node->left=leftRotate(node->left); return rightRotate(node); }
-    if(balance<-1 && key<node->right->key) { node->right=rightRotate(node->right); return leftRotate(node); }
+int getBalanceA(AVLNode* n){ return n ? heightA(n->l) - heightA(n->r) : 0; }
+AVLNode* insertA(AVLNode* node, int t, double val){
+    if (!node) return new AVLNode(t,val);
+    if (t < node->timestamp) node->l = insertA(node->l, t, val);
+    else node->r = insertA(node->r, t, val);
+    node->h = 1 + max(heightA(node->l), heightA(node->r));
+    int bal = getBalanceA(node);
+    if (bal > 1 && t < node->l->timestamp) return rightRotateA(node);
+    if (bal < -1 && t > node->r->timestamp) return leftRotateA(node);
+    if (bal > 1 && t > node->l->timestamp){ node->l = leftRotateA(node->l); return rightRotateA(node); }
+    if (bal < -1 && t < node->r->timestamp){ node->r = rightRotateA(node->r); return leftRotateA(node); }
     return node;
 }
-
-void preOrder(Node* root) {
-    if(root){ cout<<root->key<<" "; preOrder(root->left); preOrder(root->right);}
+// inorder traversal to compute average and count (used for anomaly thresholding)
+void inorderSum(AVLNode* root, double &sum, int &cnt){
+    if (!root) return;
+    inorderSum(root->l, sum, cnt);
+    sum += root->reading; cnt++;
+    inorderSum(root->r, sum, cnt);
 }
 
-int main() {
-    Node* root = nullptr;
-    root = insert(root, 30);
-    root = insert(root, 20);
-    root = insert(root, 40);
-    root = insert(root, 10);
-    preOrder(root);
+/* ---------- Dijkstra for network traversal ---------- */
+struct Edge { int to; double w; };
+using PDI = pair<double,int>;
+vector<double> dijkstra(int n, int src, const vector<vector<Edge>>& g){
+    const double INF = 1e18;
+    vector<double> dist(n, INF);
+    priority_queue<PDI, vector<PDI>, greater<PDI>> pq;
+    dist[src] = 0; pq.push({0, src});
+    while(!pq.empty()){
+        auto [d,u] = pq.top(); pq.pop();
+        if (d > dist[u]) continue;
+        for (auto &e : g[u]){
+            if (dist[e.to] > dist[u] + e.w){
+                dist[e.to] = dist[u] + e.w;
+                pq.push({dist[e.to], e.to});
+            }
+        }
+    }
+    return dist;
+}
+
+/* ---------- Example usage ---------- */
+int main(){
+    // example small network of 5 streetlights (nodes 0..4)
+    int V = 5;
+    vector<vector<Edge>> graph(V);
+    // undirected weighted edges (distance/time)
+    graph[0].push_back({1,1}); graph[1].push_back({0,1});
+    graph[1].push_back({2,1}); graph[2].push_back({1,1});
+    graph[1].push_back({3,2}); graph[3].push_back({1,2});
+    graph[3].push_back({4,1}); graph[4].push_back({3,1});
+
+    // Run Dijkstra from central controller (node 0) to map expected hops/latency
+    vector<double> dist = dijkstra(V, 0, graph);
+
+    cout << "Dijkstra distances from controller (node 0):\n";
+    for (int i=0;i<V;i++) cout << "Node " << i << " dist=" << dist[i] << "\n";
+
+    // For each streetlight, maintain an AVL tree of recent sensor readings
+    vector<AVLNode*> history(V, nullptr);
+
+    // Simulate inserting historical readings (timestamp, reading value)
+    // reading = e.g., power draw / brightness / voltage; we flag if current deviates > 30%
+    vector<vector<pair<int,double>>> sampleData = {
+        {{1,10},{2,10.5},{3,9.8}},    // node0
+        {{1,12},{2,11.8},{3,12.2}},   // node1
+        {{1,9},{2,9.1},{3,9.0}},      // node2
+        {{1,15},{2,14.5},{3,14.8}},   // node3
+        {{1,10},{2,10},{3,10}}        // node4
+    };
+
+    for (int i=0;i<V;i++){
+        for (auto &p : sampleData[i])
+            history[i] = insertA(history[i], p.first, p.second);
+    }
+
+    // Current readings that arrive now (timestamp 4)
+    vector<double> current = {9.9, 20.0, 9.2, 8.0, 10.5}; // note node1 and node3 anomalous
+
+    cout << "\nAnomaly check (threshold = 30% deviation from historical average):\n";
+    double THRESH = 0.30;
+    for (int i=0;i<V;i++){
+        double sum=0; int cnt=0;
+        inorderSum(history[i], sum, cnt);
+        double avg = (cnt>0) ? sum/cnt : 0;
+        double cur = current[i];
+        bool anomaly = (avg>0) ? (fabs(cur - avg) / avg > THRESH) : false;
+        cout << "Node " << i << " avg="<<avg<<" cur="<<cur<<" -> " 
+             << (anomaly ? "ANOMALY\n" : "OK\n");
+    }
+
+    // Optionally: for anomalous nodes, compute shortest path from controller to node (using dist)
+    cout << "\nActionable nodes (anomalous) and their distance from controller:\n";
+    for (int i=0;i<V;i++){
+        double sum=0; int cnt=0; inorderSum(history[i], sum, cnt);
+        double avg = (cnt>0) ? sum/cnt : 0;
+        if (avg>0 && (fabs(current[i]-avg)/avg > THRESH)) {
+            cout << "Node " << i << " dist="<<dist[i]<<"\n";
+        }
+    }
+
     return 0;
 }
 
