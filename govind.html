@@ -3,79 +3,59 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Govindaraddi.H.U | DAA Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <title>Smart City Infrastructure & Routing Design — DAA Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
-    body { background: #f0f4f8; overflow-x: hidden; }
-    nav {
-      width: 100%;
-      background: #003366;
-      padding: 16px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: white;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
-    }
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin-left: 20px;
-      padding: 8px 14px;
-      border-radius: 6px;
-      transition: 0.3s ease;
-    }
-    nav a:hover {
-      background: rgba(255,255,255,0.15);
-      transform: translateY(-3px);
-    }
-    .container {
-      max-width: 1200px;
-      margin: auto;
-      padding: 30px;
-    }
-    .project-header {
+    body { background: #f5f9ff; color: #333; }
+    header {
       background: linear-gradient(120deg, #003366, #0077cc);
       color: white;
       padding: 30px;
-      border-radius: 18px;
       text-align: center;
-      margin-bottom: 30px;
-      box-shadow: 0px 10px 25px rgba(0,0,0,0.25);
+      border-bottom: 4px solid #0055aa;
     }
-    .project-header h1 { font-size: 24px; margin-bottom: 15px; }
-    .project-header p { font-size: 15px; margin: 4px 0; }
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
+    header h1 { font-size: 26px; margin-bottom: 10px; }
+    header p { font-size: 15px; margin: 4px 0; }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 30px;
     }
-    .left, .right {
+    .gallery h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: #003366;
+      border-bottom: 2px solid #0077cc;
+      padding-bottom: 6px;
+    }
+    .case {
       background: white;
-      padding: 25px;
-      border-radius: 16px;
-      box-shadow: 0px 10px 25px rgba(0,0,0,0.12);
+      border-left: 6px solid #0077cc;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      box-shadow: 0px 6px 16px rgba(0,0,0,0.08);
     }
-    .problem { margin-bottom: 30px; }
-    .problem h3 { font-size: 18px; color: #003366; margin-bottom: 6px; }
-    .algo { font-size: 14px; font-weight: bold; color: #0077cc; margin-bottom: 4px; }
-    .desc { font-size: 14px; margin-bottom: 4px; }
-    .sdg { font-size: 13px; color: #444; margin-left: 10px; }
-    .code-title { font-size: 16px; font-weight: 600; color: #003366; margin: 16px 0 8px; }
-    .code-block {
-      background: #f7f7f7;
-      border-left: 4px solid #0077cc;
-      padding: 12px;
+    .case h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+      color: #003366;
+    }
+    .algo {
+      font-size: 14px;
+      font-weight: bold;
+      color: #0077cc;
+      margin-bottom: 6px;
+    }
+    .desc {
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+    .sdg {
       font-size: 13px;
-      font-family: monospace;
-      white-space: pre;
-      overflow-x: auto;
-      border-radius: 8px;
-      margin-bottom: 24px;
+      color: #444;
+      margin-left: 10px;
     }
     footer {
       text-align: center;
@@ -89,332 +69,111 @@
 </head>
 <body>
 
-  <nav>
-    <h2>Govindaraddi.H.U</h2>
-    <div><a href="index.html">Home</a></div>
-  </nav>
+  <header>
+    <h1>Smart City Infrastructure & Routing Design — DAA Portfolio</h1>
+    <p>Student: Govindaraddi.H.U</p>
+    <p>Faculty: Prakash Hegade</p>
+    <p>Course: Design & Analysis of Algorithms</p>
+    <p>Focus: Land Use, Zoning & Location Optimization Projects</p>
+    <p>2024 · DAA City Design</p>
+  </header>
 
   <div class="container">
+    <div class="gallery">
+      <h2>A. Case Study Gallery</h2>
 
-    <div class="project-header">
-      <h1>Smart City Infrastructure & Routing Design — DAA Portfolio</h1>
-      <p>Student: Govindaraddi.H.U</p>
-      <p>Faculty: Prakash Hegade</p>
-      <p>Course: Design & Analysis of Algorithms</p>
-      <p>Focus:</p>
-      <p>2024 · DAA City Design</p>
+      <div class="case">
+        <h3>#1 Best Allocation of City Budget</h3>
+        <p class="algo">Algorithm: 0/1 Knapsack (DP)</p>
+        <p class="desc">Select projects under budget to maximize impact.</p>
+        <p class="sdg">SDG 1: No Poverty</p>
+        <p class="sdg">SDG 8: Decent Work & Economic Growth</p>
+        <p class="sdg">SDG 11: Sustainable Cities</p>
+      </div>
+
+      <div class="case">
+        <h3>#2 Tax Officer Route Optimization</h3>
+        <p class="algo">Algorithm: Dijkstra / Floyd-Warshall</p>
+        <p class="desc">Compute shortest inspection routes across zones.</p>
+        <p class="sdg">SDG 9: Industry & Infrastructure</p>
+        <p class="sdg">SDG 11: Sustainable Cities</p>
+        <p class="sdg">SDG 16: Peace & Justice</p>
+      </div>
+
+      <div class="case">
+        <h3>#3 Smart Parking Fee Prediction</h3>
+        <p class="algo">Algorithm: Segment Tree + Lookup Table</p>
+        <p class="desc">Predict optimal fees based on usage trends.</p>
+        <p class="sdg">SDG 9: Industry & Infrastructure</p>
+        <p class="sdg">SDG 11: Sustainable Cities</p>
+        <p class="sdg">SDG 13: Climate Action</p>
+      </div>
+
+      <div class="case">
+        <h3>#4 City Energy Demand Forecasting</h3>
+        <p class="algo">Algorithm: Recurrence + Fenwick Tree</p>
+        <p class="desc">Forecast future energy needs using rolling sums.</p>
+        <p class="sdg">SDG 7: Clean Energy</p>
+        <p class="sdg">SDG 11: Sustainable Cities</p>
+        <p class="sdg">SDG 13: Climate Action</p>
+      </div>
+
+      <div class="case">
+        <h3>#5 Metro Construction Phase Optimization</h3>
+        <p class="algo">Algorithm: Heap + Heap Sort</p>
+        <p class="desc">Prioritize metro phases based on ROI.</p>
+        <p class="sdg">SDG 9: Infrastructure</p>
+        <p class="sdg">SDG 11: Sustainable Cities</p>
+        <p class="sdg">SDG 8: Economic Growth</p>
+      </div>
+
+      <div class="case">
+        <h3>#6 Streetlight Energy Reduction</h3>
+        <p class="algo">Algorithm: Backtracking + Scheduling</p>
+        <p class="desc">Generate dimming schedules to save electricity.</p>
+        <p class="sdg">SDG 7: Clean Energy</p>
+        <p class="sdg">SDG 11: Sustainable Cities</p>
+        <p class="sdg">SDG 13: Climate Action</p>
+      </div>
+
+      <div class="case">
+        <h3>#7 Transport Ticket Dynamic Pricing</h3>
+        <p class="algo">Algorithm: AVL Tree + Binary Heap</p>
+        <p class="desc">AVL tree stores price bands; heap tracks demand peaks for dynamic adjustments.</p>
+        <p class="sdg">SDG 8: Economic Growth</p>
+        <p class="sdg">SDG 9: Industry & Infrastructure</p>
+        <p class="sdg">SDG 11: Sustainable Cities</p>
+      </div>
+
+      <div class="case">
+        <h3>#8 Garbage Plant Load Balancing</h3>
+        <p class="algo">Algorithm: Min-Heap + Queue Simulation</p>
+        <p class="desc">Assign waste to least loaded plant using queue simulation.</p>
+        <p class="sdg">SDG 11: Sustainable Cities</p>
+        <p class="sdg">SDG 12: Responsible Consumption</p>
+        <p class="sdg">SDG 13: Climate Action</p>
+      </div>
+
+      <div class="case">
+        <h3>#9 Building Maintenance Prediction</h3>
+        <p class="algo">Algorithm: 2-3 Tree + Divide & Conquer</p>
+        <p class="desc">Logs indexed in 2-3 tree; divide & conquer detects recurring maintenance patterns.</p>
+        <p class="sdg">SDG 9: Industry & Infrastructure</p>
+        <p class="sdg">SDG 11: Sustainable Cities</p>
+        <p class="sdg">SDG 12: Responsible Consumption</p>
+      </div>
+
+      <div class="case">
+        <h3>#10 Subsidy Distribution Optimization</h3>
+        <p class="algo">Algorithm: Quick Sort + Knapsack</p>
+        <p class="desc">Quick sort orders beneficiaries by benefit/cost; knapsack DP selects optimal subset.</p>
+        <p class="sdg">SDG 1: No Poverty</p>
+        <p class="sdg">SDG 8: Decent Work & Economic Growth</p>
+        <p class="sdg">SDG 10: Reduced Inequalities</p>
+      </div>
+
     </div>
-
-    <div class="grid">
-
-      <!-- Left Column: Problems -->
-      <div class="left">
-        <div class="problem">
-          <h3>1. Best Allocation of City Budget</h3>
-          <p class="algo">Algorithm: 0/1 Knapsack (DP)</p>
-          <p class="desc">Select projects under budget to maximize impact.</p>
-          <p class="sdg">SDG 1: No Poverty</p>
-          <p class="sdg">SDG 8: Decent Work & Economic Growth</p>
-          <p class="sdg">SDG 11: Sustainable Cities</p>
-        </div>
-
-        <div class="problem">
-          <h3>2. Tax Officer Route Optimization</h3>
-          <p class="algo">Algorithm: Dijkstra / Floyd-Warshall</p>
-          <p class="desc">Compute shortest inspection routes across zones.</p>
-          <p class="sdg">SDG 9: Industry & Infrastructure</p>
-          <p class="sdg">SDG 11: Sustainable Cities</p>
-          <p class="sdg">SDG 16: Peace & Justice</p>
-        </div>
-
-        <div class="problem">
-          <h3>3. Smart Parking Fee Prediction</h3>
-          <p class="algo">Algorithm: Segment Tree + Lookup Table</p>
-          <p class="desc">Predict optimal fees based on usage trends.</p>
-          <p class="sdg">SDG 9: Industry & Infrastructure</p>
-          <p class="sdg">SDG 11: Sustainable Cities</p>
-          <p class="sdg">SDG 13: Climate Action</p>
-        </div>
-
-        <div class="problem">
-          <h3>4. City Energy Demand Forecasting</h3>
-          <p class="algo">Algorithm: Recurrence + Fenwick Tree</p>
-          <p class="desc">Forecast future energy needs using rolling sums.</p>
-          <p class="sdg">SDG 7: Clean Energy</p>
-          <p class="sdg">SDG 11: Sustainable Cities</p>
-          <p class="sdg">SDG 13: Climate Action</p>
-        </div>
-
-        <div class="problem">
-          <h3>5. Metro Construction Phase Optimization</h3>
-          <p class="algo">Algorithm: Heap + Heap Sort</p>
-          <p class="desc">Prioritize metro phases based on ROI.</p>
-          <p class="sdg">SDG 9: Infrastructure</p>
-          <p class="sdg">SDG 11: Sustainable Cities</p>
-          <p class="sdg">SDG 8: Economic Growth</p>
-        </div>
-
-        <div class="problem">
-          <h3>6. Streetlight Energy Reduction</h3>
-          <p class="algo">Algorithm: Backtracking + Scheduling</p>
-          <p class="desc">Generate dimming schedules to save electricity.</p>
-          <p class="sdg">SDG 7: Clean Energy</p>
-          <p class="sdg">SDG 11: Sustainable Cities</p>
-          <p class="sdg">SDG 13: Climate Action</p>
-        </div>
-
-        <div class="problem">
-          <h3>7. Transport Ticket Dynamic Pricing</h3>
-          <p class="algo">Algorithm: AVL Tree + Binary Heap</p>
-          <p class="desc">AVL tree stores price bands; heap tracks demand peaks for dynamic adjustments.</p>
-          <p class="sdg">SDG 8: Economic Growth</p>
-          <p class="sdg">SDG 9: Industry & Infrastructure</p>
-          <p class="sdg">SDG 11: Sustainable Cities</p>
-        </div>
-
-        <div class="problem">
-          <h3>8. Garbage Plant Load Balancing</h3>
-          <p class="algo">Algorithm: Min-Heap + Queue Simulation</p>
-          <p class="desc">Assign waste to least loaded plant using queue simulation.</p>
-          <p class="sdg">SDG 11: Sustainable Cities</p>
-          <p class="sdg">SDG 12: Responsible Consumption</p>
-          <p class="sdg">SDG 13: Climate Action</p>
-        </div>
-
-        <div class="problem">
-          <h3>9. Building Maintenance Prediction</h3>
-          <p class="algo">Algorithm: 2-3 Tree + Divide & Conquer</p>
-          <p class="desc">Logs indexed in 2-3 tree; divide & conquer detects recurring maintenance patterns.</p>
-          <p class="sdg">SDG 9: Industry & Infrastructure</p>
-          <p class="sdg">SDG 11: Sustainable Cities</p>
-          <p class="sdg">SDG 12: Responsible Consumption</p>
-        </div>
-
-        <div class="problem">
-          <h3>10. Subsidy Distribution Optimization</h3>
-          <p class="algo">Algorithm: Quick Sort + Knapsack</p>
-          <p class="desc">Quick sort orders beneficiaries by benefit/cost; knapsack DP selects optimal subset.</p>
-          <p class="sdg">SDG 1: No Poverty</p>
-          <p class="sdg">SDG 8: Decent Work & Economic Growth</p>
-          <p class="sdg">SDG 10: Reduced Inequalities</p>
-        </div>
-      </div>
-
-      <!-- Right Column: C++ Code Snippets -->
-      <div class="right">
-        <div class="code-title">1) 0/1 Knapsack (maximize impact under budget)</div>
-        <div class="code-block">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-int main(){
-  int n,W; cin>>n>>W;
-  vector<int> w(n), v(n);
-  for(int i=0;i<n;i++) cin>>w[i]>>v[i];
-  vector<long long> dp(W+1,0);
-  for(int i=0;i<n;i++){
-    for(int cap=W; cap>=w[i]; --cap){
-      dp[cap]=max(dp[cap], dp[cap-w[i]]+v[i]);
-    }
-  }
-  cout<<*max_element(dp.begin(), dp.end());
-}</div>
-
-        <div class="code-title">2) Dijkstra shortest paths (route optimization)</div>
-        <div class="code-block">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-int main(){
-  int n,m; cin>>n>>m;
-  vector<vector<pair<int,int>>> g(n);
-  for(int i=0;i<m;i++){int u,v,w;cin>>u>>v>>w;g[u].push_back({v,w});g[v].push_back({u,w});}
-  int s;cin>>s;
-  const long long INF=1e18;
-  vector<long long> d(n,INF); d[s]=0;
-  priority_queue<pair<long long,int>,vector<pair<long long,int>>,greater<pair<long long,int>>> pq;
-  pq.push({0,s});
-  while(!pq.empty()){
-    auto [du,u]=pq.top(); pq.pop();
-    if(du!=d[u]) continue;
-    for(auto [v,w]:g[u]){
-      if(d[v]>du+w){ d[v]=du+w; pq.push({d[v],v}); }
-    }
-  }
-  for(int i=0;i<n;i++) cout<<d[i]<<" ";
-}</div>
-
-        <div class="code-title">3) Segment tree for range demand; lookup to fee</div>
-        <div class="code-block">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-struct Seg { int n; vector<long long> st;
-  Seg(int n):n(n),st(4*n,0){}
-  void build(vector<int>&a,int p,int l,int r){
-    if(l==r){st[p]=a[l];return;}
-    int m=(l+r)/2; build(a,2*p,l,m); build(a,2*p+1,m+1,r);
-    st[p]=st[2*p]+st[2*p+1];
-  }
-  long long qry(int p,int l,int r,int ql,int qr){
-    if(qr<l||r<ql) return 0;
-    if(ql<=l&&r<=qr) return st[p];
-    int m=(l+r)/2; return qry(2*p,l,m,ql,qr)+qry(2*p+1,m+1,r,ql,qr);
-  }
-};
-int main(){
-  int n; cin>>n; vector<int>a(n); for(int i=0;i<n;i++) cin>>a[i];
-  Seg seg(n); seg.build(a,1,0,n-1);
-  int q; cin>>q;
-  auto fee=[&](long long demand){
-    if(demand&lt;=100) return 10;
-    if(demand&lt;=500) return 20;
-    if(demand&lt;=1000) return 30;
-    return 50;
-  };
-  while(q--){
-    int l,r;cin>>l>>r; long long d=seg.qry(1,0,n-1,l,r);
-    cout&lt;&lt;fee(d)&lt;&lt;"\n";
-  }
-}</div>
-
-        <div class="code-title">4) Fenwick tree + recurrence (energy forecast)</div>
-        <div class="code-block">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-struct BIT{ int n; vector<long long> f;
-  BIT(int n):n(n),f(n+1,0){} 
-  void add(int i,long long v){ for(++i;i<=n;i+=i&-i) f[i]+=v; }
-  long long sum(int i){ long long s=0; for(++i;i>0;i-=i&-i) s+=f[i]; return s; }
-  long long range(int l,int r){ return sum(r)-(l?sum(l-1):0); }
-};
-int main(){
-  int n; cin>>n; vector<long long>a(n); for(int i=0;i<n;i++) cin>>a[i];
-  BIT bit(n); for(int i=0;i<n;i++) bit.add(i,a[i]);
-  int k; cin>>k; // forecast next k using simple recurrence avg of last w
-  int w=3; vector<long long> forecast;
-  for(int t=0;t<k;t++){
-    long long lastw = bit.range(max(0,n-w), n-1);
-    long long next = lastw / min(w,n);
-    forecast.push_back(next);
-    a.push_back(next); bit.add(n, next); n++;
-  }
-  for(auto x:forecast) cout<<x<<" ";
-}</div>
-
-        <div class="code-title">5) Heap-based phase scheduling by ROI</div>
-        <div class="code-block">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-struct Phase{string name; double cost,benefit;};
-int main(){
-  int n;cin>>n; vector<Phase> P(n);
-  for(int i=0;i<n;i++) cin>>P[i].name>>P[i].cost>>P[i].benefit;
-  auto roi=[&](const Phase&p){ return p.benefit/p.cost; };
-  priority_queue<pair<double,int>> pq;
-  for(int i=0;i<n;i++) pq.push({roi(P[i]), i});
-  while(!pq.empty()){
-    auto [r,i]=pq.top(); pq.pop();
-    cout<<P[i].name<<" "<<fixed<<setprecision(3)<<r<<"\n";
-  }
-}</div>
-
-        <div class="code-title">6) Backtracking schedule (streetlight dimming)</div>
-        <div class="code-block">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-// choose dimming levels per hour ensuring min brightness constraint
-int H,minBright; vector<int> level, best; long long bestCost=LLONG_MAX;
-bool safe(int i){ return level[i] >= minBright; }
-void bt(int i){
-  if(i==H){
-    long long cost=0; for(int j=0;j<H;j++) cost+=level[j];
-    if(cost&lt;bestCost){bestCost=cost; best=level;} return;
-  }
-  for(int x=minBright; x<=100; x+=10){
-    level[i]=x; if(safe(i)) bt(i+1);
-  }
-}
-int main(){
-  cin>>H>>minBright; level.assign(H,0);
-  bt(0);
-  cout<<"BestCost "<<bestCost<<"\n";
-  for(int x:best) cout<<x<<" ";
-}</div>
-
-        <div class="code-title">7) Dynamic pricing: AVL and heap (simplified)</div>
-        <div class="code-block">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-// Simplify: maintain price bands in set (AVL-like) and peak demand in max-heap
-int main(){
-  int n;cin>>n;
-  set<int> bands; // acts like balanced BST
-  for(int i=0;i<n;i++){int p;cin>>p; bands.insert(p);}
-  priority_queue<int> demandMax;
-  int m;cin>>m; for(int i=0;i<m;i++){int d;cin>>d; demandMax.push(d);}
-  int base=*bands.begin(); int peak = demandMax.top();
-  int price = base + (peak/100); // simple adjustment
-  cout<<price;
-}</div>
-
-        <div class="code-title">8) Min-heap load balancing (waste plants)</div>
-        <div class="code-block">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-struct Plant{ long long load; int id; bool operator&lt;(const Plant& o)const{
-  return load>o.load; } // min-heap
-};
-int main(){
-  int p,arrivals; cin>>p>>arrivals;
-  priority_queue<Plant> pq; for(int i=0;i<p;i++) pq.push({0,i});
-  for(int i=0;i<arrivals;i++){
-    long long w;cin>>w; auto cur=pq.top(); pq.pop();
-    cur.load += w; cout<<"assign "<<w<<" to plant "<<cur.id<<"\n";
-    pq.push(cur);
-  }
-  cout<<"final loads:\n";
-  vector<long long> L(p,0);
-  while(!pq.empty()){ auto x=pq.top(); pq.pop(); L[x.id]=x.load; }
-  for(int i=0;i<p;i++) cout<<i<<":"<<L[i]<<"\n";
-}</div>
-
-        <div class="code-title">9) 2-3 tree (emulated) + pattern detection</div>
-        <div class="code-block">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-// Emulate 2-3 tree using multiset; detect repeated maintenance windows
-int main(){
-  int n;cin>>n; multiset<int> times;
-  for(int i=0;i<n;i++){int t;cin>>t; times.insert(t);}
-  // divide & conquer: count repeats in halves
-  vector<int> a(times.begin(), times.end());
-  function<int(int,int)> rec = [&](int l,int r){
-    if(l==r) return 1;
-    int m=(l+r)/2;
-    return rec(l,m)+rec(m+1,r) - (a[m]==a[m+1] ? 1:0);
-  };
-  cout<<"patternScore "<<rec(0,(int)a.size()-1);
-}</div>
-
-        <div class="code-title">10) Quick sort + knapsack (subsidies)</div>
-        <div class="code-block">#include &lt;bits/stdc++.h&gt;
-using namespace std;
-int main(){
-  int n,W;cin>>n>>W;
-  struct B{double benefit,cost;}; vector<B> b(n);
-  for(int i=0;i<n;i++) cin>>b[i].benefit>>b[i].cost;
-  sort(b.begin(), b.end(), [](const B&a,const B&c){
-    return (a.benefit/a.cost) > (c.benefit/c.cost);
-  });
-  // discretize cost to int for DP (or pre-scaled input)
-  vector<int> w(n), v(n);
-  for(int i=0;i<n;i++){ w[i]=(int)round(b[i].cost); v[i]=(int)round(b[i].benefit); }
-  vector<int> dp(W+1,0);
-  for(int i=0;i<n;i++){
-    for(int cap=W; cap>=w[i]; --cap){
-      dp[cap]=max(dp[cap], dp[cap-w[i]]+v[i]);
-    }
-  }
-  cout<<*max_element(dp.begin(), dp.end());
-}</div>
-      </div>
-
-    </div> <!-- end grid -->
-
-    <center>
-      <a class="back-btn" href="index.html">⬅ Back to Home</a>
-    </center>
-
-  </div> <!-- end container -->
+  </div>
 
   <footer>
     © 2024 Govindaraddi.H.U – DAA Portfolio
