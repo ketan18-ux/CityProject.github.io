@@ -2,135 +2,137 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DAA Portfolio – Govindaraddi H U</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<title>DAA Portfolio - Smart City Algorithms</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family:"Poppins",sans-serif; }
+    * { margin:0; padding:0; box-sizing:border-box; font-family: "Poppins", sans-serif; }
+
     body {
         background:#0d1117;
-        color:#eaeaea;
+        color:white;
         display:flex;
         height:100vh;
         overflow:hidden;
     }
 
     /* Sidebar */
-    .sidebar {
-        width:280px;
+    #sidebar {
+        width:300px;
         background:#111827;
         padding:20px;
         overflow-y:auto;
         border-right:2px solid #1f2937;
     }
-    .sidebar h2 { color:#ffd700; margin-bottom:10px; }
 
-    .item {
-        background:#1a2332;
-        padding:12px;
-        border-radius:10px;
-        margin-bottom:12px;
-        cursor:pointer;
-        transition:0.3s ease;
+    #sidebar h2 {
+        margin-bottom:20px;
+        font-size:20px;
+        color:#ffcc00;
     }
-    .item:hover { background:#243447; transform:translateX(5px); }
-    .item span { float:right; color:#ccc; font-size:12px; }
 
-    /* Main content */
-    .content {
+    .menu-item {
+        padding:12px;
+        margin-bottom:10px;
+        border-radius:8px;
+        background:#1f2937;
+        cursor:pointer;
+        transition:0.2s;
+        border:1px solid #2d3748;
+    }
+
+    .menu-item:hover {
+        background:#374151;
+    }
+
+    .menu-item.active {
+        background:#2563eb;
+        border-color:#1d4ed8;
+    }
+
+    /* Content area */
+    #content {
         flex:1;
-        padding:30px;
         overflow-y:auto;
+        padding:25px;
     }
 
     .card {
-        background:#1a2332;
+        background:#111827;
         padding:25px;
-        border-radius:16px;
-        margin-bottom:25px;
-        box-shadow:0 0 25px rgba(0,0,0,0.5);
+        border-radius:12px;
+        border:1px solid #1f2937;
+        margin-bottom:30px;
+        display:none;
     }
 
-    .title { font-size:26px; font-weight:600; }
-
-    .tag {
-        display:inline-block;
-        background:#004b8d;
-        padding:6px 14px;
-        margin:8px 6px 0 0;
-        border-radius:20px;
-        font-size:12px;
-    }
-    .sdg { background:#0f5132; }
+    .card h1 { font-size:22px; margin-bottom:10px; }
+    .tag { display:inline-block; padding:6px 12px; background:#2563eb; border-radius:5px; margin-right:8px; margin-top:6px; font-size:12px; }
+    .sdg { background:#16a34a; }
 
     .section-title {
-        font-size:20px;
-        color:#ffd700;
-        margin:20px 0 10px;
+        font-size:17px;
+        margin-top:15px;
+        margin-bottom:5px;
+        color:#ffcc00;
     }
 
+    /* Code block (NO BLUE LINE) */
     .code-block {
         background:#0d1117;
-        border-left:4px solid #00aaff;
+        border:1px solid #2a2f3a;
         padding:15px;
-        font-family:monospace;
-        font-size:14px;
+        border-radius:10px;
+        margin-top:12px;
         white-space:pre-wrap;
-        border-radius:12px;
+        font-family:monospace;
+        font-size:13px;
+        overflow-x:auto;
     }
-
-    /* Hide sections initially */
-    .problem-section { display:none; }
 </style>
 
 <script>
-function showProblem(id) {
-    document.querySelectorAll('.problem-section')
-        .forEach(sec => sec.style.display = "none");
-    document.getElementById(id).style.display = "block";
-}
+    function showCard(id) {
+        document.querySelectorAll(".menu-item").forEach(e => e.classList.remove("active"));
+        document.querySelectorAll(".card").forEach(e => e.style.display = "none");
+
+        document.getElementById("card" + id).style.display = "block";
+        document.getElementById("m" + id).classList.add("active");
+    }
+
+    window.onload = () => showCard(1);
 </script>
 
 </head>
 <body>
 
-<!-- SIDEBAR -->
-<div class="sidebar">
+<!-- Sidebar -->
+<div id="sidebar">
     <h2>10 Problems</h2>
-    <p>Click to open</p>
 
-    <div class="item" onclick="showProblem('p1')">#1 City Budget Allocation <span>Knapsack</span></div>
-    <div class="item" onclick="showProblem('p2')">#2 Tax Officer Route <span>Dijkstra</span></div>
-    <div class="item" onclick="showProblem('p3')">#3 Smart Parking Fees <span>SegTree</span></div>
-    <div class="item" onclick="showProblem('p4')">#4 Energy Forecast <span>Fenwick</span></div>
-    <div class="item" onclick="showProblem('p5')">#5 Metro Optimization <span>Heap</span></div>
-    <div class="item" onclick="showProblem('p6')">#6 Streetlight Dimming <span>Backtrack</span></div>
-    <div class="item" onclick="showProblem('p7')">#7 Transport Pricing <span>AVL+Heap</span></div>
-    <div class="item" onclick="showProblem('p8')">#8 Garbage Load Balance <span>MinHeap</span></div>
-    <div class="item" onclick="showProblem('p9')">#9 Building Maintenance <span>2-3 Tree</span></div>
-    <div class="item" onclick="showProblem('p10')">#10 Subsidy Distribution <span>QuickSort+DP</span></div>
+    <div id="m1" class="menu-item" onclick="showCard(1)">1. Best Allocation of City Budget</div>
+    <div id="m2" class="menu-item" onclick="showCard(2)">2. Tax Officer Route Optimization</div>
+    <div id="m3" class="menu-item" onclick="showCard(3)">3. Smart Parking Fee Prediction</div>
+    <div id="m4" class="menu-item" onclick="showCard(4)">4. City Energy Demand Forecasting</div>
+    <div id="m5" class="menu-item" onclick="showCard(5)">5. Metro Construction Phase Optimization</div>
+    <div id="m6" class="menu-item" onclick="showCard(6)">6. Streetlight Energy Reduction</div>
+    <div id="m7" class="menu-item" onclick="showCard(7)">7. Transport Ticket Dynamic Pricing</div>
+    <div id="m8" class="menu-item" onclick="showCard(8)">8. Garbage Plant Load Balancing</div>
+    <div id="m9" class="menu-item" onclick="showCard(9)">9. Building Maintenance Prediction</div>
+    <div id="m10" class="menu-item" onclick="showCard(10)">10. Subsidy Distribution Optimization</div>
 </div>
 
-<!-- RIGHT CONTENT -->
-<div class="content">
-<!-- PROBLEM 1 -->
-<div class="problem-section" id="p1">
-    <div class="card">
-        <div class="title">1. Best Allocation of City Budget</div>
+<!-- Content Area -->
+<div id="content">
 
-        <span class="tag">0/1 Knapsack</span>
-        <span class="tag">DP</span>
-        <span class="tag sdg">SDG 1 — No Poverty</span>
-        <span class="tag sdg">SDG 8 — Economic Growth</span>
-        <span class="tag sdg">SDG 11 — Sustainable Cities</span>
+<!-- CARD 1 -->
+<div id="card1" class="card">
+    <h1>1. Best Allocation of City Budget</h1>
+    <span class="tag">0/1 Knapsack (DP)</span>
+    <span class="tag sdg">SDG 1</span><span class="tag sdg">SDG 8</span><span class="tag sdg">SDG 11</span>
 
-        <div class="section-title">Description</div>
-        Select projects under budget to maximize impact.
-
-        <div class="section-title">C++ Code</div>
-        <div class="code-block">
+    <p class="section-title">C++ Code</p>
+    <div class="code-block">
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 int main(){
@@ -145,22 +147,16 @@ int main(){
   }
   cout<<*max_element(dp.begin(), dp.end());
 }
-        </div>
     </div>
 </div>
-<!-- PROBLEM 2 -->
-<div class="problem-section" id="p2">
-    <div class="card">
-        <div class="title">2. Tax Officer Route Optimization</div>
 
-        <span class="tag">Dijkstra</span>
-        <span class="tag">Floyd-Warshall</span>
-        <span class="tag sdg">SDG 9</span>
-        <span class="tag sdg">SDG 11</span>
-        <span class="tag sdg">SDG 16</span>
+<!-- CARD 2 -->
+<div id="card2" class="card">
+    <h1>2. Tax Officer Route Optimization</h1>
+    <span class="tag">Dijkstra / Floyd-Warshall</span>
+    <span class="tag sdg">SDG 9</span><span class="tag sdg">SDG 11</span><span class="tag sdg">SDG 16</span>
 
-        <div class="section-title">C++ Code</div>
-        <div class="code-block">
+<div class="code-block">
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 int main(){
@@ -181,22 +177,15 @@ int main(){
   }
   for(int i=0;i<n;i++) cout<<d[i]<<" ";
 }
-        </div>
-    </div>
 </div>
-<!-- PROBLEM 3 -->
-<div class="problem-section" id="p3">
-    <div class="card">
-        <div class="title">3. Smart Parking Fee Prediction</div>
+</div>
 
-        <span class="tag">Segment Tree</span>
-        <span class="tag">Lookup Table</span>
-        <span class="tag sdg">SDG 9</span>
-        <span class="tag sdg">SDG 11</span>
-        <span class="tag sdg">SDG 13</span>
+<!-- CARD 3 -->
+<div id="card3" class="card">
+    <h1>3. Smart Parking Fee Prediction</h1>
+    <span class="tag">Segment Tree + Lookup</span>
 
-        <div class="section-title">C++ Code</div>
-        <div class="code-block">
+<div class="code-block">
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 struct Seg { int n; vector<long long> st;
@@ -227,26 +216,18 @@ int main(){
     cout<<fee(d)<<"\n";
   }
 }
-        </div>
-    </div>
 </div>
-<!-- PROBLEM 4 -->
-<div class="problem-section" id="p4">
-    <div class="card">
-        <div class="title">4. City Energy Demand Forecasting</div>
+</div>
 
-        <span class="tag">Fenwick Tree</span>
-        <span class="tag">Recurrence</span>
-        <span class="tag sdg">SDG 7</span>
-        <span class="tag sdg">SDG 11</span>
-        <span class="tag sdg">SDG 13</span>
+<!-- CARD 4 -->
+<div id="card4" class="card">
+    <h1>4. City Energy Demand Forecasting</h1>
 
-        <div class="section-title">C++ Code</div>
-        <div class="code-block">
+<div class="code-block">
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 struct BIT{ int n; vector<long long> f;
-  BIT(int n):n(n),f(n+1,0){}
+  BIT(int n):n(n),f(n+1,0){} 
   void add(int i,long long v){ for(++i;i<=n;i+=i&-i) f[i]+=v; }
   long long sum(int i){ long long s=0; for(++i;i>0;i-=i&-i) s+=f[i]; return s; }
   long long range(int l,int r){ return sum(r)-(l?sum(l-1):0); }
@@ -264,22 +245,14 @@ int main(){
   }
   for(auto x:forecast) cout<<x<<" ";
 }
-        </div>
-    </div>
 </div>
-<!-- PROBLEM 5 -->
-<div class="problem-section" id="p5">
-    <div class="card">
-        <div class="title">5. Metro Construction Phase Optimization</div>
+</div>
 
-        <span class="tag">Heap</span>
-        <span class="tag">Heap Sort</span>
-        <span class="tag sdg">SDG 9</span>
-        <span class="tag sdg">SDG 11</span>
-        <span class="tag sdg">SDG 8</span>
+<!-- CARD 5 -->
+<div id="card5" class="card">
+    <h1>5. Metro Construction Phase Optimization</h1>
 
-        <div class="section-title">C++ Code</div>
-        <div class="code-block">
+<div class="code-block">
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 struct Phase{string name; double cost,benefit;};
@@ -294,22 +267,14 @@ int main(){
     cout<<P[i].name<<" "<<fixed<<setprecision(3)<<r<<"\n";
   }
 }
-        </div>
-    </div>
 </div>
-<!-- PROBLEM 6 -->
-<div class="problem-section" id="p6">
-    <div class="card">
-        <div class="title">6. Streetlight Energy Reduction</div>
+</div>
 
-        <span class="tag">Backtracking</span>
-        <span class="tag">Scheduling</span>
-        <span class="tag sdg">SDG 7</span>
-        <span class="tag sdg">SDG 11</span>
-        <span class="tag sdg">SDG 13</span>
+<!-- CARD 6 -->
+<div id="card6" class="card">
+    <h1>6. Streetlight Energy Reduction</h1>
 
-        <div class="section-title">C++ Code</div>
-        <div class="code-block">
+<div class="code-block">
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 int H,minBright; vector<int> level, best; long long bestCost=LLONG_MAX;
@@ -329,23 +294,14 @@ int main(){
   cout<<"BestCost "<<bestCost<<"\n";
   for(int x:best) cout<<x<<" ";
 }
-        </div>
-    </div>
+</div>
 </div>
 
-<!-- PROBLEM 7 -->
-<div class="problem-section" id="p7">
-    <div class="card">
-        <div class="title">7. Transport Ticket Dynamic Pricing</div>
+<!-- CARD 7 -->
+<div id="card7" class="card">
+    <h1>7. Transport Ticket Dynamic Pricing</h1>
 
-        <span class="tag">AVL Tree</span>
-        <span class="tag">Binary Heap</span>
-        <span class="tag sdg">SDG 8</span>
-        <span class="tag sdg">SDG 9</span>
-        <span class="tag sdg">SDG 11</span>
-
-        <div class="section-title">C++ Code</div>
-        <div class="code-block">
+<div class="code-block">
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 int main(){
@@ -358,23 +314,14 @@ int main(){
   int price = base + (peak/100);
   cout<<price;
 }
-        </div>
-    </div>
+</div>
 </div>
 
-<!-- PROBLEM 8 -->
-<div class="problem-section" id="p8">
-    <div class="card">
-        <div class="title">8. Garbage Plant Load Balancing</div>
+<!-- CARD 8 -->
+<div id="card8" class="card">
+    <h1>8. Garbage Plant Load Balancing</h1>
 
-        <span class="tag">Min-Heap</span>
-        <span class="tag">Queue Simulation</span>
-        <span class="tag sdg">SDG 11</span>
-        <span class="tag sdg">SDG 12</span>
-        <span class="tag sdg">SDG 13</span>
-
-        <div class="section-title">C++ Code</div>
-        <div class="code-block">
+<div class="code-block">
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 struct Plant{ long long load; int id; bool operator<(const Plant& o)const{
@@ -393,23 +340,14 @@ int main(){
   while(!pq.empty()){ auto x=pq.top(); pq.pop(); L[x.id]=x.load; }
   for(int i=0;i<p;i++) cout<<i<<":"<<L[i]<<"\n";
 }
-        </div>
-    </div>
+</div>
 </div>
 
-<!-- PROBLEM 9 -->
-<div class="problem-section" id="p9">
-    <div class="card">
-        <div class="title">9. Building Maintenance Prediction</div>
+<!-- CARD 9 -->
+<div id="card9" class="card">
+    <h1>9. Building Maintenance Prediction</h1>
 
-        <span class="tag">2–3 Tree (Emulated)</span>
-        <span class="tag">Divide & Conquer</span>
-        <span class="tag sdg">SDG 9</span>
-        <span class="tag sdg">SDG 11</span>
-        <span class="tag sdg">SDG 12</span>
-
-        <div class="section-title">C++ Code</div>
-        <div class="code-block">
+<div class="code-block">
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 int main(){
@@ -423,23 +361,14 @@ int main(){
   };
   cout<<"patternScore "<<rec(0,(int)a.size()-1);
 }
-        </div>
-    </div>
+</div>
 </div>
 
-<!-- PROBLEM 10 -->
-<div class="problem-section" id="p10">
-    <div class="card">
-        <div class="title">10. Subsidy Distribution Optimization</div>
+<!-- CARD 10 -->
+<div id="card10" class="card">
+    <h1>10. Subsidy Distribution Optimization</h1>
 
-        <span class="tag">Quick Sort</span>
-        <span class="tag">Knapsack DP</span>
-        <span class="tag sdg">SDG 1</span>
-        <span class="tag sdg">SDG 8</span>
-        <span class="tag sdg">SDG 10</span>
-
-        <div class="section-title">C++ Code</div>
-        <div class="code-block">
+<div class="code-block">
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 int main(){
@@ -459,10 +388,9 @@ int main(){
   }
   cout<<*max_element(dp.begin(), dp.end());
 }
-        </div>
-    </div>
+</div>
 </div>
 
-</div> <!-- END CONTENT -->
+</div>
 </body>
 </html>
