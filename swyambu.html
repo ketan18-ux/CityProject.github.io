@@ -346,7 +346,7 @@ footer {
       title: "Air Quality Prediction Network",
       categoryTag: "",
       shortTag: "Merge Sort",
-      time: "O(n)",
+      time: "O(nlogn)",
       space: "O(n)",
       algorithm: "Merge Sort",
       sdgs: [
@@ -444,74 +444,122 @@ int main() {
       number: 2,
       title: "Smart Waste Segregation Automation",
       categoryTag: "",
-      shortTag: "Binary Tree",
-      time: "O(n log n)",
+      shortTag: "AVL Tree",
+      time: "O(log n)",
       space: "O(n)",
-      algorithm: "Binary Tree",
+      algorithm: "AVL Tree",
       sdgs: [
         "SDG 11 – sustainable cities and communities",
-        "SDG 11 – Responsible Consumption and Production",
-        "SDG 13 – Good Health and Well-Being"
+        "SDG 12 – Responsible Consumption and Production",
+        "SDG 13 – Climate Action"
       ],
       problemText:
-        "Bins overflow and waste collection is inefficient, causing unhygienic conditions and wasted resources.",
+        "Waste items need quick classification into categories like biodegradable, recyclable, or hazardous. A structured rule-based method is required to organize and retrieve classification rules efficiently.",
       solutionText:
-        "Use smart bins with sensors to detect fill levels. Data is sent to a server, and collection is optimized using routing algorithms to reduce overflow and save time.",
+        "An AVL Tree stores waste-classification rules as nodes Each item checks attributes and follows the tree path to reach its correct category AVL balancing ensures fast and consistent classification.",
       
        
-        code:`Binary Tree
+        code:`AVL  Tree
        #include <iostream>
+#include <string>
 using namespace std;
 
-// Binary Tree Node
 struct Node {
-    string question;
-    string result;
+    string rule;
+    string category;
     Node* left;
     Node* right;
+    int height;
 
-    Node(string q = "", string r = "") {
-        question = q;
-        result = r;
-        left = right = NULL;
-    }
+    Node(string r, string c) : rule(r), category(c), left(NULL), right(NULL), height(1) {}
 };
 
-// Function to classify waste
-void classify(Node* root) {
-    if (root->left == NULL && root->right == NULL) {
-        cout << "Waste Category: " << root->result << endl;
-        return;
+int getHeight(Node* n) {
+    return n ? n->height : 0;
+}
+
+int getBalance(Node* n) {
+    return n ? getHeight(n->left) - getHeight(n->right) : 0;
+}
+
+Node* rightRotate(Node* y) {
+    Node* x = y->left;
+    Node* T2 = x->right;
+
+    x->right = y;
+    y->left = T2;
+
+    y->height = max(getHeight(y->left), getHeight(y->right)) + 1;
+    x->height = max(getHeight(x->left), getHeight(x->right)) + 1;
+
+    return x;
+}
+
+Node* leftRotate(Node* x) {
+    Node* y = x->right;
+    Node* T2 = y->left;
+
+    y->left = x;
+    x->right = T2;
+
+    x->height = max(getHeight(x->left), getHeight(x->right)) + 1;
+    y->height = max(getHeight(y->left), getHeight(y->right)) + 1;
+
+    return y;
+}
+
+Node* insert(Node* node, string rule, string category) {
+    if (!node) return new Node(rule, category);
+
+    if (rule < node->rule)
+        node->left = insert(node->left, rule, category);
+    else
+        node->right = insert(node->right, rule, category);
+
+    node->height = 1 + max(getHeight(node->left), getHeight(node->right));
+    int balance = getBalance(node);
+
+    if (balance > 1 && rule < node->left->rule)
+        return rightRotate(node);
+
+    if (balance < -1 && rule > node->right->rule)
+        return leftRotate(node);
+
+    if (balance > 1 && rule > node->left->rule) {
+        node->left = leftRotate(node->left);
+        return rightRotate(node);
     }
 
-    char choice;
-    cout << root->question << " (y/n): ";
-    cin >> choice;
+    if (balance < -1 && rule < node->right->rule) {
+        node->right = rightRotate(node->right);
+        return leftRotate(node);
+    }
 
-    if (choice == 'y')
-        classify(root->left);
-    else
-        classify(root->right);
+    return node;
+}
+
+string classify(Node* root, string rule) {
+    Node* curr = root;
+    while (curr) {
+        if (rule == curr->rule) return curr->category;
+        else if (rule < curr->rule) curr = curr->left;
+        else curr = curr->right;
+    }
+    return "Unknown Category";
 }
 
 int main() {
-    // Building the decision tree
-    Node* root = new Node("Is the waste biodegradable?");
+    Node* root = NULL;
 
-    root->left = new Node("Is it food waste?");
-    root->right = new Node("Is it plastic?");
+    root = insert(root, "plastic", "Recyclable");
+    root = insert(root, "banana_peel", "Biodegradable");
+    root = insert(root, "battery", "Hazardous");
 
-    root->left->left = new Node("", "Organic Waste");
-    root->left->right = new Node("", "Garden Waste");
-
-    root->right->left = new Node("", "Recyclable Waste");
-    root->right->right = new Node("", "Non-Recyclable Waste (Landfill)");
-
-    cout << "Smart Waste Segregation System\n";
-    classify(root);
+    cout << "Classification: " << classify(root, "battery") << endl;
 
     return 0;
 }
+
 
 `,
  
