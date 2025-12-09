@@ -364,4 +364,12 @@ int main(){
 </div>
 <script>
 function openProblem(n){
- document.querySelectorAll(".
+ document.querySelectorAll(".problem-section").forEach(s=>s.style.display="none");
+ document.querySelectorAll(".problem-item").forEach(i=>i.classList.remove("active"));
+ document.getElementById("p"+n).style.display="block";
+ document.querySelectorAll(".problem-item")[n-1].classList.add("active");
+}
+openProblem(1);
+</script>
+</body>
+</html>
