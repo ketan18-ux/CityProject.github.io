@@ -1,160 +1,239 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Land Use, Zoning & Location Optimization — Tejas Keri</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Land Use, Zoning & Location Optimization — Tejas Keri</title>
 
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Fonts (Google) -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-<!-- Prism for syntax highlighting -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+  <style>
+    :root{
+      --bg: #f4f7fb;
+      --panel: #ffffff;
+      --muted: #47607a;
+      --accent-a: #0f4fa8;
+      --accent-b: #0b6fb6;
+      --card-shadow: 0 18px 40px rgba(14,30,60,0.06);
+      --radius: 14px;
+      --text: #05273b;
+    }
 
-<style>
-:root{
-  --bg: #f4f7fb;
-  --panel: #ffffff;
-  --muted: #475569;
-  --accent-a: #0f4fa8;
-  --accent-b: #0b6fb6;
-  --card-shadow: 0 14px 36px rgba(14,30,60,0.06);
-  --radius: 14px;
-  --text: #042a44;
-}
+    /* Reset + base */
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:linear-gradient(180deg,#f7fbfd 0%,#f4f7fb 100%);color:var(--text);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+    a{color:inherit;text-decoration:none}
 
-/* Reset + base */
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:linear-gradient(180deg,#f7fbfd 0%,#f4f7fb 100%);color:var(--text);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-.container{max-width:1180px;margin:28px auto;padding:18px}
+    .container{max-width:1180px;margin:28px auto;padding:18px}
 
-/* Header */
-.header{
-  display:flex;align-items:center;gap:16px;padding:10px 18px;border-radius:10px;background:#083b72;color:#fff;box-shadow:0 8px 24px rgba(4,20,60,0.15)
-}
-.logo{
-  width:48px;height:48px;border-radius:8px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px
-}
-.header .title{font-size:18px;font-weight:700}
-.header .sub{font-size:12px;opacity:0.9;margin-left:8px}
+    /* Header */
+    .header{
+      display:flex;align-items:center;gap:16px;padding:14px 18px;border-radius:10px;background:#083b72;color:#fff;box-shadow:0 8px 24px rgba(4,20,60,0.12)
+    }
+    .logo{
+      width:48px;height:48px;border-radius:10px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px
+    }
+    .header .title{font-size:18px;font-weight:700}
+    .header .sub{font-size:12px;opacity:0.95;margin-left:8px}
 
-/* Hero (image + banner) */
-.hero{
-  display:flex;flex-direction:column;gap:18px;margin-top:18px
-}
-.hero .banner-img{width:100%;border-radius:12px;overflow:hidden;box-shadow:var(--card-shadow)}
-.hero-banner{
-  background:linear-gradient(90deg,var(--accent-a),var(--accent-b));
-  color:white;padding:22px;border-radius:12px;margin-top:-68px;box-shadow:0 14px 36px rgba(7,40,90,0.12)
-}
-.hero-banner h1{margin:0;font-size:26px}
-.hero-banner p{margin:8px 0 0;color:rgba(255,255,255,0.92);font-size:14px}
+    /* Hero (image + banner) */
+    .hero{
+      display:flex;flex-direction:column;gap:18px;margin-top:18px
+    }
+    .hero-banner{
+      background:linear-gradient(90deg,var(--accent-a),var(--accent-b));
+      color:white;padding:26px;border-radius:12px;box-shadow:0 18px 40px rgba(7,40,90,0.12)
+    }
+    .hero-banner h1{margin:0;font-size:26px}
+    .hero-banner p{margin:8px 0 0;color:rgba(255,255,255,0.94);font-size:14px}
 
-/* Grid 2 x 5 */
-.grid{
-  margin-top:26px;
-  display:grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap:20px 22px;
-}
-@media (max-width:900px){
-  .grid{grid-template-columns:1fr}
-  .hero-banner{margin-top:0}
-}
+    /* Top grid cards (summary) */
+    .summary-grid{
+      margin-top:26px;
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:20px 22px;
+    }
+    @media (max-width:980px){ .summary-grid{grid-template-columns:1fr} .hero-banner{margin-top:0} }
 
-/* Card */
-.card{
-  background:var(--panel);
-  border-radius:12px;
-  padding:18px;
-  box-shadow:var(--card-shadow);
-  border-left:6px solid rgba(11,111,182,0.10);
-  display:flex;flex-direction:column;gap:8px;
-}
-.card h3{margin:0;font-size:18px;color:var(--text)}
-.card .alg{color:var(--accent-a);font-weight:700;font-size:13px;margin-top:4px}
-.card p{margin:0;color:var(--muted);font-size:13px}
-.section-title{font-size:13px;font-weight:700;margin-top:8px;color:#093759}
-.section-text{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.35}
+    .summary-card{
+      background:var(--panel);
+      border-radius:12px;
+      padding:18px;
+      box-shadow:var(--card-shadow);
+      border-left:6px solid rgba(11,111,182,0.10);
+      display:flex;flex-direction:column;gap:8px;
+    }
+    .summary-card h3{margin:0;font-size:18px;color:var(--text)}
+    .summary-card p{margin:0;color:var(--muted);font-size:13px}
 
-/* code area inside card: collapsible via details */
-.details-code {
-  margin-top:8px;
-  background:#0f1724;
-  border-radius:8px;
-  padding:10px;
-  overflow:auto;
-  color:#cbeefc;
-}
-pre { margin:0; background:transparent; padding:0;}
-code[class*="language-"]{ font-family: "JetBrains Mono", monospace; font-size:12.5px; line-height:1.4; }
+    /* detailed problems grid (two-column) */
+    .details-grid{
+      margin-top:26px;
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:22px;
+    }
+    @media (max-width:980px){ .details-grid{grid-template-columns:1fr} }
 
-/* small pills */
-.pills{display:flex;gap:8px;flex-wrap:wrap}
-.pill{background:rgba(2,6,23,0.04);padding:6px 10px;border-radius:999px;font-size:12px;color:var(--muted);}
+    .card{
+      background:var(--panel);
+      border-radius:12px;
+      padding:22px;
+      box-shadow:var(--card-shadow);
+      border-left:8px solid rgba(11,111,182,0.06);
+      display:flex;flex-direction:column;gap:10px;
+    }
+    .card h2{margin:0;font-size:20px;color:var(--text)}
+    .card .alg{color:var(--accent-a);font-weight:700;font-size:13px;margin-top:4px}
+    .section-title{font-size:13px;font-weight:700;margin-top:8px;color:#093759}
+    .section-text{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.45}
 
-/* footer */
-.footer{margin-top:28px;padding:14px;border-radius:12px;background:#083b72;color:white;text-align:center;font-size:14px;box-shadow:0 12px 28px rgba(7,40,90,0.12)}
-/* Back to top */
-.top-btn{display:inline-block;margin-top:16px;padding:8px 14px;border-radius:999px;background:linear-gradient(90deg,var(--accent-a),var(--accent-b));color:white;text-decoration:none;font-weight:700}
+    /* code area inside card: collapsible via details */
+    .details-code {
+      margin-top:10px;
+      background:#0f1724;
+      border-radius:8px;
+      padding:12px;
+      overflow:auto;
+      color:#cbeefc;
+      font-family:"JetBrains Mono",monospace;
+      font-size:13px;
+      line-height:1.45;
+    }
+    pre { margin:0; background:transparent; padding:0; white-space:pre; }
+    code[class*="language-"]{ font-family: "JetBrains Mono", monospace; font-size:13px; line-height:1.45; color:inherit; }
 
-/* accessibility focus */
-.card:focus-within{outline:2px solid rgba(11,111,182,0.12)}
-</style>
+    /* pills */
+    .pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .pill{background:rgba(2,6,23,0.04);padding:8px 12px;border-radius:999px;font-size:12px;color:var(--muted);}
+
+    /* footer */
+    .footer{margin-top:28px;padding:14px;border-radius:12px;background:#083b72;color:white;text-align:center;font-size:14px;box-shadow:0 12px 28px rgba(7,40,90,0.12)}
+
+    /* back to top */
+    .top-btn{display:inline-block;margin-top:16px;padding:10px 18px;border-radius:999px;background:linear-gradient(90deg,var(--accent-a),var(--accent-b));color:white;text-decoration:none;font-weight:700}
+
+    /* Focus + accessibility */
+    .card:focus-within{outline:2px solid rgba(11,111,182,0.12)}
+
+    /* small tweaks for summary card text */
+    .summary-card .alg{color:var(--accent-a);font-weight:700;font-size:13px;margin-top:6px}
+    .summary-card .muted{color:var(--muted);font-size:13px;margin-top:8px}
+  </style>
 </head>
 <body>
+  <div class="container" role="main">
 
-<div class="container" role="main">
+    <!-- Header -->
+    <header class="header" role="banner">
+      <div class="logo" aria-hidden="true">TK</div>
+      <div>
+        <div class="title">Tejas Keri</div>
+        <div class="sub">Land Use, Zoning & Location Optimization — DAA Portfolio</div>
+      </div>
+      <div style="margin-left:auto;color:rgba(255,255,255,0.95)">Home</div>
+    </header>
 
-  <!-- Header -->
-  <header class="header" role="banner">
-    <div class="logo" aria-hidden="true">TK</div>
-    <div>
-      <div class="title">Tejas Keri</div>
-      <div class="sub">Land Use, Zoning & Location Optimization — DAA Portfolio</div>
-    </div>
-    <div style="margin-left:auto;color:rgba(255,255,255,0.9)">Home</div>
-  </header>
+    <!-- Hero -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-banner" id="hero-heading">
+        <h1>Land Use, Zoning & Location Optimization Projects</h1>
+        <p>These problems involve spatial allocation, clustering, matching, zoning, and optimal city planning using algorithmic approaches.</p>
+      </div>
+    </section>
 
-  <!-- Hero image + banner -->
-  <section class="hero" aria-labelledby="hero-heading">
-    <div class="banner-img" role="img" aria-label="Land Use Projects Banner">
-      <img src="/mnt/data/d2a75678-15a8-4cc9-9110-7da374a3cd0d.jpeg" alt="Land Use Projects" style="width:100%;height:auto;display:block;object-fit:cover" />
-    </div>
+    <!-- Top summary grid -->
+    <section class="summary-grid" aria-label="Project summary grid">
+      <div class="summary-card">
+        <h3>1. Optimal Hospital Location</h3>
+        <div class="alg">Algorithm: 1D Median / k-Medians (approx)</div>
+        <p class="muted">Place hospitals to minimize average distance for citizens.</p>
+      </div>
 
-    <div class="hero-banner" id="hero-heading">
-      <h1>Land Use, Zoning & Location Optimization Projects</h1>
-      <p>These tasks involve spatial allocation, clustering, matching, zoning, and optimal city planning using algorithmic methods tailored for real-world urban environments.</p>
-    </div>
-  </section>
+      <div class="summary-card">
+        <h3>2. School Allocation to Students</h3>
+        <div class="alg">Algorithm: Bipartite Matching / Max-Flow (Dinic)</div>
+        <p class="muted">Match students to nearest valid schools with capacity constraints.</p>
+      </div>
 
-  <!-- Grid (2 columns × 5 rows) -->
-  <section class="grid" aria-label="Project grid">
+      <div class="summary-card">
+        <h3>3. Smart Parking Slot Allocation</h3>
+        <div class="alg">Algorithm: Hungarian Algorithm</div>
+        <p class="muted">Assign cars to parking slots to minimize total walking distance.</p>
+      </div>
 
-    <!-- 1 -->
-    <article class="card" id="p1" tabindex="0" aria-labelledby="p1-title">
-      <h3 id="p1-title">1. Optimal Hospital Location</h3>
-      <div class="alg">Algorithm: 1D Median / k-Medians (approx)</div>
+      <div class="summary-card">
+        <h3>4. Industrial vs Residential Separation</h3>
+        <div class="alg">Algorithm: Graph Coloring</div>
+        <p class="muted">Assign zoning types ensuring incompatible types don't touch.</p>
+      </div>
 
-      <div class="section-title">Problem Content</div>
-      <div class="section-text">Place one or multiple hospitals within a city to minimize travel distance for residents, taking into account population density and accessibility. Stakeholders include citizens, emergency services and urban planners.</div>
+      <div class="summary-card">
+        <h3>5. Public Park Placement Optimization</h3>
+        <div class="alg">Algorithm: Greedy Max-Coverage</div>
+        <p class="muted">Select k park sites maximizing covered population.</p>
+      </div>
 
-      <div class="section-title">Algorithmic Solution</div>
-      <div class="section-text">For the single-hospital (1D) case, the median minimizes absolute distance. For k facilities, run k-medians or k-means-like iterative improvement with assignment and center update steps; use heuristics for initialization.</div>
+      <div class="summary-card">
+        <h3>6. Land Subdivision Optimization</h3>
+        <div class="alg">Algorithm: Divide & Conquer + Geometry</div>
+        <p class="muted">Partition large parcels into balanced subplots with constraints.</p>
+      </div>
 
-      <div class="section-title">Input / Output (Project Version)</div>
-      <div class="section-text">Input: List of resident coordinates (x,y) and optional weights (population). Output: Coordinates of hospital locations and total travel cost estimate.</div>
+      <div class="summary-card">
+        <h3>7. High Footfall Commercial Zone Prediction</h3>
+        <div class="alg">Algorithm: Clustering (k-means / DBSCAN)</div>
+        <p class="muted">Predict commercial hotspots from movement traces & POIs.</p>
+      </div>
 
-      <div class="section-title">Related SDGs</div>
-      <div class="pills"><span class="pill">SDG 3 — Good Health & Well-being</span><span class="pill">SDG 11 — Sustainable Cities</span></div>
+      <div class="summary-card">
+        <h3>8. Creation of Green Belt Buffers</h3>
+        <div class="alg">Algorithm: BFS Layers / Morphological Buffer</div>
+        <p class="muted">Create buffer belts around polluted or sensitive zones.</p>
+      </div>
 
-      <details>
-        <summary style="margin-top:8px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (median / simple k=1)</summary>
-        <div class="details-code" role="region" aria-live="polite">
-<pre><code class="language-cpp">// Hospital Location (1D median)
+      <div class="summary-card">
+        <h3>9. Footpath Connectivity Plan</h3>
+        <div class="alg">Algorithm: Shortest Paths / Graph Connectivity</div>
+        <p class="muted">Detect disconnected pedestrian networks and suggest links.</p>
+      </div>
+
+      <div class="summary-card">
+        <h3>10. Underground Utility Routing</h3>
+        <div class="alg">Algorithm: A* Search / Disjoint Shortest Paths</div>
+        <p class="muted">Route utilities avoiding conflicts while minimizing cost.</p>
+      </div>
+    </section>
+
+    <!-- Detailed two-column grid for problems 1-10 (matches screenshot layout) -->
+    <section class="details-grid" aria-label="Detailed project descriptions">
+
+      <!-- 1 -->
+      <article class="card" id="p1" tabindex="0" aria-labelledby="p1-title">
+        <h2 id="p1-title">1. Optimal Hospital Location</h2>
+        <div class="alg">Algorithm: 1D Median / k-Medians (approx)</div>
+
+        <div class="section-title">Problem Content</div>
+        <div class="section-text">Place one or multiple hospitals within a city to minimize travel distance for residents, taking into account population density and accessibility. Stakeholders include citizens, emergency services and urban planners.</div>
+
+        <div class="section-title">Algorithmic Solution</div>
+        <div class="section-text">For the single-hospital (1D) case, the median minimizes absolute distance. For k facilities, run k-medians or k-means-like iterative improvement with assignment and center update steps; use heuristics for initialization.</div>
+
+        <div class="section-title">Input / Output (Project Version)</div>
+        <div class="section-text">Input: List of resident coordinates (x,y) and optional weights (population). Output: Coordinates of hospital locations and total travel cost estimate.</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills">
+          <span class="pill">SDG 3 — Good Health & Well-being</span>
+          <span class="pill">SDG 11 — Sustainable Cities</span>
+        </div>
+
+        <details>
+          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (median / simple k=1)</summary>
+          <div class="details-code" role="region" aria-live="polite">
+<pre><code>// Hospital Location (1D median)
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 
@@ -170,31 +249,34 @@ int main(){
     cout << fixed << "Median position: " << median_1d(pts) << '\\n';
     return 0;
 }</code></pre>
+          </div>
+        </details>
+      </article>
+
+      <!-- 2 -->
+      <article class="card" id="p2" tabindex="0" aria-labelledby="p2-title">
+        <h2 id="p2-title">2. School Allocation to Students</h2>
+        <div class="alg">Algorithm: Bipartite Matching / Max-Flow (Dinic)</div>
+
+        <div class="section-title">Problem Content</div>
+        <div class="section-text">Assign students to schools minimizing travel time while respecting school capacities and eligibility zones. Ensure fairness and capacity constraints are satisfied.</div>
+
+        <div class="section-title">Algorithmic Solution</div>
+        <div class="section-text">Model as bipartite graph (students → schools) with edges for reachable schools. Use max flow (Dinic) with capacities to enforce school seat limits and minimize cost via repeated flows or min-cost max-flow when costs vary.</div>
+
+        <div class="section-title">Input / Output (Project Version)</div>
+        <div class="section-text">Input: Students with coordinates, schools with coordinates and capacities; optionally cost matrix (distance). Output: Assignment list (student -> school) and total travel cost.</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills">
+          <span class="pill">SDG 4 — Quality Education</span>
+          <span class="pill">SDG 10 — Reduced Inequalities</span>
         </div>
-      </details>
-    </article>
 
-    <!-- 2 -->
-    <article class="card" id="p2" tabindex="0" aria-labelledby="p2-title">
-      <h3 id="p2-title">2. School Allocation to Students</h3>
-      <div class="alg">Algorithm: Bipartite Matching / Max-Flow (Dinic)</div>
-
-      <div class="section-title">Problem Content</div>
-      <div class="section-text">Assign students to schools minimizing travel time while respecting school capacities and eligibility zones. Ensure fairness and capacity constraints are satisfied.</div>
-
-      <div class="section-title">Algorithmic Solution</div>
-      <div class="section-text">Model as bipartite graph (students → schools) with edges for reachable schools. Use max flow (Dinic) with capacities to enforce school seat limits and minimize cost via repeated flows or min-cost max-flow when costs vary.</div>
-
-      <div class="section-title">Input / Output (Project Version)</div>
-      <div class="section-text">Input: Students with coordinates, schools with coordinates and capacities; optionally cost matrix (distance). Output: Assignment list (student -> school) and total travel cost.</div>
-
-      <div class="section-title">Related SDGs</div>
-      <div class="pills"><span class="pill">SDG 4 — Quality Education</span><span class="pill">SDG 10 — Reduced Inequalities</span></div>
-
-      <details>
-        <summary style="margin-top:8px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (Dinic skeleton)</summary>
-        <div class="details-code" role="region" aria-live="polite">
-<pre><code class="language-cpp">// Dinic's Algorithm (C++) - skeleton for student-school assignment
+        <details>
+          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (Dinic skeleton)</summary>
+          <div class="details-code" role="region" aria-live="polite">
+<pre><code>// Dinic's Algorithm (C++) - skeleton for student-school assignment
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 struct Edge{int to; long long cap; int rev;};
@@ -220,31 +302,34 @@ struct Dinic {
 };
 
 int main(){ /* Build network and run max_flow */ return 0; }</code></pre>
+          </div>
+        </details>
+      </article>
+
+      <!-- 3 -->
+      <article class="card" id="p3" tabindex="0" aria-labelledby="p3-title">
+        <h2 id="p3-title">3. Smart Parking Slot Allocation</h2>
+        <div class="alg">Algorithm: Hungarian Algorithm (Assignment Problem)</div>
+
+        <div class="section-title">Problem Content</div>
+        <div class="section-text">Assign incoming cars to parking slots to minimize total walking distance while satisfying capacity and accessibility rules. Useful for event parking and smart-city parking management.</div>
+
+        <div class="section-title">Algorithmic Solution</div>
+        <div class="section-text">Formulate as a cost matrix (cars × slots) where entry = walking distance. Use the Hungarian algorithm for a minimum-cost assignment in O(n³) for n cars/slots (or use sparse matching heuristics for large-scale).</div>
+
+        <div class="section-title">Input / Output (Project Version)</div>
+        <div class="section-text">Input: Coordinates of cars and slot positions, constraints (handicap slots). Output: Assignment pairs and total walking distance reduction estimate.</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills">
+          <span class="pill">SDG 11 — Sustainable Cities</span>
+          <span class="pill">SDG 9 — Industry & Infrastructure</span>
         </div>
-      </details>
-    </article>
 
-    <!-- 3 -->
-    <article class="card" id="p3" tabindex="0" aria-labelledby="p3-title">
-      <h3 id="p3-title">3. Smart Parking Slot Allocation</h3>
-      <div class="alg">Algorithm: Hungarian Algorithm (Assignment Problem)</div>
-
-      <div class="section-title">Problem Content</div>
-      <div class="section-text">Assign incoming cars to parking slots to minimize total walking distance while satisfying capacity and accessibility rules. Useful for event parking and smart-city parking management.</div>
-
-      <div class="section-title">Algorithmic Solution</div>
-      <div class="section-text">Formulate as a cost matrix (cars × slots) where entry = walking distance. Use the Hungarian algorithm for a minimum-cost assignment in O(n³) for n cars/slots (or use sparse matching heuristics for large-scale).</div>
-
-      <div class="section-title">Input / Output (Project Version)</div>
-      <div class="section-text">Input: Coordinates of cars and slot positions, constraints (handicap slots). Output: Assignment pairs and total walking distance reduction estimate.</div>
-
-      <div class="section-title">Related SDGs</div>
-      <div class="pills"><span class="pill">SDG 11 — Sustainable Cities</span><span class="pill">SDG 9 — Industry & Infrastructure</span></div>
-
-      <details>
-        <summary style="margin-top:8px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (Hungarian - condensed)</summary>
-        <div class="details-code" role="region" aria-live="polite">
-<pre><code class="language-cpp">// Hungarian Algorithm (condensed) - cost matrix must be square
+        <details>
+          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (Hungarian - condensed)</summary>
+          <div class="details-code" role="region" aria-live="polite">
+<pre><code>// Hungarian Algorithm (condensed) - cost matrix must be square
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 vector<int> hungarian(const vector<vector<long long>>& a){
@@ -277,31 +362,34 @@ vector<int> hungarian(const vector<vector<long long>>& a){
 }
 
 int main(){ return 0; }</code></pre>
+          </div>
+        </details>
+      </article>
+
+      <!-- 4 -->
+      <article class="card" id="p4" tabindex="0" aria-labelledby="p4-title">
+        <h2 id="p4-title">4. Industrial vs Residential Separation</h2>
+        <div class="alg">Algorithm: Graph Coloring / Bipartite Check</div>
+
+        <div class="section-title">Problem Content</div>
+        <div class="section-text">Assign zoning types (residential/industrial) across adjacent land parcels so incompatible types do not touch edge-to-edge. This prevents harmful co-location of industries and homes.</div>
+
+        <div class="section-title">Algorithmic Solution</div>
+        <div class="section-text">Model parcels as nodes and adjacency as edges. A bipartite graph implies a 2-coloring exists. For general planar zoning, graph-coloring heuristics or constraint solvers (SAT/ILP) are used.</div>
+
+        <div class="section-title">Input / Output (Project Version)</div>
+        <div class="section-text">Input: Parcel adjacency graph and parcel attributes. Output: Coloring assignment (zone per parcel) and a feasibility report highlighting conflicts if any.</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills">
+          <span class="pill">SDG 11 — Sustainable Cities</span>
+          <span class="pill">SDG 3 — Good Health</span>
         </div>
-      </details>
-    </article>
 
-    <!-- 4 -->
-    <article class="card" id="p4" tabindex="0" aria-labelledby="p4-title">
-      <h3 id="p4-title">4. Industrial vs Residential Separation</h3>
-      <div class="alg">Algorithm: Graph Coloring / Bipartite Check</div>
-
-      <div class="section-title">Problem Content</div>
-      <div class="section-text">Assign zoning types (residential/industrial) across adjacent land parcels so incompatible types do not touch edge-to-edge. This prevents harmful co-location of industries and homes.</div>
-
-      <div class="section-title">Algorithmic Solution</div>
-      <div class="section-text">Model parcels as nodes and adjacency as edges. A bipartite graph implies a 2-coloring exists. For general planar zoning, graph-coloring heuristics or constraint solvers (SAT/ILP) are used.</div>
-
-      <div class="section-title">Input / Output (Project Version)</div>
-      <div class="section-text">Input: Parcel adjacency graph and parcel attributes. Output: Coloring assignment (zone per parcel) and a feasibility report highlighting conflicts if any.</div>
-
-      <div class="section-title">Related SDGs</div>
-      <div class="pills"><span class="pill">SDG 11 — Sustainable Cities</span><span class="pill">SDG 3 — Good Health</span></div>
-
-      <details>
-        <summary style="margin-top:8px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (bipartite check)</summary>
-        <div class="details-code" role="region" aria-live="polite">
-<pre><code class="language-cpp">// Bipartite check (BFS)
+        <details>
+          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (bipartite check)</summary>
+          <div class="details-code" role="region" aria-live="polite">
+<pre><code>// Bipartite check (BFS)
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 bool is_bipartite(const vector<vector<int>>& g){
@@ -320,31 +408,34 @@ bool is_bipartite(const vector<vector<int>>& g){
     return true;
 }
 int main(){ return 0; }</code></pre>
+          </div>
+        </details>
+      </article>
+
+      <!-- 5 -->
+      <article class="card" id="p5" tabindex="0" aria-labelledby="p5-title">
+        <h2 id="p5-title">5. Public Park Placement Optimization</h2>
+        <div class="alg">Algorithm: Greedy Max-Coverage + Fenwick Tree support</div>
+
+        <div class="section-title">Problem Content</div>
+        <div class="section-text">Choose k park sites from candidate locations to maximize the population covered within a walking radius. Balances equity and accessibility.</div>
+
+        <div class="section-title">Algorithmic Solution</div>
+        <div class="section-text">Greedy approximation: at each step, pick the site that adds the largest marginal coverage. Fenwick trees or spatial indexes accelerate counting and updates.</div>
+
+        <div class="section-title">Input / Output (Project Version)</div>
+        <div class="section-text">Input: Candidate site coordinates, population distribution (points or grid), k. Output: Chosen sites and total covered population.</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills">
+          <span class="pill">SDG 11 — Sustainable Cities</span>
+          <span class="pill">SDG 3 — Good Health</span>
         </div>
-      </details>
-    </article>
 
-    <!-- 5 -->
-    <article class="card" id="p5" tabindex="0" aria-labelledby="p5-title">
-      <h3 id="p5-title">5. Public Park Placement Optimization</h3>
-      <div class="alg">Algorithm: Greedy Max-Coverage + Fenwick Tree support</div>
-
-      <div class="section-title">Problem Content</div>
-      <div class="section-text">Choose k park sites from candidate locations to maximize the population covered within a walking radius. Balances equity and accessibility.</div>
-
-      <div class="section-title">Algorithmic Solution</div>
-      <div class="section-text">Greedy approximation: at each step, pick the site that adds the largest marginal coverage. Fenwick trees or spatial indexes accelerate counting and updates.</div>
-
-      <div class="section-title">Input / Output (Project Version)</div>
-      <div class="section-text">Input: Candidate site coordinates, population distribution (points or grid), k. Output: Chosen sites and total covered population.</div>
-
-      <div class="section-title">Related SDGs</div>
-      <div class="pills"><span class="pill">SDG 11 — Sustainable Cities</span><span class="pill">SDG 3 — Good Health</span></div>
-
-      <details>
-        <summary style="margin-top:8px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (Fenwick helper)</summary>
-        <div class="details-code" role="region" aria-live="polite">
-<pre><code class="language-cpp">// Fenwick tree (Binary Indexed Tree)
+        <details>
+          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (Fenwick helper)</summary>
+          <div class="details-code" role="region" aria-live="polite">
+<pre><code>// Fenwick tree (Binary Indexed Tree)
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 struct Fenwick {
@@ -355,31 +446,34 @@ struct Fenwick {
     long long range_sum(int l,int r){ if(r<l) return 0; return sum(r)-(l?sum(l-1):0); }
 };
 int main(){ return 0; }</code></pre>
+          </div>
+        </details>
+      </article>
+
+      <!-- 6 -->
+      <article class="card" id="p6" tabindex="0" aria-labelledby="p6-title">
+        <h2 id="p6-title">6. Land Subdivision Optimization</h2>
+        <div class="alg">Algorithm: Divide & Conquer + Geometry (Shoelace area)</div>
+
+        <div class="section-title">Problem Content</div>
+        <div class="section-text">Partition large land parcels into smaller balanced plots for development while preserving constraints (road access, minimum parcel area, contour). Important for equitable land use and development planning.</div>
+
+        <div class="section-title">Algorithmic Solution</div>
+        <div class="section-text">Use recursive partitioning (kd-like splits guided by population or area) and geometric primitives for area calculation. Use heuristics to satisfy constraints like minimum parcel dimensions and connectivity.</div>
+
+        <div class="section-title">Input / Output (Project Version)</div>
+        <div class="section-text">Input: Polygon describing parcel, constraints (min area, aspect ratio). Output: Set of sub-polygons (subplots) with metadata (area, centroid).</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills">
+          <span class="pill">SDG 11 — Sustainable Cities</span>
+          <span class="pill">SDG 15 — Life on Land</span>
         </div>
-      </details>
-    </article>
 
-    <!-- 6 -->
-    <article class="card" id="p6" tabindex="0" aria-labelledby="p6-title">
-      <h3 id="p6-title">6. Land Subdivision Optimization</h3>
-      <div class="alg">Algorithm: Divide & Conquer + Geometry (Shoelace area)</div>
-
-      <div class="section-title">Problem Content</div>
-      <div class="section-text">Partition large land parcels into smaller balanced plots for development while preserving constraints (road access, minimum parcel area, contour). Important for equitable land use and development planning.</div>
-
-      <div class="section-title">Algorithmic Solution</div>
-      <div class="section-text">Use recursive partitioning (kd-like splits guided by population or area) and geometric primitives for area calculation. Use heuristics to satisfy constraints like minimum parcel dimensions and connectivity.</div>
-
-      <div class="section-title">Input / Output (Project Version)</div>
-      <div class="section-text">Input: Polygon describing parcel, constraints (min area, aspect ratio). Output: Set of sub-polygons (subplots) with metadata (area, centroid).</div>
-
-      <div class="section-title">Related SDGs</div>
-      <div class="pills"><span class="pill">SDG 11 — Sustainable Cities</span><span class="pill">SDG 15 — Life on Land</span></div>
-
-      <details>
-        <summary style="margin-top:8px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (Shoelace polygon area)</summary>
-        <div class="details-code" role="region" aria-live="polite">
-<pre><code class="language-cpp">// Polygon area via Shoelace
+        <details>
+          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (Shoelace polygon area)</summary>
+          <div class="details-code" role="region" aria-live="polite">
+<pre><code>// Polygon area via Shoelace
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 double polygon_area(const vector<pair<double,double>>& poly){
@@ -392,31 +486,34 @@ double polygon_area(const vector<pair<double,double>>& poly){
     return fabs(s)/2.0;
 }
 int main(){ return 0; }</code></pre>
+          </div>
+        </details>
+      </article>
+
+      <!-- 7 -->
+      <article class="card" id="p7" tabindex="0" aria-labelledby="p7-title">
+        <h2 id="p7-title">7. High Footfall Commercial Zone Prediction</h2>
+        <div class="alg">Algorithm: Clustering (k-means, DBSCAN)</div>
+
+        <div class="section-title">Problem Content</div>
+        <div class="section-text">Predict commercial hotspots by analyzing movement traces, point-of-interest density, and temporal patterns. Helps city planners allocate services and transit capacity.</div>
+
+        <div class="section-title">Algorithmic Solution</div>
+        <div class="section-text">Use density-based clustering (DBSCAN) to find high-density pockets and k-means for partitioning known areas; incorporate temporal features and heatmaps for robustness.</div>
+
+        <div class="section-title">Input / Output (Project Version)</div>
+        <div class="section-text">Input: Movement traces, footfall sensor counts, POI data. Output: Clustered hotspot polygons, ranking by footfall and suggestions for interventions.</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills">
+          <span class="pill">SDG 8 — Decent Work & Economic Growth</span>
+          <span class="pill">SDG 11 — Sustainable Cities</span>
         </div>
-      </details>
-    </article>
 
-    <!-- 7 -->
-    <article class="card" id="p7" tabindex="0" aria-labelledby="p7-title">
-      <h3 id="p7-title">7. High Footfall Commercial Zone Prediction</h3>
-      <div class="alg">Algorithm: Clustering (k-means, DBSCAN)</div>
-
-      <div class="section-title">Problem Content</div>
-      <div class="section-text">Predict commercial hotspots by analyzing movement traces, point-of-interest density, and temporal patterns. Helps city planners allocate services and transit capacity.</div>
-
-      <div class="section-title">Algorithmic Solution</div>
-      <div class="section-text">Use density-based clustering (DBSCAN) to find high-density pockets and k-means for partitioning known areas; incorporate temporal features and heatmaps for robustness.</div>
-
-      <div class="section-title">Input / Output (Project Version)</div>
-      <div class="section-text">Input: Movement traces, footfall sensor counts, POI data. Output: Clustered hotspot polygons, ranking by footfall and suggestions for interventions.</div>
-
-      <div class="section-title">Related SDGs</div>
-      <div class="pills"><span class="pill">SDG 8 — Decent Work & Economic Growth</span><span class="pill">SDG 11 — Sustainable Cities</span></div>
-
-      <details>
-        <summary style="margin-top:8px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (k-means assign step)</summary>
-        <div class="details-code" role="region" aria-live="polite">
-<pre><code class="language-cpp">// Simple k-means assignment (points + centers)
+        <details>
+          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (k-means assign step)</summary>
+          <div class="details-code" role="region" aria-live="polite">
+<pre><code>// Simple k-means assignment (points + centers)
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 using P = pair<double,double>;
@@ -433,31 +530,34 @@ vector<int> assign_clusters(const vector<P>& pts, const vector<P>& centers){
     return assign;
 }
 int main(){ return 0; }</code></pre>
+          </div>
+        </details>
+      </article>
+
+      <!-- 8 -->
+      <article class="card" id="p8" tabindex="0" aria-labelledby="p8-title">
+        <h2 id="p8-title">8. Creation of Green Belt Buffers</h2>
+        <div class="alg">Algorithm: BFS Layers / Morphological Buffer</div>
+
+        <div class="section-title">Problem Content</div>
+        <div class="section-text">Create buffer belts around polluted zones or city limits to protect ecosystems, reduce exposure, and create green corridors for biodiversity.</div>
+
+        <div class="section-title">Algorithmic Solution</div>
+        <div class="section-text">Use BFS on grids or distance transforms in rasterized maps to compute layered buffers. Constrain with land ownership and protected zones through masked expansion.</div>
+
+        <div class="section-title">Input / Output (Project Version)</div>
+        <div class="section-text">Input: Raster map with pollution sources and obstacles. Output: Buffer layers map with layer indices (distance bands) and suggested planting areas.</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills">
+          <span class="pill">SDG 13 — Climate Action</span>
+          <span class="pill">SDG 15 — Life on Land</span>
         </div>
-      </details>
-    </article>
 
-    <!-- 8 -->
-    <article class="card" id="p8" tabindex="0" aria-labelledby="p8-title">
-      <h3 id="p8-title">8. Creation of Green Belt Buffers</h3>
-      <div class="alg">Algorithm: BFS Layers / Morphological Buffer</div>
-
-      <div class="section-title">Problem Content</div>
-      <div class="section-text">Create buffer belts around polluted zones or city limits to protect ecosystems, reduce exposure, and create green corridors for biodiversity.</div>
-
-      <div class="section-title">Algorithmic Solution</div>
-      <div class="section-text">Use BFS on grids or distance transforms in rasterized maps to compute layered buffers. Constrain with land ownership and protected zones through masked expansion.</div>
-
-      <div class="section-title">Input / Output (Project Version)</div>
-      <div class="section-text">Input: Raster map with pollution sources and obstacles. Output: Buffer layers map with layer indices (distance bands) and suggested planting areas.</div>
-
-      <div class="section-title">Related SDGs</div>
-      <div class="pills"><span class="pill">SDG 13 — Climate Action</span><span class="pill">SDG 15 — Life on Land</span></div>
-
-      <details>
-        <summary style="margin-top:8px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (BFS layers)</summary>
-        <div class="details-code" role="region" aria-live="polite">
-<pre><code class="language-cpp">// BFS buffer layers on grid
+        <details>
+          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (BFS layers)</summary>
+          <div class="details-code" role="region" aria-live="polite">
+<pre><code>// BFS buffer layers on grid
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 vector<vector<int>> buffer_layers(const vector<vector<int>>& grid, const vector<pair<int,int>>& sources){
@@ -478,31 +578,34 @@ vector<vector<int>> buffer_layers(const vector<vector<int>>& grid, const vector<
     return dist;
 }
 int main(){ return 0; }</code></pre>
+          </div>
+        </details>
+      </article>
+
+      <!-- 9 -->
+      <article class="card" id="p9" tabindex="0" aria-labelledby="p9-title">
+        <h2 id="p9-title">9. Footpath Connectivity Plan</h2>
+        <div class="alg">Algorithm: Shortest Paths / Graph Connectivity</div>
+
+        <div class="section-title">Problem Content</div>
+        <div class="section-text">Detect disconnected pedestrian networks, compute shortest safe routes between origins and destinations, and recommend minimal new links to improve connectivity.</div>
+
+        <div class="section-title">Algorithmic Solution</div>
+        <div class="section-text">Use graph constructions with nodes at intersections and weights from pedestrian safety metrics. Dijkstra for shortest paths, bridge/ articulation point detection for vulnerabilities, and minimum link addition via connectivity augmentation heuristics.</div>
+
+        <div class="section-title">Input / Output (Project Version)</div>
+        <div class="section-text">Input: Street graph, pedestrian counts, safe path constraints. Output: Shortest-path matrices, suggested new footpath links and estimated improvement metrics.</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills">
+          <span class="pill">SDG 11 — Sustainable Cities</span>
+          <span class="pill">SDG 3 — Good Health</span>
         </div>
-      </details>
-    </article>
 
-    <!-- 9 -->
-    <article class="card" id="p9" tabindex="0" aria-labelledby="p9-title">
-      <h3 id="p9-title">9. Footpath Connectivity Plan</h3>
-      <div class="alg">Algorithm: Shortest Paths / Graph Connectivity</div>
-
-      <div class="section-title">Problem Content</div>
-      <div class="section-text">Detect disconnected pedestrian networks, compute shortest safe routes between origins and destinations, and recommend minimal new links to improve connectivity.</div>
-
-      <div class="section-title">Algorithmic Solution</div>
-      <div class="section-text">Use graph constructions with nodes at intersections and weights from pedestrian safety metrics. Dijkstra for shortest paths, bridge/ articulation point detection for vulnerabilities, and minimum link addition via connectivity augmentation heuristics.</div>
-
-      <div class="section-title">Input / Output (Project Version)</div>
-      <div class="section-text">Input: Street graph, pedestrian counts, safe path constraints. Output: Shortest-path matrices, suggested new footpath links and estimated improvement metrics.</div>
-
-      <div class="section-title">Related SDGs</div>
-      <div class="pills"><span class="pill">SDG 11 — Sustainable Cities</span><span class="pill">SDG 3 — Good Health</span></div>
-
-      <details>
-        <summary style="margin-top:8px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (Dijkstra)</summary>
-        <div class="details-code" role="region" aria-live="polite">
-<pre><code class="language-cpp">// Dijkstra shortest paths (adjacency map)
+        <details>
+          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (Dijkstra)</summary>
+          <div class="details-code" role="region" aria-live="polite">
+<pre><code>// Dijkstra shortest paths (adjacency map)
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 unordered_map<int, long long> dijkstra(const unordered_map<int, vector<pair<int,long long>>>& graph, int start){
@@ -524,31 +627,34 @@ unordered_map<int, long long> dijkstra(const unordered_map<int, vector<pair<int,
     return dist;
 }
 int main(){ return 0; }</code></pre>
+          </div>
+        </details>
+      </article>
+
+      <!-- 10 -->
+      <article class="card" id="p10" tabindex="0" aria-labelledby="p10-title">
+        <h2 id="p10-title">10. Underground Utility Routing</h2>
+        <div class="alg">Algorithm: A* Search / Disjoint Shortest Paths</div>
+
+        <div class="section-title">Problem Content</div>
+        <div class="section-text">Plan the routing of underground utilities (water, sewer, fiber, power) to avoid spatial conflicts and critical infrastructure while minimizing construction cost and length.</div>
+
+        <div class="section-title">Algorithmic Solution</div>
+        <div class="section-text">Model as grid/graph with obstacles. Use A* for pathfinding with Manhattan or Euclidean heuristics. For multiple utilities with disjointness constraints, use successive routing with reserved corridors or multi-commodity flow approximations.</div>
+
+        <div class="section-title">Input / Output (Project Version)</div>
+        <div class="section-text">Input: Grid map with obstacles and existing utilities, start & end coordinates for each route. Output: Set of routes avoiding prohibited cells, length and cost metrics, and clash-free corridor map.</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills">
+          <span class="pill">SDG 9 — Industry & Infrastructure</span>
+          <span class="pill">SDG 6 — Clean Water & Sanitation</span>
         </div>
-      </details>
-    </article>
 
-    <!-- 10 -->
-    <article class="card" id="p10" tabindex="0" aria-labelledby="p10-title">
-      <h3 id="p10-title">10. Underground Utility Routing</h3>
-      <div class="alg">Algorithm: A* Search / Disjoint Shortest Paths</div>
-
-      <div class="section-title">Problem Content</div>
-      <div class="section-text">Plan the routing of underground utilities (water, sewer, fiber, power) to avoid spatial conflicts and critical infrastructure while minimizing construction cost and length.</div>
-
-      <div class="section-title">Algorithmic Solution</div>
-      <div class="section-text">Model as grid/graph with obstacles. Use A* for pathfinding with Manhattan or Euclidean heuristics. For multiple utilities with disjointness constraints, use successive routing with reserved corridors or multi-commodity flow approximations.</div>
-
-      <div class="section-title">Input / Output (Project Version)</div>
-      <div class="section-text">Input: Grid map with obstacles and existing utilities, start & end coordinates for each route. Output: Set of routes avoiding prohibited cells, length and cost metrics, and clash-free corridor map.</div>
-
-      <div class="section-title">Related SDGs</div>
-      <div class="pills"><span class="pill">SDG 9 — Industry & Infrastructure</span><span class="pill">SDG 6 — Clean Water & Sanitation</span></div>
-
-      <details>
-        <summary style="margin-top:8px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (A* on grid)</summary>
-        <div class="details-code" role="region" aria-live="polite">
-<pre><code class="language-cpp">// A* Search on grid (Manhattan heuristic)
+        <details>
+          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (A* on grid)</summary>
+          <div class="details-code" role="region" aria-live="polite">
+<pre><code>// A* Search on grid (Manhattan heuristic)
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 int heuristic(pair<int,int> a, pair<int,int> b){ return abs(a.first-b.first) + abs(a.second-b.second); }
@@ -583,29 +689,28 @@ vector<pair<int,int>> astar(const vector<vector<int>>& grid, pair<int,int> start
     return {};
 }
 int main(){ return 0; }</code></pre>
-        </div>
-      </details>
-    </article>
+          </div>
+        </details>
+      </article>
 
-  </section> <!-- end grid -->
+    </section> <!-- end details-grid -->
 
-  <div style="text-align:center;margin-top:20px">
-    <a class="top-btn" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">← Back to Top</a>
+    <div style="text-align:center;margin-top:22px">
+      <a class="top-btn" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">← Back to Top</a>
+    </div>
+
+    <footer class="footer" role="contentinfo">© 2024 Tejas Keri — Portfolio</footer>
   </div>
 
-  <footer class="footer" role="contentinfo">© 2024 Tejas Keri — Portfolio</footer>
-</div>
-
-<!-- Keyboard shortcuts: 1..0 jump to cards -->
-<script>
-document.addEventListener('keydown', function(e){
-  if(e.key >= '0' && e.key <= '9'){
-    let idx = (e.key === '0') ? 10 : Number(e.key);
-    const el = document.getElementById('p' + idx);
-    if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
-  }
-});
-</script>
-
+  <!-- Keyboard shortcuts: 1..0 jump to cards -->
+  <script>
+    document.addEventListener('keydown', function(e){
+      if(e.key >= '0' && e.key <= '9'){
+        let idx = (e.key === '0') ? 10 : Number(e.key);
+        const el = document.getElementById('p' + idx);
+        if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
+      }
+    });
+  </script>
 </body>
 </html>
