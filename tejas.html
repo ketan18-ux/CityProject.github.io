@@ -11,7 +11,8 @@
 <!-- Prism for syntax highlighting -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
 
 <style>
 /* -----------------------------
@@ -347,14 +348,13 @@ code { font-family:"JetBrains Mono", monospace; font-size:14px; display:block; w
     <div class="desc" id="problemDesc">Click a problem card to view the explanation.</div>
     <div class="sdg-row" id="problemSdgs" aria-hidden="true"></div>
     <div class="complexity" id="problemComplexity">Time Complexity — (select a problem)</div>
-    <pre aria-live="polite"><code id="problemCode" class="language-python"># Code will appear here.</code></pre>
+    <pre aria-live="polite"><code id="problemCode" class="language-cpp">// Code will appear here.</code></pre>
   </main>
 </div>
 
 <script>
 /* ----------------------------------------------------
-   PROBLEM DATA (with SDGs added)
-   - Each problem now has an `sdgs` array (3-4 short labels)
+   PROBLEM DATA (C++ code answers)
 ---------------------------------------------------- */
 const problems = [
   {
@@ -363,131 +363,119 @@ const problems = [
     desc: "Place hospitals so that the total distance citizens travel is minimized.",
     complexity: "O(n log n) using median method; O(knt) for k-median clustering.",
     sdgs: ["SDG 3: Good Health", "SDG 9: Industry & Infrastructure", "SDG 11: Sustainable Cities", "SDG 10: Reduced Inequalities"],
-    code: `# Hospital Location (Median / k-median)
-# 1D Median solution
-def median_1d(points):
-    points = sorted(points)
-    n = len(points)
-    if n % 2:
-        return points[n//2]
-    return (points[n//2-1] + points[n//2]) / 2
+    code: `// Hospital Location (1D median)
+#include <bits/stdc++.h>
+using namespace std;
 
-# Example usage:
-if __name__ == "__main__":
-    pts = [1, 5, 9, 3, 8]
-    print("Median:", median_1d(pts))`
+double median_1d(vector<long long> pts){
+    sort(pts.begin(), pts.end());
+    int n = pts.size();
+    if(n % 2 == 1) return pts[n/2];
+    return (pts[n/2 - 1] + pts[n/2]) / 2.0;
+}
+
+int main(){
+    vector<long long> pts = {1,5,9,3,8};
+    cout << "Median: " << median_1d(pts) << '\n';
+    return 0;
+}`
   },
   {
     id: 2,
     title: "School Allocation to Students",
     desc: "Assign students to the nearest school under capacity constraints using Max-Flow.",
-    complexity: "O(E √V) using Dinic’s Algorithm.",
+    complexity: "O(E sqrt(V)) using Dinic’s Algorithm.",
     sdgs: ["SDG 4: Quality Education", "SDG 10: Reduced Inequalities", "SDG 11: Sustainable Cities"],
-    code: `# Max Flow based School Allocation (Dinic)
-from collections import deque
+    code: `// Dinic's Algorithm (C++)
+#include <bits/stdc++.h>
+using namespace std;
 
-class Dinic:
-    def __init__(self, n):
-        self.n = n
-        self.adj = [[] for _ in range(n)]
+struct Edge{int to; long long cap; int rev;};
+struct Dinic {
+    int n; vector<vector<Edge>> g; vector<int> level, it;
+    Dinic(int n):n(n),g(n),level(n),it(n){}
+    void add_edge(int u,int v,long long c){
+        g[u].push_back({v,c,(int)g[v].size()});
+        g[v].push_back({u,0,(int)g[u].size()-1});
+    }
+    bool bfs(int s,int t){
+        fill(level.begin(), level.end(), -1);
+        queue<int>q; level[s]=0; q.push(s);
+        while(!q.empty()){
+            int u=q.front(); q.pop();
+            for(auto &e:g[u]) if(e.cap>0 && level[e.to]==-1){ level[e.to]=level[u]+1; q.push(e.to); }
+        }
+        return level[t]!=-1;
+    }
+    long long dfs(int u,int t,long long f){
+        if(u==t) return f;
+        for(int &i=it[u]; i<(int)g[u].size(); ++i){
+            Edge &e = g[u][i];
+            if(e.cap>0 && level[e.to]==level[u]+1){
+                long long ret = dfs(e.to,t,min(f,e.cap));
+                if(ret>0){ e.cap -= ret; g[e.to][e.rev].cap += ret; return ret; }
+            }
+        }
+        return 0;
+    }
+    long long max_flow(int s,int t){
+        long long flow=0;
+        while(bfs(s,t)){
+            fill(it.begin(), it.end(), 0);
+            while(true){ long long f = dfs(s,t,LLONG_MAX); if(f==0) break; flow+=f; }
+        }
+        return flow;
+    }
+};
 
-    def add_edge(self, u, v, cap):
-        self.adj[u].append([v, cap, len(self.adj[v])])
-        self.adj[v].append([u, 0, len(self.adj[u]) - 1])
-
-    def bfs_level(self, s, t, level):
-        q = deque([s])
-        level[:] = [-1]*self.n
-        level[s] = 0
-        while q:
-            u = q.popleft()
-            for v, cap, rev in self.adj[u]:
-                if cap > 0 and level[v] < 0:
-                    level[v] = level[u] + 1
-                    q.append(v)
-        return level[t] >= 0
-
-    def dfs_flow(self, u, t, f, level, it):
-        if u == t:
-            return f
-        for i in range(it[u], len(self.adj[u])):
-            v, cap, rev = self.adj[u][i]
-            if cap > 0 and level[v] == level[u] + 1:
-                ret = self.dfs_flow(v, t, min(f, cap), level, it)
-                if ret > 0:
-                    self.adj[u][i][1] -= ret
-                    self.adj[v][self.adj[u][i][2]][1] += ret
-                    return ret
-            it[u] += 1
-        return 0
-
-    def max_flow(self, s, t):
-        flow = 0
-        level = [-1]*self.n
-        while self.bfs_level(s, t, level):
-            it = [0]*self.n
-            while True:
-                f = self.dfs_flow(s, t, 10**18, level, it)
-                if f == 0: break
-                flow += f
-        return flow
-
-# (Integrate your full allocation construction here.)`
+int main(){
+    // Example usage: build network and call max_flow
+    return 0;
+}`
   },
   {
     id: 3,
     title: "Smart Parking Slot Allocation",
     desc: "Assign cars to slots minimizing walking distance using Hungarian Algorithm.",
-    complexity: "O(n³)",
+    complexity: "O(n^3)",
     sdgs: ["SDG 11: Sustainable Cities", "SDG 9: Industry & Infrastructure", "SDG 13: Climate Action"],
-    code: `# Hungarian Algorithm (assignment)
-def hungarian(cost):
-    # cost: n x n matrix
-    n = len(cost)
-    u = [0]*(n+1)
-    v = [0]*(n+1)
-    p = [0]*(n+1)
-    way = [0]*(n+1)
-    for i in range(1, n+1):
-        p[0] = i
-        j0 = 0
-        minv = [float('inf')] * (n+1)
-        used = [False] * (n+1)
-        while True:
-            used[j0] = True
-            i0 = p[j0]
-            delta = float('inf')
-            j1 = 0
-            for j in range(1, n+1):
-                if not used[j]:
-                    cur = cost[i0-1][j-1] - u[i0] - v[j]
-                    if cur < minv[j]:
-                        minv[j] = cur
-                        way[j] = j0
-                    if minv[j] < delta:
-                        delta = minv[j]
-                        j1 = j
-            for j in range(0, n+1):
-                if used[j]:
-                    u[p[j]] += delta
-                    v[j] -= delta
-                else:
-                    minv[j] -= delta
-            j0 = j1
-            if p[j0] == 0:
-                break
-        while True:
-            j1 = way[j0]
-            p[j0] = p[j1]
-            j0 = j1
-            if j0 == 0:
-                break
-    # result in p
-    ans = [-1]*n
-    for j in range(1, n+1):
-        if p[j] != 0:
-            ans[p[j]-1] = j-1
-    return ans`
+    code: `// Hungarian Algorithm (assignment) - 1-based internally
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> hungarian(const vector<vector<long long>>& a){
+    int n = a.size();
+    vector<long long> u(n+1), v(n+1);
+    vector<int> p(n+1), way(n+1);
+    for(int i=1;i<=n;++i){
+        p[0]=i; int j0=0;
+        vector<long long> minv(n+1, LLONG_MAX);
+        vector<char> used(n+1,false);
+        while(true){
+            used[j0]=true;
+            int i0 = p[j0]; long long delta=LLONG_MAX; int j1=0;
+            for(int j=1;j<=n;++j) if(!used[j]){
+                long long cur = a[i0-1][j-1]-u[i0]-v[j];
+                if(cur<minv[j]){ minv[j]=cur; way[j]=j0; }
+                if(minv[j]<delta){ delta=minv[j]; j1=j; }
+            }
+            for(int j=0;j<=n;++j){ if(used[j]){ u[p[j]]+=delta; v[j]-=delta; } else minv[j]-=delta; }
+            j0=j1;
+            if(p[j0]==0) break;
+        }
+        while(true){
+            int j1=way[j0]; p[j0]=p[j1]; j0=j1; if(j0==0) break;
+        }
+    }
+    vector<int> ans(n,-1);
+    for(int j=1;j<=n;++j) if(p[j]!=0) ans[p[j]-1]=j-1;
+    return ans;
+}
+
+int main(){
+    // Build cost matrix and call hungarian()
+    return 0;
+}`
   },
   {
     id: 4,
@@ -495,25 +483,27 @@ def hungarian(cost):
     desc: "Color blocks ensuring industries do not touch residential regions.",
     complexity: "O(V+E) for bipartite check.",
     sdgs: ["SDG 11: Sustainable Cities", "SDG 3: Good Health", "SDG 12: Responsible Consumption"],
-    code: `# Graph bipartite check
-from collections import deque
+    code: `// Graph bipartite check (BFS)
+#include <bits/stdc++.h>
+using namespace std;
 
-def is_bipartite(graph):
-    n = len(graph)
-    color = [-1]*n
-    for i in range(n):
-        if color[i] != -1: continue
-        q = deque([i])
-        color[i] = 0
-        while q:
-            u = q.popleft()
-            for v in graph[u]:
-                if color[v] == -1:
-                    color[v] = color[u]^1
-                    q.append(v)
-                elif color[v] == color[u]:
-                    return False
-    return True`
+bool is_bipartite(const vector<vector<int>>& g){
+    int n = g.size(); vector<int> color(n, -1);
+    for(int i=0;i<n;++i){
+        if(color[i]!=-1) continue;
+        queue<int> q; q.push(i); color[i]=0;
+        while(!q.empty()){
+            int u=q.front(); q.pop();
+            for(int v: g[u]){
+                if(color[v]==-1){ color[v]=color[u]^1; q.push(v); }
+                else if(color[v]==color[u]) return false;
+            }
+        }
+    }
+    return true;
+}
+
+int main(){ return 0; }` 
   },
   {
     id: 5,
@@ -521,25 +511,19 @@ def is_bipartite(graph):
     desc: "Select park sites to maximize population coverage using greedy + Fenwick Tree.",
     complexity: "O(k n log n)",
     sdgs: ["SDG 11: Sustainable Cities", "SDG 3: Good Health", "SDG 15: Life on Land"],
-    code: `# Fenwick Tree structure (Binary Indexed Tree)
-class Fenwick:
-    def __init__(self, n):
-        self.n = n
-        self.bit = [0]*(n+1)
+    code: `// Fenwick Tree (Binary Indexed Tree)
+#include <bits/stdc++.h>
+using namespace std;
 
-    def add(self, idx, val):
-        i = idx+1
-        while i <= self.n:
-            self.bit[i] += val
-            i += i & -i
+struct Fenwick{
+    int n; vector<long long> bit;
+    Fenwick(int n):n(n),bit(n+1,0){}
+    void add(int idx, long long val){ for(++idx; idx<=n; idx += idx & -idx) bit[idx]+=val; }
+    long long sum(int idx){ long long r=0; for(++idx; idx>0; idx -= idx & -idx) r+=bit[idx]; return r; }
+    long long range_sum(int l,int r){ if(r<l) return 0; return sum(r) - (l? sum(l-1):0); }
+};
 
-    def sum(self, idx):
-        res = 0
-        i = idx+1
-        while i > 0:
-            res += self.bit[i]
-            i -= i & -i
-        return res`
+int main(){ return 0; }` 
   },
   {
     id: 6,
@@ -547,15 +531,21 @@ class Fenwick:
     desc: "Divide land into balanced subplots using recursive kd-like partitioning.",
     complexity: "O(n log n)",
     sdgs: ["SDG 11: Sustainable Cities", "SDG 15: Life on Land", "SDG 8: Decent Work"],
-    code: `# Polygon area via Shoelace
-def polygon_area(poly):
-    s = 0
-    n = len(poly)
-    for i in range(n):
-        x1,y1 = poly[i]
-        x2,y2 = poly[(i+1)%n]
-        s += x1*y2 - x2*y1
-    return abs(s)/2`
+    code: `// Polygon area via Shoelace
+#include <bits/stdc++.h>
+using namespace std;
+
+double polygon_area(const vector<pair<double,double>>& poly){
+    double s=0; int n=poly.size();
+    for(int i=0;i<n;++i){
+        double x1=poly[i].first, y1=poly[i].second;
+        double x2=poly[(i+1)%n].first, y2=poly[(i+1)%n].second;
+        s += x1*y2 - x2*y1;
+    }
+    return fabs(s)/2.0;
+}
+
+int main(){ return 0; }` 
   },
   {
     id: 7,
@@ -563,18 +553,22 @@ def polygon_area(poly):
     desc: "Predict high footfall zones using clustering + movement density.",
     complexity: "O(nk) per iteration",
     sdgs: ["SDG 8: Decent Work & Economic Growth", "SDG 11: Sustainable Cities", "SDG 9: Industry & Innovation"],
-    code: `# Simple clustering logic example (k-means like)
-def assign(points, centers):
-    clusters = [[] for _ in centers]
-    for p in points:
-        best = 0
-        bestd = float('inf')
-        for i,c in enumerate(centers):
-            d = (p[0]-c[0])**2 + (p[1]-c[1])**2
-            if d < bestd:
-                bestd = d; best = i
-        clusters[best].append(p)
-    return clusters`
+    code: `// Simple clustering logic example (k-means like)
+#include <bits/stdc++.h>
+using namespace std;
+
+using P = pair<double,double>;
+vector<vector<P>> assign_clusters(const vector<P>& points, const vector<P>& centers){
+    int k = centers.size(); vector<vector<P>> clusters(k);
+    for(auto &p: points){
+        int best = 0; double bestd = 1e300;
+        for(int i=0;i<k;++i){ double d = pow(p.first-centers[i].first,2) + pow(p.second-centers[i].second,2); if(d<bestd){ bestd=d; best=i; } }
+        clusters[best].push_back(p);
+    }
+    return clusters;
+}
+
+int main(){ return 0; }` 
   },
   {
     id: 8,
@@ -582,24 +576,27 @@ def assign(points, centers):
     desc: "Use BFS/DFS layers to form multi-zone buffer around polluted areas.",
     complexity: "O(V+E)",
     sdgs: ["SDG 3: Good Health", "SDG 11: Sustainable Cities", "SDG 13: Climate Action", "SDG 15: Life on Land"],
-    code: `# BFS buffer layers
-from collections import deque
+    code: `// BFS buffer layers on grid
+#include <bits/stdc++.h>
+using namespace std;
 
-def buffer_layers(grid, sources):
-    n = len(grid); m = len(grid[0])
-    dist = [[-1]*m for _ in range(n)]
-    q = deque()
-    for (r,c) in sources:
-        dist[r][c] = 0; q.append((r,c))
-    dirs = [(1,0),(-1,0),(0,1),(0,-1)]
-    while q:
-        r,c = q.popleft()
-        for dr,dc in dirs:
-            nr,nc = r+dr, c+dc
-            if 0<=nr<n and 0<=nc<m and dist[nr][nc] == -1:
-                dist[nr][nc] = dist[r][c] + 1
-                q.append((nr,nc))
-    return dist`
+vector<vector<int>> buffer_layers(const vector<vector<int>>& grid, const vector<pair<int,int>>& sources){
+    int n = grid.size(), m = grid[0].size();
+    vector<vector<int>> dist(n, vector<int>(m, -1));
+    deque<pair<int,int>> q;
+    for(auto &s: sources){ dist[s.first][s.second]=0; q.push_back(s); }
+    const int dr[4]={1,-1,0,0}; const int dc[4]={0,0,1,-1};
+    while(!q.empty()){
+        auto cur = q.front(); q.pop_front();
+        int r=cur.first, c=cur.second;
+        for(int k=0;k<4;++k){ int nr=r+dr[k], nc=c+dc[k];
+            if(nr>=0 && nr<n && nc>=0 && nc<m && dist[nr][nc]==-1){ dist[nr][nc]=dist[r][c]+1; q.emplace_back(nr,nc); }
+        }
+    }
+    return dist;
+}
+
+int main(){ return 0; }` 
   },
   {
     id: 9,
@@ -607,22 +604,28 @@ def buffer_layers(grid, sources):
     desc: "Model nodes as junctions and compute shortest safe routes.",
     complexity: "Dijkstra — O(E log V)",
     sdgs: ["SDG 11: Sustainable Cities", "SDG 3: Good Health", "SDG 9: Industry & Infrastructure"],
-    code: `# Dijkstra Shortest Path
-import heapq
+    code: `// Dijkstra Shortest Path
+#include <bits/stdc++.h>
+using namespace std;
 
-def dijkstra(graph, start):
-    dist = {v: float('inf') for v in graph}
-    dist[start] = 0
-    h = [(0, start)]
-    while h:
-        d, u = heapq.heappop(h)
-        if d > dist[u]: continue
-        for v,w in graph[u]:
-            nd = d + w
-            if nd < dist[v]:
-                dist[v] = nd
-                heapq.heappush(h, (nd, v))
-    return dist`
+unordered_map<int, long long> dijkstra(const unordered_map<int, vector<pair<int,long long>>>& graph, int start){
+    unordered_map<int,long long> dist;
+    for(auto &kv: graph) dist[kv.first] = LLONG_MAX;
+    dist[start]=0;
+    priority_queue<pair<long long,int>, vector<pair<long long,int>>, greater<pair<long long,int>>> pq;
+    pq.push({0,start});
+    while(!pq.empty()){
+        auto [d,u] = pq.top(); pq.pop();
+        if(d>dist[u]) continue;
+        for(auto [v,w]: graph.at(u)){
+            long long nd = d + w;
+            if(nd < dist[v]){ dist[v]=nd; pq.push({nd,v}); }
+        }
+    }
+    return dist;
+}
+
+int main(){ return 0; }` 
   },
   {
     id: 10,
@@ -630,35 +633,48 @@ def dijkstra(graph, start):
     desc: "Plan underground cables avoiding obstacles using A*.",
     complexity: "O(E log V)",
     sdgs: ["SDG 9: Industry & Infrastructure", "SDG 11: Sustainable Cities", "SDG 6: Clean Water & Sanitation"],
-    code: `# A* Search
-import heapq
+    code: `// A* Search on grid (Manhattan heuristic)
+#include <bits/stdc++.h>
+using namespace std;
 
-def heuristic(a,b):
-    return abs(a[0]-b[0]) + abs(a[1]-b[1])
+int heuristic(pair<int,int> a, pair<int,int> b){ return abs(a.first-b.first) + abs(a.second-b.second); }
 
-def astar(grid, start, goal):
-    n,m = len(grid), len(grid[0])
-    open_set = [(heuristic(start, goal), 0, start)]
-    gscore = {start:0}
-    came_from = {}
-    while open_set:
-        _, cost, cur = heapq.heappop(open_set)
-        if cur == goal:
-            path = []
-            while cur in came_from:
-                path.append(cur)
-                cur = came_from[cur]
-            return path[::-1]
-        for dr,dc in [(1,0),(-1,0),(0,1),(0,-1)]:
-            nr, nc = cur[0]+dr, cur[1]+dc
-            if 0<=nr<n and 0<=nc<m and grid[nr][nc] != 1: # assume 1 is obstacle
-                tentative = gscore[cur] + 1
-                nxt = (nr,nc)
-                if tentative < gscore.get(nxt, float('inf')):
-                    gscore[nxt] = tentative
-                    came_from[nxt] = cur
-                    heapq.heappush(open_set, (tentative + heuristic(nxt, goal), tentative, nxt))
-    return None`
+vector<pair<int,int>> astar(const vector<vector<int>>& grid, pair<int,int> start, pair<int,int> goal){
+    int n = grid.size(), m = grid[0].size();
+    using Node = tuple<int,int,int,int>; // f, g, r, c
+    priority_queue<Node, vector<Node>, greater<Node>> open;
+    map<pair<int,int>, pair<int,int>> came_from;
+    map<pair<int,int>, int> gscore;
+    open.push({heuristic(start,goal), 0, start.first, start.second});
+    gscore[start]=0;
+    const int dr[4]={1,-1,0,0}; const int dc[4]={0,0,1,-1};
+    while(!open.empty()){
+        auto [f,g,r,c] = open.top(); open.pop();
+        pair<int,int> cur={r,c};
+        if(cur==goal){
+            vector<pair<int,int>> path; auto curp=cur;
+            while(came_from.count(curp)){
+                path.push_back(curp); curp = came_from[curp];
+            }
+            path.push_back(start);
+            reverse(path.begin(), path.end());
+            return path;
+        }
+        for(int k=0;k<4;++k){ int nr=r+dr[k], nc=c+dc[k];
+            if(nr>=0 && nr<n && nc>=0 && nc<m && grid[nr][nc]!=1){
+                pair<int,int> nxt={nr,nc}; int tentative = g + 1;
+                if(!gscore.count(nxt) || tentative < gscore[nxt]){
+                    gscore[nxt]=tentative;
+                    came_from[nxt]=cur;
+                    open.push({tentative + heuristic(nxt,goal), tentative, nr, nc});
+                }
+            }
+        }
+    }
+    return {};
+}
+
+int main(){ return 0; }` 
   }
 ];
 
@@ -799,7 +815,7 @@ function filter(q){
       centerTitle.innerText = "Select a problem from the left";
       centerDesc.innerText = "Click a problem card to view the explanation.";
       centerComplexity.innerText = "Time Complexity — (select a problem)";
-      centerCode.textContent = "# Code will appear here.";
+      centerCode.textContent = "// Code will appear here.";
       centerSdgs.innerHTML = '';
       currentId = null;
     }
