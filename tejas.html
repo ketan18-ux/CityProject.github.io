@@ -725,28 +725,6 @@ vector<pair<int,int>> astar(const vector<vector<int>>& grid, pair<int,int> start
     }
     return {};
 }
-
- {
-    id: 7,
-    title: "High Footfall Commercial Zone Prediction",
-    desc: "Predict high footfall zones using clustering + movement density.",
-    complexity: "O(nk) per iteration",
-    sdgs: ["SDG 8: Decent Work & Economic Growth", "SDG 11: Sustainable Cities", "SDG 9: Industry & Innovation"],
-    code: `// Simple clustering logic example (k-means like)
-#include <bits/stdc++.h>
-using namespace std;
-
-using P = pair<double,double>;
-vector<vector<P>> assign_clusters(const vector<P>& points, const vector<P>& centers){
-    int k = centers.size(); vector<vector<P>> clusters(k);
-    for(auto &p: points){
-        int best = 0; double bestd = 1e300;
-        for(int i=0;i<k;++i){ double d = pow(p.first-centers[i].first,2) + pow(p.second-centers[i].second,2); if(d<bestd){ bestd=d; best=i; } }
-        clusters[best].push_back(p);
-    }
-    return clusters;
-}
-
 int main(){ return 0; }`
   },
   {
