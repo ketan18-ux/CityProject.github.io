@@ -146,19 +146,19 @@
       <div class="brand">
         <div class="logo" aria-hidden="true">TK</div>
         <div>
-          <div class="title">Tejas Keri</div>
+          <div class="title">Tejas B Keri</div>
           <div class="subtitle">Land Use & Location Optimization</div>
         </div>
       </div>
 
       <!-- Personal details (restored) -->
       <div class="profile" aria-label="Profile">
-        <div><strong>Name:</strong> Tejas Keri</div>
-        <div><strong>Roll No:</strong> 12345</div>
-        <div><strong>USN:</strong> 1SU20CS001</div>
+        <div><strong>Name:</strong> Tejas B Keri</div>
+        <div><strong>Roll No:</strong> 242</div>
+        <div><strong>USN:</strong> 01fe24bcs144@kletech.ac.in</div>
         <div><strong>Class:</strong> BE - Computer Science</div>
         <div><strong>Subject:</strong> Design & Analysis of Algorithms</div>
-        <div><strong>Faculty:</strong> Prof. Name Here</div>
+        <div><strong>Faculty:</strong> Prof. Prakash Hegade</div>
       </div>
 
       <nav class="nav" id="sidebar-nav" role="navigation" aria-label="Problems">
@@ -186,7 +186,7 @@
       <section id="hero" class="view" aria-hidden="false">
         <div class="hero-banner" aria-hidden="true">
           <h1>Land Use, Zoning & Location Optimization Projects</h1>
-          <p>All problems below are implemented using only algorithms and data structures taught in class — recursion, backtracking, trees, heaps, segment & fenwick trees, tries, sorting, string algorithms, graph algorithms and more. Click "📷 Click to View Image" to reveal the illustration for each problem.</p>
+          <p></p>
         </div>
       </section>
 
@@ -490,7 +490,7 @@ int main(){
           <!-- 6 -->
           <article class="card" id="p6" tabindex="0" aria-labelledby="p6-title">
             <h2 id="p6-title">6. Land Subdivision Optimization</h2>
-            <div class="alg">Algorithm: Divide & Conquer + Shoelace Formula (Geometry)</div>
+            <div class="alg">Algorithm: Divide & Conquer)</div>
 
             <div class="section-title">Problem Content</div>
             <div class="section-text">Partition land parcels into balanced subplots while keeping constraints like minimum area and road access.</div>
@@ -513,9 +513,9 @@ int main(){
             </div>
 
             <details>
-              <summary>C++ Example (Shoelace area)</summary>
+              <summary>C++ Example </summary>
               <div class="details-code" role="region" aria-live="polite">
-<pre>// Shoelace formula skeleton
+<pre>// formula skeleton
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 double polygon_area(const vector&lt;pair<double,double&gt;&gt;& poly){
@@ -759,31 +759,54 @@ int main(){
       <section id="technical" class="hidden">
         <div class="tech-wrap">
           <h2>Technical Documentation & SDG Mapping</h2>
-          <p style="margin-top:8px; color:#bfe9ff;">This section consolidates the technical notes, SDG mapping, metrics and data-structures used across all 10 problems. It is included here so you have a single-file project that contains both the portfolio and documentation.</p>
+          <p style="margin-top:8px; color:#bfe9ff;">This section consolidates the technical notes, SDG mapping, metrics and data-structures used across all 10 problems.</p>
 
           <div class="tech-card">
-            <h3>A. Project Metrics (All 10 Problems)</h3>
+            <h3>A. Project Metrics)</h3>
             <p class="section-title">High-level numbers & scope</p>
             <ul>
-              <li><strong>Total lines of C++ code (approx):</strong> 2000 - 2500</li>
-              <li><strong>Independent functions / modules implemented:</strong> 20+ core routines</li>
-              <li><strong>Data / input files prepared:</strong> JSON, CSV, plain text examples</li>
+              <li><strong>Total lines of C++ code (approx):</strong> 1500 - 1800</li>
+              <li><strong>Independent functions / modules implemented:</strong> 15+ core routines</li>
+              <li><strong>Data / input files prepared:</strong>JSON, CSV, and plain text formats</li>
               <li><strong>Figures / diagrams:</strong> 10+ (one per project case study)</li>
               <li><strong>Each module includes:</strong> time & space complexity notes in comments</li>
             </ul>
 
             <p class="section-title">Design Techniques Used</p>
             <ul>
-              <li>Greedy design (MST, routing, scheduling)</li>
-              <li>Graph modeling of physical networks: roads, water, power, waste</li>
-              <li>Efficient sorting & searching (Merge Sort / Quick Sort) as backbone steps</li>
-              <li>Traversal patterns: BFS, DFS, multi-source BFS</li>
-              <li>Data-driven ranking & prioritization through sorting and scoring</li>
+              <li>Divide and Conquer</li>
+              <li>Greedy Method</li>
+              <li>Dynamic Programming</li>
+              <li>Backtracking</li>
+              <li>Graph Algorithms</li>
+              <li>Brute Force</li>
+              <li>Heuristics</li>
+              <li>Optimization Techniquess</li>
             </ul>
+          </div>
+                   
+        <div class="tech-card">
+            <h3>B. SDG Mapping Summary</h3>
+            <div style="background:rgba(255,255,255,0.02); padding:12px; border-radius:8px;">
+              <li>SDG 4 – Quality Education: Algorithms are documented, structured, and explained to support enhanced learning and academic clarity.</li>
+
+             <li>SDG 8 – Decent Work & Economic Growth: Efficient algorithm design improves productivity, optimization, and computational performance.</li>
+
+             <li>SDG 9 – Industry, Innovation & Infrastructure: Use of structured problem-solving and optimized data processing supports innovation and technical development.</li>
+
+             <li>SDG 11 – Sustainable Cities & Communities: Optimization algorithms (routing, scheduling, resource allocation) promote smarter, more efficient systems.</li>
+
+            <li>SDG 12 – Responsible Consumption & Production: Data-driven decision-making methods help minimize resource waste and improve efficiency.</li>
+
+            <li>SDG 13 – Climate Action: Computational optimization assists in analyzing environmental data and generating sustainable solutions.</li>
+           
+            <li>SDG 17 – Partnerships for the Goals: Standardized documentation, modular code, and open data formats enable collaboration and scalability.</li>
+
+            </div>
           </div>
 
           <div class="tech-card">
-            <h3>B. Data Structures Used (Core Structures)</h3>
+            <h3>C. Data Structures Used (Core Structures)</h3>
             <ul>
               <li>Arrays and vectors for lists of nodes, edges, queues, and trips.</li>
               <li>Queues and stacks for BFS/DFS and simulation.</li>
@@ -792,50 +815,74 @@ int main(){
               <li>Adjacency lists for efficient graph storage.</li>
               <li>Fenwick & Segment trees for range queries and updates (park placement, coverage).</li>
               <li>Tries for permit/prefix matching and fast lookup.</li>
+              <li>Sets</li>
+              <li>Matrices</li>
             </ul>
           </div>
 
           <div class="tech-card">
-            <h3>C. Algorithms Implemented in This Bucket</h3>
+            <h3>D. Algorithms Implemented in This Bucket</h3>
             <p class="section-title">Graph Algorithms</p>
             <ul>
-              <li>BFS, DFS, Multi-source BFS</li>
-              <li>Dijkstra's shortest path (with heap)</li>
-              <li>Prim's and Kruskal's MST (with Union-Find)</li>
-              <li>Bridge & articulation detection (Tarjan-style low-link)</li>
-              <li>A* heuristic routing (grid)</li>
+              <li>Brute Force Algorithms</li>
+              <li>Divide and Conquer</li>
+              <li>Greedy Algorithms</li>
+              <li>Dynamic Programming</li>
+              <li>Backtracking</li>
+              <li>Branch and Bound</li>
+              <li>Graph Algorithms (BFS, DFS, Dijkstra, Floyd–Warshall)</li>
+              <li>String Algorithms (KMP, Rabin–Karp)</li>
+              <li>Sorting Algorithms (Merge Sort, Quick Sort, Heap Sort)</li>
+              <li>Search Algorithms (Binary Search, Linear Search)</li>
+
             </ul>
 
             <p class="section-title">Sorting & Scheduling / Other</p>
             <ul>
-              <li>Merge Sort / Quick Sort for sorting core lists (edges/trips)</li>
-              <li>Greedy nearest-neighbour routing for garbage / service rounds</li>
-              <li>Greedy max-coverage selection for parks</li>
-              <li>Backtracking & DFS for constraint satisfaction where needed (small conflict components)</li>
+              <li>Merge Sort — Uses divide-and-conquer to recursively split and merge sorted halves.</li>
+              <li>Quick Sort — Partitions elements around a pivot for fast average-case sorting.</li>
+              <li>Heap Sort — Uses a binary heap to repeatedly extract the maximum or minimum.</li>
+              <li>Insertion Sort — Builds the final sorted array one element at a time.</li>
+              <li>Selection Sort — Repeatedly selects the smallest element and places it in order.</li>
+              <li>Bubble Sort — Repeatedly swaps adjacent elements to push larger ones upward.</li>
+              <li>Counting Sort — Sorts integers by counting frequencies instead of comparing values.</li>
+              <li>Radix Sort — Sorts numbers digit-by-digit using a stable intermediate sort.</li>
+              <li>Job Scheduling (Greedy Scheduling) — Selects jobs to maximize profit or minimize time.</li>
+              <li>Task Scheduling with Deadlines — Schedules tasks to meet deadlines and optimize results.</li>
+              <li>Interval Scheduling Optimization — Chooses non-overlapping intervals for maximum tasks.</li>
+              <li>Round Robin Scheduling — Cycles through tasks with fixed time slices for fairness.</li>
+              <li>First-Come First-Served (FCFS) Scheduling — Executes tasks strictly in arrival order.</li>
+              <li>Shortest Job First (SJF) Scheduling — Prioritizes tasks with the smallest execution time.</li>
+              <li>Priority Scheduling — Executes tasks based on assigned priority levels.</li>
+
+              
             </ul>
           </div>
 
           <div class="tech-card">
-            <h3>D. Implementation Notes & Best Practices</h3>
-            <p>- All code written using portable C++ STL (vectors, priority_queue, unordered_map) for clarity and maintainability.</p>
-            <p>- Each major algorithm includes complexity comments, example input-output, and basic test harnesses.</p>
-            <p>- Data IO kept simple (CSV/JSON examples) allowing rapid replacement with real datasets during integration.</p>
+            <li>All code is implemented using clean and portable C++ STL constructs (vectors, lists, sets, maps, priority queues) to ensure maintainability.</li>
+
+           <li>Each algorithm block contains a short explanation, time/space complexity, and simple input–output examples for clarity.</li>
+
+           <li>Data handling is standardized using lightweight JSON/CSV/plain-text samples to allow quick switching to real datasets.</li>
+
+           <li>Functions are written as independent modules, making reuse and debugging significantly easier.</li>
+
+          <li>Consistent naming conventions and indentation are followed throughout the codebase for readability.</li>
+
+           <li>Boundary conditions and edge cases are handled explicitly to avoid hidden runtime errors.</li>
+
+          <li>Comments are added only where logic becomes non-trivial, keeping the code clean yet understandable.</li>
+
+          <li>Algorithmic choices are based on performance considerations, ensuring optimal time and memory usage for each problem.</li>
+
+          <li>Document all assumptions, constraints, and edge-case considerations clearly within the codebase.</li>
           </div>
 
-          <div class="tech-card">
-            <h3>E. SDG Mapping Summary</h3>
-            <div style="background:rgba(255,255,255,0.02); padding:12px; border-radius:8px;">
-              <p><strong>SDG 3 — Good Health & Well-being:</strong> Optimal hospital locations & exposure reduction through zoning.</p>
-              <p><strong>SDG 6 — Clean Water & Sanitation:</strong> Utility routing, sewer path planning with minimal interference.</p>
-              <p><strong>SDG 8 — Decent Work & Economic Growth:</strong> Commercial zone prediction to support economic planning.</p>
-              <p><strong>SDG 9 — Industry, Innovation & Infrastructure:</strong> Robust routing, infrastructure planning, and MST-based network design.</p>
-              <p><strong>SDG 11 — Sustainable Cities & Communities:</strong> Park placement, footpath connectivity, and zoning strategies.</p>
-              <p><strong>SDG 13 — Climate Action & SDG 15 — Life on Land:</strong> Green belt creation, buffers, and ecological preservation modeling.</p>
-            </div>
-          </div>
+
 
           <div class="tech-card">
-            <h3>F. Usage & Integration</h3>
+            <h3>E. Usage & Integration</h3>
             <p>Save this single HTML file (you already have it) and the <code>images/</code> folder with placeholder images <code>image1.jpg..image10.jpg</code>. To switch between the main portfolio and this technical documentation, use the sidebar link "Technical Documentation & SDG Mapping" or the "Back to Portfolio" control in the header.</p>
             <p class="section-title">Files included (suggested project structure)</p>
             <ul>
