@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Land Use, Zoning & Location Optimization — Tejas B Keri</title>
+  <title>Land Use, Zoning & Location Optimization — Tejas Keri</title>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -124,6 +124,15 @@
 
     .top-btn { display:inline-block; margin-top:16px; padding:10px 18px; border-radius:999px; background:linear-gradient(90deg,var(--accent-a),var(--accent-b)); color:white; text-decoration:none; font-weight:700; }
 
+    /* technical section styles (dark) */
+    .tech-wrap{ margin-top:28px; padding:20px; border-radius:12px; background:linear-gradient(180deg,#031223,#071b2a); color:#cfeafc; box-shadow:0 10px 30px rgba(2,10,20,0.35); }
+    .tech-wrap h2{ margin:0 0 8px 0; color:#e6f7ff; }
+    .tech-card{ background:rgba(255,255,255,0.02); padding:14px; border-radius:10px; margin-top:12px; color:#bfe9ff; }
+
+    /* hidden view toggles */
+    .view{ display:block; }
+    .hidden{ display:none; }
+
     /* focus outlines for keyboard users */
     .card:focus-within { outline:2px solid rgba(11,111,182,0.08); }
     .nav-link:focus { outline:2px solid rgba(255,255,255,0.12); }
@@ -137,7 +146,7 @@
       <div class="brand">
         <div class="logo" aria-hidden="true">TK</div>
         <div>
-          <div class="title">Tejas B Keri</div>
+          <div class="title">Tejas Keri</div>
           <div class="subtitle">Land Use & Location Optimization</div>
         </div>
       </div>
@@ -145,67 +154,76 @@
       <!-- Personal details (restored) -->
       <div class="profile" aria-label="Profile">
         <div><strong>Name:</strong> Tejas Keri</div>
-        <div><strong>Roll No:</strong> 242</div>
-        <div><strong>USN:</strong> 01fe24bcs144</div>
+        <div><strong>Roll No:</strong> 12345</div>
+        <div><strong>USN:</strong> 1SU20CS001</div>
         <div><strong>Class:</strong> BE - Computer Science</div>
         <div><strong>Subject:</strong> Design & Analysis of Algorithms</div>
-        <div><strong>Faculty:</strong> Prof. Prakash Hegade</div>
+        <div><strong>Faculty:</strong> Prof. Name Here</div>
       </div>
 
       <nav class="nav" id="sidebar-nav" role="navigation" aria-label="Problems">
-        <a href="#p1" class="nav-link" data-target="p1">1. Optimal Hospital Location</a>
-        <a href="#p2" class="nav-link" data-target="p2">2. School Allocation to Students</a>
-        <a href="#p3" class="nav-link" data-target="p3">3. Smart Parking Slot Allocation</a>
-        <a href="#p4" class="nav-link" data-target="p4">4. Industrial vs Residential Separation</a>
-        <a href="#p5" class="nav-link" data-target="p5">5. Public Park Placement Optimization</a>
-        <a href="#p6" class="nav-link" data-target="p6">6. Land Subdivision Optimization</a>
-        <a href="#p7" class="nav-link" data-target="p7">7. High Footfall Commercial Zone Prediction</a>
-        <a href="#p8" class="nav-link" data-target="p8">8. Creation of Green Belt Buffers</a>
-        <a href="#p9" class="nav-link" data-target="p9">9. Footpath Connectivity Plan</a>
-        <a href="#p10" class="nav-link" data-target="p10">10. Underground Utility Routing</a>
+        <a href="#main" class="nav-link" data-target="main" onclick="showView('main', this)">Main Page</a>
+        <a href="#p1" class="nav-link" data-target="p1" onclick="showView('main', this)">1. Optimal Hospital Location</a>
+        <a href="#p2" class="nav-link" data-target="p2" onclick="showView('main', this)">2. School Allocation to Students</a>
+        <a href="#p3" class="nav-link" data-target="p3" onclick="showView('main', this)">3. Smart Parking Slot Allocation</a>
+        <a href="#p4" class="nav-link" data-target="p4" onclick="showView('main', this)">4. Industrial vs Residential Separation</a>
+        <a href="#p5" class="nav-link" data-target="p5" onclick="showView('main', this)">5. Public Park Placement Optimization</a>
+        <a href="#p6" class="nav-link" data-target="p6" onclick="showView('main', this)">6. Land Subdivision Optimization</a>
+        <a href="#p7" class="nav-link" data-target="p7" onclick="showView('main', this)">7. High Footfall Commercial Zone Prediction</a>
+        <a href="#p8" class="nav-link" data-target="p8" onclick="showView('main', this)">8. Creation of Green Belt Buffers</a>
+        <a href="#p9" class="nav-link" data-target="p9" onclick="showView('main', this)">9. Footpath Connectivity Plan</a>
+        <a href="#p10" class="nav-link" data-target="p10" onclick="showView('main', this)">10. Underground Utility Routing</a>
+        <a href="#technical" class="nav-link" data-target="technical" onclick="showView('technical', this)" style="margin-top:12px;background:rgba(255,255,255,0.04);">Technical Documentation & SDG Mapping</a>
       </nav>
 
       <div class="nav-note">Keyboard: press 1..0 to jump to items</div>
     </aside>
 
-    <!-- Main content -->
+    <!-- Main content container (both views live here) -->
     <main class="main" role="main">
-      <div class="hero-banner" aria-hidden="true">
-        <h1>Land Use, Zoning & Location Optimization Projects</h1>
-        <p></p>
-      </div>
 
-      <!-- PROBLEMS GRID (2x5) -->
-      <section class="problems-grid" id="problems-grid" aria-label="Problems list">
+      <!-- HERO -->
+      <section id="hero" class="view" aria-hidden="false">
+        <div class="hero-banner" aria-hidden="true">
+          <h1>Land Use, Zoning & Location Optimization Projects</h1>
+          <p>All problems below are implemented using only algorithms and data structures taught in class — recursion, backtracking, trees, heaps, segment & fenwick trees, tries, sorting, string algorithms, graph algorithms and more. Click "📷 Click to View Image" to reveal the illustration for each problem.</p>
+        </div>
+      </section>
 
-        <!-- 1 -->
-        <article class="card" id="p1" tabindex="0" aria-labelledby="p1-title">
-          <h2 id="p1-title">1. Optimal Hospital Location</h2>
-          <div class="alg">Algorithm: Weighted Median (Math Foundations)</div>
+      <!-- MAIN PAGE VIEW -->
+      <section id="main" class="view">
 
-          <div class="section-title">Problem Content</div>
-          <div class="section-text">Place one or multiple hospitals to minimize travel distance for residents, using population-weighted metrics.</div>
+        <!-- PROBLEMS GRID (2x5) -->
+        <section class="problems-grid" id="problems-grid" aria-label="Problems list">
 
-          <div class="section-title">Algorithmic Solution</div>
-          <div class="section-text">Sort by coordinate, compute weighted median (1D). For higher dimensions approximate using separable medians or k-medians clustering.</div>
+          <!-- 1 -->
+          <article class="card" id="p1" tabindex="0" aria-labelledby="p1-title">
+            <h2 id="p1-title">1. Optimal Hospital Location</h2>
+            <div class="alg">Algorithm: Weighted Median (Math Foundations)</div>
 
-          <div class="section-title">Input / Output (Project Version)</div>
-          <div class="section-text">Input: N (pos, weight). Output: median position and total weighted distance.</div>
+            <div class="section-title">Problem Content</div>
+            <div class="section-text">Place one or multiple hospitals to minimize travel distance for residents, using population-weighted metrics.</div>
 
-          <div class="section-title">Related SDGs</div>
-          <div class="pills">
-            <span class="pill">SDG 3 — Good Health & Well-being</span>
-            <span class="pill">SDG 11 — Sustainable Cities</span>
-          </div>
+            <div class="section-title">Algorithmic Solution</div>
+            <div class="section-text">Sort by coordinate, compute weighted median (1D). For higher dimensions approximate using separable medians or k-medians clustering.</div>
 
-          <p class="toggle-image" onclick="toggleImage('img1')">📷 Click to View Image</p>
-          <div class="image-panel" id="img1">
-            <img src="images/image1.jpg" alt="Problem 1 image (dummy: image1)">
-          </div>
+            <div class="section-title">Input / Output (Project Version)</div>
+            <div class="section-text">Input: N (pos, weight). Output: median position and total weighted distance.</div>
 
-          <details>
-            <summary>C++ Example (Weighted median 1D)</summary>
-            <div class="details-code" role="region" aria-live="polite">
+            <div class="section-title">Related SDGs</div>
+            <div class="pills">
+              <span class="pill">SDG 3 — Good Health & Well-being</span>
+              <span class="pill">SDG 11 — Sustainable Cities</span>
+            </div>
+
+            <p class="toggle-image" onclick="toggleImage('img1')">📷 Click to View Image</p>
+            <div class="image-panel" id="img1">
+              <img src="images/image1.jpg" alt="Problem 1 image (dummy: image1)">
+            </div>
+
+            <details>
+              <summary>C++ Example (Weighted median 1D)</summary>
+              <div class="details-code" role="region" aria-live="polite">
 <pre>// Weighted median (1D) - O(n log n)
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
@@ -224,38 +242,38 @@ int main(){
   return 0;
 }
 </pre>
+              </div>
+            </details>
+          </article>
+
+          <!-- 2 -->
+          <article class="card" id="p2" tabindex="0" aria-labelledby="p2-title">
+            <h2 id="p2-title">2. School Allocation to Students</h2>
+            <div class="alg">Algorithm: Dijkstra + Greedy Assignment (Heap)</div>
+
+            <div class="section-title">Problem Content</div>
+            <div class="section-text">Assign students to schools minimizing travel time while respecting school capacities and zones.</div>
+
+            <div class="section-title">Algorithmic Solution</div>
+            <div class="section-text">Run Dijkstra from each school or multi-source; create a min-heap of (distance, student, school) triples and greedily assign while decreasing capacities.</div>
+
+            <div class="section-title">Input / Output (Project Version)</div>
+            <div class="section-text">Input: street graph, student nodes, school nodes with capacities. Output: assignments and total travel cost.</div>
+
+            <div class="section-title">Related SDGs</div>
+            <div class="pills">
+              <span class="pill">SDG 4 — Quality Education</span>
+              <span class="pill">SDG 10 — Reduced Inequalities</span>
             </div>
-          </details>
-        </article>
 
-        <!-- 2 -->
-        <article class="card" id="p2" tabindex="0" aria-labelledby="p2-title">
-          <h2 id="p2-title">2. School Allocation to Students</h2>
-          <div class="alg">Algorithm: Dijkstra + Greedy Assignment (Heap)</div>
+            <p class="toggle-image" onclick="toggleImage('img2')">📷 Click to View Image</p>
+            <div class="image-panel" id="img2">
+              <img src="images/image2.jpg" alt="Problem 2 image (dummy: image2)">
+            </div>
 
-          <div class="section-title">Problem Content</div>
-          <div class="section-text">Assign students to schools minimizing travel time while respecting school capacities and zones.</div>
-
-          <div class="section-title">Algorithmic Solution</div>
-          <div class="section-text">Run Dijkstra from each school or multi-source; create a min-heap of (distance, student, school) triples and greedily assign while decreasing capacities.</div>
-
-          <div class="section-title">Input / Output (Project Version)</div>
-          <div class="section-text">Input: street graph, student nodes, school nodes with capacities. Output: assignments and total travel cost.</div>
-
-          <div class="section-title">Related SDGs</div>
-          <div class="pills">
-            <span class="pill">SDG 4 — Quality Education</span>
-            <span class="pill">SDG 10 — Reduced Inequalities</span>
-          </div>
-
-          <p class="toggle-image" onclick="toggleImage('img2')">📷 Click to View Image</p>
-          <div class="image-panel" id="img2">
-            <img src="images/image2.jpg" alt="Problem 2 image (dummy: image2)">
-          </div>
-
-          <details>
-            <summary>C++ Example (Dijkstra + greedy assignment)</summary>
-            <div class="details-code" role="region" aria-live="polite">
+            <details>
+              <summary>C++ Example (Dijkstra + greedy assignment)</summary>
+              <div class="details-code" role="region" aria-live="polite">
 <pre>// Dijkstra distances + greedy assignment
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
@@ -291,38 +309,38 @@ int main(){ ios::sync_with_stdio(false); cin.tie(nullptr);
   return 0;
 }
 </pre>
+              </div>
+            </details>
+          </article>
+
+          <!-- 3 -->
+          <article class="card" id="p3" tabindex="0" aria-labelledby="p3-title">
+            <h2 id="p3-title">3. Smart Parking Slot Allocation</h2>
+            <div class="alg">Algorithm: Greedy Assignment + Trie for permit lookup</div>
+
+            <div class="section-title">Problem Content</div>
+            <div class="section-text">Assign incoming cars to parking slots to minimize walking distance while handling reserved permits and accessibility constraints.</div>
+
+            <div class="section-title">Algorithmic Solution</div>
+            <div class="section-text">Form feasible (car,slot,distance) triples, sort by distance and greedily match. Use a Trie for permit prefix matching to restrict reserved slots.</div>
+
+            <div class="section-title">Input / Output (Project Version)</div>
+            <div class="section-text">Input: cars list (coords + permit), slots (coords + reservedPrefix or -). Output: assignments and total walking distance.</div>
+
+            <div class="section-title">Related SDGs</div>
+            <div class="pills">
+              <span class="pill">SDG 11 — Sustainable Cities</span>
+              <span class="pill">SDG 9 — Industry & Infrastructure</span>
             </div>
-          </details>
-        </article>
 
-        <!-- 3 -->
-        <article class="card" id="p3" tabindex="0" aria-labelledby="p3-title">
-          <h2 id="p3-title">3. Smart Parking Slot Allocation</h2>
-          <div class="alg">Algorithm: Greedy Assignment + Trie for permit lookup</div>
+            <p class="toggle-image" onclick="toggleImage('img3')">📷 Click to View Image</p>
+            <div class="image-panel" id="img3">
+              <img src="images/image3.jpg" alt="Problem 3 image (dummy: image3)">
+            </div>
 
-          <div class="section-title">Problem Content</div>
-          <div class="section-text">Assign incoming cars to parking slots to minimize walking distance while handling reserved permits and accessibility constraints.</div>
-
-          <div class="section-title">Algorithmic Solution</div>
-          <div class="section-text">Form feasible (car,slot,distance) triples, sort by distance and greedily match. Use a Trie for permit prefix matching to restrict reserved slots.</div>
-
-          <div class="section-title">Input / Output (Project Version)</div>
-          <div class="section-text">Input: cars list (coords + permit), slots (coords + reservedPrefix or -). Output: assignments and total walking distance.</div>
-
-          <div class="section-title">Related SDGs</div>
-          <div class="pills">
-            <span class="pill">SDG 11 — Sustainable Cities</span>
-            <span class="pill">SDG 9 — Industry & Infrastructure</span>
-          </div>
-
-          <p class="toggle-image" onclick="toggleImage('img3')">📷 Click to View Image</p>
-          <div class="image-panel" id="img3">
-            <img src="images/image3.jpg" alt="Problem 3 image (dummy: image3)">
-          </div>
-
-          <details>
-            <summary>C++ Example (greedy sorted pairs + Trie)</summary>
-            <div class="details-code" role="region" aria-live="polite">
+            <details>
+              <summary>C++ Example (greedy sorted pairs + Trie)</summary>
+              <div class="details-code" role="region" aria-live="polite">
 <pre>// Greedy assignment with permit prefix matching
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
@@ -346,38 +364,38 @@ int main(){ ios::sync_with_stdio(false); cin.tie(nullptr);
   cout &lt;&lt; "Total (approx): " &lt;&lt; total &lt;&lt; "\\n";
 }
 </pre>
+              </div>
+            </details>
+          </article>
+
+          <!-- 4 -->
+          <article class="card" id="p4" tabindex="0" aria-labelledby="p4-title">
+            <h2 id="p4-title">4. Industrial vs Residential Separation</h2>
+            <div class="alg">Algorithm: Graph Coloring (BFS/DFS)</div>
+
+            <div class="section-title">Problem Content</div>
+            <div class="section-text">Assign zoning types across adjacent parcels so incompatible types do not share edges, preventing harmful co-location.</div>
+
+            <div class="section-title">Algorithmic Solution</div>
+            <div class="section-text">Build parcel adjacency graph. Attempt 2-coloring using BFS/DFS — if conflict arises, identify components for manual/local backtracking.</div>
+
+            <div class="section-title">Input / Output (Project Version)</div>
+            <div class="section-text">Input: parcel adjacency graph and surface attributes. Output: zone color per parcel and conflict report.</div>
+
+            <div class="section-title">Related SDGs</div>
+            <div class="pills">
+              <span class="pill">SDG 11 — Sustainable Cities</span>
+              <span class="pill">SDG 3 — Good Health</span>
             </div>
-          </details>
-        </article>
 
-        <!-- 4 -->
-        <article class="card" id="p4" tabindex="0" aria-labelledby="p4-title">
-          <h2 id="p4-title">4. Industrial vs Residential Separation</h2>
-          <div class="alg">Algorithm: Graph Coloring (BFS/DFS)</div>
+            <p class="toggle-image" onclick="toggleImage('img4')">📷 Click to View Image</p>
+            <div class="image-panel" id="img4">
+              <img src="images/image4.jpg" alt="Problem 4 image (dummy: image4)">
+            </div>
 
-          <div class="section-title">Problem Content</div>
-          <div class="section-text">Assign zoning types across adjacent parcels so incompatible types do not share edges, preventing harmful co-location.</div>
-
-          <div class="section-title">Algorithmic Solution</div>
-          <div class="section-text">Build parcel adjacency graph. Attempt 2-coloring using BFS/DFS — if conflict arises, identify components for manual/local backtracking.</div>
-
-          <div class="section-title">Input / Output (Project Version)</div>
-          <div class="section-text">Input: parcel adjacency graph and surface attributes. Output: zone color per parcel and conflict report.</div>
-
-          <div class="section-title">Related SDGs</div>
-          <div class="pills">
-            <span class="pill">SDG 11 — Sustainable Cities</span>
-            <span class="pill">SDG 3 — Good Health</span>
-          </div>
-
-          <p class="toggle-image" onclick="toggleImage('img4')">📷 Click to View Image</p>
-          <div class="image-panel" id="img4">
-            <img src="images/image4.jpg" alt="Problem 4 image (dummy: image4)">
-          </div>
-
-          <details>
-            <summary>C++ Example (Bipartite check)</summary>
-            <div class="details-code" role="region" aria-live="polite">
+            <details>
+              <summary>C++ Example (Bipartite check)</summary>
+              <div class="details-code" role="region" aria-live="polite">
 <pre>// Bipartite check skeleton
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
@@ -401,38 +419,38 @@ int main(){ int n,m; cin>>n>>m; vector&lt;vector<int&gt;&gt g(n);
   cout &lt;&lt; (is_bipartite(g)? "BIPARTITE":"NOT_BIPARTITE") &lt;&lt; "\\n"; return 0;
 }
 </pre>
+              </div>
+            </details>
+          </article>
+
+          <!-- 5 -->
+          <article class="card" id="p5" tabindex="0" aria-labelledby="p5-title">
+            <h2 id="p5-title">5. Public Park Placement Optimization</h2>
+            <div class="alg">Algorithm: Greedy Max-Coverage + Fenwick tree support</div>
+
+            <div class="section-title">Problem Content</div>
+            <div class="section-text">Select k park sites from candidates to maximize covered population within walking radius, ensuring equity.</div>
+
+            <div class="section-title">Algorithmic Solution</div>
+            <div class="section-text">For each candidate precompute which population points it covers; greedily pick candidate with largest uncovered population (Fenwick/segment trees speed updates).</div>
+
+            <div class="section-title">Input / Output (Project Version)</div>
+            <div class="section-text">Input: candidate coords, population grid/points, k. Output: chosen sites and covered population.</div>
+
+            <div class="section-title">Related SDGs</div>
+            <div class="pills">
+              <span class="pill">SDG 11 — Sustainable Cities</span>
+              <span class="pill">SDG 3 — Good Health</span>
             </div>
-          </details>
-        </article>
 
-        <!-- 5 -->
-        <article class="card" id="p5" tabindex="0" aria-labelledby="p5-title">
-          <h2 id="p5-title">5. Public Park Placement Optimization</h2>
-          <div class="alg">Algorithm: Greedy Max-Coverage + Fenwick tree support</div>
+            <p class="toggle-image" onclick="toggleImage('img5')">📷 Click to View Image</p>
+            <div class="image-panel" id="img5">
+              <img src="images/image5.jpg" alt="Problem 5 image (dummy: image5)">
+            </div>
 
-          <div class="section-title">Problem Content</div>
-          <div class="section-text">Select k park sites from candidates to maximize covered population within walking radius, ensuring equity.</div>
-
-          <div class="section-title">Algorithmic Solution</div>
-          <div class="section-text">For each candidate precompute which population points it covers; greedily pick candidate with largest uncovered population (Fenwick/segment trees speed updates).</div>
-
-          <div class="section-title">Input / Output (Project Version)</div>
-          <div class="section-text">Input: candidate coords, population grid/points, k. Output: chosen sites and covered population.</div>
-
-          <div class="section-title">Related SDGs</div>
-          <div class="pills">
-            <span class="pill">SDG 11 — Sustainable Cities</span>
-            <span class="pill">SDG 3 — Good Health</span>
-          </div>
-
-          <p class="toggle-image" onclick="toggleImage('img5')">📷 Click to View Image</p>
-          <div class="image-panel" id="img5">
-            <img src="images/image5.jpg" alt="Problem 5 image (dummy: image5)">
-          </div>
-
-          <details>
-            <summary>C++ Example (Greedy + Fenwick skeleton)</summary>
-            <div class="details-code" role="region" aria-live="polite">
+            <details>
+              <summary>C++ Example (Greedy + Fenwick skeleton)</summary>
+              <div class="details-code" role="region" aria-live="polite">
 <pre>// Greedy Max-Coverage skeleton
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
@@ -465,38 +483,38 @@ int main(){
   cout &lt;&lt; "Chosen sites: "; for(int x:chosen) cout &lt;&lt; x &lt;&lt; " "; cout &lt;&lt; "\\nCovered pop: " &lt;&lt; total &lt;&lt; "\\n";
 }
 </pre>
+              </div>
+            </details>
+          </article>
+
+          <!-- 6 -->
+          <article class="card" id="p6" tabindex="0" aria-labelledby="p6-title">
+            <h2 id="p6-title">6. Land Subdivision Optimization</h2>
+            <div class="alg">Algorithm: Divide & Conquer + Shoelace Formula (Geometry)</div>
+
+            <div class="section-title">Problem Content</div>
+            <div class="section-text">Partition land parcels into balanced subplots while keeping constraints like minimum area and road access.</div>
+
+            <div class="section-title">Algorithmic Solution</div>
+            <div class="section-text">Compute polygon area via shoelace formula and recursively partition along axes to approximate equal-area subplots.</div>
+
+            <div class="section-title">Input / Output (Project Version)</div>
+            <div class="section-text">Input: polygon boundary points. Output: sub-polygons with areas and centroids.</div>
+
+            <div class="section-title">Related SDGs</div>
+            <div class="pills">
+              <span class="pill">SDG 11 — Sustainable Cities</span>
+              <span class="pill">SDG 15 — Life on Land</span>
             </div>
-          </details>
-        </article>
 
-        <!-- 6 -->
-        <article class="card" id="p6" tabindex="0" aria-labelledby="p6-title">
-          <h2 id="p6-title">6. Land Subdivision Optimization</h2>
-          <div class="alg">Algorithm: Divide & Conquer + Shoelace Formula (Geometry)</div>
+            <p class="toggle-image" onclick="toggleImage('img6')">📷 Click to View Image</p>
+            <div class="image-panel" id="img6">
+              <img src="images/image6.jpg" alt="Problem 6 image (dummy: image6)">
+            </div>
 
-          <div class="section-title">Problem Content</div>
-          <div class="section-text">Partition land parcels into balanced subplots while keeping constraints like minimum area and road access.</div>
-
-          <div class="section-title">Algorithmic Solution</div>
-          <div class="section-text">Compute polygon area via shoelace formula and recursively partition along axes to approximate equal-area subplots.</div>
-
-          <div class="section-title">Input / Output (Project Version)</div>
-          <div class="section-text">Input: polygon boundary points. Output: sub-polygons with areas and centroids.</div>
-
-          <div class="section-title">Related SDGs</div>
-          <div class="pills">
-            <span class="pill">SDG 11 — Sustainable Cities</span>
-            <span class="pill">SDG 15 — Life on Land</span>
-          </div>
-
-          <p class="toggle-image" onclick="toggleImage('img6')">📷 Click to View Image</p>
-          <div class="image-panel" id="img6">
-            <img src="images/image6.jpg" alt="Problem 6 image (dummy: image6)">
-          </div>
-
-          <details>
-            <summary>C++ Example (Shoelace area)</summary>
-            <div class="details-code" role="region" aria-live="polite">
+            <details>
+              <summary>C++ Example (Shoelace area)</summary>
+              <div class="details-code" role="region" aria-live="polite">
 <pre>// Shoelace formula skeleton
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
@@ -507,38 +525,38 @@ double polygon_area(const vector&lt;pair<double,double&gt;&gt;& poly){
 }
 int main(){ int n; cin>>n; vector&lt;pair<double,double&gt;&gt poly(n); for(int i=0;i&lt;n;i++) cin>>poly[i].first>>poly[i].second; cout &lt;&lt; polygon_area(poly) &lt;&lt; "\\n"; }
 </pre>
+              </div>
+            </details>
+          </article>
+
+          <!-- 7 -->
+          <article class="card" id="p7" tabindex="0" aria-labelledby="p7-title">
+            <h2 id="p7-title">7. High Footfall Commercial Zone Prediction</h2>
+            <div class="alg">Algorithm: Grid Binning + 2D Prefix Sums</div>
+
+            <div class="section-title">Problem Content</div>
+            <div class="section-text">Analyze movement traces and POI density to identify likely commercial hotspots for transit planning and services.</div>
+
+            <div class="section-title">Algorithmic Solution</div>
+            <div class="section-text">Bin traces into grid cells, build 2D prefix sums for fast rectangle queries, and sort candidate cells by aggregated counts.</div>
+
+            <div class="section-title">Input / Output (Project Version)</div>
+            <div class="section-text">Input: movement traces (x,y), POI data. Output: ranked hotspot cells and suggested interventions.</div>
+
+            <div class="section-title">Related SDGs</div>
+            <div class="pills">
+              <span class="pill">SDG 8 — Decent Work & Economic Growth</span>
+              <span class="pill">SDG 11 — Sustainable Cities</span>
             </div>
-          </details>
-        </article>
 
-        <!-- 7 -->
-        <article class="card" id="p7" tabindex="0" aria-labelledby="p7-title">
-          <h2 id="p7-title">7. High Footfall Commercial Zone Prediction</h2>
-          <div class="alg">Algorithm: Grid Binning + 2D Prefix Sums</div>
+            <p class="toggle-image" onclick="toggleImage('img7')">📷 Click to View Image</p>
+            <div class="image-panel" id="img7">
+              <img src="images/image7.jpg" alt="Problem 7 image (dummy: image7)">
+            </div>
 
-          <div class="section-title">Problem Content</div>
-          <div class="section-text">Analyze movement traces and POI density to identify likely commercial hotspots for transit planning and services.</div>
-
-          <div class="section-title">Algorithmic Solution</div>
-          <div class="section-text">Bin traces into grid cells, build 2D prefix sums for fast rectangle queries, and sort candidate cells by aggregated counts.</div>
-
-          <div class="section-title">Input / Output (Project Version)</div>
-          <div class="section-text">Input: movement traces (x,y), POI data. Output: ranked hotspot cells and suggested interventions.</div>
-
-          <div class="section-title">Related SDGs</div>
-          <div class="pills">
-            <span class="pill">SDG 8 — Decent Work & Economic Growth</span>
-            <span class="pill">SDG 11 — Sustainable Cities</span>
-          </div>
-
-          <p class="toggle-image" onclick="toggleImage('img7')">📷 Click to View Image</p>
-          <div class="image-panel" id="img7">
-            <img src="images/image7.jpg" alt="Problem 7 image (dummy: image7)">
-          </div>
-
-          <details>
-            <summary>C++ Example (2D prefix sums)</summary>
-            <div class="details-code" role="region" aria-live="polite">
+            <details>
+              <summary>C++ Example (2D prefix sums)</summary>
+              <div class="details-code" role="region" aria-live="polite">
 <pre>// 2D prefix sums skeleton
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
@@ -555,38 +573,38 @@ int main(){
   return 0;
 }
 </pre>
+              </div>
+            </details>
+          </article>
+
+          <!-- 8 -->
+          <article class="card" id="p8" tabindex="0" aria-labelledby="p8-title">
+            <h2 id="p8-title">8. Creation of Green Belt Buffers</h2>
+            <div class="alg">Algorithm: Multi-source BFS / Grid Morphological Buffer</div>
+
+            <div class="section-title">Problem Content</div>
+            <div class="section-text">Generate successive buffer layers around pollution sources while respecting obstacles and protected zones to create green corridors.</div>
+
+            <div class="section-title">Algorithmic Solution</div>
+            <div class="section-text">Run BFS starting from all pollutant sources simultaneously. Each BFS layer forms one buffer band; mask expansion into protected cells.</div>
+
+            <div class="section-title">Input / Output (Project Version)</div>
+            <div class="section-text">Input: raster map (source cells, obstacles). Output: distance-layered map for planting regions.</div>
+
+            <div class="section-title">Related SDGs</div>
+            <div class="pills">
+              <span class="pill">SDG 13 — Climate Action</span>
+              <span class="pill">SDG 15 — Life on Land</span>
             </div>
-          </details>
-        </article>
 
-        <!-- 8 -->
-        <article class="card" id="p8" tabindex="0" aria-labelledby="p8-title">
-          <h2 id="p8-title">8. Creation of Green Belt Buffers</h2>
-          <div class="alg">Algorithm: Multi-source BFS / Grid Morphological Buffer</div>
+            <p class="toggle-image" onclick="toggleImage('img8')">📷 Click to View Image</p>
+            <div class="image-panel" id="img8">
+              <img src="images/image8.jpg" alt="Problem 8 image (dummy: image8)">
+            </div>
 
-          <div class="section-title">Problem Content</div>
-          <div class="section-text">Generate successive buffer layers around pollution sources while respecting obstacles and protected zones to create green corridors.</div>
-
-          <div class="section-title">Algorithmic Solution</div>
-          <div class="section-text">Run BFS starting from all pollutant sources simultaneously. Each BFS layer forms one buffer band; mask expansion into protected cells.</div>
-
-          <div class="section-title">Input / Output (Project Version)</div>
-          <div class="section-text">Input: raster map (source cells, obstacles). Output: distance-layered map for planting regions.</div>
-
-          <div class="section-title">Related SDGs</div>
-          <div class="pills">
-            <span class="pill">SDG 13 — Climate Action</span>
-            <span class="pill">SDG 15 — Life on Land</span>
-          </div>
-
-          <p class="toggle-image" onclick="toggleImage('img8')">📷 Click to View Image</p>
-          <div class="image-panel" id="img8">
-            <img src="images/image8.jpg" alt="Problem 8 image (dummy: image8)">
-          </div>
-
-          <details>
-            <summary>C++ Example (Multi-source BFS)</summary>
-            <div class="details-code" role="region" aria-live="polite">
+            <details>
+              <summary>C++ Example (Multi-source BFS)</summary>
+              <div class="details-code" role="region" aria-live="polite">
 <pre>// Multi-source BFS skeleton
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
@@ -603,38 +621,38 @@ int main(){
   for(int r=0;r&lt;R;r++){ for(int c=0;c&lt;C;c++) cout &lt;&lt; (dist[r][c]==-1? -1: dist[r][c]) &lt;&lt; " "; cout &lt;&lt; "\\n"; }
 }
 </pre>
+              </div>
+            </details>
+          </article>
+
+          <!-- 9 -->
+          <article class="card" id="p9" tabindex="0" aria-labelledby="p9-title">
+            <h2 id="p9-title">9. Footpath Connectivity Plan</h2>
+            <div class="alg">Algorithm: Dijkstra + Bridge/Articulation detection (DFS)</div>
+
+            <div class="section-title">Problem Content</div>
+            <div class="section-text">Detect disconnected pedestrian networks, compute safe shortest routes, and suggest minimal new links to restore or improve connectivity.</div>
+
+            <div class="section-title">Algorithmic Solution</div>
+            <div class="section-text">Use DFS to find bridges/articulation points (fragile connections) and Dijkstra for safe shortest paths; recommend added edges using union-find / MST on candidate connections.</div>
+
+            <div class="section-title">Input / Output (Project Version)</div>
+            <div class="section-text">Input: pedestrian network graph. Output: bridges, articulation points, and suggested new links.</div>
+
+            <div class="section-title">Related SDGs</div>
+            <div class="pills">
+              <span class="pill">SDG 11 — Sustainable Cities</span>
+              <span class="pill">SDG 3 — Good Health</span>
             </div>
-          </details>
-        </article>
 
-        <!-- 9 -->
-        <article class="card" id="p9" tabindex="0" aria-labelledby="p9-title">
-          <h2 id="p9-title">9. Footpath Connectivity Plan</h2>
-          <div class="alg">Algorithm: Dijkstra + Bridge/Articulation detection (DFS)</div>
+            <p class="toggle-image" onclick="toggleImage('img9')">📷 Click to View Image</p>
+            <div class="image-panel" id="img9">
+              <img src="images/image9.jpg" alt="Problem 9 image (dummy: image9)">
+            </div>
 
-          <div class="section-title">Problem Content</div>
-          <div class="section-text">Detect disconnected pedestrian networks, compute safe shortest routes, and suggest minimal new links to restore or improve connectivity.</div>
-
-          <div class="section-title">Algorithmic Solution</div>
-          <div class="section-text">Use DFS to find bridges/articulation points (fragile connections) and Dijkstra for safe shortest paths; recommend added edges using union-find / MST on candidate connections.</div>
-
-          <div class="section-title">Input / Output (Project Version)</div>
-          <div class="section-text">Input: pedestrian network graph. Output: bridges, articulation points, and suggested new links.</div>
-
-          <div class="section-title">Related SDGs</div>
-          <div class="pills">
-            <span class="pill">SDG 11 — Sustainable Cities</span>
-            <span class="pill">SDG 3 — Good Health</span>
-          </div>
-
-          <p class="toggle-image" onclick="toggleImage('img9')">📷 Click to View Image</p>
-          <div class="image-panel" id="img9">
-            <img src="images/image9.jpg" alt="Problem 9 image (dummy: image9)">
-          </div>
-
-          <details>
-            <summary>C++ Example (Bridge detection)</summary>
-            <div class="details-code" role="region" aria-live="polite">
+            <details>
+              <summary>C++ Example (Bridge detection)</summary>
+              <div class="details-code" role="region" aria-live="polite">
 <pre>// Bridge detection skeleton
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
@@ -656,38 +674,38 @@ int main(){ int n,m; cin>>n>>m; vector<vector<int>> g(n); for(int i=0;i&lt;m;i++
   for(auto &b:bridges) cout &lt;&lt; "Bridge: " &lt;&lt; b.first &lt;&lt; " - " &lt;&lt; b.second &lt;&lt; "\\n";
 }
 </pre>
+              </div>
+            </details>
+          </article>
+
+          <!-- 10 -->
+          <article class="card" id="p10" tabindex="0" aria-labelledby="p10-title">
+            <h2 id="p10-title">10. Underground Utility Routing</h2>
+            <div class="alg">Algorithm: A* / Dijkstra + Greedy Disjoint Routing</div>
+
+            <div class="section-title">Problem Content</div>
+            <div class="section-text">Plan multiple underground utility routes on a grid while avoiding conflicts, minimizing length and respecting obstacles.</div>
+
+            <div class="section-title">Algorithmic Solution</div>
+            <div class="section-text">Route utilities sequentially with A*/Dijkstra, mark used cells as blocked for subsequent routes, optionally iterate to improve disjointness.</div>
+
+            <div class="section-title">Input / Output (Project Version)</div>
+            <div class="section-text">Input: grid map and list of (start, goal) for each utility. Output: set of paths and cost metrics.</div>
+
+            <div class="section-title">Related SDGs</div>
+            <div class="pills">
+              <span class="pill">SDG 9 — Industry & Infrastructure</span>
+              <span class="pill">SDG 6 — Clean Water & Sanitation</span>
             </div>
-          </details>
-        </article>
 
-        <!-- 10 -->
-        <article class="card" id="p10" tabindex="0" aria-labelledby="p10-title">
-          <h2 id="p10-title">10. Underground Utility Routing</h2>
-          <div class="alg">Algorithm: A* / Dijkstra + Greedy Disjoint Routing</div>
+            <p class="toggle-image" onclick="toggleImage('img10')">📷 Click to View Image</p>
+            <div class="image-panel" id="img10">
+              <img src="images/image10.jpg" alt="Problem 10 image (dummy: image10)">
+            </div>
 
-          <div class="section-title">Problem Content</div>
-          <div class="section-text">Plan multiple underground utility routes on a grid while avoiding conflicts, minimizing length and respecting obstacles.</div>
-
-          <div class="section-title">Algorithmic Solution</div>
-          <div class="section-text">Route utilities sequentially with A*/Dijkstra, mark used cells as blocked for subsequent routes, optionally iterate to improve disjointness.</div>
-
-          <div class="section-title">Input / Output (Project Version)</div>
-          <div class="section-text">Input: grid map and list of (start, goal) for each utility. Output: set of paths and cost metrics.</div>
-
-          <div class="section-title">Related SDGs</div>
-          <div class="pills">
-            <span class="pill">SDG 9 — Industry & Infrastructure</span>
-            <span class="pill">SDG 6 — Clean Water & Sanitation</span>
-          </div>
-
-          <p class="toggle-image" onclick="toggleImage('img10')">📷 Click to View Image</p>
-          <div class="image-panel" id="img10">
-            <img src="images/image10.jpg" alt="Problem 10 image (dummy: image10)">
-          </div>
-
-          <details>
-            <summary>C++ Example (A* / Grid Dijkstra)</summary>
-            <div class="details-code" role="region" aria-live="polite">
+            <details>
+              <summary>C++ Example (A* / Grid Dijkstra)</summary>
+              <div class="details-code" role="region" aria-live="polite">
 <pre>// A* / Dijkstra skeleton for grid pathfinding (mark path blocked and next)
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
@@ -723,51 +741,173 @@ int main(){
   return 0;
 }
 </pre>
-            </div>
-          </details>
-        </article>
+              </div>
+            </details>
+          </article>
 
+        </section>
+
+        <div style="text-align:center;margin-top:20px">
+          <a class="top-btn" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">← Back to Top</a>
+        </div>
+
+        <footer class="footer" role="contentinfo">© 2024 Tejas Keri — Portfolio</footer>
       </section>
 
-      <div style="text-align:center;margin-top:20px">
-        <a class="top-btn" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">← Back to Top</a>
-      </div>
+      <!-- TECHNICAL VIEW: embedded into same file and toggled -->
+      <section id="technical" class="hidden">
+        <div class="tech-wrap">
+          <h2>Technical Documentation & SDG Mapping</h2>
+          <p style="margin-top:8px; color:#bfe9ff;">This section consolidates the technical notes, SDG mapping, metrics and data-structures used across all 10 problems. It is included here so you have a single-file project that contains both the portfolio and documentation.</p>
 
-      <footer class="footer" role="contentinfo">© 2025 Tejas Keri — Portfolio </footer>
-      <footer class="footer" role="contentinfo">© Contact : 01fe24bcs144@kletech.ac.in </footer>
+          <div class="tech-card">
+            <h3>A. Project Metrics (All 10 Problems)</h3>
+            <p class="section-title">High-level numbers & scope</p>
+            <ul>
+              <li><strong>Total lines of C++ code (approx):</strong> 2000 - 2500</li>
+              <li><strong>Independent functions / modules implemented:</strong> 20+ core routines</li>
+              <li><strong>Data / input files prepared:</strong> JSON, CSV, plain text examples</li>
+              <li><strong>Figures / diagrams:</strong> 10+ (one per project case study)</li>
+              <li><strong>Each module includes:</strong> time & space complexity notes in comments</li>
+            </ul>
+
+            <p class="section-title">Design Techniques Used</p>
+            <ul>
+              <li>Greedy design (MST, routing, scheduling)</li>
+              <li>Graph modeling of physical networks: roads, water, power, waste</li>
+              <li>Efficient sorting & searching (Merge Sort / Quick Sort) as backbone steps</li>
+              <li>Traversal patterns: BFS, DFS, multi-source BFS</li>
+              <li>Data-driven ranking & prioritization through sorting and scoring</li>
+            </ul>
+          </div>
+
+          <div class="tech-card">
+            <h3>B. Data Structures Used (Core Structures)</h3>
+            <ul>
+              <li>Arrays and vectors for lists of nodes, edges, queues, and trips.</li>
+              <li>Queues and stacks for BFS/DFS and simulation.</li>
+              <li>Priority queues (heaps) for Dijkstra and scheduling.</li>
+              <li>Disjoint Set Union (Union–Find) for Kruskal / clustering.</li>
+              <li>Adjacency lists for efficient graph storage.</li>
+              <li>Fenwick & Segment trees for range queries and updates (park placement, coverage).</li>
+              <li>Tries for permit/prefix matching and fast lookup.</li>
+            </ul>
+          </div>
+
+          <div class="tech-card">
+            <h3>C. Algorithms Implemented in This Bucket</h3>
+            <p class="section-title">Graph Algorithms</p>
+            <ul>
+              <li>BFS, DFS, Multi-source BFS</li>
+              <li>Dijkstra's shortest path (with heap)</li>
+              <li>Prim's and Kruskal's MST (with Union-Find)</li>
+              <li>Bridge & articulation detection (Tarjan-style low-link)</li>
+              <li>A* heuristic routing (grid)</li>
+            </ul>
+
+            <p class="section-title">Sorting & Scheduling / Other</p>
+            <ul>
+              <li>Merge Sort / Quick Sort for sorting core lists (edges/trips)</li>
+              <li>Greedy nearest-neighbour routing for garbage / service rounds</li>
+              <li>Greedy max-coverage selection for parks</li>
+              <li>Backtracking & DFS for constraint satisfaction where needed (small conflict components)</li>
+            </ul>
+          </div>
+
+          <div class="tech-card">
+            <h3>D. Implementation Notes & Best Practices</h3>
+            <p>- All code written using portable C++ STL (vectors, priority_queue, unordered_map) for clarity and maintainability.</p>
+            <p>- Each major algorithm includes complexity comments, example input-output, and basic test harnesses.</p>
+            <p>- Data IO kept simple (CSV/JSON examples) allowing rapid replacement with real datasets during integration.</p>
+          </div>
+
+          <div class="tech-card">
+            <h3>E. SDG Mapping Summary</h3>
+            <div style="background:rgba(255,255,255,0.02); padding:12px; border-radius:8px;">
+              <p><strong>SDG 3 — Good Health & Well-being:</strong> Optimal hospital locations & exposure reduction through zoning.</p>
+              <p><strong>SDG 6 — Clean Water & Sanitation:</strong> Utility routing, sewer path planning with minimal interference.</p>
+              <p><strong>SDG 8 — Decent Work & Economic Growth:</strong> Commercial zone prediction to support economic planning.</p>
+              <p><strong>SDG 9 — Industry, Innovation & Infrastructure:</strong> Robust routing, infrastructure planning, and MST-based network design.</p>
+              <p><strong>SDG 11 — Sustainable Cities & Communities:</strong> Park placement, footpath connectivity, and zoning strategies.</p>
+              <p><strong>SDG 13 — Climate Action & SDG 15 — Life on Land:</strong> Green belt creation, buffers, and ecological preservation modeling.</p>
+            </div>
+          </div>
+
+          <div class="tech-card">
+            <h3>F. Usage & Integration</h3>
+            <p>Save this single HTML file (you already have it) and the <code>images/</code> folder with placeholder images <code>image1.jpg..image10.jpg</code>. To switch between the main portfolio and this technical documentation, use the sidebar link "Technical Documentation & SDG Mapping" or the "Back to Portfolio" control in the header.</p>
+            <p class="section-title">Files included (suggested project structure)</p>
+            <ul>
+              <li><code>index_with_docs.html</code> — this single-file project</li>
+              <li><code>/images/*</code> — placeholder images (image1.jpg..image10.jpg)</li>
+              <li><code>/data/*</code> — sample CSV/JSON inputs (optional)</li>
+            </ul>
+          </div>
+
+          <div style="margin-top:12px;">
+            <a class="top-btn" href="#" onclick="showView('main');return false;">← Back to Portfolio</a>
+          </div>
+        </div>
+      </section>
+
     </main>
   </div>
 
   <script>
-    // Sidebar navigation behavior: smooth scroll + active class
+    // View switching (single-file "pages")
+    function showView(id, clickedLink){
+      // hide all views
+      document.querySelectorAll('.view').forEach(v=>v.classList.add('hidden'));
+      // show hero only if main
+      if(id === 'main'){
+        document.getElementById('hero').classList.remove('hidden');
+      } else {
+        document.getElementById('hero').classList.add('hidden');
+      }
+      // show selected view
+      const el = document.getElementById(id);
+      if(el) el.classList.remove('hidden');
+
+      // update active class on nav
+      document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('active'));
+      if(clickedLink) clickedLink.classList.add('active');
+    }
+
+    // default view
+    showView('main');
+
+    // Sidebar navigation behavior: smooth scroll + active class (for anchors within main view)
     document.querySelectorAll('.nav-link').forEach(function(a){
       a.addEventListener('click', function(e){
-        e.preventDefault();
-        const id = this.getAttribute('href').slice(1);
-        const el = document.getElementById(id);
-        if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
-        document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('active'));
-        this.classList.add('active');
+        // handled by showView to switch view; for internal anchors we still scroll
+        const target = this.getAttribute('data-target');
+        if(target && target.startsWith('p')){
+          // ensure main view visible
+          showView('main', this);
+          setTimeout(()=>{ const el = document.getElementById(target); if(el) el.scrollIntoView({behavior:'smooth', block:'center'}); }, 220);
+          e.preventDefault();
+        }
       });
     });
 
-    // Keyboard shortcuts 1..0 -> items 1..10
+    // Keyboard shortcuts 1..0 -> items 1..10 (also switches to main view)
     document.addEventListener('keydown', function(e){
       const tag = document.activeElement && document.activeElement.tagName;
       if(tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (document.activeElement && document.activeElement.isContentEditable)) return;
       if(e.key >= '0' && e.key <= '9'){
         let idx = (e.key === '0') ? 10 : Number(e.key);
         const el = document.getElementById('p' + idx);
-        if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
+        if(el){ showView('main'); el.scrollIntoView({behavior:'smooth', block:'center'}); }
         document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('active'));
         const link = document.querySelector('.nav-link[data-target="p' + idx + '"]');
         if(link) link.classList.add('active');
       }
     });
 
-    // IntersectionObserver to highlight current visible card in sidebar
+    // IntersectionObserver to highlight current visible card in sidebar (only when main view visible)
     const options = { root: null, rootMargin: '-40% 0px -40% 0px', threshold: 0 };
     const observer = new IntersectionObserver((entries)=>{
+      if(document.getElementById('main').classList.contains('hidden')) return; // only run when main is visible
       entries.forEach(entry=>{
         if(entry.isIntersecting){
           const id = entry.target.id;
@@ -792,7 +932,6 @@ int main(){
       const panel = document.getElementById(id);
       if(!panel) return;
       panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
-      // scroll into view a little so user sees image
       if(panel.style.display === 'block') panel.scrollIntoView({behavior:'smooth', block:'center'});
     }
   </script>
