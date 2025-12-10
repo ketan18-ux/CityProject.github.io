@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>DAA Portfolio — Tejas B. Keri</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DAA Portfolio — Tejas B. Keri (Fixed Sidebar, Light Mode)</title>
 
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -117,7 +117,9 @@ html,body{
   background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.98));
   border-radius: var(--radius);
   padding: 12px;
-  height: 78vh;
+  /* Make height flexible and limit via max-height to avoid bottom gap */
+  height: auto;
+  max-height: calc(100vh - 140px); /* leaves room for header & margins */
   overflow:auto;
   box-shadow: var(--card-shadow);
   position: relative;
@@ -192,6 +194,7 @@ html,body{
   grid-template-columns: 1fr; /* SINGLE COLUMN */
   gap:12px;
   margin-top:6px;
+  padding-bottom:6px; /* small padding so last card not flush to scroll thumb */
 }
 
 /* -----------------------------
@@ -725,9 +728,6 @@ vector<pair<int,int>> astar(const vector<vector<int>>& grid, pair<int,int> start
     }
     return {};
 }
-int main(){ return 0; }`
-  },
-  {
 
 int main(){ return 0; }`
   }
@@ -959,10 +959,23 @@ try {
 } catch(e){}
 
 /* -------------------------
+   SPACING FIX: Ensure no large trailing gap after last card
+   - Problems list has a small bottom padding only
+   - Sidebar uses max-height with overflow auto
+   - Last-child margin override applied
+------------------------- */
+(function applySpacingFix(){
+  // Ensure card gap and last-child have no unexpected margin
+  const style = document.createElement('style');
+  style.textContent = `\n  .cards-list > *:last-child { margin-bottom: 0 !important; }\n  #problemList { padding-bottom: 6px; }\n`;
+  document.head.appendChild(style);
+})();
+
+/* -------------------------
    INIT
 ------------------------- */
 renderCards(problems);
-// Optionally auto-open first item:
+// Auto-open first item if available
 if(problems && problems.length) loadProblem(problems[0].id, true);
 
 // Search binding (with debounce)
