@@ -1,247 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Govindaraddi.H.U | DAA Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
-  <style>
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-      font-family: "Poppins", sans-serif;
-    }
-    body { background: #f0f4f8; overflow-x: hidden; }
-
-    /* NAVIGATION */
-    nav {
-      width: 100%;
-      background: #003366;
-      padding: 16px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: white;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
-    }
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin-left: 20px;
-      padding: 8px 14px;
-      border-radius: 6px;
-      transition: 0.3s ease;
-    }
-    nav a:hover {
-      background: rgba(255,255,255,0.15);
-      transform: translateY(-3px);
-    }
-
-    .container {
-      max-width: 1250px;
-      margin: auto;
-      padding: 30px;
-    }
-
-    /* HEADER */
-    .project-header {
-      background: linear-gradient(120deg, #003366, #0077cc);
-      color: white;
-      padding: 30px;
-      border-radius: 18px;
-      text-align: center;
-      margin-bottom: 30px;
-      box-shadow: 0px 10px 25px rgba(0,0,0,0.25);
-    }
-
-    /* GRID */
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
-    }
-
-    /* PROBLEM CARDS */
-    .card {
-      background: white;
-      padding: 25px;
-      border-radius: 16px;
-      box-shadow: 0px 10px 25px rgba(0,0,0,0.12);
-      margin-bottom: 30px;
-    }
-
-    .title {
-      font-size: 20px;
-      font-weight: 600;
-      color: #003366;
-      margin-bottom: 6px;
-    }
-
-    .algo {
-      font-size: 14px;
-      font-weight: bold;
-      color: #0077cc;
-      margin-bottom: 6px;
-    }
-
-    .desc, .solution {
-      font-size: 14px;
-      margin-bottom: 8px;
-      color: #333;
-    }
-
-    .sdg {
-      display: inline-block;
-      padding: 5px 12px;
-      font-size: 12px;
-      border-radius: 15px;
-      color: white;
-      margin: 4px 4px 10px 0;
-      font-weight: 600;
-    }
-
-    /* SDG Colors */
-    .sdg1 { background: #e5243b; }
-    .sdg7 { background: #fbc412; }
-    .sdg8 { background: #a21942; }
-    .sdg9 { background: #fd6925; }
-    .sdg10 { background: #dd1367; }
-    .sdg11 { background: #fd9d24; }
-    .sdg12 { background: #bf8b2e; }
-    .sdg13 { background: #3f7e44; }
-    .sdg16 { background: #00689d; }
-
-    .code-title {
-      font-size: 16px;
-      margin: 15px 0 6px;
-      font-weight: 600;
-      color: #003366;
-    }
-
-    .code-block {
-      background: #f7f7f7;
-      border-left: 4px solid #0077cc;
-      padding: 12px;
-      font-size: 13px;
-      font-family: monospace;
-      white-space: pre;
-      overflow-x: auto;
-      border-radius: 8px;
-      margin-bottom: 18px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #003366;
-      color: white;
-      margin-top: 40px;
-      border-radius: 12px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart City DAA - All 10 C++ Codes</title>
+<style>
+body { font-family: Arial, sans-serif; background: #f0f0f0; padding: 20px; }
+h1 { text-align: center; }
+h2 { color: #2c3e50; margin-top: 40px; }
+pre { background: #272822; color: #f8f8f2; padding: 15px; overflow-x: auto; border-radius: 5px; }
+code { font-family: 'Courier New', monospace; }
+</style>
 </head>
-
 <body>
+<h1>Smart City Infrastructure & DAA Portfolio - All 10 Problems in C++</h1>
 
-  <nav>
-    <h2>Govindaraddi.H.U</h2>
-    <div><a href="index.html">Home</a></div>
-  </nav>
-
-  <div class="container">
-
-    <div class="project-header">
-      <h1>Smart City Infrastructure & Routing Design — DAA Portfolio</h1>
-      <p>Student: <b>Govindaraddi.H.U</b></p>
-      <p>Faculty: <b>Prakash Hegade</b></p>
-      <p>Course: Design & Analysis of Algorithms</p>
-      <p>2024 · DAA City Design</p>
-    </div>
-
-    <div class="grid">
-
-      <!-- LEFT COLUMN -->
-      <div>
-
-#include <bits/stdc++.h>
+<h2>Problem 1: Best Allocation of City Budget</h2>
+<pre><code>
+#include &lt;bits/stdc++.h&gt;
 using namespace std;
-
-// =======================
-// Problem 1: Best Allocation of City Budget
-// Use 0/1 Knapsack approach to maximize impact given a budget.
-// =======================
 void problem1() {
     int n, budget;
-    cout << "Problem 1: Best Allocation of City Budget\n";
-    cout << "Enter number of projects and total budget: ";
-    cin >> n >> budget;
-    vector<int> cost(n), impact(n);
-    cout << "Enter cost and impact of each project:\n";
-    for (int i = 0; i < n; i++) cin >> cost[i] >> impact[i];
-
-    vector<int> dp(budget + 1, 0);
-    for (int i = 0; i < n; i++) {
-        for (int j = budget; j >= cost[i]; j--) {
-            dp[j] = max(dp[j], dp[j - cost[i]] + impact[i]);
+    cout &lt;&lt; "Problem 1: Best Allocation of City Budget\n";
+    cout &lt;&lt; "Enter number of projects and total budget: ";
+    cin &gt;&gt; n &gt;&gt; budget;
+    vector&lt;int&gt; cost(n), impact(n);
+    cout &lt;&lt; "Enter cost and impact of each project:\n";
+    for(int i = 0; i &lt; n; i++) cin &gt;&gt; cost[i] &gt;&gt; impact[i];
+    vector&lt;int&gt; dp(budget+1,0);
+    for(int i=0;i&lt;n;i++){
+        for(int j=budget;j&gt;=cost[i];j--){
+            dp[j]=max(dp[j],dp[j-cost[i]]+impact[i]);
         }
     }
-    cout << "Maximum impact achievable: " << *max_element(dp.begin(), dp.end()) << "\n\n";
+    cout &lt;&lt; "Maximum impact achievable: " &lt;&lt; *max_element(dp.begin(),dp.end()) &lt;&lt; "\n\n";
 }
+</code></pre>
 
-// =======================
-// Problem 2: Tax Officer Route Optimization
-// Use Dijkstra algorithm to find shortest path between zones
-// =======================
+<h2>Problem 2: Tax Officer Route Optimization</h2>
+<pre><code>
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
 void problem2() {
-    int n, m;
-    cout << "Problem 2: Tax Officer Route Optimization\n";
-    cout << "Enter number of zones and roads: ";
-    cin >> n >> m;
-    vector<vector<pair<int,int>>> adj(n);
-    cout << "Enter roads (u v w):\n";
-    for (int i = 0; i < m; i++) {
-        int u, v, w; cin >> u >> v >> w;
+    int n,m;
+    cout &lt;&lt; "Problem 2: Tax Officer Route Optimization\n";
+    cout &lt;&lt; "Enter number of zones and roads: ";
+    cin &gt;&gt; n &gt;&gt; m;
+    vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; adj(n);
+    cout &lt;&lt; "Enter roads (u v w):\n";
+    for(int i=0;i&lt;m;i++){
+        int u,v,w; cin &gt;&gt; u &gt;&gt; v &gt;&gt; w;
         adj[u].push_back({v,w});
         adj[v].push_back({u,w});
     }
     int start;
-    cout << "Enter starting zone: ";
-    cin >> start;
-    const long long INF = 1e18;
-    vector<long long> dist(n, INF);
-    dist[start] = 0;
-    priority_queue<pair<long long,int>, vector<pair<long long,int>>, greater<>> pq;
-    pq.push({0, start});
-
-    while (!pq.empty()) {
-        auto [d,u] = pq.top(); pq.pop();
-        if (d != dist[u]) continue;
-        for (auto [v,w]: adj[u]) {
-            if (dist[v] > d + w) {
-                dist[v] = d + w;
-                pq.push({dist[v], v});
+    cout &lt;&lt; "Enter starting zone: ";
+    cin &gt;&gt; start;
+    const long long INF=1e18;
+    vector&lt;long long&gt; dist(n,INF);
+    dist[start]=0;
+    priority_queue&lt;pair&lt;long long,int&gt;, vector&lt;pair&lt;long long,int&gt;&gt;, greater&lt;&gt;&gt; pq;
+    pq.push({0,start});
+    while(!pq.empty()){
+        auto [d,u]=pq.top(); pq.pop();
+        if(d!=dist[u]) continue;
+        for(auto [v,w]: adj[u]){
+            if(dist[v]&gt;d+w){
+                dist[v]=d+w;
+                pq.push({dist[v],v});
             }
         }
     }
-
-    cout << "Shortest distances from start:\n";
-    for (auto d: dist) cout << d << " ";
-    cout << "\n\n";
+    cout &lt;&lt; "Shortest distances from start:\n";
+    for(auto d: dist) cout &lt;&lt; d &lt;&lt; " ";
+    cout &lt;&lt; "\n\n";
 }
+</code></pre>
 
-// =======================
-// Problem 3: Smart Parking Fee Prediction
-// Segment Tree to quickly sum parking usage in a range
-// Fee is predicted based on usage
-// =======================
+<h2>Problem 3: Smart Parking Fee Prediction</h2>
+<pre><code>
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
 struct SegmentTree {
-    vector<long long> tree;
+    vector&lt;long long&gt; tree;
     int n;
     SegmentTree(int size){ n=size; tree.assign(4*n,0);}
-    void build(vector<int> &a,int v,int tl,int tr){
+    void build(vector&lt;int&gt; &amp;a,int v,int tl,int tr){
         if(tl==tr) tree[v]=a[tl];
         else {
             int tm=(tl+tr)/2;
@@ -251,158 +95,163 @@ struct SegmentTree {
         }
     }
     long long query(int v,int tl,int tr,int l,int r){
-        if(l>r) return 0;
-        if(l==tl && r==tr) return tree[v];
+        if(l&gt;r) return 0;
+        if(l==tl &amp;&amp; r==tr) return tree[v];
         int tm=(tl+tr)/2;
         return query(2*v,tl,tm,l,min(r,tm))+query(2*v+1,tm+1,tr,max(l,tm+1),r);
     }
 };
 void problem3() {
-    int n,q; 
-    cout << "Problem 3: Smart Parking Fee Prediction\n";
-    cout << "Enter number of parking slots: "; cin >> n;
-    vector<int> usage(n); 
-    cout << "Enter parking usage:\n";
-    for(int i=0;i<n;i++) cin >> usage[i];
+    int n,q; cout &lt;&lt; "Problem 3: Smart Parking Fee Prediction\n";
+    cout &lt;&lt; "Enter number of parking slots: "; cin &gt;&gt; n;
+    vector&lt;int&gt; usage(n); cout &lt;&lt; "Enter parking usage:\n";
+    for(int i=0;i&lt;n;i++) cin &gt;&gt; usage[i];
     SegmentTree seg(n); seg.build(usage,1,0,n-1);
-    cout << "Enter number of queries: "; cin >> q;
+    cout &lt;&lt; "Enter number of queries: "; cin &gt;&gt; q;
     while(q--){
-        int l,r; cin >> l >> r;
+        int l,r; cin &gt;&gt; l &gt;&gt; r;
         long long demand=seg.query(1,0,n-1,l,r);
-        int fee = demand<=100?10:demand<=500?20:demand<=1000?30:50;
-        cout << "Predicted fee: " << fee << "\n";
+        int fee = demand&lt;=100?10:demand&lt;=500?20:demand&lt;=1000?30:50;
+        cout &lt;&lt; "Predicted fee: " &lt;&lt; fee &lt;&lt; "\n";
     }
-    cout << "\n";
+    cout &lt;&lt; "\n";
 }
+</code></pre>
 
-// =======================
-// Problem 4: City Energy Demand Forecasting
-// Simple Linear Regression: y = slope*x + intercept
-// =======================
+<h2>Problem 4: City Energy Demand Forecasting</h2>
+<pre><code>
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
 void problem4() {
-    int n; cout << "Problem 4: City Energy Demand Forecasting\n";
-    cout << "Enter number of past days: "; cin >> n;
-    vector<double> x(n),y(n);
-    cout << "Enter day index and energy consumption:\n";
-    for(int i=0;i<n;i++) cin >> x[i] >> y[i];
+    int n; cout &lt;&lt; "Problem 4: City Energy Demand Forecasting\n";
+    cout &lt;&lt; "Enter number of past days: "; cin &gt;&gt; n;
+    vector&lt;double&gt; x(n),y(n);
+    cout &lt;&lt; "Enter day index and energy consumption:\n";
+    for(int i=0;i&lt;n;i++) cin &gt;&gt; x[i] &gt;&gt; y[i];
     double sumX=0,sumY=0,sumXY=0,sumXX=0;
-    for(int i=0;i<n;i++){ sumX+=x[i]; sumY+=y[i]; sumXY+=x[i]*y[i]; sumXX+=x[i]*x[i]; }
+    for(int i=0;i&lt;n;i++){ sumX+=x[i]; sumY+=y[i]; sumXY+=x[i]*y[i]; sumXX+=x[i]*x[i]; }
     double slope=(n*sumXY - sumX*sumY)/(n*sumXX - sumX*sumX);
     double intercept=(sumY - slope*sumX)/n;
     double nextDay=x.back()+1;
     double prediction=slope*nextDay + intercept;
-    cout << "Predicted energy: " << prediction << "\n\n";
+    cout &lt;&lt; "Predicted energy: " &lt;&lt; prediction &lt;&lt; "\n\n";
 }
+</code></pre>
 
-// =======================
-// Problem 5: Metro Construction Phase Optimization
-// Optimize construction phases to minimize total cost
-// =======================
+<h2>Problem 5: Metro Construction Phase Optimization</h2>
+<pre><code>
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
 void problem5() {
-    int n,m; cout << "Problem 5: Metro Construction Phase Optimization\n";
-    cout << "Enter number of stations and phases: "; cin >> n >> m;
-    vector<int> cost(n); cout << "Enter construction cost per station:\n";
-    for(int i=0;i<n;i++) cin >> cost[i];
-    vector<int> dp(n+1,INT_MAX/2);
+    int n,m; cout &lt;&lt; "Problem 5: Metro Construction Phase Optimization\n";
+    cout &lt;&lt; "Enter number of stations and phases: "; cin &gt;&gt; n &gt;&gt; m;
+    vector&lt;int&gt; cost(n); cout &lt;&lt; "Enter construction cost per station:\n";
+    for(int i=0;i&lt;n;i++) cin &gt;&gt; cost[i];
+    vector&lt;int&gt; dp(n+1,INT_MAX/2);
     dp[0]=0;
-    for(int i=1;i<=n;i++){
-        for(int j=1;j<=min(i,m);j++){
+    for(int i=1;i&lt;=n;i++){
+        for(int j=1;j&lt;=min(i,m);j++){
             dp[i]=min(dp[i],dp[i-j]+cost[i-1]);
         }
     }
-    cout << "Minimum construction cost: " << dp[n] << "\n\n";
+    cout &lt;&lt; "Minimum construction cost: " &lt;&lt; dp[n] &lt;&lt; "\n\n";
 }
+</code></pre>
 
-// =======================
-// Problem 6: Streetlight Energy Reduction
-// Dim half the streetlights with highest power consumption
-// =======================
+<h2>Problem 6: Streetlight Energy Reduction</h2>
+<pre><code>
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
 void problem6() {
-    int n; cout << "Problem 6: Streetlight Energy Reduction\n";
-    cout << "Enter number of streetlights: "; cin >> n;
-    vector<int> power(n); cout << "Enter power consumption:\n";
-    for(int i=0;i<n;i++) cin >> power[i];
+    int n; cout &lt;&lt; "Problem 6: Streetlight Energy Reduction\n";
+    cout &lt;&lt; "Enter number of streetlights: "; cin &gt;&gt; n;
+    vector&lt;int&gt; power(n); cout &lt;&lt; "Enter power consumption:\n";
+    for(int i=0;i&lt;n;i++) cin &gt;&gt; power[i];
     sort(power.begin(), power.end());
     int reduced = accumulate(power.begin(),power.begin()+n/2,0);
-    cout << "Energy reduced by dimming half streetlights: " << reduced << "\n\n";
+    cout &lt;&lt; "Energy reduced by dimming half streetlights: " &lt;&lt; reduced &lt;&lt; "\n\n";
 }
+</code></pre>
 
-// =======================
-// Problem 7: Transport Ticket Dynamic Pricing
-// Dynamic pricing based on demand thresholds
-// =======================
+<h2>Problem 7: Transport Ticket Dynamic Pricing</h2>
+<pre><code>
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
 void problem7() {
-    int n; cout << "Problem 7: Transport Ticket Dynamic Pricing\n";
-    cout << "Enter number of time slots: "; cin >> n;
-    vector<int> demand(n); cout << "Enter demand for each slot:\n";
-    for(int i=0;i<n;i++) cin >> demand[i];
-    for(int i=0;i<n;i++){
-        int price = demand[i]<50?100:demand[i]<100?150:200;
-        cout << "Time slot " << i << " price: " << price << "\n";
+    int n; cout &lt;&lt; "Problem 7: Transport Ticket Dynamic Pricing\n";
+    cout &lt;&lt; "Enter number of time slots: "; cin &gt;&gt; n;
+    vector&lt;int&gt; demand(n); cout &lt;&lt; "Enter demand for each slot:\n";
+    for(int i=0;i&lt;n;i++) cin &gt;&gt; demand[i];
+    for(int i=0;i&lt;n;i++){
+        int price = demand[i]&lt;50?100:demand[i]&lt;100?150:200;
+        cout &lt;&lt; "Time slot " &lt;&lt; i &lt;&lt; " price: " &lt;&lt; price &lt;&lt; "\n";
     }
-    cout << "\n";
+    cout &lt;&lt; "\n";
 }
+</code></pre>
 
-// =======================
-// Problem 8: Garbage Plant Load Balancing
-// Move garbage from overloaded plants to underloaded
-// =======================
+<h2>Problem 8: Garbage Plant Load Balancing</h2>
+<pre><code>
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
 void problem8() {
-    int n; cout << "Problem 8: Garbage Plant Load Balancing\n";
-    cout << "Enter number of garbage plants: "; cin >> n;
-    vector<int> load(n); cout << "Enter initial load:\n";
-    for(int i=0;i<n;i++) cin >> load[i];
+    int n; cout &lt;&lt; "Problem 8: Garbage Plant Load Balancing\n";
+    cout &lt;&lt; "Enter number of garbage plants: "; cin &gt;&gt; n;
+    vector&lt;int&gt; load(n); cout &lt;&lt; "Enter initial load:\n";
+    for(int i=0;i&lt;n;i++) cin &gt;&gt; load[i];
     sort(load.begin(), load.end());
     int totalReduced = 0;
-    for(int i=0;i<n/2;i++) totalReduced += load[n-i-1]-load[i];
-    cout << "Load balanced by moving garbage: " << totalReduced << "\n\n";
+    for(int i=0;i&lt;n/2;i++) totalReduced += load[n-i-1]-load[i];
+    cout &lt;&lt; "Load balanced by moving garbage: " &lt;&lt; totalReduced &lt;&lt; "\n\n";
 }
+</code></pre>
 
-// =======================
-// Problem 9: Building Maintenance Prediction
-// Predict maintenance using age and past repairs
-// =======================
+<h2>Problem 9: Building Maintenance Prediction</h2>
+<pre><code>
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
 void problem9() {
-    int n; cout << "Problem 9: Building Maintenance Prediction\n";
-    cout << "Enter number of buildings: "; cin >> n;
-    vector<int> age(n), repairs(n);
-    cout << "Enter age and past repair count:\n";
-    for(int i=0;i<n;i++) cin >> age[i] >> repairs[i];
-    for(int i=0;i<n;i++){
+    int n; cout &lt;&lt; "Problem 9: Building Maintenance Prediction\n";
+    cout &lt;&lt; "Enter number of buildings: "; cin &gt;&gt; n;
+    vector&lt;int&gt; age(n), repairs(n);
+    cout &lt;&lt; "Enter age and past repair count:\n";
+    for(int i=0;i&lt;n;i++) cin &gt;&gt; age[i] &gt;&gt; repairs[i];
+    for(int i=0;i&lt;n;i++){
         double predicted = repairs[i]*1.05 + age[i]*0.1;
-        cout << "Building " << i << " predicted maintenance: " << predicted << "\n";
+        cout &lt;&lt; "Building " &lt;&lt; i &lt;&lt; " predicted maintenance: " &lt;&lt; predicted &lt;&lt; "\n";
     }
-    cout << "\n";
+    cout &lt;&lt; "\n";
 }
+</code></pre>
 
-// =======================
-// Problem 10: Subsidy Distribution Optimization
-// Distribute subsidy to maximum citizens within budget
-// =======================
+<h2>Problem 10: Subsidy Distribution Optimization</h2>
+<pre><code>
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
 void problem10() {
-    int n,budget; cout << "Problem 10: Subsidy Distribution Optimization\n";
-    cout << "Enter number of citizens and total subsidy budget: "; cin >> n >> budget;
-    vector<int> need(n); cout << "Enter subsidy need per citizen:\n";
-    for(int i=0;i<n;i++) cin >> need[i];
+    int n,budget; cout &lt;&lt; "Problem 10: Subsidy Distribution Optimization\n";
+    cout &lt;&lt; "Enter number of citizens and total subsidy budget: "; cin &gt;&gt; n &gt;&gt; budget;
+    vector&lt;int&gt; need(n); cout &lt;&lt; "Enter subsidy need per citizen:\n";
+    for(int i=0;i&lt;n;i++) cin &gt;&gt; need[i];
     sort(need.begin(),need.end());
     int count=0;
-    for(int i=0;i<n;i++){
-        if(budget>=need[i]){ budget-=need[i]; count++; } else break;
+    for(int i=0;i&lt;n;i++){
+        if(budget&gt;=need[i]){ budget-=need[i]; count++; } else break;
     }
-    cout << "Maximum citizens receiving subsidy: " << count << "\n\n";
+    cout &lt;&lt; "Maximum citizens receiving subsidy: " &lt;&lt; count &lt;&lt; "\n\n";
 }
+</code></pre>
 
-// =======================
-// Main Menu
-// =======================
+<h2>Main Menu to Run Any Problem</h2>
+<pre><code>
 int main() {
     while(true){
         int choice;
-        cout << "\n--- Smart City Problems Menu ---\n";
-        cout << "1. Best Allocation of City Budget\n2. Tax Officer Route Optimization\n3. Smart Parking Fee Prediction\n4. City Energy Demand Forecasting\n";
-        cout << "5. Metro Construction Phase Optimization\n6. Streetlight Energy Reduction\n7. Transport Ticket Dynamic Pricing\n8. Garbage Plant Load Balancing\n";
-        cout << "9. Building Maintenance Prediction\n10. Subsidy Distribution Optimization\n0. Exit\nEnter choice: ";
-        cin >> choice;
+        cout &lt;&lt; "\n--- Smart City Problems Menu ---\n";
+        cout &lt;&lt; "1. Best Allocation of City Budget\n2. Tax Officer Route Optimization\n3. Smart Parking Fee Prediction\n4. City Energy Demand Forecasting\n";
+        cout &lt;&lt; "5. Metro Construction Phase Optimization\n6. Streetlight Energy Reduction\n7. Transport Ticket Dynamic Pricing\n8. Garbage Plant Load Balancing\n";
+        cout &lt;&lt; "9. Building Maintenance Prediction\n10. Subsidy Distribution Optimization\n0. Exit\nEnter choice: ";
+        cin &gt;&gt; choice;
         if(choice==0) break;
         switch(choice){
             case 1: problem1(); break;
@@ -415,25 +264,12 @@ int main() {
             case 8: problem8(); break;
             case 9: problem9(); break;
             case 10: problem10(); break;
-            default: cout << "Invalid choice\n";
+            default: cout &lt;&lt; "Invalid choice\n";
         }
     }
     return 0;
 }
-
-
-      </div> <!-- END LEFT COLUMN -->
-
-      <!-- RIGHT COLUMN (Empty or any widgets you add later) -->
-      <div></div>
-
-    </div> <!-- END GRID -->
-
-  </div> <!-- END CONTAINER -->
-
-  <footer>
-    © 2024 Govindaraddi.H.U – DAA Portfolio
-  </footer>
+</code></pre>
 
 </body>
 </html>
