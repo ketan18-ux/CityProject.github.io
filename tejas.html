@@ -235,6 +235,20 @@ html,body{
   overflow:hidden;
   text-overflow:ellipsis;
 }
+.problem-card .sdg-chips {
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  margin-top:6px;
+}
+.sdg-chip {
+  background: rgba(34,211,238,0.06);
+  color: #cdf6ff;
+  padding:4px 8px;
+  font-size:11px;
+  border-radius:999px;
+  border:1px solid rgba(34,211,238,0.06);
+}
 
 /* hover lift + glow */
 .problem-card:hover{
@@ -269,6 +283,8 @@ html,body{
 .center h2{ margin-top:0; font-size:20px; color:#dff8ff; }
 .center .desc { color:var(--muted); margin:10px 0 12px; font-size:14px; }
 .center .complexity { font-size:13px; color:var(--muted); margin-bottom:14px; }
+.center .sdg-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+.center .sdg-row .sdg-chip { background: rgba(34,211,238,0.09); color:#e6fbff; padding:6px 10px; font-size:12px; border-radius:999px; border:1px solid rgba(34,211,238,0.08); }
 pre { background:#0f1724 !important; padding:18px; border-radius:12px; overflow:auto; }
 code { font-family:"JetBrains Mono", monospace; font-size:14px; display:block; white-space:pre; color:#cbeefc; }
 
@@ -314,13 +330,13 @@ code { font-family:"JetBrains Mono", monospace; font-size:14px; display:block; w
     <div class="controls" aria-hidden="false">
       <div class="search" role="search" aria-label="Search problems">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="opacity:0.9"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <input id="searchInput" type="text" placeholder="Search problems (title or id)..." aria-label="Search problems" />
+        <input id="searchInput" type="text" placeholder="Search problems (title, id, SDG)..." aria-label="Search problems" />
       </div>
       <div class="count" id="count">10 items</div>
     </div>
 
     <h3 style="margin:6px 0 8px;color:#e6f7ff">A. Case Study Gallery</h3>
-    <p style="color:var(--muted); font-size:13px; margin-top:0;">Click a card to view description & code in the right panel.</p>
+    <p style="color:var(--muted); font-size:13px; margin-top:0;">Click a card to view description, SDGs & code in the right panel.</p>
 
     <div id="problemList" class="cards-list" tabindex="0"></div>
   </aside>
@@ -329,6 +345,7 @@ code { font-family:"JetBrains Mono", monospace; font-size:14px; display:block; w
   <main class="center" id="center" tabindex="0">
     <h2 id="problemTitle">Select a problem from the left</h2>
     <div class="desc" id="problemDesc">Click a problem card to view the explanation.</div>
+    <div class="sdg-row" id="problemSdgs" aria-hidden="true"></div>
     <div class="complexity" id="problemComplexity">Time Complexity — (select a problem)</div>
     <pre aria-live="polite"><code id="problemCode" class="language-python"># Code will appear here.</code></pre>
   </main>
@@ -336,10 +353,8 @@ code { font-family:"JetBrains Mono", monospace; font-size:14px; display:block; w
 
 <script>
 /* ----------------------------------------------------
-   PROBLEM DATA
-   (All full code blocks are included as strings here.
-    Replace or expand with your original 900+ lines implementations
-    by pasting the full functions into the `code` fields below.)
+   PROBLEM DATA (with SDGs added)
+   - Each problem now has an `sdgs` array (3-4 short labels)
 ---------------------------------------------------- */
 const problems = [
   {
@@ -347,6 +362,7 @@ const problems = [
     title: "Optimal Hospital Location",
     desc: "Place hospitals so that the total distance citizens travel is minimized.",
     complexity: "O(n log n) using median method; O(knt) for k-median clustering.",
+    sdgs: ["SDG 3: Good Health", "SDG 9: Industry & Infrastructure", "SDG 11: Sustainable Cities", "SDG 10: Reduced Inequalities"],
     code: `# Hospital Location (Median / k-median)
 # 1D Median solution
 def median_1d(points):
@@ -366,6 +382,7 @@ if __name__ == "__main__":
     title: "School Allocation to Students",
     desc: "Assign students to the nearest school under capacity constraints using Max-Flow.",
     complexity: "O(E √V) using Dinic’s Algorithm.",
+    sdgs: ["SDG 4: Quality Education", "SDG 10: Reduced Inequalities", "SDG 11: Sustainable Cities"],
     code: `# Max Flow based School Allocation (Dinic)
 from collections import deque
 
@@ -422,6 +439,7 @@ class Dinic:
     title: "Smart Parking Slot Allocation",
     desc: "Assign cars to slots minimizing walking distance using Hungarian Algorithm.",
     complexity: "O(n³)",
+    sdgs: ["SDG 11: Sustainable Cities", "SDG 9: Industry & Infrastructure", "SDG 13: Climate Action"],
     code: `# Hungarian Algorithm (assignment)
 def hungarian(cost):
     # cost: n x n matrix
@@ -476,6 +494,7 @@ def hungarian(cost):
     title: "Industrial vs Residential Separation",
     desc: "Color blocks ensuring industries do not touch residential regions.",
     complexity: "O(V+E) for bipartite check.",
+    sdgs: ["SDG 11: Sustainable Cities", "SDG 3: Good Health", "SDG 12: Responsible Consumption"],
     code: `# Graph bipartite check
 from collections import deque
 
@@ -501,6 +520,7 @@ def is_bipartite(graph):
     title: "Public Park Placement Optimization",
     desc: "Select park sites to maximize population coverage using greedy + Fenwick Tree.",
     complexity: "O(k n log n)",
+    sdgs: ["SDG 11: Sustainable Cities", "SDG 3: Good Health", "SDG 15: Life on Land"],
     code: `# Fenwick Tree structure (Binary Indexed Tree)
 class Fenwick:
     def __init__(self, n):
@@ -526,6 +546,7 @@ class Fenwick:
     title: "Land Subdivision Optimization",
     desc: "Divide land into balanced subplots using recursive kd-like partitioning.",
     complexity: "O(n log n)",
+    sdgs: ["SDG 11: Sustainable Cities", "SDG 15: Life on Land", "SDG 8: Decent Work"],
     code: `# Polygon area via Shoelace
 def polygon_area(poly):
     s = 0
@@ -541,6 +562,7 @@ def polygon_area(poly):
     title: "High Footfall Commercial Zone Prediction",
     desc: "Predict high footfall zones using clustering + movement density.",
     complexity: "O(nk) per iteration",
+    sdgs: ["SDG 8: Decent Work & Economic Growth", "SDG 11: Sustainable Cities", "SDG 9: Industry & Innovation"],
     code: `# Simple clustering logic example (k-means like)
 def assign(points, centers):
     clusters = [[] for _ in centers]
@@ -559,6 +581,7 @@ def assign(points, centers):
     title: "Creation of Green Belt Buffers",
     desc: "Use BFS/DFS layers to form multi-zone buffer around polluted areas.",
     complexity: "O(V+E)",
+    sdgs: ["SDG 3: Good Health", "SDG 11: Sustainable Cities", "SDG 13: Climate Action", "SDG 15: Life on Land"],
     code: `# BFS buffer layers
 from collections import deque
 
@@ -583,6 +606,7 @@ def buffer_layers(grid, sources):
     title: "Footpath Connectivity Plan",
     desc: "Model nodes as junctions and compute shortest safe routes.",
     complexity: "Dijkstra — O(E log V)",
+    sdgs: ["SDG 11: Sustainable Cities", "SDG 3: Good Health", "SDG 9: Industry & Infrastructure"],
     code: `# Dijkstra Shortest Path
 import heapq
 
@@ -605,6 +629,7 @@ def dijkstra(graph, start):
     title: "Underground Utility Routing",
     desc: "Plan underground cables avoiding obstacles using A*.",
     complexity: "O(E log V)",
+    sdgs: ["SDG 9: Industry & Infrastructure", "SDG 11: Sustainable Cities", "SDG 6: Clean Water & Sanitation"],
     code: `# A* Search
 import heapq
 
@@ -645,6 +670,7 @@ const centerTitle = document.getElementById('problemTitle');
 const centerDesc = document.getElementById('problemDesc');
 const centerComplexity = document.getElementById('problemComplexity');
 const centerCode = document.getElementById('problemCode');
+const centerSdgs = document.getElementById('problemSdgs');
 const countEl = document.getElementById('count');
 const searchInput = document.getElementById('searchInput');
 
@@ -657,16 +683,21 @@ function createCardEl(p) {
   btn.setAttribute('data-id', p.id);
   btn.setAttribute('aria-pressed', 'false');
   btn.setAttribute('title', p.title);
+
+  // SDG chips markup
+  const sdgHtml = (p.sdgs || []).map(s => `<span class="sdg-chip">${escapeHtml(s)}</span>`).join(' ');
+
   btn.innerHTML = `
     <div class="index">${p.id}</div>
     <div class="body">
       <div style="display:flex;justify-content:space-between;align-items:center">
-        <h4>${p.title}</h4>
+        <h4>${escapeHtml(p.title)}</h4>
         <div class="meta" aria-hidden="true">
-          <small>${p.complexity.split(';')[0]}</small>
+          <small>${escapeHtml(p.complexity.split(';')[0])}</small>
         </div>
       </div>
-      <div class="meta">${p.desc}</div>
+      <div class="meta">${escapeHtml(p.desc)}</div>
+      <div class="sdg-chips">${sdgHtml}</div>
       <div class="preview">${previewCode(p.code)}</div>
     </div>
   `;
@@ -680,11 +711,15 @@ function createCardEl(p) {
   return btn;
 }
 
+function escapeHtml(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
 function previewCode(codeStr){
-  const lines = String(codeStr).split('\n').map(l=>l.trim()).filter(Boolean);
+  const lines = String(codeStr||'').split('\n').map(l=>l.trim()).filter(Boolean);
   let out = lines.slice(0,2).join(' ⸱ ');
   if(out.length > 90) out = out.slice(0,87) + '...';
-  return out || '';
+  return escapeHtml(out) || '';
 }
 
 function renderCards(items){
@@ -708,6 +743,20 @@ function loadProblem(id, focusCenter=false){
   centerCode.textContent = p.code;
   Prism.highlightElement(centerCode);
 
+  // SDGs in center
+  centerSdgs.innerHTML = '';
+  if(p.sdgs && p.sdgs.length){
+    p.sdgs.forEach(s => {
+      const span = document.createElement('span');
+      span.className = 'sdg-chip';
+      span.innerText = s;
+      centerSdgs.appendChild(span);
+    });
+    centerSdgs.setAttribute('aria-hidden','false');
+  } else {
+    centerSdgs.setAttribute('aria-hidden','true');
+  }
+
   // active styling
   document.querySelectorAll('.problem-card').forEach(el => {
     const elId = Number(el.getAttribute('data-id'));
@@ -727,7 +776,8 @@ function loadProblem(id, focusCenter=false){
 }
 
 /* -------------------------
-   SEARCH & FILTER
+   SEARCH & FILTER (FIXED)
+   - Includes SDGs in the search
    ------------------------- */
 function filter(q){
   const term = String(q||'').trim().toLowerCase();
@@ -736,10 +786,24 @@ function filter(q){
     return;
   }
   const filtered = problems.filter(p => {
-    const s = `${p.id} ${p.title} ${p.desc}`.toLowerCase();
+    const sdgText = (p.sdgs || []).join(' ');
+    const s = `${p.id} ${p.title} ${p.desc} ${p.complexity} ${sdgText}`.toLowerCase();
     return s.includes(term);
   });
   renderCards(filtered);
+
+  // If current selected is not in filtered results, clear center (optional)
+  if(currentId){
+    const exists = filtered.some(p => p.id === currentId);
+    if(!exists){
+      centerTitle.innerText = "Select a problem from the left";
+      centerDesc.innerText = "Click a problem card to view the explanation.";
+      centerComplexity.innerText = "Time Complexity — (select a problem)";
+      centerCode.textContent = "# Code will appear here.";
+      centerSdgs.innerHTML = '';
+      currentId = null;
+    }
+  }
 }
 
 function debounce(fn, wait=180){
@@ -773,10 +837,10 @@ document.addEventListener('keydown', (ev) => {
    INIT
    ------------------------- */
 renderCards(problems);
-// Optionally auto-open first item (commented by default)
+// Optionally auto-open first item:
 // loadProblem(problems[0].id, true);
 
-// Search binding
+// Search binding (with debounce)
 searchInput.addEventListener('input', debounce((e) => {
   filter(e.target.value);
 }));
