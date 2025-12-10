@@ -1,445 +1,782 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Govindaraddi.H.U | DAA Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-<style>
-* { margin:0; padding:0; box-sizing:border-box; font-family:"Poppins",sans-serif; }
-body { background:#f0f4f8; color:#333; }
-nav { width:100%; background:#003366; padding:16px 30px; display:flex; justify-content:space-between; align-items:center; color:white; position:sticky; top:0; z-index:1000; box-shadow:0px 4px 12px rgba(0,0,0,0.3); }
-nav a { color:white; text-decoration:none; margin-left:20px; padding:8px 14px; border-radius:6px; transition:0.3s ease; }
-nav a:hover { background: rgba(255,255,255,0.15); transform:translateY(-3px); }
-.container { max-width:1200px; margin:auto; padding:30px; }
-.project-header { background: linear-gradient(120deg,#003366,#0077cc); color:white; padding:30px; border-radius:18px; text-align:center; margin-bottom:30px; box-shadow:0px 10px 25px rgba(0,0,0,0.25); }
-.project-header h1 { font-size:24px; margin-bottom:15px; }
-.project-header p { font-size:15px; margin:4px 0; }
-.grid { display:grid; grid-template-columns: 1fr; gap:30px; }
-.card { background:white; padding:25px; border-radius:16px; box-shadow:0px 10px 25px rgba(0,0,0,0.12); }
-.title { font-size:18px; font-weight:600; color:#003366; margin-bottom:10px; }
-.section-title { font-weight:600; color:#0077cc; margin-top:10px; }
-.tag { display:inline-block; padding:6px 10px; margin:3px 3px 3px 0; border-radius:6px; font-size:13px; color:white; font-weight:600; }
-.sdg1{background:#28a745} 
-.sdg3{background:#dc3545} 
-.sdg6{background:#17a2b8} 
-.sdg7{background:#ffc107} 
-.sdg8{background:#fd7e14} 
-.sdg9{background:#6f42c1} 
-.sdg10{background:#20c997} 
-.sdg11{background:#007bff} 
-.sdg12{background:#20c997} 
-.sdg13{background:#e83e8c} 
-.sdg16{background:#6610f2}
-.code-block { background:#f7f7f7; border-left:4px solid #0077cc; padding:12px; font-size:14px; font-family:monospace; white-space:pre; overflow-x:auto; border-radius:8px; margin-top:8px; line-height:1.5em; }
-footer { text-align:center; padding:20px; background:#003366; color:white; margin-top:40px; border-radius:12px; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Govindaraddi.H.U | DAA Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+    body { background: #f0f4f8; overflow-x: hidden; }
+
+    /* NAVIGATION */
+    nav {
+      width: 100%;
+      background: #003366;
+      padding: 16px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.3);
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: 0.3s ease;
+    }
+    nav a:hover {
+      background: rgba(255,255,255,0.15);
+      transform: translateY(-3px);
+    }
+
+    .container {
+      max-width: 1250px;
+      margin: auto;
+      padding: 30px;
+    }
+
+    /* HEADER */
+    .project-header {
+      background: linear-gradient(120deg, #003366, #0077cc);
+      color: white;
+      padding: 30px;
+      border-radius: 18px;
+      text-align: center;
+      margin-bottom: 30px;
+      box-shadow: 0px 10px 25px rgba(0,0,0,0.25);
+    }
+
+    /* GRID */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+    }
+
+    /* PROBLEM CARDS */
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0px 10px 25px rgba(0,0,0,0.12);
+      margin-bottom: 30px;
+    }
+
+    .title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #003366;
+      margin-bottom: 6px;
+    }
+
+    .algo {
+      font-size: 14px;
+      font-weight: bold;
+      color: #0077cc;
+      margin-bottom: 6px;
+    }
+
+    .desc, .solution {
+      font-size: 14px;
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    .sdg {
+      display: inline-block;
+      padding: 5px 12px;
+      font-size: 12px;
+      border-radius: 15px;
+      color: white;
+      margin: 4px 4px 10px 0;
+      font-weight: 600;
+    }
+
+    /* SDG Colors */
+    .sdg1 { background: #e5243b; }
+    .sdg7 { background: #fbc412; }
+    .sdg8 { background: #a21942; }
+    .sdg9 { background: #fd6925; }
+    .sdg10 { background: #dd1367; }
+    .sdg11 { background: #fd9d24; }
+    .sdg12 { background: #bf8b2e; }
+    .sdg13 { background: #3f7e44; }
+    .sdg16 { background: #00689d; }
+
+    .code-title {
+      font-size: 16px;
+      margin: 15px 0 6px;
+      font-weight: 600;
+      color: #003366;
+    }
+
+    .code-block {
+      background: #f7f7f7;
+      border-left: 4px solid #0077cc;
+      padding: 12px;
+      font-size: 13px;
+      font-family: monospace;
+      white-space: pre;
+      overflow-x: auto;
+      border-radius: 8px;
+      margin-bottom: 18px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #003366;
+      color: white;
+      margin-top: 40px;
+      border-radius: 12px;
+    }
+  </style>
 </head>
+
 <body>
 
-<nav>
-<h2>Govindaraddi.H.U</h2>
-<div><a href="#">Home</a></div>
-</nav>
+  <nav>
+    <h2>Govindaraddi.H.U</h2>
+    <div><a href="index.html">Home</a></div>
+  </nav>
 
-<div class="container">
-<div class="project-header">
-<h1>Smart City Infrastructure & Routing Design — DAA Portfolio</h1>
-<p>Student: Govindaraddi.H.U</p>
-<p>Faculty: Prakash Hegade</p>
-<p>Course: Design & Analysis of Algorithms</p>
-<p>Focus: 2024 · DAA City Design</p>
-</div>
+  <div class="container">
 
-<div class="grid">
+    <div class="project-header">
+      <h1>Smart City Infrastructure & Routing Design — DAA Portfolio</h1>
+      <p>Student: <b>Govindaraddi.H.U</b></p>
+      <p>Faculty: <b>Prakash Hegade</b></p>
+      <p>Course: Design & Analysis of Algorithms</p>
+      <p>2024 · DAA City Design</p>
+    </div>
 
-<!-- Problem 1 -->
+    <div class="grid">
+
+      <!-- LEFT COLUMN -->
+      <div>
+
+<!-- ========== PROBLEM 1 ========== -->
 <div class="card">
-<div class="title">1) City Budget Allocation</div>
-<div class="section-title">Algorithm:</div>
-<p>0/1 Knapsack (Dynamic Programming)</p>
-<div class="section-title">Problem:</div>
-<p>Optimize city project selection under limited budget to maximize impact.</p>
-<div class="section-title">Solution:</div>
-<p>Use 0/1 Knapsack DP to select projects efficiently within the budget constraint.</p>
-<div class="section-title">SDGs:</div>
-<span class="tag sdg1">SDG1: No Poverty</span>
-<span class="tag sdg8">SDG8: Decent Work & Economic Growth</span>
-<span class="tag sdg11">SDG11: Sustainable Cities</span>
-<div class="section-title">C++ Code:</div>
-<div class="code-block">
-#include &lt;bits/stdc++.h&gt;<br>
-using namespace std;<br><br>
-int main() {<br>
-&nbsp;&nbsp;int n, W;<br>
-&nbsp;&nbsp;cin &gt;&gt; n &gt;&gt; W;<br>
-&nbsp;&nbsp;vector&lt;int&gt; w(n), v(n);<br>
-&nbsp;&nbsp;for(int i=0;i&lt;n;i++) cin &gt;&gt; w[i] &gt;&gt; v[i];<br>
-&nbsp;&nbsp;vector&lt;long long&gt; dp(W+1,0);<br>
-&nbsp;&nbsp;for(int i=0;i&lt;n;i++) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;for(int cap=W; cap&gt;=w[i]; --cap)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dp[cap] = max(dp[cap], dp[cap-w[i]] + v[i]);<br>
-&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;cout &lt;&lt; *max_element(dp.begin(), dp.end());<br>
-}
-</div>
-</div>
+  <div class="title">1. City Budget Allocation</div>
+  <div class="algo">Algorithm: 0/1 Knapsack (Dynamic Programming)</div>
 
-<!-- Problem 2 -->
-<div class="card">
-<div class="title">2) Tax Officer Route Optimization</div>
-<div class="section-title">Algorithm:</div>
-<p>Dijkstra / Floyd-Warshall</p>
-<div class="section-title">Problem:</div>
-<p>Compute shortest inspection routes across city zones for tax officers.</p>
-<div class="section-title">Solution:</div>
-<p>Use Dijkstra (or Floyd-Warshall for all pairs) to find shortest paths for route optimization.</p>
-<div class="section-title">SDGs:</div>
-<span class="tag sdg9">SDG9: Industry & Infrastructure</span>
-<span class="tag sdg11">SDG11: Sustainable Cities</span>
-<span class="tag sdg16">SDG16: Peace & Justice</span>
-<div class="section-title">C++ Code:</div>
-<div class="code-block">
-#include &lt;bits/stdc++.h&gt;<br>
-using namespace std;<br><br>
-int main() {<br>
-&nbsp;&nbsp;int n, m;<br>
-&nbsp;&nbsp;cin &gt;&gt; n &gt;&gt; m;<br>
-&nbsp;&nbsp;vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; g(n);<br>
-&nbsp;&nbsp;for(int i=0;i&lt;m;i++) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;int u,v,w;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;cin &gt;&gt; u &gt;&gt; v &gt;&gt; w;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;g[u].push_back({v,w});<br>
-&nbsp;&nbsp;&nbsp;&nbsp;g[v].push_back({u,w});<br>
-&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;int s; cin &gt;&gt; s;<br>
-&nbsp;&nbsp;const long long INF = 1e18;<br>
-&nbsp;&nbsp;vector&lt;long long&gt; d(n, INF);<br>
-&nbsp;&nbsp;d[s] = 0;<br>
-&nbsp;&nbsp;priority_queue&lt;pair&lt;long long,int>, vector&lt;pair&lt;long long,int&gt;&gt;, greater&lt;pair&lt;long long,int&gt;&gt; pq;<br>
-&nbsp;&nbsp;pq.push({0, s});<br>
-&nbsp;&nbsp;while(!pq.empty()) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;auto [du,u] = pq.top(); pq.pop();<br>
-&nbsp;&nbsp;&nbsp;&nbsp;if(du != d[u]) continue;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;for(auto [v,w] : g[u])<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(d[v] &gt; du + w) {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;d[v] = du + w;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pq.push({d[v], v});<br>
-&nbsp;&nbsp;&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;for(int i=0;i&lt;n;i++) cout &lt;&lt; d[i] &lt;&lt; " ";<br>
-}
-</div>
-</div>
+  <p class="desc"><b>Problem:</b> Select the best set of city projects within a limited budget.</p>
 
-<!-- Problem 3 -->
-<div class="card">
-<div class="title">3) Smart Parking Fee Prediction</div>
-<div class="section-title">Algorithm:</div>
-<p>Segment Tree + Lookup Table</p>
-<div class="section-title">Problem:</div>
-<p>Predict optimal parking fees based on usage trends.</p>
-<div class="section-title">Solution:</div>
-<p>Use Segment Tree to compute demand in ranges and Lookup Table to assign fees.</p>
-<div class="section-title">SDGs:</div>
-<span class="tag sdg9">SDG9: Industry & Infrastructure</span>
-<span class="tag sdg11">SDG11: Sustainable Cities</span>
-<span class="tag sdg13">SDG13: Climate Action</span>
-<div class="section-title">C++ Code:</div>
-<div class="code-block">
-#include &lt;bits/stdc++.h&gt;<br>
-using namespace std;<br>
-struct Seg {<br>
-&nbsp;&nbsp;int n;<br>
-&nbsp;&nbsp;vector&lt;long long&gt; st;<br>
-&nbsp;&nbsp;Seg(int n):n(n),st(4*n,0){}<br>
-&nbsp;&nbsp;void build(vector&lt;int&gt;&amp;a,int p,int l,int r){<br>
-&nbsp;&nbsp;&nbsp;&nbsp;if(l==r){ st[p]=a[l]; return;}<br>
-&nbsp;&nbsp;&nbsp;&nbsp;int m=(l+r)/2;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;build(a,2*p,l,m); build(a,2*p+1,m+1,r);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;st[p]=st[2*p]+st[2*p+1];<br>
-&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;long long qry(int p,int l,int r,int ql,int qr){<br>
-&nbsp;&nbsp;&nbsp;&nbsp;if(qr&lt;l||r&lt;ql) return 0;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;if(ql&lt;=l &amp;&amp; r&lt;=qr) return st[p];<br>
-&nbsp;&nbsp;&nbsp;&nbsp;int m=(l+r)/2;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;return qry(2*p,l,m,ql,qr)+qry(2*p+1,m+1,r,ql,qr);<br>
-&nbsp;&nbsp;}<br>
-};<br>
-int main(){<br>
-&nbsp;&nbsp;int n; cin&gt;&gt;n; vector&lt;int&gt;a(n); for(int i=0;i&lt;n;i++) cin&gt;&gt;a[i];<br>
-&nbsp;&nbsp;Seg seg(n); seg.build(a,1,0,n-1);<br>
-&nbsp;&nbsp;int q; cin&gt;&gt;q;<br>
-&nbsp;&nbsp;auto fee=[&](long long demand){<br>
-&nbsp;&nbsp;&nbsp;&nbsp;if(demand&lt;=100) return 10;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;if(demand&lt;=500) return 20;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;if(demand&lt;=1000) return 30;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;return 50;<br>
-&nbsp;&nbsp;};<br>
-&nbsp;&nbsp;while(q--){<br>
-&nbsp;&nbsp;&nbsp;&nbsp;int l,r; cin&gt;&gt;l&gt;&gt;r;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;long long d = seg.qry(1,0,n-1,l,r);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;cout&lt;&lt;fee(d)&lt;&lt;"\n";<br>
-&nbsp;&nbsp;}<br>
-}
-</div>
-</div>
+  <p class="solution"><b>Solution:</b> Use DP to evaluate all possible project combinations and compute maximum possible impact under the given budget.</p>
 
-<!-- Problem 4 -->
-<div class="card">
-  <div class="title">4) Public Transport Scheduling</div>
-  <div class="section-title">Algorithm:</div>
-  <p>Greedy Algorithm / Interval Scheduling</p>
-  <div class="section-title">Problem:</div>
-  <p>Schedule buses to maximize coverage without overlapping routes and reduce congestion.</p>
-  <div class="section-title">Solution:</div>
-  <p>Sort routes by end time and use greedy selection to assign buses to the maximum number of non-overlapping routes.</p>
-  <div class="section-title">SDGs:</div>
-  <span class="tag sdg9">SDG9: Industry & Infrastructure</span>
-  <span class="tag sdg11">SDG11: Sustainable Cities</span>
-  <div class="section-title">C++ Code:</div>
+  <span class="sdg sdg1">SDG 1: No Poverty</span>
+  <span class="sdg sdg8">SDG 8: Economic Growth</span>
+  <span class="sdg sdg11">SDG 11: Sustainable Cities</span>
+
+  <div class="code-title">C++ Code</div>
   <div class="code-block">
-#include &lt;bits/stdc++.h&gt;<br>
-using namespace std;<br>
-struct Bus { int start, end; };<br>
-int main() {<br>
-&nbsp;&nbsp;int n; cin &gt;&gt; n;<br>
-&nbsp;&nbsp;vector&lt;Bus&gt; buses(n);<br>
-&nbsp;&nbsp;for(int i=0;i&lt;n;i++) cin &gt;&gt; buses[i].start &gt;&gt; buses[i].end;<br>
-&nbsp;&nbsp;sort(buses.begin(), buses.end(), [](Bus a, Bus b){ return a.end &lt; b.end; });<br>
-&nbsp;&nbsp;int count=0, lastEnd=0;<br>
-&nbsp;&nbsp;for(auto b : buses){<br>
-&nbsp;&nbsp;&nbsp;&nbsp;if(b.start &gt;= lastEnd){<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;count++; lastEnd=b.end;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;cout &lt;&lt; count;<br>
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+struct Project {
+    int cost;
+    int impact;
+    string name;
+};
+
+int main() {
+    int n, W;
+    cin >> n >> W;
+
+    vector<Project> p(n);
+    for (int i = 0; i < n; i++)
+        cin >> p[i].name >> p[i].cost >> p[i].impact;
+
+    vector<vector<int>> dp(n + 1, vector<int>(W + 1, 0));
+
+    for (int i = 1; i <= n; i++) {
+        for (int cap = 0; cap <= W; cap++) {
+            if (p[i - 1].cost <= cap)
+                dp[i][cap] = max(dp[i - 1][cap],
+                                p[i - 1].impact + dp[i - 1][cap - p[i - 1].cost]);
+            else
+                dp[i][cap] = dp[i - 1][cap];
+        }
+    }
+
+    cout << "Maximum Impact = " << dp[n][W];
 }
   </div>
 </div>
 
-<!-- Problem 5 -->
+<!-- ========== PROBLEM 2 ========== -->
 <div class="card">
-  <div class="title">5) Waste Management Optimization</div>
-  <div class="section-title">Algorithm:</div>
-  <p>Minimum Spanning Tree (Prim / Kruskal)</p>
-  <div class="section-title">Problem:</div>
-  <p>Connect city waste collection points minimizing transportation cost.</p>
-  <div class="section-title">Solution:</div>
-  <p>Use MST to connect all collection points with minimal total distance/cost.</p>
-  <div class="section-title">SDGs:</div>
-  <span class="tag sdg6">SDG6: Clean Water & Sanitation</span>
-  <span class="tag sdg11">SDG11: Sustainable Cities</span>
-  <span class="tag sdg12">SDG12: Responsible Consumption</span>
-  <div class="section-title">C++ Code:</div>
+  <div class="title">2. Tax Officer Route Optimization</div>
+  <div class="algo">Algorithm: Dijkstra’s Algorithm</div>
+
+  <p class="desc"><b>Problem:</b> Tax officers must inspect multiple zones in minimum travel time.</p>
+
+  <p class="solution"><b>Solution:</b> Model the city as a weighted graph and apply Dijkstra to compute shortest path distances.</p>
+
+  <span class="sdg sdg9">SDG 9: Industry & Infrastructure</span>
+  <span class="sdg sdg11">SDG 11: Sustainable Cities</span>
+  <span class="sdg sdg16">SDG 16: Peace & Justice</span>
+
+  <div class="code-title">C++ Code</div>
   <div class="code-block">
-#include &lt;bits/stdc++.h&gt;<br>
-using namespace std;<br>
-struct Edge { int u,v,w; };<br>
-int find(vector&lt;int&gt;&amp; parent,int x){ return parent[x]==x?x:parent[x]=find(parent,parent[x]); }<br>
-int main(){<br>
-&nbsp;&nbsp;int n,m; cin&gt;&gt;n&gt;&gt;m;<br>
-&nbsp;&nbsp;vector&lt;Edge&gt; edges(m);<br>
-&nbsp;&nbsp;for(int i=0;i&lt;m;i++) cin&gt;&gt;edges[i].u&gt;&gt;edges[i].v&gt;&gt;edges[i].w;<br>
-&nbsp;&nbsp;sort(edges.begin(), edges.end(), [](Edge a,Edge b){ return a.w&lt;b.w; });<br>
-&nbsp;&nbsp;vector&lt;int&gt; parent(n); iota(parent.begin(), parent.end(),0);<br>
-&nbsp;&nbsp;int cost=0;<br>
-&nbsp;&nbsp;for(auto e : edges){<br>
-&nbsp;&nbsp;&nbsp;&nbsp;int pu=find(parent,e.u), pv=find(parent,e.v);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;if(pu!=pv){ parent[pu]=pv; cost+=e.w; }<br>
-&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;cout&lt;&lt;cost;<br>
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+int main() {
+    int n, m;
+    cin >> n >> m;
+
+    vector<vector<pair<int, int>>> graph(n);
+
+    for (int i = 0; i < m; i++) {
+        int u, v, w;
+        cin >> u >> v >> w;
+        graph[u].push_back({v, w});
+        graph[v].push_back({u, w});
+    }
+
+    int src;
+    cin >> src;
+
+    const long long INF = 1e18;
+    vector<long long> dist(n, INF);
+
+    priority_queue<pair<long long, int>,
+                   vector<pair<long long, int>>,
+                   greater<pair<long long, int>>> pq;
+
+    dist[src] = 0;
+    pq.push({0, src});
+
+    while (!pq.empty()) {
+        auto [currDist, u] = pq.top();
+        pq.pop();
+
+        if (currDist != dist[u]) continue;
+
+        for (auto &edge : graph[u]) {
+            int v = edge.first, w = edge.second;
+
+            if (dist[v] > currDist + w) {
+                dist[v] = currDist + w;
+                pq.push({dist[v], v});
+            }
+        }
+    }
+
+    for (long long d : dist)
+        cout << d << " ";
 }
   </div>
 </div>
 
-<!-- Problem 6 -->
+<!-- ==================== PROBLEM 3 ==================== -->
 <div class="card">
-  <div class="title">6) Water Supply Network Design</div>
-  <div class="section-title">Algorithm:</div>
-  <p>Floyd-Warshall / Shortest Path</p>
-  <div class="section-title">Problem:</div>
-  <p>Ensure optimal water distribution between all neighborhoods.</p>
-  <div class="section-title">Solution:</div>
-  <p>Compute all-pairs shortest paths to optimize pipeline routing and reduce losses.</p>
-  <div class="section-title">SDGs:</div>
-  <span class="tag sdg6">SDG6: Clean Water & Sanitation</span>
-  <span class="tag sdg11">SDG11: Sustainable Cities</span>
-  <span class="tag sdg13">SDG13: Climate Action</span>
-  <div class="section-title">C++ Code:</div>
+  <div class="title">3. Smart Parking Fee Prediction</div>
+  <div class="algo">Algorithm: Segment Tree + Range Sum</div>
+
+  <p class="desc"><b>Problem:</b> The city wants to predict parking fees dynamically based on usage patterns over time.</p>
+
+  <p class="solution"><b>Solution:</b> A Segment Tree efficiently computes range usage data. Fee is calculated dynamically based on intensity of parking demand in queried intervals.</p>
+
+  <span class="sdg sdg9">SDG 9: Industry & Innovation</span>
+  <span class="sdg sdg11">SDG 11: Sustainable Cities</span>
+  <span class="sdg sdg13">SDG 13: Climate Action</span>
+
+  <div class="code-title">C++ Code</div>
   <div class="code-block">
-#include &lt;bits/stdc++.h&gt;<br>
-using namespace std;<br>
-int main(){<br>
-&nbsp;&nbsp;int n; cin&gt;&gt;n;<br>
-&nbsp;&nbsp;vector&lt;vector&lt;int&gt;&gt; dist(n, vector&lt;int&gt;(n,1e9));<br>
-&nbsp;&nbsp;for(int i=0;i&lt;n;i++) dist[i][i]=0;<br>
-&nbsp;&nbsp;int m; cin&gt;&gt;m;<br>
-&nbsp;&nbsp;for(int i=0;i&lt;m;i++){<br>
-&nbsp;&nbsp;&nbsp;&nbsp;int u,v,w; cin&gt;&gt;u&gt;&gt;v&gt;&gt;w;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;dist[u][v]=w; dist[v][u]=w;<br>
-&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;for(int k=0;k&lt;n;k++)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;for(int i=0;i&lt;n;i++)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(int j=0;j&lt;n;j++)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dist[i][j]=min(dist[i][j], dist[i][k]+dist[k][j]);<br>
-&nbsp;&nbsp;for(int i=0;i&lt;n;i++){ for(int j=0;j&lt;n;j++) cout&lt;&lt;dist[i][j]&lt;&lt;" "; cout&lt;&lt;endl; }<br>
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+struct SegmentTree {
+    int n;
+    vector<long long> tree;
+
+    SegmentTree(int n) : n(n), tree(4 * n, 0) {}
+
+    void build(vector<int>& arr, int node, int start, int end) {
+        if (start == end) {
+            tree[node] = arr[start];
+        } else {
+            int mid = (start + end) / 2;
+            build(arr, 2 * node, start, mid);
+            build(arr, 2 * node + 1, mid + 1, end);
+            tree[node] = tree[2 * node] + tree[2 * node + 1];
+        }
+    }
+
+    long long query(int node, int start, int end, int l, int r) {
+        if (r < start || end < l)
+            return 0;
+
+        if (l <= start && end <= r)
+            return tree[node];
+
+        int mid = (start + end) / 2;
+        long long left = query(2 * node, start, mid, l, r);
+        long long right = query(2 * node + 1, mid + 1, end, l, r);
+        return left + right;
+    }
+};
+
+int main() {
+    int n;
+    cin >> n;
+
+    vector<int> usage(n);
+    for (int i = 0; i < n; i++)
+        cin >> usage[i];
+
+    SegmentTree seg(n);
+    seg.build(usage, 1, 0, n - 1);
+
+    int q;
+    cin >> q;
+
+    while (q--) {
+        int L, R;
+        cin >> L >> R;
+
+        long long demand = seg.query(1, 0, n - 1, L, R);
+
+        int fee;
+        if (demand <= 200) fee = 10;
+        else if (demand <= 500) fee = 20;
+        else if (demand <= 1000) fee = 30;
+        else fee = 50;
+
+        cout << fee << "\n";
+    }
 }
   </div>
 </div>
 
-<!-- Problem 7 -->
+
+<!-- ==================== PROBLEM 4 ==================== -->
 <div class="card">
-  <div class="title">7) Electric Grid Load Balancing</div>
-  <div class="section-title">Algorithm:</div>
-  <p>Max Flow (Edmonds-Karp)</p>
-  <div class="section-title">Problem:</div>
-  <p>Distribute electricity to all city sectors without overloading lines.</p>
-  <div class="section-title">Solution:</div>
-  <p>Use Max Flow to model capacity of power lines and ensure balanced distribution.</p>
-  <div class="section-title">SDGs:</div>
-  <span class="tag sdg7">SDG7: Affordable Clean Energy</span>
-  <span class="tag sdg9">SDG9: Industry & Infrastructure</span>
-  <div class="section-title">C++ Code:</div>
+  <div class="title">4. Public Transport Scheduling</div>
+  <div class="algo">Algorithm: Fenwick Tree + Moving Average Forecast</div>
+
+  <p class="desc"><b>Problem:</b> Forecast daily travel demand to generate efficient bus schedules.</p>
+
+  <p class="solution"><b>Solution:</b> Fenwick Tree supports fast prefix sums. A rolling-average recurrence predicts future passenger counts.</p>
+
+  <span class="sdg sdg7">SDG 7: Clean Energy</span>
+  <span class="sdg sdg11">SDG 11: Sustainable Cities</span>
+  <span class="sdg sdg13">SDG 13: Climate Action</span>
+
+  <div class="code-title">C++ Code</div>
   <div class="code-block">
-#include &lt;bits/stdc++.h&gt;<br>
-using namespace std;<br>
-const int INF = 1e9;<br>
-int main(){<br>
-&nbsp;&nbsp;int n,m; cin&gt;&gt;n&gt;&gt;m;<br>
-&nbsp;&nbsp;vector&lt;vector&lt;int&gt;&gt; capacity(n, vector&lt;int&gt;(n,0));<br>
-&nbsp;&nbsp;for(int i=0;i&lt;m;i++){<br>
-&nbsp;&nbsp;&nbsp;&nbsp;int u,v,c; cin&gt;&gt;u&gt;&gt;v&gt;&gt;c;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;capacity[u][v]=c;<br>
-&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;int s,t; cin&gt;&gt;s&gt;&gt;t;<br>
-&nbsp;&nbsp;int flow=0;<br>
-&nbsp;&nbsp;while(true){<br>
-&nbsp;&nbsp;&nbsp;&nbsp;vector&lt;int&gt; parent(n,-1);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;queue&lt;int&gt; q; q.push(s);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;parent[s]=-2;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;while(!q.empty() &amp;&amp; parent[t]==-1){<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;int u=q.front(); q.pop();<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for(int v=0;v&lt;n;v++)<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(parent[v]==-1 &amp;&amp; capacity[u][v]&gt;0){ parent[v]=u; q.push(v); }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;&nbsp;&nbsp;if(parent[t]==-1) break;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;int cur=t, f=INF;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;while(cur!=s){ f=min(f, capacity[parent[cur]][cur]); cur=parent[cur]; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;cur=t;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;while(cur!=s){ capacity[parent[cur]][cur]-=f; capacity[cur][parent[cur]]+=f; cur=parent[cur]; }<br>
-&nbsp;&nbsp;&nbsp;&nbsp;flow+=f;<br>
-&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;cout&lt;&lt;flow;<br>
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+struct Fenwick {
+    int n;
+    vector<long long> bit;
+
+    Fenwick(int n) : n(n), bit(n + 1, 0) {}
+
+    void update(int i, long long val) {
+        for (++i; i <= n; i += i & -i)
+            bit[i] += val;
+    }
+
+    long long sum(int i) {
+        long long s = 0;
+        for (++i; i > 0; i -= i & -i)
+            s += bit[i];
+        return s;
+    }
+
+    long long range(int l, int r) {
+        return sum(r) - (l ? sum(l - 1) : 0);
+    }
+};
+
+int main() {
+    int n;
+    cin >> n;
+
+    vector<long long> usage(n);
+    for (int i = 0; i < n; i++)
+        cin >> usage[i];
+
+    Fenwick fen(n);
+    for (int i = 0; i < n; i++)
+        fen.update(i, usage[i]);
+
+    int k;
+    cin >> k;
+
+    int window = 5;
+    vector<long long> forecast;
+
+    for (int t = 0; t < k; t++) {
+        int start = max(0, n - window);
+        long long total = fen.range(start, n - 1);
+        long long next = total / (min(window, n));
+
+        forecast.push_back(next);
+
+        usage.push_back(next);
+        fen.update(n, next);
+        n++;
+    }
+
+    for (auto x : forecast)
+        cout << x << " ";
 }
   </div>
 </div>
 
-<!-- Problem 8 -->
+
+<!-- ==================== PROBLEM 5 ==================== -->
 <div class="card">
-  <div class="title">8) Emergency Response Route Planning</div>
-  <div class="section-title">Algorithm:</div>
-  <p>A* / Dijkstra Algorithm</p>
-  <div class="section-title">Problem:</div>
-  <p>Plan fastest emergency vehicle routes during city crises.</p>
-  <div class="section-title">Solution:</div>
-  <p>Use shortest-path algorithm (A* or Dijkstra) for optimal routing under constraints.</p>
-  <div class="section-title">SDGs:</div>
-  <span class="tag sdg3">SDG3: Good Health & Well-being</span>
-  <span class="tag sdg11">SDG11: Sustainable Cities</span>
-  <div class="section-title">C++ Code:</div>
+  <div class="title">5. Metro Construction Phase Optimization</div>
+  <div class="algo">Algorithm: Max-Heap Sorting by ROI</div>
+
+  <p class="desc"><b>Problem:</b> Prioritize metro construction phases for maximum return on investment.</p>
+
+  <p class="solution"><b>Solution:</b> Use a max-heap to sort phases based on ROI = benefit / cost.</p>
+
+  <span class="sdg sdg9">SDG 9: Infrastructure</span>
+  <span class="sdg sdg11">SDG 11: Sustainable Cities</span>
+  <span class="sdg sdg8">SDG 8: Economic Growth</span>
+
+  <div class="code-title">C++ Code</div>
   <div class="code-block">
-#include &lt;bits/stdc++.h&gt;<br>
-using namespace std;<br>
-int main(){<br>
-&nbsp;&nbsp;int n,m; cin&gt;&gt;n&gt;&gt;m;<br>
-&nbsp;&nbsp;vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt; g(n);<br>
-&nbsp;&nbsp;for(int i=0;i&lt;m;i++){<br>
-&nbsp;&nbsp;&nbsp;&nbsp;int u,v,w; cin&gt;&gt;u&gt;&gt;v&gt;&gt;w;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;g[u].push_back({v,w}); g[v].push_back({u,w});<br>
-&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;int s; cin&gt;&gt;s;<br>
-&nbsp;&nbsp;vector&lt;long long&gt; d(n,1e18); d[s]=0;<br>
-&nbsp;&nbsp;priority_queue&lt;pair&lt;long long,int>, vector&lt;pair&lt;long long,int&gt;>, greater&lt;pair&lt;long long,int&gt;>> pq;<br>
-&nbsp;&nbsp;pq.push({0,s});<br>
-&nbsp;&nbsp;while(!pq.empty()){<br>
-&nbsp;&nbsp;&nbsp;&nbsp;auto [du,u]=pq.top(); pq.pop();<br>
-&nbsp;&nbsp;&nbsp;&nbsp;if(du!=d[u]) continue;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;for(auto [v,w]: g[u]) if(d[v]&gt;du+w){ d[v]=du+w; pq.push({d[v],v}); }<br>
-&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;for(int i=0;i&lt;n;i++) cout&lt;&lt;d[i]&lt;&lt;" ";<br>
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+struct Phase {
+    string name;
+    double cost, benefit;
+};
+
+int main() {
+    int n;
+    cin >> n;
+
+    vector<Phase> phases(n);
+    for (int i = 0; i < n; i++)
+        cin >> phases[i].name >> phases[i].cost >> phases[i].benefit;
+
+    auto roi = [&](Phase &p) {
+        return p.benefit / p.cost;
+    };
+
+    priority_queue<pair<double, int>> pq;
+
+    for (int i = 0; i < n; i++)
+        pq.push({roi(phases[i]), i});
+
+    while (!pq.empty()) {
+        auto [value, idx] = pq.top();
+        pq.pop();
+        cout << phases[idx].name << " ROI=" << fixed << setprecision(3) << value << "\n";
+    }
 }
   </div>
 </div>
 
-<!-- Problem 9 -->
+
+<!-- ==================== PROBLEM 6 ==================== -->
 <div class="card">
-  <div class="title">9) Traffic Light Scheduling</div>
-  <div class="section-title">Algorithm:</div>
-  <p>Graph Coloring / Greedy</p>
-  <div class="section-title">Problem:</div>
-  <p>Schedule traffic lights to reduce congestion at intersections.</p>
-  <div class="section-title">Solution:</div>
-  <p>Model intersections as a graph, color nodes (green cycles) using greedy approach to avoid conflicts.</p>
-  <div class="section-title">SDGs:</div>
-  <span class="tag sdg11">SDG11: Sustainable Cities</span>
-  <span class="tag sdg13">SDG13: Climate Action</span>
-  <div class="section-title">C++ Code:</div>
+  <div class="title">6. Streetlight Energy Reduction</div>
+  <div class="algo">Algorithm: Backtracking + Scheduling</div>
+
+  <p class="desc"><b>Problem:</b> Reduce electricity consumption while maintaining minimum safe brightness.</p>
+
+  <p class="solution"><b>Solution:</b> Backtracking explores all safe brightness combinations per hour; minimum-cost schedule is selected.</p>
+
+  <span class="sdg sdg7">SDG 7: Clean Energy</span>
+  <span class="sdg sdg11">SDG 11: Sustainable Cities</span>
+  <span class="sdg sdg13">SDG 13: Climate Action</span>
+
+  <div class="code-title">C++ Code</div>
   <div class="code-block">
-#include &lt;bits/stdc++.h&gt;<br>
-using namespace std;<br>
-int main(){<br>
-&nbsp;&nbsp;int n,m; cin&gt;&gt;n&gt;&gt;m;<br>
-&nbsp;&nbsp;vector&lt;vector&lt;int&gt;&gt; g(n);<br>
-&nbsp;&nbsp;for(int i=0;i&lt;m;i++){ int u,v; cin&gt;&gt;u&gt;&gt;v; g[u].push_back(v); g[v].push_back(u); }<br>
-&nbsp;&nbsp;vector&lt;int&gt; color(n,-1);<br>
-&nbsp;&nbsp;for(int u=0;u&lt;n;u++){<br>
-&nbsp;&nbsp;&nbsp;&nbsp;vector&lt;bool&gt; used(n,false);<br>
-&nbsp;&nbsp;&nbsp;&nbsp;for(auto v:g[u]) if(color[v]!=-1) used[color[v]]=true;<br>
-&nbsp;&nbsp;&nbsp;&nbsp;for(int c=0;c&lt;n;c++) if(!used[c]){ color[u]=c; break; }<br>
-&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;for(int i=0;i&lt;n;i++) cout&lt;&lt;color[i]&lt;&lt;" ";<br>
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+int H, minBrightness;
+vector<int> level;
+vector<int> bestSchedule;
+long long bestCost = LLONG_MAX;
+
+void backtrack(int hour) {
+    if (hour == H) {
+        long long cost = accumulate(level.begin(), level.end(), 0LL);
+        if (cost < bestCost) {
+            bestCost = cost;
+            bestSchedule = level;
+        }
+        return;
+    }
+
+    for (int b = minBrightness; b <= 100; b += 10) {
+        level[hour] = b;
+        backtrack(hour + 1);
+    }
+}
+
+int main() {
+    cin >> H >> minBrightness;
+
+    level.assign(H, 0);
+    backtrack(0);
+
+    cout << "Minimum Cost: " << bestCost << "\n";
+    for (int x : bestSchedule)
+        cout << x << " ";
 }
   </div>
 </div>
 
-<!-- Problem 10 -->
+
+<!-- ==================== PROBLEM 7 ==================== -->
 <div class="card">
-  <div class="title">10) Renewable Energy Placement</div>
-  <div class="section-title">Algorithm:</div>
-  <p>Greedy / Knapsack</p>
-  <div class="section-title">Problem:</div>
-  <p>Place solar panels/wind turbines to maximize energy output under cost constraints.</p>
-  <div class="section-title">Solution:</div>
-  <p>Use greedy selection based on output/cost ratio to select locations efficiently.</p>
-  <div class="section-title">SDGs:</div>
-  <span class="tag sdg7">SDG7: Affordable Clean Energy</span>
-  <span class="tag sdg11">SDG11: Sustainable Cities</span>
-  <span class="tag sdg13">SDG13: Climate Action</span>
-  <div class="section-title">C++ Code:</div>
+  <div class="title">7. Transport Ticket Dynamic Pricing</div>
+  <div class="algo">Algorithm: AVL Tree (Set) + Max Heap</div>
+
+  <p class="desc"><b>Problem:</b> Ticket prices must adjust dynamically based on real-time usage.</p>
+
+  <p class="solution"><b>Solution:</b> Balanced BST stores price bands, max-heap monitors peak demand, dynamic price = base + adjustment.</p>
+
+  <span class="sdg sdg8">SDG 8: Economic Growth</span>
+  <span class="sdg sdg9">SDG 9: Innovation</span>
+  <span class="sdg sdg11">SDG 11: Sustainable Cities</span>
+
+  <div class="code-title">C++ Code</div>
   <div class="code-block">
-#include &lt;bits/stdc++.h&gt;<br>
-using namespace std;<br>
-struct Site{ int cost, output; };<br>
-int main(){<br>
-&nbsp;&nbsp;int n,budget; cin&gt;&gt;n&gt;&gt;budget;<br>
-&nbsp;&nbsp;vector&lt;Site&gt; sites(n);<br>
-&nbsp;&nbsp;for(int i=0;i&lt;n;i++) cin&gt;&gt;sites[i].cost&gt;&gt;sites[i].output;<br>
-&nbsp;&nbsp;sort(sites.begin(), sites.end(), [](Site a,Site b){ return (double)a.output/a.cost &gt; (double)b.output/b.cost; });<br>
-&nbsp;&nbsp;int total=0;<br>
-&nbsp;&nbsp;for(auto s:sites){<br>
-&nbsp;&nbsp;&nbsp;&nbsp;if(s.cost&lt;=budget){ budget-=s.cost; total+=s.output; }<br>
-&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;cout&lt;&lt;total;<br>
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    set<int> priceBands;
+    for (int i = 0; i < n; i++) {
+        int p;
+        cin >> p;
+        priceBands.insert(p);
+    }
+
+    int m;
+    cin >> m;
+
+    priority_queue<int> peakDemand;
+
+    for (int i = 0; i < m; i++) {
+        int d;
+        cin >> d;
+        peakDemand.push(d);
+    }
+
+    int base = *priceBands.begin();
+    int peak = peakDemand.top();
+
+    int price = base + (peak / 100);
+
+    cout << "Dynamic Price = " << price;
 }
   </div>
 </div>
 
-</div> <!-- end grid -->
 
-<footer>
-© 2024 Govindaraddi.H.U – DAA Portfolio
-</footer>
+<!-- ==================== PROBLEM 8 ==================== -->
+<div class="card">
+  <div class="title">8. Garbage Plant Load Balancing</div>
+  <div class="algo">Algorithm: Min Heap + Queue Simulation</div>
+
+  <p class="desc"><b>Problem:</b> Evenly distribute waste across plants to avoid overload.</p>
+
+  <p class="solution"><b>Solution:</b> Use a min-heap to always assign waste to the plant with the smallest current load.</p>
+
+  <span class="sdg sdg11">SDG 11: Sustainable Cities</span>
+  <span class="sdg sdg12">SDG 12: Responsible Consumption</span>
+  <span class="sdg sdg13">SDG 13: Climate Action</span>
+
+  <div class="code-title">C++ Code</div>
+  <div class="code-block">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+struct Plant {
+    long long load;
+    int id;
+    bool operator<(const Plant &other) const {
+        return load > other.load;
+    }
+};
+
+int main() {
+    int plants, arrivals;
+    cin >> plants >> arrivals;
+
+    priority_queue<Plant> pq;
+
+    for (int i = 0; i < plants; i++)
+        pq.push({0, i});
+
+    for (int i = 0; i < arrivals; i++) {
+        long long w;
+        cin >> w;
+
+        auto plant = pq.top();
+        pq.pop();
+
+        plant.load += w;
+
+        cout << "Assigned " << w << " to plant " << plant.id << "\n";
+
+        pq.push(plant);
+    }
+
+    cout << "Final Loads:\n";
+
+    vector<long long> loads(plants);
+
+    while (!pq.empty()) {
+        auto p = pq.top();
+        pq.pop();
+        loads[p.id] = p.load;
+    }
+
+    for (int i = 0; i < plants; i++)
+        cout << "Plant " << i << ": " << loads[i] << "\n";
+}
+  </div>
+</div>
+
+
+<!-- ==================== PROBLEM 9 ==================== -->
+<div class="card">
+  <div class="title">9. Building Maintenance Prediction</div>
+  <div class="algo">Algorithm: 2-3 Tree (Multiset) + Divide & Conquer</div>
+
+  <p class="desc"><b>Problem:</b> Predict recurring maintenance patterns in buildings.</p>
+
+  <p class="solution"><b>Solution:</b> Store logs in a multiset. Divide-and-conquer detects repetition patterns by comparing mid boundaries.</p>
+
+  <span class="sdg sdg9">SDG 9: Infrastructure</span>
+  <span class="sdg sdg11">SDG 11: Sustainable Cities</span>
+  <span class="sdg sdg12">SDG 12: Responsible Consumption</span>
+
+  <div class="code-title">C++ Code</div>
+  <div class="code-block">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    multiset<int> logs;
+    for (int i = 0; i < n; i++) {
+        int t;
+        cin >> t;
+        logs.insert(t);
+    }
+
+    vector<int> arr(logs.begin(), logs.end());
+
+    function<int(int,int)> solve = [&](int l, int r) {
+        if (l == r) return 1;
+
+        int mid = (l + r) / 2;
+
+        int left = solve(l, mid);
+        int right = solve(mid + 1, r);
+
+        if (arr[mid] == arr[mid + 1]) return left + right - 1;
+        return left + right;
+    };
+
+    cout << "Pattern Score = " << solve(0, arr.size() - 1);
+}
+  </div>
+</div>
+
+
+<!-- ==================== PROBLEM 10 ==================== -->
+<div class="card">
+  <div class="title">10. Subsidy Distribution Optimization</div>
+  <div class="algo">Algorithm: Quick Sort + 0/1 Knapsack</div>
+
+  <p class="desc"><b>Problem:</b> Select beneficiaries who maximize social impact under a limited subsidy fund.</p>
+
+  <p class="solution"><b>Solution:</b> Sort applicants by benefit-to-cost ratio, then apply 0/1 knapsack to choose optimal beneficiaries.</p>
+
+  <span class="sdg sdg1">SDG 1: No Poverty</span>
+  <span class="sdg sdg8">SDG 8: Economic Growth</span>
+  <span class="sdg sdg10">SDG 10: Reduced Inequalities</span>
+
+  <div class="code-title">C++ Code</div>
+  <div class="code-block">
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+
+struct Beneficiary {
+    double benefit, cost;
+};
+
+int main() {
+    int n, W;
+    cin >> n >> W;
+
+    vector<Beneficiary> b(n);
+    for (int i = 0; i < n; i++)
+        cin >> b[i].benefit >> b[i].cost;
+
+    sort(b.begin(), b.end(),
+         [&](auto &A, auto &B) {
+             return (A.benefit / A.cost) > (B.benefit / B.cost);
+         });
+
+    vector<int> w(n), v(n);
+    for (int i = 0; i < n; i++) {
+        w[i] = round(b[i].cost);
+        v[i] = round(b[i].benefit);
+    }
+
+    vector<int> dp(W + 1, 0);
+
+    for (int i = 0; i < n; i++) {
+        for (int cap = W; cap >= w[i]; cap--) {
+            dp[cap] = max(dp[cap], dp[cap - w[i]] + v[i]);
+        }
+    }
+
+    cout << "Max Benefit = " << *max_element(dp.begin(), dp.end());
+}
+  </div>
+</div>
+
+
+      </div> <!-- END LEFT COLUMN -->
+
+      <!-- RIGHT COLUMN (Empty or any widgets you add later) -->
+      <div></div>
+
+    </div> <!-- END GRID -->
+
+  </div> <!-- END CONTAINER -->
+
+  <footer>
+    © 2024 Govindaraddi.H.U – DAA Portfolio
+  </footer>
 
 </body>
 </html>
