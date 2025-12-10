@@ -8,7 +8,7 @@
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-<!-- Prism (syntax highlighting) -->
+<!-- Prism for syntax highlighting -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-clike.min.js"></script>
@@ -19,156 +19,141 @@
   --bg: #f4f7fb;
   --panel: #ffffff;
   --muted: #475569;
-  --accent: #0f4fa8;
-  --accent-2: #0b6fb6;
+  --accent-a: #0f4fa8;
+  --accent-b: #0b6fb6;
+  --card-shadow: 0 14px 36px rgba(14,30,60,0.06);
   --radius: 14px;
-  --card-shadow: 0 12px 34px rgba(14,30,60,0.06);
-  --text: #052033;
-  --muted-2: #6b7280;
+  --text: #042a44;
 }
 
+/* Reset + base */
 *{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:linear-gradient(180deg,#f7fbfd 0%,#f4f7fb 100%);color:var(--text);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+html,body{height:100%;margin:0;font-family:"Poppins",system-ui,-apple-system,"Segoe UI",Roboto,Arial;background:linear-gradient(180deg,#f7fbfd 0%,#f4f7fb 100%);color:var(--text);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+.container{max-width:1180px;margin:28px auto;padding:18px}
 
-/* page frame */
-.container{max-width:1180px;margin:28px auto;padding:18px;}
-
-/* top nav */
+/* Header */
 .header{
-  display:flex;
-  align-items:center;
-  gap:18px;
-  background:linear-gradient(90deg, rgba(15,79,168,0.95), rgba(11,111,182,0.95));
-  color:white;
-  padding:18px;
-  border-radius:12px;
-  box-shadow: 0 8px 30px rgba(6,40,90,0.18);
+  display:flex;align-items:center;gap:16px;padding:10px 18px;border-radius:10px;background:#083b72;color:#fff;box-shadow:0 8px 24px rgba(4,20,60,0.15)
 }
-.header .title{
-  font-size:20px;
-  font-weight:700;
-  letter-spacing:0.1px;
+.logo{
+  width:48px;height:48px;border-radius:8px;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px
 }
-.header .nav-right{margin-left:auto;font-size:14px;opacity:0.95}
+.header .title{font-size:18px;font-weight:700}
+.header .sub{font-size:12px;opacity:0.9;margin-left:8px}
 
-/* hero area with image left, big title right */
+/* Hero (image + banner) */
 .hero{
-  display:flex;
-  gap:18px;
-  align-items:center;
-  margin-top:18px;
+  display:flex;flex-direction:column;gap:18px;margin-top:18px
 }
-.hero .hero-img{
-  width:100%;
-  max-width: 1100px;
-  border-radius:16px;
-  overflow:hidden;
-  box-shadow: var(--card-shadow);
+.hero .banner-img{width:100%;border-radius:12px;overflow:hidden;box-shadow:var(--card-shadow)}
+.hero-banner{
+  background:linear-gradient(90deg,var(--accent-a),var(--accent-b));
+  color:white;padding:22px;border-radius:12px;margin-top:-68px;box-shadow:0 14px 36px rgba(7,40,90,0.12)
 }
-.hero .hero-banner{
-  position:relative;
-  padding:28px;
-  background: linear-gradient(90deg, rgba(3,70,130,1), rgba(8,110,170,1));
-  border-radius:12px;
-  color:white;
-  margin-top: -86px;
-  box-shadow: 0 12px 36px rgba(5,50,100,0.12);
-}
-.hero .hero-banner h1{
-  margin:0;font-size:28px;font-weight:700;
-}
-.hero .hero-banner p{margin:8px 0 0;color:rgba(255,255,255,0.9);font-size:14px;max-width:900px}
+.hero-banner h1{margin:0;font-size:26px}
+.hero-banner p{margin:8px 0 0;color:rgba(255,255,255,0.92);font-size:14px}
 
-/* grid of cards */
+/* Grid 2 x 5 */
 .grid{
+  margin-top:26px;
   display:grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap:18px;
-  margin-top:28px;
+  grid-template-columns: repeat(2, 1fr);
+  gap:20px 22px;
 }
-@media (max-width:1100px){ .grid{grid-template-columns: repeat(2,1fr);} }
-@media (max-width:680px){ .grid{grid-template-columns: 1fr;} .hero .hero-banner{margin-top:0} .header{flex-direction:column;align-items:flex-start}}
+@media (max-width:900px){
+  .grid{grid-template-columns:1fr}
+  .hero-banner{margin-top:0}
+}
 
-/* card */
+/* Card */
 .card{
   background:var(--panel);
   border-radius:12px;
   padding:18px;
-  border-left:6px solid rgba(11,111,182,0.12);
-  box-shadow: var(--card-shadow);
+  box-shadow:var(--card-shadow);
+  border-left:6px solid rgba(11,111,182,0.10);
+  display:flex;flex-direction:column;gap:8px;
 }
-.card h3{margin:0 0 8px 0;font-size:18px;color:var(--text)}
-.card small{display:block;color:var(--muted-2);margin-bottom:12px}
-.card p{margin:0 0 12px 0;color:var(--muted-2);font-size:14px}
+.card h3{margin:0;font-size:18px;color:var(--text)}
+.card .alg{color:var(--accent-a);font-weight:700;font-size:13px;margin-top:4px}
+.card p{margin:0;color:var(--muted);font-size:13px}
+.section-title{font-size:13px;font-weight:700;margin-top:8px;color:#093759}
+.section-text{font-size:13px;color:var(--muted);margin-top:6px;line-height:1.35}
 
-/* code area inside card: collapsible */
-.code-area{
+/* code area inside card: collapsible via details */
+.details-code {
+  margin-top:8px;
   background:#0f1724;
-  border-radius:10px;
-  padding:12px;
-  color:#cbeefc;
+  border-radius:8px;
+  padding:10px;
   overflow:auto;
-  max-height:360px;
+  color:#cbeefc;
 }
+pre { margin:0; background:transparent; padding:0;}
+code[class*="language-"]{ font-family: "JetBrains Mono", monospace; font-size:12.5px; line-height:1.4; }
 
-/* button */
-.btn{
-  display:inline-block;padding:8px 12px;border-radius:999px;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:white;text-decoration:none;font-weight:700;font-size:13px;box-shadow:0 8px 18px rgba(8,80,140,0.12)
-}
+/* small pills */
+.pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{background:rgba(2,6,23,0.04);padding:6px 10px;border-radius:999px;font-size:12px;color:var(--muted);}
 
 /* footer */
-.footer{
-  margin-top:28px;padding:16px;border-radius:12px;background:#042a4a;color:white;text-align:center;font-size:14px;box-shadow:0 8px 20px rgba(4,20,40,0.08)
-}
+.footer{margin-top:28px;padding:14px;border-radius:12px;background:#083b72;color:white;text-align:center;font-size:14px;box-shadow:0 12px 28px rgba(7,40,90,0.12)}
+/* Back to top */
+.top-btn{display:inline-block;margin-top:16px;padding:8px 14px;border-radius:999px;background:linear-gradient(90deg,var(--accent-a),var(--accent-b));color:white;text-decoration:none;font-weight:700}
 
-/* make pre code readable */
-pre { margin: 0; background: transparent; border: 0; padding: 0; }
-code[class*="language-"]{ font-family: "JetBrains Mono", monospace; font-size:13px; line-height:1.4; white-space:pre; color: #cbeefc; display:block; }
-
-/* small helper */
-.center{max-width:1100px;margin:0 auto}
+/* accessibility focus */
+.card:focus-within{outline:2px solid rgba(11,111,182,0.12)}
 </style>
 </head>
 <body>
 
-<div class="container center">
+<div class="container" role="main">
 
   <!-- Header -->
-  <div class="header" role="banner" aria-label="DAA Portfolio header">
-    <div style="display:flex;align-items:center;gap:14px">
-      <div style="width:44px;height:44px;border-radius:8px;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;font-weight:800">TK</div>
-      <div>
-        <div class="title">Tejas Keri</div>
-        <div style="font-size:12px;opacity:0.9">Design & Analysis of Algorithms — Land Use & Location Optimization</div>
-      </div>
+  <header class="header" role="banner">
+    <div class="logo" aria-hidden="true">TK</div>
+    <div>
+      <div class="title">Tejas Keri</div>
+      <div class="sub">Land Use, Zoning & Location Optimization — DAA Portfolio</div>
     </div>
-    <div class="nav-right">Home</div>
-  </div>
+    <div style="margin-left:auto;color:rgba(255,255,255,0.9)">Home</div>
+  </header>
 
-  <!-- Hero banner with uploaded image -->
-  <div style="margin-top:18px;">
-    <div class="hero">
-      <div class="hero-img" style="flex:1">
-        <!-- Use the image available in the session container -->
-        <img src="/mnt/data/387b514b-1126-4a13-a04e-c3fb3bc57a6f.jpeg" alt="Land Use Projects" style="width:100%;height:auto;display:block;object-fit:cover" />
-      </div>
+  <!-- Hero image + banner -->
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="banner-img" role="img" aria-label="Land Use Projects Banner">
+      <img src="/mnt/data/d2a75678-15a8-4cc9-9110-7da374a3cd0d.jpeg" alt="Land Use Projects" style="width:100%;height:auto;display:block;object-fit:cover" />
     </div>
 
-    <div class="hero-banner" style="margin-top:18px">
+    <div class="hero-banner" id="hero-heading">
       <h1>Land Use, Zoning & Location Optimization Projects</h1>
-      <p>These problems involve spatial allocation, clustering, matching, zoning, and optimal city planning using algorithms. Click any card below to view the C++ solution snippet for that problem.</p>
+      <p>These tasks involve spatial allocation, clustering, matching, zoning, and optimal city planning using algorithmic methods tailored for real-world urban environments.</p>
     </div>
-  </div>
+  </section>
 
-  <!-- Grid: only the 10 problems from the screenshot -->
-  <div class="grid" role="list" aria-label="Project cards">
+  <!-- Grid (2 columns × 5 rows) -->
+  <section class="grid" aria-label="Project grid">
 
     <!-- 1 -->
-    <article class="card" id="card-1" role="listitem" aria-labelledby="title-1">
-      <h3 id="title-1">1. Optimal Hospital Location</h3>
-      <small>Algorithm: k-Medians / 1D median (example)</small>
-      <p>Place hospitals to minimize average distance for citizens. For 1D or on tree-like networks use median; for k-median clustering use iterative improvement or k-means variants.</p>
-      <div class="code-area" aria-live="polite">
+    <article class="card" id="p1" tabindex="0" aria-labelledby="p1-title">
+      <h3 id="p1-title">1. Optimal Hospital Location</h3>
+      <div class="alg">Algorithm: 1D Median / k-Medians (approx)</div>
+
+      <div class="section-title">Problem Content</div>
+      <div class="section-text">Place one or multiple hospitals within a city to minimize travel distance for residents, taking into account population density and accessibility. Stakeholders include citizens, emergency services and urban planners.</div>
+
+      <div class="section-title">Algorithmic Solution</div>
+      <div class="section-text">For the single-hospital (1D) case, the median minimizes absolute distance. For k facilities, run k-medians or k-means-like iterative improvement with assignment and center update steps; use heuristics for initialization.</div>
+
+      <div class="section-title">Input / Output (Project Version)</div>
+      <div class="section-text">Input: List of resident coordinates (x,y) and optional weights (population). Output: Coordinates of hospital locations and total travel cost estimate.</div>
+
+      <div class="section-title">Related SDGs</div>
+      <div class="pills"><span class="pill">SDG 3 — Good Health & Well-being</span><span class="pill">SDG 11 — Sustainable Cities</span></div>
+
+      <details>
+        <summary style="margin-top:8px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (median / simple k=1)</summary>
+        <div class="details-code" role="region" aria-live="polite">
 <pre><code class="language-cpp">// Hospital Location (1D median)
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
@@ -181,23 +166,38 @@ double median_1d(vector<long long>& pts){
 }
 
 int main(){
+    // Example: positions on a line (or preprojected)
     vector<long long> pts = {1,5,9,3,8};
-    cout << "Median: " << median_1d(pts) << '\\n';
+    cout << fixed << "Median position: " << median_1d(pts) << '\\n';
     return 0;
 }</code></pre>
-      </div>
+        </div>
+      </details>
     </article>
 
     <!-- 2 -->
-    <article class="card" id="card-2" role="listitem" aria-labelledby="title-2">
-      <h3 id="title-2">2. School Allocation to Students</h3>
-      <small>Algorithm: Bipartite Matching / Max-Flow (Dinic)</small>
-      <p>Assign students to nearest valid schools respecting capacities using a flow network.</p>
-      <div class="code-area" aria-live="polite">
-<pre><code class="language-cpp">// Dinic's Algorithm (C++)
+    <article class="card" id="p2" tabindex="0" aria-labelledby="p2-title">
+      <h3 id="p2-title">2. School Allocation to Students</h3>
+      <div class="alg">Algorithm: Bipartite Matching / Max-Flow (Dinic)</div>
+
+      <div class="section-title">Problem Content</div>
+      <div class="section-text">Assign students to schools minimizing travel time while respecting school capacities and eligibility zones. Ensure fairness and capacity constraints are satisfied.</div>
+
+      <div class="section-title">Algorithmic Solution</div>
+      <div class="section-text">Model as bipartite graph (students → schools) with edges for reachable schools. Use max flow (Dinic) with capacities to enforce school seat limits and minimize cost via repeated flows or min-cost max-flow when costs vary.</div>
+
+      <div class="section-title">Input / Output (Project Version)</div>
+      <div class="section-text">Input: Students with coordinates, schools with coordinates and capacities; optionally cost matrix (distance). Output: Assignment list (student -> school) and total travel cost.</div>
+
+      <div class="section-title">Related SDGs</div>
+      <div class="pills"><span class="pill">SDG 4 — Quality Education</span><span class="pill">SDG 10 — Reduced Inequalities</span></div>
+
+      <details>
+        <summary style="margin-top:8px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (Dinic skeleton)</summary>
+        <div class="details-code" role="region" aria-live="polite">
+<pre><code class="language-cpp">// Dinic's Algorithm (C++) - skeleton for student-school assignment
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
-
 struct Edge{int to; long long cap; int rev;};
 struct Dinic {
     int n; vector<vector<Edge>> g; vector<int> level, it;
@@ -206,53 +206,48 @@ struct Dinic {
         g[u].push_back({v,c,(int)g[v].size()});
         g[v].push_back({u,0,(int)g[u].size()-1});
     }
-    bool bfs(int s,int t){
-        fill(level.begin(), level.end(), -1);
-        queue<int>q; level[s]=0; q.push(s);
-        while(!q.empty()){
-            int u=q.front(); q.pop();
-            for(auto &e:g[u]) if(e.cap>0 && level[e.to]==-1){ level[e.to]=level[u]+1; q.push(e.to); }
-        }
+    bool bfs(int s,int t){ fill(level.begin(), level.end(), -1); queue<int>q; level[s]=0; q.push(s);
+        while(!q.empty()){ int u=q.front(); q.pop(); for(auto &e:g[u]) if(e.cap>0 && level[e.to]==-1){ level[e.to]=level[u]+1; q.push(e.to); } }
         return level[t]!=-1;
     }
-    long long dfs(int u,int t,long long f){
-        if(u==t) return f;
-        for(int &i=it[u]; i<(int)g[u].size(); ++i){
-            Edge &e = g[u][i];
-            if(e.cap>0 && level[e.to]==level[u]+1){
-                long long ret = dfs(e.to,t,min(f,e.cap));
-                if(ret>0){ e.cap -= ret; g[e.to][e.rev].cap += ret; return ret; }
-            }
-        }
-        return 0;
+    long long dfs(int u,int t,long long f){ if(u==t) return f;
+        for(int &i=it[u]; i<(int)g[u].size(); ++i){ Edge &e = g[u][i];
+            if(e.cap>0 && level[e.to]==level[u]+1){ long long ret = dfs(e.to,t,min(f,e.cap)); if(ret>0){ e.cap-=ret; g[e.to][e.rev].cap+=ret; return ret; } }
+        } return 0;
     }
-    long long max_flow(int s,int t){
-        long long flow=0;
-        while(bfs(s,t)){
-            fill(it.begin(), it.end(), 0);
-            while(true){ long long f = dfs(s,t,LLONG_MAX); if(f==0) break; flow+=f; }
-        }
-        return flow;
+    long long max_flow(int s,int t){ long long flow=0;
+        while(bfs(s,t)){ fill(it.begin(), it.end(), 0); while(true){ long long f=dfs(s,t,LLONG_MAX); if(f==0) break; flow+=f; } } return flow;
     }
 };
 
-int main(){
-    // Build flow network and call max_flow
-    return 0;
-}</code></pre>
-      </div>
+int main(){ /* Build network and run max_flow */ return 0; }</code></pre>
+        </div>
+      </details>
     </article>
 
     <!-- 3 -->
-    <article class="card" id="card-3" role="listitem" aria-labelledby="title-3">
-      <h3 id="title-3">3. Smart Parking Slot Allocation</h3>
-      <small>Algorithm: Hungarian Algorithm (assignment)</small>
-      <p>Assign cars to parking slots minimizing total walking distance (assignment problem).</p>
-      <div class="code-area" aria-live="polite">
-<pre><code class="language-cpp">// Hungarian Algorithm (assignment) - 1-based internally
+    <article class="card" id="p3" tabindex="0" aria-labelledby="p3-title">
+      <h3 id="p3-title">3. Smart Parking Slot Allocation</h3>
+      <div class="alg">Algorithm: Hungarian Algorithm (Assignment Problem)</div>
+
+      <div class="section-title">Problem Content</div>
+      <div class="section-text">Assign incoming cars to parking slots to minimize total walking distance while satisfying capacity and accessibility rules. Useful for event parking and smart-city parking management.</div>
+
+      <div class="section-title">Algorithmic Solution</div>
+      <div class="section-text">Formulate as a cost matrix (cars × slots) where entry = walking distance. Use the Hungarian algorithm for a minimum-cost assignment in O(n³) for n cars/slots (or use sparse matching heuristics for large-scale).</div>
+
+      <div class="section-title">Input / Output (Project Version)</div>
+      <div class="section-text">Input: Coordinates of cars and slot positions, constraints (handicap slots). Output: Assignment pairs and total walking distance reduction estimate.</div>
+
+      <div class="section-title">Related SDGs</div>
+      <div class="pills"><span class="pill">SDG 11 — Sustainable Cities</span><span class="pill">SDG 9 — Industry & Infrastructure</span></div>
+
+      <details>
+        <summary style="margin-top:8px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (Hungarian - condensed)</summary>
+        <div class="details-code" role="region" aria-live="polite">
+<pre><code class="language-cpp">// Hungarian Algorithm (condensed) - cost matrix must be square
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
-
 vector<int> hungarian(const vector<vector<long long>>& a){
     int n = a.size();
     vector<long long> u(n+1), v(n+1);
@@ -282,28 +277,39 @@ vector<int> hungarian(const vector<vector<long long>>& a){
     return ans;
 }
 
-int main(){
-    // Build cost matrix and call hungarian()
-    return 0;
-}</code></pre>
-      </div>
+int main(){ return 0; }</code></pre>
+        </div>
+      </details>
     </article>
 
     <!-- 4 -->
-    <article class="card" id="card-4" role="listitem" aria-labelledby="title-4">
-      <h3 id="title-4">4. Industrial vs Residential Separation</h3>
-      <small>Algorithm: Graph Coloring / Bipartite check</small>
-      <p>Color regions so industries do not touch residential zones — graph bipartite checks or coloring on planar graphs.</p>
-      <div class="code-area" aria-live="polite">
-<pre><code class="language-cpp">// Graph bipartite check (BFS)
+    <article class="card" id="p4" tabindex="0" aria-labelledby="p4-title">
+      <h3 id="p4-title">4. Industrial vs Residential Separation</h3>
+      <div class="alg">Algorithm: Graph Coloring / Bipartite Check</div>
+
+      <div class="section-title">Problem Content</div>
+      <div class="section-text">Assign zoning types (residential/industrial) across adjacent land parcels so incompatible types do not touch edge-to-edge. This prevents harmful co-location of industries and homes.</div>
+
+      <div class="section-title">Algorithmic Solution</div>
+      <div class="section-text">Model parcels as nodes and adjacency as edges. A bipartite graph implies a 2-coloring exists. For general planar zoning, graph-coloring heuristics or constraint solvers (SAT/ILP) are used.</div>
+
+      <div class="section-title">Input / Output (Project Version)</div>
+      <div class="section-text">Input: Parcel adjacency graph and parcel attributes. Output: Coloring assignment (zone per parcel) and a feasibility report highlighting conflicts if any.</div>
+
+      <div class="section-title">Related SDGs</div>
+      <div class="pills"><span class="pill">SDG 11 — Sustainable Cities</span><span class="pill">SDG 3 — Good Health</span></div>
+
+      <details>
+        <summary style="margin-top:8px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (bipartite check)</summary>
+        <div class="details-code" role="region" aria-live="polite">
+<pre><code class="language-cpp">// Bipartite check (BFS)
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
-
 bool is_bipartite(const vector<vector<int>>& g){
-    int n = g.size(); vector<int> color(n, -1);
-    for(int i=0;i<n;++i){
-        if(color[i]!=-1) continue;
-        queue<int> q; q.push(i); color[i]=0;
+    int n=g.size(); vector<int> color(n,-1);
+    for(int s=0;s<n;++s){
+        if(color[s]!=-1) continue;
+        queue<int>q; q.push(s); color[s]=0;
         while(!q.empty()){
             int u=q.front(); q.pop();
             for(int v: g[u]){
@@ -314,92 +320,147 @@ bool is_bipartite(const vector<vector<int>>& g){
     }
     return true;
 }
-
 int main(){ return 0; }</code></pre>
-      </div>
+        </div>
+      </details>
     </article>
 
     <!-- 5 -->
-    <article class="card" id="card-5" role="listitem" aria-labelledby="title-5">
-      <h3 id="title-5">5. Public Park Placement Optimization</h3>
-      <small>Algorithm: Greedy + Fenwick Tree (max coverage)</small>
-      <p>Select k park sites maximizing population coverage, often solved with greedy approximation and efficient counting structures.</p>
-      <div class="code-area" aria-live="polite">
-<pre><code class="language-cpp">// Fenwick Tree (Binary Indexed Tree)
+    <article class="card" id="p5" tabindex="0" aria-labelledby="p5-title">
+      <h3 id="p5-title">5. Public Park Placement Optimization</h3>
+      <div class="alg">Algorithm: Greedy Max-Coverage + Fenwick Tree support</div>
+
+      <div class="section-title">Problem Content</div>
+      <div class="section-text">Choose k park sites from candidate locations to maximize the population covered within a walking radius. Balances equity and accessibility.</div>
+
+      <div class="section-title">Algorithmic Solution</div>
+      <div class="section-text">Greedy approximation: at each step, pick the site that adds the largest marginal coverage. Fenwick trees or spatial indexes accelerate counting and updates.</div>
+
+      <div class="section-title">Input / Output (Project Version)</div>
+      <div class="section-text">Input: Candidate site coordinates, population distribution (points or grid), k. Output: Chosen sites and total covered population.</div>
+
+      <div class="section-title">Related SDGs</div>
+      <div class="pills"><span class="pill">SDG 11 — Sustainable Cities</span><span class="pill">SDG 3 — Good Health</span></div>
+
+      <details>
+        <summary style="margin-top:8px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (Fenwick helper)</summary>
+        <div class="details-code" role="region" aria-live="polite">
+<pre><code class="language-cpp">// Fenwick tree (Binary Indexed Tree)
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
-
-struct Fenwick{
+struct Fenwick {
     int n; vector<long long> bit;
     Fenwick(int n):n(n),bit(n+1,0){}
-    void add(int idx, long long val){ for(++idx; idx<=n; idx += idx & -idx) bit[idx]+=val; }
-    long long sum(int idx){ long long r=0; for(++idx; idx>0; idx -= idx & -idx) r+=bit[idx]; return r; }
-    long long range_sum(int l,int r){ if(r<l) return 0; return sum(r) - (l? sum(l-1):0); }
+    void add(int idx,long long val){ for(++idx; idx<=n; idx+=idx&-idx) bit[idx]+=val; }
+    long long sum(int idx){ long long r=0; for(++idx; idx>0; idx-=idx&-idx) r+=bit[idx]; return r; }
+    long long range_sum(int l,int r){ if(r<l) return 0; return sum(r)-(l?sum(l-1):0); }
 };
-
 int main(){ return 0; }</code></pre>
-      </div>
+        </div>
+      </details>
     </article>
 
     <!-- 6 -->
-    <article class="card" id="card-6" role="listitem" aria-labelledby="title-6">
-      <h3 id="title-6">6. Land Subdivision Optimization</h3>
-      <small>Algorithm: Divide & Conquer / geometric utilities</small>
-      <p>Divide land into balanced usable plots. Basic geometry helpers (polygon area via shoelace) are commonly used for area calculations.</p>
-      <div class="code-area" aria-live="polite">
+    <article class="card" id="p6" tabindex="0" aria-labelledby="p6-title">
+      <h3 id="p6-title">6. Land Subdivision Optimization</h3>
+      <div class="alg">Algorithm: Divide & Conquer + Geometry (Shoelace area)</div>
+
+      <div class="section-title">Problem Content</div>
+      <div class="section-text">Partition large land parcels into smaller balanced plots for development while preserving constraints (road access, minimum parcel area, contour). Important for equitable land use and development planning.</div>
+
+      <div class="section-title">Algorithmic Solution</div>
+      <div class="section-text">Use recursive partitioning (kd-like splits guided by population or area) and geometric primitives for area calculation. Use heuristics to satisfy constraints like minimum parcel dimensions and connectivity.</div>
+
+      <div class="section-title">Input / Output (Project Version)</div>
+      <div class="section-text">Input: Polygon describing parcel, constraints (min area, aspect ratio). Output: Set of sub-polygons (subplots) with metadata (area, centroid).</div>
+
+      <div class="section-title">Related SDGs</div>
+      <div class="pills"><span class="pill">SDG 11 — Sustainable Cities</span><span class="pill">SDG 15 — Life on Land</span></div>
+
+      <details>
+        <summary style="margin-top:8px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (Shoelace polygon area)</summary>
+        <div class="details-code" role="region" aria-live="polite">
 <pre><code class="language-cpp">// Polygon area via Shoelace
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
-
 double polygon_area(const vector<pair<double,double>>& poly){
     double s=0; int n=poly.size();
-    for(int i=0;i<n;++i){
+    for(int i=0;i<n;i++){
         double x1=poly[i].first, y1=poly[i].second;
         double x2=poly[(i+1)%n].first, y2=poly[(i+1)%n].second;
         s += x1*y2 - x2*y1;
     }
     return fabs(s)/2.0;
 }
-
 int main(){ return 0; }</code></pre>
-      </div>
+        </div>
+      </details>
     </article>
 
     <!-- 7 -->
-    <article class="card" id="card-7" role="listitem" aria-labelledby="title-7">
-      <h3 id="title-7">7. High Footfall Commercial Zone Prediction</h3>
-      <small>Algorithm: Clustering (k-means like)</small>
-      <p>Predict commercial hotspots using movement density and clustering algorithms.</p>
-      <div class="code-area" aria-live="polite">
-<pre><code class="language-cpp">// Simple clustering logic example (k-means like)
+    <article class="card" id="p7" tabindex="0" aria-labelledby="p7-title">
+      <h3 id="p7-title">7. High Footfall Commercial Zone Prediction</h3>
+      <div class="alg">Algorithm: Clustering (k-means, DBSCAN)</div>
+
+      <div class="section-title">Problem Content</div>
+      <div class="section-text">Predict commercial hotspots by analyzing movement traces, point-of-interest density, and temporal patterns. Helps city planners allocate services and transit capacity.</div>
+
+      <div class="section-title">Algorithmic Solution</div>
+      <div class="section-text">Use density-based clustering (DBSCAN) to find high-density pockets and k-means for partitioning known areas; incorporate temporal features and heatmaps for robustness.</div>
+
+      <div class="section-title">Input / Output (Project Version)</div>
+      <div class="section-text">Input: Movement traces, footfall sensor counts, POI data. Output: Clustered hotspot polygons, ranking by footfall and suggestions for interventions.</div>
+
+      <div class="section-title">Related SDGs</div>
+      <div class="pills"><span class="pill">SDG 8 — Decent Work & Economic Growth</span><span class="pill">SDG 11 — Sustainable Cities</span></div>
+
+      <details>
+        <summary style="margin-top:8px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (k-means assign step)</summary>
+        <div class="details-code" role="region" aria-live="polite">
+<pre><code class="language-cpp">// Simple k-means assignment (points + centers)
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
-
 using P = pair<double,double>;
-vector<vector<P>> assign_clusters(const vector<P>& points, const vector<P>& centers){
-    int k = centers.size(); vector<vector<P>> clusters(k);
-    for(auto &p: points){
-        int best = 0; double bestd = 1e300;
-        for(int i=0;i<k;++i){ double d = pow(p.first-centers[i].first,2) + pow(p.second-centers[i].second,2); if(d<bestd){ bestd=d; best=i; } }
-        clusters[best].push_back(p);
+vector<int> assign_clusters(const vector<P>& pts, const vector<P>& centers){
+    int n=pts.size(), k=centers.size(); vector<int> assign(n);
+    for(int i=0;i<n;i++){
+        int best=0; double bestd=1e300;
+        for(int j=0;j<k;j++){
+            double d = pow(pts[i].first-centers[j].first,2) + pow(pts[i].second-centers[j].second,2);
+            if(d<bestd){ bestd=d; best=j; }
+        }
+        assign[i]=best;
     }
-    return clusters;
+    return assign;
 }
-
 int main(){ return 0; }</code></pre>
-      </div>
+        </div>
+      </details>
     </article>
 
     <!-- 8 -->
-    <article class="card" id="card-8" role="listitem" aria-labelledby="title-8">
-      <h3 id="title-8">8. Creation of Green Belt Buffers</h3>
-      <small>Algorithm: BFS/DFS layers on grid</small>
-      <p>Form multi-zone buffer around polluted areas via BFS expansion layers (distance maps).</p>
-      <div class="code-area" aria-live="polite">
+    <article class="card" id="p8" tabindex="0" aria-labelledby="p8-title">
+      <h3 id="p8-title">8. Creation of Green Belt Buffers</h3>
+      <div class="alg">Algorithm: BFS Layers / Morphological Buffer</div>
+
+      <div class="section-title">Problem Content</div>
+      <div class="section-text">Create buffer belts around polluted zones or city limits to protect ecosystems, reduce exposure, and create green corridors for biodiversity.</div>
+
+      <div class="section-title">Algorithmic Solution</div>
+      <div class="section-text">Use BFS on grids or distance transforms in rasterized maps to compute layered buffers. Constrain with land ownership and protected zones through masked expansion.</div>
+
+      <div class="section-title">Input / Output (Project Version)</div>
+      <div class="section-text">Input: Raster map with pollution sources and obstacles. Output: Buffer layers map with layer indices (distance bands) and suggested planting areas.</div>
+
+      <div class="section-title">Related SDGs</div>
+      <div class="pills"><span class="pill">SDG 13 — Climate Action</span><span class="pill">SDG 15 — Life on Land</span></div>
+
+      <details>
+        <summary style="margin-top:8px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (BFS layers)</summary>
+        <div class="details-code" role="region" aria-live="polite">
 <pre><code class="language-cpp">// BFS buffer layers on grid
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
-
 vector<vector<int>> buffer_layers(const vector<vector<int>>& grid, const vector<pair<int,int>>& sources){
     int n = grid.size(), m = grid[0].size();
     vector<vector<int>> dist(n, vector<int>(m, -1));
@@ -410,26 +471,41 @@ vector<vector<int>> buffer_layers(const vector<vector<int>>& grid, const vector<
         auto cur = q.front(); q.pop_front();
         int r=cur.first, c=cur.second;
         for(int k=0;k<4;++k){ int nr=r+dr[k], nc=c+dc[k];
-            if(nr>=0 && nr<n && nc>=0 && nc<m && dist[nr][nc]==-1){ dist[nr][nc]=dist[r][c]+1; q.emplace_back(nr,nc); }
+            if(nr>=0 && nr<n && nc>=0 && nc<m && dist[nr][nc]==-1 && grid[nr][nc]==0){
+                dist[nr][nc]=dist[r][c]+1; q.emplace_back(nr,nc);
+            }
         }
     }
     return dist;
 }
-
 int main(){ return 0; }</code></pre>
-      </div>
+        </div>
+      </details>
     </article>
 
     <!-- 9 -->
-    <article class="card" id="card-9" role="listitem" aria-labelledby="title-9">
-      <h3 id="title-9">9. Footpath Connectivity Plan</h3>
-      <small>Algorithm: Shortest Path (Dijkstra)</small>
-      <p>Model junctions as nodes and compute safe shortest routes with Dijkstra.</p>
-      <div class="code-area" aria-live="polite">
-<pre><code class="language-cpp">// Dijkstra Shortest Path
+    <article class="card" id="p9" tabindex="0" aria-labelledby="p9-title">
+      <h3 id="p9-title">9. Footpath Connectivity Plan</h3>
+      <div class="alg">Algorithm: Shortest Paths / Graph Connectivity</div>
+
+      <div class="section-title">Problem Content</div>
+      <div class="section-text">Detect disconnected pedestrian networks, compute shortest safe routes between origins and destinations, and recommend minimal new links to improve connectivity.</div>
+
+      <div class="section-title">Algorithmic Solution</div>
+      <div class="section-text">Use graph constructions with nodes at intersections and weights from pedestrian safety metrics. Dijkstra for shortest paths, bridge/ articulation point detection for vulnerabilities, and minimum link addition via connectivity augmentation heuristics.</div>
+
+      <div class="section-title">Input / Output (Project Version)</div>
+      <div class="section-text">Input: Street graph, pedestrian counts, safe path constraints. Output: Shortest-path matrices, suggested new footpath links and estimated improvement metrics.</div>
+
+      <div class="section-title">Related SDGs</div>
+      <div class="pills"><span class="pill">SDG 11 — Sustainable Cities</span><span class="pill">SDG 3 — Good Health</span></div>
+
+      <details>
+        <summary style="margin-top:8px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (Dijkstra)</summary>
+        <div class="details-code" role="region" aria-live="polite">
+<pre><code class="language-cpp">// Dijkstra shortest paths (adjacency map)
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
-
 unordered_map<int, long long> dijkstra(const unordered_map<int, vector<pair<int,long long>>>& graph, int start){
     unordered_map<int,long long> dist;
     for(auto &kv: graph) dist[kv.first] = LLONG_MAX;
@@ -448,23 +524,35 @@ unordered_map<int, long long> dijkstra(const unordered_map<int, vector<pair<int,
     }
     return dist;
 }
-
 int main(){ return 0; }</code></pre>
-      </div>
+        </div>
+      </details>
     </article>
 
     <!-- 10 -->
-    <article class="card" id="card-10" role="listitem" aria-labelledby="title-10">
-      <h3 id="title-10">10. Underground Utility Routing</h3>
-      <small>Algorithm: A* Search on grid (Manhattan heuristic)</small>
-      <p>Plan underground routes avoiding obstacles using A* with a Manhattan or Euclidean heuristic.</p>
-      <div class="code-area" aria-live="polite">
+    <article class="card" id="p10" tabindex="0" aria-labelledby="p10-title">
+      <h3 id="p10-title">10. Underground Utility Routing</h3>
+      <div class="alg">Algorithm: A* Search / Disjoint Shortest Paths</div>
+
+      <div class="section-title">Problem Content</div>
+      <div class="section-text">Plan the routing of underground utilities (water, sewer, fiber, power) to avoid spatial conflicts and critical infrastructure while minimizing construction cost and length.</div>
+
+      <div class="section-title">Algorithmic Solution</div>
+      <div class="section-text">Model as grid/graph with obstacles. Use A* for pathfinding with Manhattan or Euclidean heuristics. For multiple utilities with disjointness constraints, use successive routing with reserved corridors or multi-commodity flow approximations.</div>
+
+      <div class="section-title">Input / Output (Project Version)</div>
+      <div class="section-text">Input: Grid map with obstacles and existing utilities, start & end coordinates for each route. Output: Set of routes avoiding prohibited cells, length and cost metrics, and clash-free corridor map.</div>
+
+      <div class="section-title">Related SDGs</div>
+      <div class="pills"><span class="pill">SDG 9 — Industry & Infrastructure</span><span class="pill">SDG 6 — Clean Water & Sanitation</span></div>
+
+      <details>
+        <summary style="margin-top:8px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (A* on grid)</summary>
+        <div class="details-code" role="region" aria-live="polite">
 <pre><code class="language-cpp">// A* Search on grid (Manhattan heuristic)
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
-
 int heuristic(pair<int,int> a, pair<int,int> b){ return abs(a.first-b.first) + abs(a.second-b.second); }
-
 vector<pair<int,int>> astar(const vector<vector<int>>& grid, pair<int,int> start, pair<int,int> goal){
     int n = grid.size(), m = grid[0].size();
     using Node = tuple<int,int,int,int>; // f, g, r, c
@@ -479,19 +567,15 @@ vector<pair<int,int>> astar(const vector<vector<int>>& grid, pair<int,int> start
         pair<int,int> cur={r,c};
         if(cur==goal){
             vector<pair<int,int>> path; auto curp=cur;
-            while(came_from.count(curp)){
-                path.push_back(curp); curp = came_from[curp];
-            }
+            while(came_from.count(curp)){ path.push_back(curp); curp = came_from[curp]; }
             path.push_back(start);
-            reverse(path.begin(), path.end());
-            return path;
+            reverse(path.begin(), path.end()); return path;
         }
         for(int k=0;k<4;++k){ int nr=r+dr[k], nc=c+dc[k];
-            if(nr>=0 && nr<n && nc>=0 && nc<m && grid[nr][nc]!=1){
+            if(nr>=0 && nr<n && nc>=0 && nc<m && grid[nr][nc]==0){
                 pair<int,int> nxt={nr,nc}; int tentative = g + 1;
                 if(!gscore.count(nxt) || tentative < gscore[nxt]){
-                    gscore[nxt]=tentative;
-                    came_from[nxt]=cur;
+                    gscore[nxt]=tentative; came_from[nxt]=cur;
                     open.push({tentative + heuristic(nxt,goal), tentative, nr, nc});
                 }
             }
@@ -499,30 +583,27 @@ vector<pair<int,int>> astar(const vector<vector<int>>& grid, pair<int,int> start
     }
     return {};
 }
-
 int main(){ return 0; }</code></pre>
-      </div>
+        </div>
+      </details>
     </article>
 
-  </div> <!-- end grid -->
+  </section> <!-- end grid -->
 
-  <div style="text-align:center;margin-top:28px">
-    <a class="btn" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">← Back to Top</a>
+  <div style="text-align:center;margin-top:20px">
+    <a class="top-btn" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">← Back to Top</a>
   </div>
 
-  <div class="footer">
-    © 2024 Tejas Keri — Portfolio
-  </div>
-
+  <footer class="footer" role="contentinfo">© 2024 Tejas Keri — Portfolio</footer>
 </div>
 
-<!-- Accessibility: focus outlines and keyboard support -->
+<!-- Keyboard shortcuts: 1..0 jump to cards -->
 <script>
 document.addEventListener('keydown', function(e){
-  // pressing '1'..'9' or '0' jumps to the card (1..10)
+  // 1..9 and 0 (10)
   if(e.key >= '0' && e.key <= '9'){
     let idx = (e.key === '0') ? 10 : Number(e.key);
-    const el = document.getElementById('card-' + idx);
+    const el = document.getElementById('p' + idx);
     if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
   }
 });
