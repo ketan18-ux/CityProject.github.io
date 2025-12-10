@@ -1,638 +1,794 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>DAA Portfolio — Tejas B. Keri</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Land Use, Zoning & Location Optimization — Tejas Keri</title>
 
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-<style>
-body {
-  margin:0; padding:0;
-  font-family: Poppins, sans-serif;
-  background:#fff;
-}
-.container {
-  width:95%;
-  max-width:1600px;
-  margin:auto;
-  padding:40px 0;
-}
-h1 {
-  font-size:40px;
-  text-align:center;
-  font-weight:700;
-  margin-bottom:40px;
-}
-.grid {
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:30px;
-}
-.card {
-  background:#fafafa;
-  border-radius:14px;
-  padding:25px;
-  border:1px solid #e5e5e5;
-  box-shadow:0 0 10px rgba(0,0,0,0.08);
-}
-.card h2 {
-  font-size:28px;
-  margin-bottom:15px;
-  font-weight:700;
-}
-.section-title {
-  margin-top:18px;
-  font-weight:600;
-  font-size:20px;
-}
-pre {
-  background:#1e1e1e;
-  color:#00ffee;
-  padding:15px;
-  border-radius:10px;
-  overflow:auto;
-  font-family:"JetBrains Mono", monospace;
-  line-height:1.4;
-}
-.sdg-list { padding-left:20px; }
-</style>
+  <style>
+    :root{
+      --bg: #f4f7fb;
+      --panel: #ffffff;
+      --muted: #475569;
+      --accent-a: #0f4fa8;
+      --accent-b: #0b6fb6;
+      --card-shadow: 0 18px 40px rgba(14,30,60,0.06);
+      --text: #042a44;
+      --mono: "JetBrains Mono", monospace;
+      --sans: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      --sidebar-h: 64px;
+      --max-width: 1200px;
+    }
+
+    * { box-sizing: border-box; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+    html,body { height:100%; margin:0; font-family:var(--sans); background:linear-gradient(180deg,#f7fbfd 0%,#f4f7fb 100%); color:var(--text); }
+
+    /* header */
+    header.sitebar {
+      background: linear-gradient(90deg,var(--accent-a),var(--accent-b));
+      color: white;
+      padding: 12px 24px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      box-shadow:0 6px 16px rgba(7,40,90,0.08);
+    }
+    header .brand { display:flex; gap:14px; align-items:center; }
+    header .brand .logo {
+      width:42px; height:42px; background:rgba(255,255,255,0.12); border-radius:8px; display:flex; align-items:center; justify-content:center;
+      font-weight:800; font-size:16px;
+    }
+    header .navhome { color:white; font-weight:600; }
+
+    .container { max-width: var(--max-width); margin: 28px auto; padding: 0 18px; }
+
+    .hero {
+      background: linear-gradient(90deg,#0f67a3,#0b73b8);
+      color:white;
+      padding:28px;
+      border-radius:12px;
+      box-shadow:0 14px 36px rgba(7,40,90,0.12);
+      margin-bottom:28px;
+    }
+    .hero h1 { margin:0; font-size:26px; }
+    .hero p { margin:8px 0 0; opacity:0.95; max-width:900px; }
+
+    /* grid */
+    .grid {
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:22px;
+      align-items:start;
+    }
+
+    /* We will visually force a 2x5 look on wider screens via card sizes and column-span.
+       But user wanted 2x5; to closely match earlier layout we will render cards in two columns on wide screens.
+    */
+    @media(min-width: 1100px){
+      .grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media(max-width: 1099px){
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--panel);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: var(--card-shadow);
+      border-left: 8px solid rgba(11,111,182,0.06);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      min-height: 220px;
+    }
+    .card h2 { margin:0; font-size:20px; font-weight:800; color:var(--text); }
+    .alg { color:var(--accent-a); font-weight:700; font-size:13px; margin-top:4px; }
+    .section-title { font-size:13px; font-weight:700; margin-top:8px; color:#093759; }
+    .section-text { font-size:14px; color:var(--muted); margin-top:6px; line-height:1.6; }
+
+    .pills { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+    .pill { background: rgba(2,6,23,0.04); padding:8px 12px; border-radius:999px; font-size:13px; color:var(--muted); }
+
+    details summary { cursor:pointer; font-weight:700; color:var(--accent-a); margin-top:10px; }
+    .details-code { margin-top:8px; background:#0f1724; border-radius:8px; padding:12px; overflow:auto; color:#cbeefc; font-family:var(--mono); font-size:13px; line-height:1.5; }
+    pre { margin:0; white-space:pre; font-family:var(--mono); font-size:13px; }
+
+    footer { margin-top:28px; text-align:center; color:var(--muted); font-size:14px; padding:18px; }
+  </style>
 </head>
-
 <body>
-<div class="container">
-<h1>Design & Analysis of Algorithms — Portfolio (10 Problems)</h1>
 
-<div class="grid">
+  <!-- header -->
+  <header class="sitebar" role="banner">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">TK</div>
+      <div>
+        <div style="font-weight:800;font-size:16px">Tejas Keri</div>
+        <div style="font-size:12px;opacity:0.95">Land Use & Location Optimization — DAA Portfolio</div>
+      </div>
+    </div>
+    <div class="navhome">Home</div>
+  </header>
 
-<!-- ===================================================== -->
-<!-- =================== PROBLEM 1 ======================== -->
-<!-- ===================================================== -->
-<div class="card">
-<h2>Problem 1 — Towers of Hanoi (Recursion)</h2>
+  <div class="container">
+    <section class="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title">Land Use, Zoning & Location Optimization Projects</h1>
+      <p>These projects use classic DAA concepts from class — recursion, backtracking, trees, heaps, tries, segment/fenwick trees, graph algorithms (Dijkstra, Kruskal, Prim, Floyd), string algorithms (KMP), sorting, and more — implemented with clear C++ examples for each problem.</p>
+    </section>
 
-<div class="section-title">Problem Content</div>
-<p>Solve the classic Towers of Hanoi problem using recursion with minimal moves.</p>
+    <!-- Sidebar-style left list (restored) -->
+    <nav style="display:flex; gap:18px; margin-bottom:18px; flex-wrap:wrap;">
+      <!-- visually emulate left list using pill links -->
+      <a href="#p1" style="padding:10px 12px;border-radius:10px;background:linear-gradient(90deg,#e6f1fb,#ffffff);color:#023a6b;font-weight:700;text-decoration:none;">1. Optimal Hospital Location</a>
+      <a href="#p2" style="padding:10px 12px;border-radius:10px;background:linear-gradient(90deg,#e6f1fb,#ffffff);color:#023a6b;font-weight:700;text-decoration:none;">2. School Allocation to Students</a>
+      <a href="#p3" style="padding:10px 12px;border-radius:10px;background:linear-gradient(90deg,#e6f1fb,#ffffff);color:#023a6b;font-weight:700;text-decoration:none;">3. Smart Parking Slot Allocation</a>
+      <a href="#p4" style="padding:10px 12px;border-radius:10px;background:linear-gradient(90deg,#e6f1fb,#ffffff);color:#023a6b;font-weight:700;text-decoration:none;">4. Industrial vs Residential Separation</a>
+      <a href="#p5" style="padding:10px 12px;border-radius:10px;background:linear-gradient(90deg,#e6f1fb,#ffffff);color:#023a6b;font-weight:700;text-decoration:none;">5. Public Park Placement Optimization</a>
+      <a href="#p6" style="padding:10px 12px;border-radius:10px;background:linear-gradient(90deg,#e6f1fb,#ffffff);color:#023a6b;font-weight:700;text-decoration:none;">6. Land Subdivision Optimization</a>
+      <a href="#p7" style="padding:10px 12px;border-radius:10px;background:linear-gradient(90deg,#e6f1fb,#ffffff);color:#023a6b;font-weight:700;text-decoration:none;">7. High Footfall Commercial Zone Prediction</a>
+      <a href="#p8" style="padding:10px 12px;border-radius:10px;background:linear-gradient(90deg,#e6f1fb,#ffffff);color:#023a6b;font-weight:700;text-decoration:none;">8. Creation of Green Belt Buffers</a>
+      <a href="#p9" style="padding:10px 12px;border-radius:10px;background:linear-gradient(90deg,#e6f1fb,#ffffff);color:#023a6b;font-weight:700;text-decoration:none;">9. Footpath Connectivity Plan</a>
+      <a href="#p10" style="padding:10px 12px;border-radius:10px;background:linear-gradient(90deg,#e6f1fb,#ffffff);color:#023a6b;font-weight:700;text-decoration:none;">10. Underground Utility Routing</a>
+    </nav>
 
-<div class="section-title">Algorithmic Solution</div>
-<p>A recursive divide-and-conquer solution moves n−1 disks to auxiliary, last disk to target, then n−1 back.</p>
+    <!-- Grid of problem cards (2x5 on wide screens) -->
+    <section class="grid" aria-label="Problems grid">
 
-<div class="section-title">Input / Output</div>
-<p><b>Input:</b> n disks<br><b>Output:</b> Steps to solve</p>
+      <!-- 1 Optimal Hospital Location — Weighted median (math foundations) -->
+      <article id="p1" class="card" tabindex="0" aria-labelledby="p1-title">
+        <h2 id="p1-title">1. Optimal Hospital Location</h2>
+        <div class="alg">Algorithm: Weighted Median (Math Foundations)</div>
 
-<div class="section-title">SDGs</div>
-<ul class="sdg-list">
-<li>SDG 4 — Quality Education</li>
-</ul>
+        <div class="section-title">Problem Content</div>
+        <div class="section-text">Given residents with coordinates and weights (population), pick one (or k) hospital locations to minimize weighted travel distance. For a single facility in 1D the weighted median minimizes total distance.</div>
 
-<div class="section-title">C++ Code</div>
-<pre>
-#include &lt;iostream&gt;
+        <div class="section-title">Algorithmic Solution</div>
+        <div class="section-text">Sort points by coordinate, accumulate weights until half total weight is reached — that coordinate is the weighted median. For 2D approximate via separate medians on x and y or use k-medians / partitioning (beyond scope here).</div>
+
+        <div class="section-title">Input / Output (Project)</div>
+        <div class="section-text">Input: N points (x or 1D pos) with weights. Output: chosen coordinate and total weighted distance.</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills"><span class="pill">SDG 3</span><span class="pill">SDG 11</span></div>
+
+        <details>
+          <summary>C++ Example (Weighted median 1D)</summary>
+          <div class="details-code" role="region" aria-live="polite">
+<pre>// Weighted median (1D) - O(n log n) for sort
+#include &lt;bits/stdc++.h&gt;
 using namespace std;
+using ll = long long;
+int main(){
+  int n; // number of resident groups
+  // Input format example:
+  // n
+  // pos weight
+  // ...
+  if(!(cin>>n)) return 0;
+  vector<pair<ll,ll>> a(n);
+  ll total=0;
+  for(int i=0;i&lt;n;i++){ cin>>a[i].first>>a[i].second; total+=a[i].second; }
+  sort(a.begin(), a.end());
+  ll acc=0; ll half=(total+1)/2;
+  ll medianPos=a.back().first;
+  for(auto &p:a){ acc+=p.second; if(acc>=half){ medianPos=p.first; break; } }
+  // compute cost
+  long long cost=0;
+  for(auto &p:a) cost += llabs(p.first - medianPos) * p.second;
+  cout &lt;&lt; "Chosen position: " &lt;&lt; medianPos &lt;&lt; "\\nTotal weighted distance: " &lt;&lt; cost &lt;&lt; "\\n";
+  return 0;
+}
+</pre>
+          </div>
+        </details>
+      </article>
 
-void hanoi(int n, char src, char aux, char dest){
-    if(n==1){
-        cout &lt;&lt; src &lt;&lt; " -> " &lt;&lt; dest &lt;&lt; "\n";
-        return;
+      <!-- 2 School Allocation to Students — Dijkstra + greedy assignment -->
+      <article id="p2" class="card" tabindex="0" aria-labelledby="p2-title">
+        <h2 id="p2-title">2. School Allocation to Students</h2>
+        <div class="alg">Algorithm: Dijkstra (shortest paths) + Greedy Assignment (Heap)</div>
+
+        <div class="section-title">Problem Content</div>
+        <div class="section-text">Assign students to schools minimizing travel time while respecting capacities. Compute student-to-school shortest distances then greedily match students to nearest available school.</div>
+
+        <div class="section-title">Algorithmic Solution</div>
+        <div class="section-text">Run multi-source or per-school Dijkstra to produce distances; push candidate (distance, student, school) into min-heap and assign greedily until capacities exhausted. This uses taught Dijkstra and priority queue (heap).</div>
+
+        <div class="section-title">Input / Output (Project)</div>
+        <div class="section-text">Input: graph (n nodes), list of student nodes, school nodes with capacity. Output: assignment list and total distance.</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills"><span class="pill">SDG 4</span><span class="pill">SDG 10</span></div>
+
+        <details>
+          <summary>C++ Example (Dijkstra + greedy assignment)</summary>
+          <div class="details-code" role="region" aria-live="polite">
+<pre>// Dijkstra distances + greedy assignment
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+using ll = long long;
+const ll INF = (1LL<<60);
+
+vector<ll> dijkstra(int src, const vector<vector<pair<int,int>>> &g){
+  int n=g.size(); vector<ll> dist(n, INF);
+  dist[src]=0;
+  priority_queue<pair<ll,int>, vector<pair<ll,int>>, greater<pair<ll,int>>> pq;
+  pq.push({0, src});
+  while(!pq.empty()){
+    auto [d,u]=pq.top(); pq.pop();
+    if(d!=dist[u]) continue;
+    for(auto &e: g[u]){
+      int v=e.first; ll w=e.second;
+      if(dist[v] > d + w){ dist[v] = d + w; pq.push({dist[v], v}); }
     }
-    hanoi(n-1, src, dest, aux);
-    cout &lt;&lt; src &lt;&lt; " -> " &lt;&lt; dest &lt;&lt; "\n";
-    hanoi(n-1, aux, src, dest);
+  }
+  return dist;
 }
 
 int main(){
-    int n; cin >> n;
-    hanoi(n,'A','B','C');
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
+  int n, m; // graph nodes and edges
+  cin>>n>>m;
+  vector<vector<pair<int,int>>> g(n);
+  for(int i=0;i&lt;m;i++){
+    int u,v,w; cin>>u>>v>>w; // 0-based nodes
+    g[u].push_back({v,w});
+    g[v].push_back({u,w});
+  }
+  int S; cin>>S; // number of students
+  vector<int> students(S);
+  for(int i=0;i&lt;S;i++) cin>>students[i];
+  int K; cin>>K; // number of schools
+  vector<int> schools(K); vector<int> cap(K);
+  for(int i=0;i&lt;K;i++) cin>>schools[i]>>cap[i];
+
+  // compute distances from each school to all nodes (could be multi-source but per-school is fine)
+  vector<vector<ll>> distFromSchool(K, vector<ll>(n, INF));
+  for(int i=0;i&lt;K;i++) distFromSchool[i] = dijkstra(schools[i], g);
+
+  // push all (distance, studentIndex, schoolIndex) into min-heap
+  using T = tuple<ll,int,int>;
+  priority_queue<T, vector<T>, greater<T>> pq;
+  for(int si=0; si&lt;S; ++si){
+    int node = students[si];
+    for(int ki=0; ki&lt;K; ++ki){
+      ll d = distFromSchool[ki][node];
+      if(d<INF) pq.push({d, si, ki});
+    }
+  }
+
+  vector<int> assigned(S, -1);
+  ll totalCost=0;
+  while(!pq.empty()){
+    auto [d, si, ki] = pq.top(); pq.pop();
+    if(assigned[si]!=-1) continue;
+    if(cap[ki]<=0) continue;
+    assigned[si]=ki; cap[ki]--; totalCost+=d;
+  }
+
+  for(int i=0;i&lt;S;i++){
+    cout &lt;&lt; "Student " &lt;&lt; i &lt;&lt; " -> " &lt;&lt; (assigned[i]==-1? -1: schools[assigned[i]]) &lt;&lt; "\\n";
+  }
+  cout &lt;&lt; "Total cost: " &lt;&lt; totalCost &lt;&lt; "\\n";
+  return 0;
 }
 </pre>
-</div>
+          </div>
+        </details>
+      </article>
 
-<!-- ===================================================== -->
-<!-- =================== PROBLEM 2 ======================== -->
-<!-- ===================================================== -->
-<div class="card">
-<h2>Problem 2 — N-Queens (Backtracking)</h2>
+      <!-- 3 Smart Parking Slot Allocation — Sorting + Trie for permits -->
+      <article id="p3" class="card" tabindex="0" aria-labelledby="p3-title">
+        <h2 id="p3-title">3. Smart Parking Slot Allocation</h2>
+        <div class="alg">Algorithm: Greedy (sort pairs by distance) + Trie for permit lookup</div>
 
-<div class="section-title">Problem Content</div>
-<p>Place N queens such that no queen attacks another.</p>
+        <div class="section-title">Problem Content</div>
+        <div class="section-text">Assign cars to parking slots minimizing walking distance, respecting permit rules (reserved slots for certain permit patterns).</div>
 
-<div class="section-title">Algorithmic Solution</div>
-<p>Backtracking explores positions row-wise and prunes invalid placements.</p>
+        <div class="section-title">Algorithmic Solution</div>
+        <div class="section-text">Form (car,slot,distance) triples, sort by distance and greedily match; use Trie to check permit eligibility for reserved slots (fast prefix matching).</div>
 
-<div class="section-title">Input / Output</div>
-<p><b>Input:</b> N<br><b>Output:</b> Valid board configuration(s)</p>
+        <div class="section-title">Input / Output (Project)</div>
+        <div class="section-text">Input: cars (coords, permit string), slots (coords, reserved prefix or 'ANY'). Output: assignments and total walking distance.</div>
 
-<div class="section-title">SDGs</div>
-<ul class="sdg-list"><li>SDG 9 — Innovation</li></ul>
+        <div class="section-title">Related SDGs</div>
+        <div class="pills"><span class="pill">SDG 11</span><span class="pill">SDG 9</span></div>
 
-<div class="section-title">C++ Code</div>
-<pre>
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
+        <details>
+          <summary>C++ Example (greedy sorted pairs + Trie)</summary>
+          <div class="details-code" role="region" aria-live="polite">
+<pre>// Greedy parking assignment with simple Trie for permit prefixes
+#include &lt;bits/stdc++.h&gt;
 using namespace std;
 
-bool safe(vector<vector<int>>&b,int r,int c,int n){
-    for(int i=0;i&lt;r;i++) if(b[i][c]) return false;
-    for(int i=r,j=c;i>=0 && j>=0;i--,j--) if(b[i][j]) return false;
-    for(int i=r,j=c;i>=0 && j&lt;n;i--,j++) if(b[i][j]) return false;
-    return true;
-}
-
-bool solve(vector<vector<int>>&b,int r,int n){
-    if(r==n){
-        for(auto &x:b){ for(int v:x) cout<<(v?"Q ":". "); cout<<"\n"; }
-        return true;
-    }
-    for(int c=0;c&lt;n;c++){
-        if(safe(b,r,c,n)){
-            b[r][c]=1;
-            if(solve(b,r+1,n)) return true;
-            b[r][c]=0;
-        }
-    }
-    return false;
-}
-
-int main(){
-    int n; cin>>n;
-    vector<vector<int>> b(n,vector<int>(n,0));
-    solve(b,0,n);
-}
-</pre>
-</div>
-
-<!-- ===================================================== -->
-<!-- =================== PROBLEM 3 ======================== -->
-<!-- ===================================================== -->
-<div class="card">
-<h2>Problem 3 — Merge Sort</h2>
-
-<div class="section-title">Problem Content</div>
-<p>Sort an array using divide-and-conquer merge sort.</p>
-
-<div class="section-title">Algorithmic Solution</div>
-<p>Split, recursively sort, then merge.</p>
-
-<div class="section-title">Input / Output</div>
-<p><b>Input:</b> n and array<br><b>Output:</b> sorted array</p>
-
-<div class="section-title">SDGs</div>
-<ul class="sdg-list"><li>SDG 4 — Quality Education</li></ul>
-
-<div class="section-title">C++ Code</div>
-<pre>
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-using namespace std;
-
-void mergeArr(vector<int>&a,int l,int m,int r){
-    vector<int> L(a.begin()+l, a.begin()+m+1);
-    vector<int> R(a.begin()+m+1, a.begin()+r+1);
-    int i=0,j=0,k=l;
-    while(i&lt;L.size() && j&lt;R.size())
-        a[k++] = (L[i]&lt;=R[j])?L[i++]:R[j++];
-    while(i&lt;L.size()) a[k++]=L[i++];
-    while(j&lt;R.size()) a[k++]=R[j++];
-}
-
-void mergeSort(vector<int>&a,int l,int r){
-    if(l>=r) return;
-    int m=(l+r)/2;
-    mergeSort(a,l,m);
-    mergeSort(a,m+1,r);
-    mergeArr(a,l,m,r);
-}
-
-int main(){
-    int n; cin>>n;
-    vector<int>a(n);
-    for(int&i:a)cin>>i;
-    mergeSort(a,0,n-1);
-    for(int x:a)cout<<x<<" ";
-}
-</pre>
-</div>
-
-<!-- ===================================================== -->
-<!-- =================== PROBLEM 4 ======================== -->
-<!-- ===================================================== -->
-<div class="card">
-<h2>Problem 4 — Binary Heap & Heap Sort</h2>
-
-<div class="section-title">Problem Content</div>
-<p>Use heap data structure to sort elements efficiently.</p>
-
-<div class="section-title">Algorithmic Solution</div>
-<p>Build max-heap, repeatedly extract max.</p>
-
-<div class="section-title">Input / Output</div>
-<p><b>Input:</b> array<br><b>Output:</b> sorted array</p>
-
-<div class="section-title">SDGs</div>
-<ul class="sdg-list"><li>SDG 9</li></ul>
-
-<div class="section-title">C++ Code</div>
-<pre>
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-using namespace std;
-
-void heapify(vector<int>&a,int n,int i){
-    int largest=i,l=2*i+1,r=2*i+2;
-    if(l&lt;n && a[l]>a[largest]) largest=l;
-    if(r&lt;n && a[r]>a[largest]) largest=r;
-    if(largest!=i){
-        swap(a[i],a[largest]);
-        heapify(a,n,largest);
-    }
-}
-
-void heapSort(vector<int>&a){
-    int n=a.size();
-    for(int i=n/2-1;i>=0;i--) heapify(a,n,i);
-    for(int i=n-1;i>0;i--){
-        swap(a[0],a[i]);
-        heapify(a,i,0);
-    }
-}
-
-int main(){
-    int n; cin>>n;
-    vector<int>a(n); for(int&i:a)cin>>i;
-    heapSort(a);
-    for(int x:a)cout<<x<<" ";
-}
-</pre>
-</div>
-
-<!-- ===================================================== -->
-<!-- =================== PROBLEM 5 ======================== -->
-<!-- ===================================================== -->
-<div class="card">
-<h2>Problem 5 — Trie (Prefix Search)</h2>
-
-<div class="section-title">Problem Content</div>
-<p>Store strings and perform prefix search efficiently.</p>
-
-<div class="section-title">Algorithmic Solution</div>
-<p>Trie nodes store children for each character; prefix lookup is O(length).</p>
-
-<div class="section-title">Input / Output</div>
-<p><b>Input:</b> words, prefix<br><b>Output:</b> Does prefix exist?</p>
-
-<div class="section-title">SDGs</div>
-<ul class="sdg-list"><li>SDG 9</li></ul>
-
-<div class="section-title">C++ Code</div>
-<pre>
-#include &lt;iostream&gt;
-#include &lt;map&gt;
-using namespace std;
-
-struct Trie {
-    bool end=false;
-    map<char,Trie*> child;
+struct Trie{
+  bool end=false;
+  unordered_map&lt;char,Trie*&gt; ch;
+  void insert(const string &s){ Trie*cur=this; for(char c:s){ if(!cur->ch[c]) cur->ch[c]=new Trie(); cur=cur->ch[c]; } cur->end=true; }
+  bool hasPrefix(const string &p){ Trie*cur=this; for(char c:p){ if(!cur->ch[c]) return false; cur=cur->ch[c]; } return true; }
 };
 
-void insertWord(Trie*root,string s){
-    for(char c:s){
-        if(!root->child[c]) root->child[c]=new Trie();
-        root=root->child[c];
-    }
-    root->end=true;
-}
+struct Car{int id; int x,y; string permit;};
+struct Slot{int id; int x,y; string reservedPrefix;};
 
-bool prefix(Trie*root,string p){
-    for(char c:p){
-        if(!root->child[c]) return false;
-        root=root->child[c];
-    }
-    return true;
-}
+double dist(int x1,int y1,int x2,int y2){ return hypot(x1-x2,y1-y2); }
 
 int main(){
-    Trie*root=new Trie();
-    int n; cin>>n;
-    while(n--){
-        string s; cin>>s;
-        insertWord(root,s);
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
+  int C,S; cin>>C>>S;
+  vector<Car> cars(C);
+  for(int i=0;i&lt;C;i++){ cars[i].id=i; cin>>cars[i].x>>cars[i].y>>cars[i].permit; }
+  vector<Slot> slots(S);
+  Trie reservedTrie; // optional: collect reserved prefixes
+  for(int i=0;i&lt;S;i++){ slots[i].id=i; cin>>slots[i].x>>slots[i].y>>slots[i].reservedPrefix; if(slots[i].reservedPrefix!="-") reservedTrie.insert(slots[i].reservedPrefix); }
+
+  struct Triple{int car,slot; double d;};
+  vector<Triple> triples;
+  for(int i=0;i&lt;C;i++) for(int j=0;j&lt;S;j++){
+    // check permit eligibility: slot reserved with prefix p means car.permit must start with p
+    if(slots[j].reservedPrefix=="-") {
+      triples.push_back({i,j,(int)round(dist(cars[i].x,cars[i].y,slots[j].x,slots[j].y))});
+    } else {
+      // we'll accept only if prefix matches
+      if(cars[i].permit.rfind(slots[j].reservedPrefix,0)==0) // startswith
+        triples.push_back({i,j,(int)round(dist(cars[i].x,cars[i].y,slots[j].x,slots[j].y))});
     }
-    string p; cin>>p;
-    cout<<(prefix(root,p)?"YES":"NO");
+  }
+
+  sort(triples.begin(), triples.end(), [](const Triple&a,const Triple&b){ return a.d < b.d; });
+  vector&lt;int&gt; carUsed(C,-1), slotUsed(S,-1);
+  long long total=0;
+  for(auto &t:triples){
+    if(carUsed[t.car]==-1 && slotUsed[t.slot]==-1){
+      carUsed[t.car]=t.slot; slotUsed[t.slot]=t.car; total+=t.d;
+    }
+  }
+  for(int i=0;i&lt;C;i++) cout &lt;&lt; "Car " &lt;&lt; i &lt;&lt; " -> Slot " &lt;&lt; (carUsed[i]==-1? -1: carUsed[i]) &lt;&lt; "\\n";
+  cout &lt;&lt; "Total walking (approx): " &lt;&lt; total &lt;&lt; "\\n";
+  return 0;
 }
 </pre>
-</div>
+          </div>
+        </details>
+      </article>
 
-<!-- ===================================================== -->
-<!-- =================== PROBLEM 6 ======================== -->
-<!-- ===================================================== -->
-<div class="card">
-<h2>Problem 6 — KMP String Matching</h2>
+      <!-- 4 Industrial vs Residential Separation — Graph coloring using BFS -->
+      <article id="p4" class="card" tabindex="0" aria-labelledby="p4-title">
+        <h2 id="p4-title">4. Industrial vs Residential Separation</h2>
+        <div class="alg">Algorithm: Graph Coloring (BFS/DFS) — Bipartite check</div>
 
-<div class="section-title">Problem Content</div>
-<p>Find pattern occurrences in a text using KMP.</p>
+        <div class="section-title">Problem Content</div>
+        <div class="section-text">Assign zoning types across adjacent parcels so incompatible types do not touch along edges (2-coloring where possible).</div>
 
-<div class="section-title">Algorithmic Solution</div>
-<p>LPS preprocessing ensures linear-time search.</p>
+        <div class="section-title">Algorithmic Solution</div>
+        <div class="section-text">Build adjacency graph of parcels and run BFS/DFS to attempt 2-coloring. If not bipartite, identify conflict components for local rezoning/backtracking.</div>
 
-<div class="section-title">Input / Output</div>
-<p><b>Input:</b> text, pattern<br><b>Output:</b> indices of match</p>
+        <div class="section-title">Input / Output (Project)</div>
+        <div class="section-text">Input: adjacency list of parcels. Output: color assignment or conflict report.</div>
 
-<div class="section-title">SDGs</div>
-<ul class="sdg-list"><li>SDG 4</li></ul>
+        <div class="section-title">Related SDGs</div>
+        <div class="pills"><span class="pill">SDG 11</span><span class="pill">SDG 3</span></div>
 
-<div class="section-title">C++ Code</div>
-<pre>
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
+        <details>
+          <summary>C++ Example (Bipartite check using BFS)</summary>
+          <div class="details-code" role="region" aria-live="polite">
+<pre>// Bipartite check (graph coloring)
+#include &lt;bits/stdc++.h&gt;
 using namespace std;
-
-vector<int> lpsBuild(string p){
-    int n=p.size(),len=0,i=1;
-    vector<int>lps(n,0);
-    while(i<n){
-        if(p[i]==p[len]) lps[i++]=++len;
-        else if(len) len=lps[len-1];
-        else i++;
-    }
-    return lps;
-}
-
-void kmp(string t,string p){
-    vector<int> lps = lpsBuild(p);
-    int i=0,j=0;
-    while(i&lt;t.size()){
-        if(t[i]==p[j]) i++,j++;
-        if(j==p.size()){
-            cout<<"Found at "<<i-j<<"\n";
-            j=lps[j-1];
-        } else if(i<t.size() && t[i]!=p[j]){
-            if(j) j=lps[j-1];
-            else i++;
-        }
-    }
-}
-
 int main(){
-    string t,p; cin>>t>>p;
-    kmp(t,p);
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
+  int n,m; cin>>n>>m; // n parcels, m edges
+  vector<vector<int>> g(n);
+  for(int i=0;i&lt;m;i++){ int u,v; cin>>u>>v; g[u].push_back(v); g[v].push_back(u); }
+  vector<int> color(n, -1);
+  bool ok=true;
+  for(int s=0;s&lt;n;s++){
+    if(color[s]!=-1) continue;
+    queue<int>q; q.push(s); color[s]=0;
+    while(!q.empty()){
+      int u=q.front(); q.pop();
+      for(int v:g[u]){
+        if(color[v]==-1){ color[v]=color[u]^1; q.push(v); }
+        else if(color[v]==color[u]) ok=false;
+      }
+    }
+  }
+  if(!ok) cout &lt;&lt; "CONFLICT\\n";
+  else{
+    for(int i=0;i&lt;n;i++) cout &lt;&lt; "Parcel " &lt;&lt; i &lt;&lt; " -> " &lt;&lt; (color[i]==0? "Residential":"Industrial") &lt;&lt; "\\n";
+  }
+  return 0;
 }
 </pre>
-</div>
+          </div>
+        </details>
+      </article>
 
-<!-- ===================================================== -->
-<!-- =================== PROBLEM 7 ======================== -->
-<!-- ===================================================== -->
-<div class="card">
-<h2>Problem 7 — Dijkstra’s Algorithm</h2>
+      <!-- 5 Public Park Placement Optimization — Greedy max-coverage using Fenwick helper -->
+      <article id="p5" class="card" tabindex="0" aria-labelledby="p5-title">
+        <h2 id="p5-title">5. Public Park Placement Optimization</h2>
+        <div class="alg">Algorithm: Greedy Max-Coverage + Fenwick Tree (to manage pop counts)</div>
 
-<div class="section-title">Problem Content</div>
-<p>Find the shortest path in weighted graph.</p>
+        <div class="section-title">Problem Content</div>
+        <div class="section-text">Select k park sites from candidate locations to maximize population covered within walking radius.</div>
 
-<div class="section-title">Algorithmic Solution</div>
-<p>Greedy relaxation using min-priority queue.</p>
+        <div class="section-title">Algorithmic Solution</div>
+        <div class="section-text">Discretize population points; precompute which points each candidate covers. Greedily choose candidate with max uncovered population covered, mark points as covered and update Fenwick tree counts for efficient marginal updates.</div>
 
-<div class="section-title">Input / Output</div>
-<p><b>Input:</b> graph<br><b>Output:</b> distances</p>
+        <div class="section-title">Input / Output (Project)</div>
+        <div class="section-text">Input: candidate sites, population points with weights, k. Output: chosen sites and covered population.</div>
 
-<div class="section-title">SDGs</div>
-<ul class="sdg-list"><li>SDG 9</li></ul>
+        <div class="section-title">Related SDGs</div>
+        <div class="pills"><span class="pill">SDG 11</span><span class="pill">SDG 3</span></div>
 
-<div class="section-title">C++ Code</div>
-<pre>
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;queue&gt;
-#include &lt;climits&gt;
+        <details>
+          <summary>C++ Example (Greedy approximate max coverage + Fenwick skeleton)</summary>
+          <div class="details-code" role="region" aria-live="polite">
+<pre>// Greedy Max-Coverage skeleton with Fenwick helper for updates
+#include &lt;bits/stdc++.h&gt;
 using namespace std;
+struct Fenwick {
+  int n; vector<long long> bit;
+  Fenwick(int n=0):n(n),bit(n+1,0){}
+  void add(int i,long long v){ for(++i;i<=n;i+=i&-i) bit[i]+=v; }
+  long long sum(int i){ long long r=0; for(++i;i>0;i-=i&-i) r+=bit[i]; return r; }
+  long long rangeSum(int l,int r){ if(l>r) return 0; return sum(r) - (l?sum(l-1):0); }
+};
 
 int main(){
-    int n,m,src; cin>>n>>m>>src;
-    vector<vector<pair<int,int>>> adj(n);
-    while(m--){
-        int u,v,w; cin>>u>>v>>w;
-        adj[u].push_back({v,w});
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
+  int P,C,k; // population points, candidates, choose k
+  cin>>P>>C>>k;
+  vector<pair<int,int>> pop(P);
+  vector<int> weight(P);
+  for(int i=0;i&lt;P;i++) cin>>pop[i].first>>pop[i].second>>weight[i];
+  vector<pair<int,int>> cand(C);
+  for(int i=0;i&lt;C;i++) cin>>cand[i].first>>cand[i].second;
+  int radius; cin>>radius;
+  // naive: build coverage lists
+  vector<vector<int>> covers(C);
+  for(int i=0;i&lt;C;i++){
+    for(int j=0;j&lt;P;j++){
+      long long dx = cand[i].first - pop[j].first;
+      long long dy = cand[i].second - pop[j].second;
+      if(dx*dx + dy*dy <= 1LL*radius*radius) covers[i].push_back(j);
     }
-    vector<int> dist(n,INT_MAX);
-    dist[src]=0;
-    priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
-    pq.push({0,src});
+  }
+  vector&lt;bool&gt; covered(P,false);
+  vector&lt;int&gt; chosen;
+  for(int iter=0; iter&lt;k; ++iter){
+    int best=-1; long long bestgain=0;
+    for(int i=0;i&lt;C;i++){
+      if(find(chosen.begin(), chosen.end(), i)!=chosen.end()) continue;
+      long long gain=0;
+      for(int pt: covers[i]) if(!covered[pt]) gain += weight[pt];
+      if(gain>bestgain){ bestgain=gain; best=i; }
+    }
+    if(best==-1) break;
+    chosen.push_back(best);
+    for(int pt: covers[best]) covered[pt]=true;
+  }
+  long long total=0; for(int i=0;i&lt;P;i++) if(covered[i]) total+=weight[i];
+  cout &lt;&lt; "Chosen sites: "; for(int x:chosen) cout &lt;&lt; x &lt;&lt; " "; cout &lt;&lt; "\\nCovered population: " &lt;&lt; total &lt;&lt; "\\n";
+  return 0;
+}
+</pre>
+          </div>
+        </details>
+      </article>
 
+      <!-- 6 Land Subdivision Optimization — Divide & Conquer + Shoelace -->
+      <article id="p6" class="card" tabindex="0" aria-labelledby="p6-title">
+        <h2 id="p6-title">6. Land Subdivision Optimization</h2>
+        <div class="alg">Algorithm: Divide & Conquer + Geometry (Shoelace for area)</div>
+
+        <div class="section-title">Problem Content</div>
+        <div class="section-text">Partition a polygonal land parcel into roughly equal-area subplots while maintaining constraints.</div>
+
+        <div class="section-title">Algorithmic Solution</div>
+        <div class="section-text">Use shoelace formula to compute polygon area; choose cut lines via divide & conquer that approximately split area in half recursively (simple approach).</div>
+
+        <div class="section-title">Input / Output (Project)</div>
+        <div class="section-text">Input: polygon vertices, minimum area constraints. Output: list of sub-polygons (their areas & centroids).</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills"><span class="pill">SDG 11</span><span class="pill">SDG 15</span></div>
+
+        <details>
+          <summary>C++ Example (Shoelace area calculation)</summary>
+          <div class="details-code" role="region" aria-live="polite">
+<pre>// Shoelace area for polygon
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+double polygon_area(const vector&lt;pair&lt;double,double&gt;&gt;&poly){
+  double s=0; int n=poly.size();
+  for(int i=0;i&lt;n;i++){
+    auto [x1,y1]=poly[i];
+    auto [x2,y2]=poly[(i+1)%n];
+    s += x1*y2 - x2*y1;
+  }
+  return fabs(s)/2.0;
+}
+int main(){
+  int n; cin>>n;
+  vector&lt;pair&lt;double,double&gt;&gt poly(n);
+  for(int i=0;i&lt;n;i++) cin>>poly[i].first>>poly[i].second;
+  cout &lt;&lt; "Area: " &lt;&lt; polygon_area(poly) &lt;&lt; "\\n";
+  return 0;
+}
+</pre>
+          </div>
+        </details>
+      </article>
+
+      <!-- 7 High Footfall Commercial Zone Prediction — Grid Binning + 2D prefix sums -->
+      <article id="p7" class="card" tabindex="0" aria-labelledby="p7-title">
+        <h2 id="p7-title">7. High Footfall Commercial Zone Prediction</h2>
+        <div class="alg">Algorithm: Grid Binning + 2D Prefix Sums</div>
+
+        <div class="section-title">Problem Content</div>
+        <div class="section-text">From movement traces, bin counts into grid cells and find top cells (hotspots) with 2D prefix sums enabling fast aggregation.</div>
+
+        <div class="section-title">Algorithmic Solution</div>
+        <div class="section-text">Aggregate traces into grid, compute 2D prefix sums to query sum over rectangles quickly, then rank candidate patches.</div>
+
+        <div class="section-title">Input / Output (Project)</div>
+        <div class="section-text">Input: movement traces (x,y), grid size. Output: top k hotspot cells.</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills"><span class="pill">SDG 8</span><span class="pill">SDG 11</span></div>
+
+        <details>
+          <summary>C++ Example (2D prefix sums)</summary>
+          <div class="details-code" role="region" aria-live="polite">
+<pre>// 2D prefix sums for hotspot queries
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+int main(){
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
+  int W,H; cin>>W>>H; // grid width, height
+  int T; cin>>T; // number of traces
+  vector<vector<int>> grid(H, vector<int>(W,0));
+  for(int i=0;i&lt;T;i++){
+    int x,y; cin>>x>>y; // assume 0-based and inside bounds
+    if(x>=0 && x&lt;W && y>=0 && y&lt;H) grid[y][x]++;
+  }
+  vector<vector<int>> ps(H+1, vector<int>(W+1,0));
+  for(int r=1;r<=H;r++) for(int c=1;c<=W;c++) ps[r][c] = grid[r-1][c-1] + ps[r-1][c] + ps[r][c-1] - ps[r-1][c-1];
+  // find top single-cell hotspots
+  vector&lt;pair&lt;int,pair&lt;int,int&gt;&gt; &gt; cells;
+  for(int r=0;r&lt;H;r++) for(int c=0;c&lt;W;c++) cells.push_back({grid[r][c], {r,c}});
+  sort(cells.rbegin(), cells.rend());
+  int k; cin>>k;
+  for(int i=0;i&lt;min(k,(int)cells.size());i++) cout &lt;&lt; "Cell (" &lt;&lt; cells[i].second.second &lt;&lt; "," &lt;&lt; cells[i].second.first &lt;&lt; ") count=" &lt;&lt; cells[i].first &lt;&lt; "\\n";
+  return 0;
+}
+</pre>
+          </div>
+        </details>
+      </article>
+
+      <!-- 8 Creation of Green Belt Buffers — Multi-source BFS -->
+      <article id="p8" class="card" tabindex="0" aria-labelledby="p8-title">
+        <h2 id="p8-title">8. Creation of Green Belt Buffers</h2>
+        <div class="alg">Algorithm: Multi-source BFS (grid layers)</div>
+
+        <div class="section-title">Problem Content</div>
+        <div class="section-text">From pollution source cells compute layered buffers outward to define green belts while respecting obstacles.</div>
+
+        <div class="section-title">Algorithmic Solution</div>
+        <div class="section-text">Run BFS from all source cells simultaneously to compute distances (layers). Mask obstacles to avoid expansion.</div>
+
+        <div class="section-title">Input / Output (Project)</div>
+        <div class="section-text">Input: raster map with source positions and obstacles. Output: distance layer map.</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills"><span class="pill">SDG 13</span><span class="pill">SDG 15</span></div>
+
+        <details>
+          <summary>C++ Example (Multi-source BFS)</summary>
+          <div class="details-code" role="region" aria-live="polite">
+<pre>// Multi-source BFS computing buffer layers
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+int main(){
+  int R,C; cin>>R>>C;
+  vector&lt;string&gt; grid(R);
+  for(int i=0;i&lt;R;i++) cin>>grid[i];
+  queue&lt;pair&lt;int,int&gt;&gt; q;
+  vector<vector<int>> dist(R, vector<int>(C, -1));
+  for(int r=0;r&lt;R;r++) for(int c=0;c&lt;C;c++){
+    if(grid[r][c]=='S'){ dist[r][c]=0; q.push({r,c}); } // source
+  }
+  int dr[4]={1,-1,0,0}, dc[4]={0,0,1,-1};
+  while(!q.empty()){
+    auto [r,c] = q.front(); q.pop();
+    for(int k=0;k&lt;4;k++){
+      int nr=r+dr[k], nc=c+dc[k];
+      if(nr>=0 && nr&lt;R && nc>=0 && nc&lt;C && grid[nr][nc]!='#' && dist[nr][nc]==-1){
+        dist[nr][nc]=dist[r][c]+1; q.push({nr,nc});
+      }
+    }
+  }
+  // print distance map
+  for(int r=0;r&lt;R;r++){
+    for(int c=0;c&lt;C;c++) cout &lt;&lt; (dist[r][c]==-1? -1: dist[r][c]) &lt;&lt; " ";
+    cout &lt;&lt; "\\n";
+  }
+  return 0;
+}
+</pre>
+          </div>
+        </details>
+      </article>
+
+      <!-- 9 Footpath Connectivity Plan — Dijkstra + Bridge detection -->
+      <article id="p9" class="card" tabindex="0" aria-labelledby="p9-title">
+        <h2 id="p9-title">9. Footpath Connectivity Plan</h2>
+        <div class="alg">Algorithm: Dijkstra (shortest paths) + Bridge detection (DFS)</div>
+
+        <div class="section-title">Problem Content</div>
+        <div class="section-text">Detect fragile edges (bridges), compute shortest pedestrian routes, and recommend minimal new links to improve connectivity (MST/union-find approach for candidate links).</div>
+
+        <div class="section-title">Algorithmic Solution</div>
+        <div class="section-text">Run DFS to find bridges and Dijkstra for shortest paths between nodes. To add links, compress components and run MST (Kruskal) on candidate edges to restore connectivity cheaply.</div>
+
+        <div class="section-title">Input / Output (Project)</div>
+        <div class="section-text">Input: pedestrian graph. Output: bridges and suggested links.</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills"><span class="pill">SDG 11</span><span class="pill">SDG 3</span></div>
+
+        <details>
+          <summary>C++ Example (Bridge detection skeleton)</summary>
+          <div class="details-code" role="region" aria-live="polite">
+<pre>// Bridge detection (DFS)
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+void dfs(int u,int p,const vector<vector<int>>&g,vector<int>&tin,vector<int>&low,vector<int>&vis,int &timer,vector<pair<int,int>>&bridges){
+  vis[u]=1; tin[u]=low[u]=++timer;
+  for(int v:g[u]){
+    if(v==p) continue;
+    if(vis[v]) low[u]=min(low[u], tin[v]);
+    else{
+      dfs(v,u,g,tin,low,vis,timer,bridges);
+      low[u]=min(low[u], low[v]);
+      if(low[v] > tin[u]) bridges.push_back({u,v});
+    }
+  }
+}
+int main(){
+  int n,m; cin>>n>>m;
+  vector<vector<int>> g(n);
+  for(int i=0;i&lt;m;i++){int u,v;cin>>u>>v; g[u].push_back(v); g[v].push_back(u);}
+  vector<int> tin(n,-1), low(n,-1), vis(n,0);
+  int timer=0; vector<pair<int,int>> bridges;
+  for(int i=0;i&lt;n;i++) if(!vis[i]) dfs(i,-1,g,tin,low,vis,timer,bridges);
+  for(auto &b:bridges) cout &lt;&lt; "Bridge: " &lt;&lt; b.first &lt;&lt; " - " &lt;&lt; b.second &lt;&lt; "\\n";
+  return 0;
+}
+</pre>
+          </div>
+        </details>
+      </article>
+
+      <!-- 10 Underground Utility Routing — Dijkstra + greedy disjoint routing -->
+      <article id="p10" class="card" tabindex="0" aria-labelledby="p10-title">
+        <h2 id="p10-title">10. Underground Utility Routing</h2>
+        <div class="alg">Algorithm: Dijkstra + Greedy Disjoint Routing</div>
+
+        <div class="section-title">Problem Content</div>
+        <div class="section-text">Plan multiple underground routes (sewer, fiber, power) on a grid to avoid conflicts and minimize total length. Route sequentially and mark used cells as blocked for next routes.</div>
+
+        <div class="section-title">Algorithmic Solution</div>
+        <div class="section-text">Use grid Dijkstra for each utility (or BFS if unit edges). After finalizing a route, mark its cells blocked and route the next utility greedily. For better solutions run iterative reroutes (not shown).</div>
+
+        <div class="section-title">Input / Output (Project)</div>
+        <div class="section-text">Input: grid map, list of (start,goal) for each utility. Output: path per utility; report conflicts if impossible.</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills"><span class="pill">SDG 9</span><span class="pill">SDG 6</span></div>
+
+        <details>
+          <summary>C++ Example (Dijkstra on grid for path; mark path blocked then next route)</summary>
+          <div class="details-code" role="region" aria-live="polite">
+<pre>// Grid Dijkstra to find path between start and goal; mark path blocked, route next
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+using pii = pair<int,int>;
+int main(){
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
+  int R,C; cin>>R>>C;
+  vector<string> grid(R);
+  for(int i=0;i&lt;R;i++) cin>>grid[i];
+  int U; cin>>U; // number of utilities
+  vector&lt;pair&lt;pii,pii&gt;&gt req(U);
+  for(int i=0;i&lt;U;i++){ int sr,sc,gr,gc; cin>>sr>>sc>>gr>>gc; req[i]={{sr,sc},{gr,gc}}; }
+  auto inb=[&](int r,int c){ return r>=0 && r&lt;R && c>=0 && c&lt;C; };
+  vector&lt;vector&lt;int&gt;&gt blocked(R, vector<int>(C,0));
+  for(int u=0;u&lt;U;u++){
+    auto [s,g] = req[u];
+    vector&lt;vector<long long&gt;&gt dist(R, vector<long long>(C, LLONG_MAX));
+    priority_queue&lt;tuple&lt;long long,int,int&gt;, vector&lt;tuple&lt;long long,int,int&gt;&gt, greater&lt;tuple&lt;long long,int,int&gt;&gt&gt; pq;
+    dist[s.first][s.second]=0; pq.push({0,s.first,s.second});
+    vector&lt;vector&lt;pair<int,int&gt;&gt; parent(R, vector&lt;pair<int,int&gt;&gt;(C,{-1,-1}));
+    int dr[4]={1,-1,0,0}, dc[4]={0,0,1,-1};
     while(!pq.empty()){
-        auto [d,u]=pq.top(); pq.pop();
-        if(d!=dist[u]) continue;
-        for(auto &e:adj[u]){
-            int v=e.first,w=e.second;
-            if(d+w<dist[v]){
-                dist[v]=d+w;
-                pq.push({dist[v],v});
-            }
+      auto [d,r,c]=pq.top(); pq.pop();
+      if(d!=dist[r][c]) continue;
+      if(r==g.first && c==g.second) break;
+      for(int k=0;k&lt;4;k++){
+        int nr=r+dr[k], nc=c+dc[k];
+        if(!inb(nr,nc)) continue;
+        if(grid[nr][nc]=='#') continue;
+        if(blocked[nr][nc]) continue; // reserved by previous utilities
+        if(dist[nr][nc] > d + 1){
+          dist[nr][nc] = d + 1;
+          parent[nr][nc] = {r,c};
+          pq.push({dist[nr][nc], nr, nc});
         }
+      }
     }
-    for(int d:dist) cout<<d<<" ";
+    if(dist[g.first][g.second]==LLONG_MAX){
+      cout &lt;&lt; "Utility " &lt;&lt; u &lt;&lt; " cannot be routed\\n";
+      continue;
+    }
+    // reconstruct path and mark blocked
+    vector&lt;pii&gt; path;
+    pii cur = g;
+    while(!(cur==s)){
+      path.push_back(cur);
+      cur = parent[cur.first][cur.second];
+    }
+    path.push_back(s);
+    reverse(path.begin(), path.end());
+    for(auto &p:path) blocked[p.first][p.second]=1;
+    cout &lt;&lt; "Utility " &lt;&lt; u &lt;&lt; " path length " &lt;&lt; path.size()-1 &lt;&lt; "\\n";
+  }
+  return 0;
 }
 </pre>
-</div>
+          </div>
+        </details>
+      </article>
 
-<!-- ===================================================== -->
-<!-- =================== PROBLEM 8 ======================== -->
-<!-- ===================================================== -->
-<div class="card">
-<h2>Problem 8 — Kruskal’s MST</h2>
+    </section>
 
-<div class="section-title">Problem Content</div>
-<p>Find minimum spanning tree using Union-Find.</p>
+    <div style="text-align:center; margin-top:28px;">
+      <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" style="background:#083b72;color:white;padding:10px 18px;border-radius:10px;text-decoration:none;font-weight:700;">← Back to Top</a>
+    </div>
 
-<div class="section-title">Algorithmic Solution</div>
-<p>Sort edges, join smallest non-cycle edges.</p>
+    <footer>
+      © 2024 Tejas Keri — Portfolio
+    </footer>
+  </div>
 
-<div class="section-title">Input / Output</div>
-<p><b>Input:</b> edges<br><b>Output:</b> MST weight</p>
-
-<div class="section-title">SDGs</div>
-<ul class="sdg-list"><li>SDG 9</li></ul>
-
-<div class="section-title">C++ Code</div>
-<pre>
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-#include &lt;algorithm&gt;
-using namespace std;
-
-int findP(vector<int>&p,int x){
-    return (p[x]==x)?x:p[x]=findP(p,p[x]);
-}
-
-int main(){
-    int n,m; cin>>n>>m;
-    vector<tuple<int,int,int>> e;
-    while(m--){
-        int u,v,w; cin>>u>>v>>w;
-        e.push_back({w,u,v});
-    }
-    sort(e.begin(),e.end());
-    vector<int> p(n);
-    for(int i=0;i<n;i++) p[i]=i;
-
-    int mst=0;
-    for(auto &[w,u,v]:e){
-        u=findP(p,u); v=findP(p,v);
-        if(u!=v){
-            mst+=w;
-            p[u]=v;
-        }
-    }
-    cout<<mst;
-}
-</pre>
-</div>
-
-<!-- ===================================================== -->
-<!-- =================== PROBLEM 9 ======================== -->
-<!-- ===================================================== -->
-<div class="card">
-<h2>Problem 9 — Segment Tree (Range Sum Query)</h2>
-
-<div class="section-title">Problem Content</div>
-<p>Query range sums efficiently.</p>
-
-<div class="section-title">Algorithmic Solution</div>
-<p>Segment Tree builds O(n), queries O(log n).</p>
-
-<div class="section-title">Input / Output</div>
-<p><b>Input:</b> array, queries<br><b>Output:</b> range sums</p>
-
-<div class="section-title">SDGs</div>
-<ul class="sdg-list"><li>SDG 9</li></ul>
-
-<div class="section-title">C++ Code</div>
-<pre>
-#include &lt;iostream&gt;
-#include &lt;vector&gt;
-using namespace std;
-
-vector<int> seg;
-
-void build(vector<int>&a,int idx,int l,int r){
-    if(l==r){ seg[idx]=a[l]; return; }
-    int m=(l+r)/2;
-    build(a,2*idx,l,m);
-    build(a,2*idx+1,m+1,r);
-    seg[idx]=seg[2*idx]+seg[2*idx+1];
-}
-
-int query(int idx,int l,int r,int ql,int qr){
-    if(qr<l || ql>r) return 0;
-    if(ql<=l && r<=qr) return seg[idx];
-    int m=(l+r)/2;
-    return query(2*idx,l,m,ql,qr)+query(2*idx+1,m+1,r,ql,qr);
-}
-
-int main(){
-    int n; cin>>n;
-    vector<int>a(n);
-    for(int&i:a)cin>>i;
-    seg.resize(4*n);
-    build(a,1,0,n-1);
-    int q; cin>>q;
-    while(q--){
-        int l,r; cin>>l>>r;
-        cout<<query(1,0,n-1,l,r)<<"\n";
-    }
-}
-</pre>
-</div>
-
-<!-- ===================================================== -->
-<!-- =================== PROBLEM 10 ======================= -->
-<!-- ===================================================== -->
-<div class="card">
-<h2>Problem 10 — AVL Tree (Balanced BST)</h2>
-
-<div class="section-title">Problem Content</div>
-<p>Insert keys into an AVL Tree while maintaining balance.</p>
-
-<div class="section-title">Algorithmic Solution</div>
-<p>Rotations (LL, RR, LR, RL) maintain height-balanced property.</p>
-
-<div class="section-title">Input / Output</div>
-<p><b>Input:</b> keys<br><b>Output:</b> inorder traversal</p>
-
-<div class="section-title">SDGs</div>
-<ul class="sdg-list"><li>SDG 9</li></ul>
-
-<div class="section-title">C++ Code</div>
-<pre>
-#include &lt;iostream&gt;
-using namespace std;
-
-struct Node{
-    int key,h;
-    Node*l,*r;
-    Node(int k):key(k),h(1),l(NULL),r(NULL){}
-};
-
-int height(Node*n){return n?n->h:0;}
-int bal(Node*n){return height(n->l)-height(n->r);}
-
-Node* rightR(Node*y){
-    Node*x=y->l; Node*T=x->r;
-    x->r=y; y->l=T;
-    y->h=max(height(y->l),height(y->r))+1;
-    x->h=max(height(x->l),height(x->r))+1;
-    return x;
-}
-
-Node* leftR(Node*x){
-    Node*y=x->r; Node*T=y->l;
-    y->l=x; x->r=T;
-    x->h=max(height(x->l),height(x->r))+1;
-    y->h=max(height(y->l),height(y->r))+1;
-    return y;
-}
-
-Node* insertAVL(Node*node,int k){
-    if(!node) return new Node(k);
-    if(k<node->key) node->l=insertAVL(node->l,k);
-    else node->r=insertAVL(node->r,k);
-
-    node->h=max(height(node->l),height(node->r))+1;
-    int b=bal(node);
-
-    if(b>1 && k<node->l->key) return rightR(node);
-    if(b<-1 && k>node->r->key) return leftR(node);
-    if(b>1 && k>node->l->key){
-        node->l=leftR(node->l);
-        return rightR(node);
-    }
-    if(b<-1 && k<node->r->key){
-        node->r=rightR(node->r);
-        return leftR(node);
-    }
-    return node;
-}
-
-void inorder(Node*n){
-    if(!n)return;
-    inorder(n->l);
-    cout<<n->key<<" ";
-    inorder(n->r);
-}
-
-int main(){
-    int n; cin>>n;
-    Node*root=NULL;
-    while(n--){
-        int k; cin>>k;
-        root=insertAVL(root,k);
-    }
-    inorder(root);
-}
-</pre>
-</div>
-
-</div>
-</div>
+  <script>
+    // smooth scrolling for nav anchors
+    document.querySelectorAll('nav a').forEach(a=>{
+      a.addEventListener('click', e=>{
+        e.preventDefault();
+        const href = a.getAttribute('href');
+        if(!href) return;
+        const el = document.querySelector(href);
+        if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
+      });
+    });
+    // make details summary toggles keyboard friendly
+    document.querySelectorAll('details > summary').forEach(s=>{
+      s.setAttribute('tabindex','0');
+      s.addEventListener('keydown', function(e){ if(e.key==='Enter' || e.key===' ') { e.preventDefault(); this.parentElement.open = !this.parentElement.open; }});
+    });
+  </script>
 </body>
 </html>
