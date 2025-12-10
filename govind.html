@@ -166,603 +166,260 @@
       <!-- LEFT COLUMN -->
       <div>
 
-<!-- ========== PROBLEM 1 ========== -->
-<div class="card">
-  <div class="title">1. City Budget Allocation</div>
-  <div class="algo">Algorithm: 0/1 Knapsack (Dynamic Programming)</div>
-
-  <p class="desc"><b>Problem:</b> Select the best set of city projects within a limited budget.</p>
-
-  <p class="solution"><b>Solution:</b> Use DP to evaluate all possible project combinations and compute maximum possible impact under the given budget.</p>
-
-  <span class="sdg sdg1">SDG 1: No Poverty</span>
-  <span class="sdg sdg8">SDG 8: Economic Growth</span>
-  <span class="sdg sdg11">SDG 11: Sustainable Cities</span>
-
-  <div class="code-title">C++ Code</div>
-  <div class="code-block">
-#include &lt;bits/stdc++.h&gt;
+#include <bits/stdc++.h>
 using namespace std;
 
-struct Project {
-    int cost;
-    int impact;
-    string name;
-};
+// =======================
+// Problem 1: Best Allocation of City Budget
+// Use 0/1 Knapsack approach to maximize impact given a budget.
+// =======================
+void problem1() {
+    int n, budget;
+    cout << "Problem 1: Best Allocation of City Budget\n";
+    cout << "Enter number of projects and total budget: ";
+    cin >> n >> budget;
+    vector<int> cost(n), impact(n);
+    cout << "Enter cost and impact of each project:\n";
+    for (int i = 0; i < n; i++) cin >> cost[i] >> impact[i];
 
-int main() {
-    int n, W;
-    cin >> n >> W;
-
-    vector<Project> p(n);
-    for (int i = 0; i < n; i++)
-        cin >> p[i].name >> p[i].cost >> p[i].impact;
-
-    vector<vector<int>> dp(n + 1, vector<int>(W + 1, 0));
-
-    for (int i = 1; i <= n; i++) {
-        for (int cap = 0; cap <= W; cap++) {
-            if (p[i - 1].cost <= cap)
-                dp[i][cap] = max(dp[i - 1][cap],
-                                p[i - 1].impact + dp[i - 1][cap - p[i - 1].cost]);
-            else
-                dp[i][cap] = dp[i - 1][cap];
+    vector<int> dp(budget + 1, 0);
+    for (int i = 0; i < n; i++) {
+        for (int j = budget; j >= cost[i]; j--) {
+            dp[j] = max(dp[j], dp[j - cost[i]] + impact[i]);
         }
     }
-
-    cout << "Maximum Impact = " << dp[n][W];
+    cout << "Maximum impact achievable: " << *max_element(dp.begin(), dp.end()) << "\n\n";
 }
-  </div>
-</div>
 
-<!-- ========== PROBLEM 2 ========== -->
-<div class="card">
-  <div class="title">2. Tax Officer Route Optimization</div>
-  <div class="algo">Algorithm: Dijkstra’s Algorithm</div>
-
-  <p class="desc"><b>Problem:</b> Tax officers must inspect multiple zones in minimum travel time.</p>
-
-  <p class="solution"><b>Solution:</b> Model the city as a weighted graph and apply Dijkstra to compute shortest path distances.</p>
-
-  <span class="sdg sdg9">SDG 9: Industry & Infrastructure</span>
-  <span class="sdg sdg11">SDG 11: Sustainable Cities</span>
-  <span class="sdg sdg16">SDG 16: Peace & Justice</span>
-
-  <div class="code-title">C++ Code</div>
-  <div class="code-block">
-#include &lt;bits/stdc++.h&gt;
-using namespace std;
-
-int main() {
+// =======================
+// Problem 2: Tax Officer Route Optimization
+// Use Dijkstra algorithm to find shortest path between zones
+// =======================
+void problem2() {
     int n, m;
+    cout << "Problem 2: Tax Officer Route Optimization\n";
+    cout << "Enter number of zones and roads: ";
     cin >> n >> m;
-
-    vector<vector<pair<int, int>>> graph(n);
-
+    vector<vector<pair<int,int>>> adj(n);
+    cout << "Enter roads (u v w):\n";
     for (int i = 0; i < m; i++) {
-        int u, v, w;
-        cin >> u >> v >> w;
-        graph[u].push_back({v, w});
-        graph[v].push_back({u, w});
+        int u, v, w; cin >> u >> v >> w;
+        adj[u].push_back({v,w});
+        adj[v].push_back({u,w});
     }
-
-    int src;
-    cin >> src;
-
+    int start;
+    cout << "Enter starting zone: ";
+    cin >> start;
     const long long INF = 1e18;
     vector<long long> dist(n, INF);
-
-    priority_queue<pair<long long, int>,
-                   vector<pair<long long, int>>,
-                   greater<pair<long long, int>>> pq;
-
-    dist[src] = 0;
-    pq.push({0, src});
+    dist[start] = 0;
+    priority_queue<pair<long long,int>, vector<pair<long long,int>>, greater<>> pq;
+    pq.push({0, start});
 
     while (!pq.empty()) {
-        auto [currDist, u] = pq.top();
-        pq.pop();
-
-        if (currDist != dist[u]) continue;
-
-        for (auto &edge : graph[u]) {
-            int v = edge.first, w = edge.second;
-
-            if (dist[v] > currDist + w) {
-                dist[v] = currDist + w;
+        auto [d,u] = pq.top(); pq.pop();
+        if (d != dist[u]) continue;
+        for (auto [v,w]: adj[u]) {
+            if (dist[v] > d + w) {
+                dist[v] = d + w;
                 pq.push({dist[v], v});
             }
         }
     }
 
-    for (long long d : dist)
-        cout << d << " ";
+    cout << "Shortest distances from start:\n";
+    for (auto d: dist) cout << d << " ";
+    cout << "\n\n";
 }
-  </div>
-</div>
 
-<!-- ==================== PROBLEM 3 ==================== -->
-<div class="card">
-  <div class="title">3. Smart Parking Fee Prediction</div>
-  <div class="algo">Algorithm: Segment Tree + Range Sum</div>
-
-  <p class="desc"><b>Problem:</b> The city wants to predict parking fees dynamically based on usage patterns over time.</p>
-
-  <p class="solution"><b>Solution:</b> A Segment Tree efficiently computes range usage data. Fee is calculated dynamically based on intensity of parking demand in queried intervals.</p>
-
-  <span class="sdg sdg9">SDG 9: Industry & Innovation</span>
-  <span class="sdg sdg11">SDG 11: Sustainable Cities</span>
-  <span class="sdg sdg13">SDG 13: Climate Action</span>
-
-  <div class="code-title">C++ Code</div>
-  <div class="code-block">
-#include &lt;bits/stdc++.h&gt;
-using namespace std;
-
+// =======================
+// Problem 3: Smart Parking Fee Prediction
+// Segment Tree to quickly sum parking usage in a range
+// Fee is predicted based on usage
+// =======================
 struct SegmentTree {
-    int n;
     vector<long long> tree;
-
-    SegmentTree(int n) : n(n), tree(4 * n, 0) {}
-
-    void build(vector<int>& arr, int node, int start, int end) {
-        if (start == end) {
-            tree[node] = arr[start];
-        } else {
-            int mid = (start + end) / 2;
-            build(arr, 2 * node, start, mid);
-            build(arr, 2 * node + 1, mid + 1, end);
-            tree[node] = tree[2 * node] + tree[2 * node + 1];
+    int n;
+    SegmentTree(int size){ n=size; tree.assign(4*n,0);}
+    void build(vector<int> &a,int v,int tl,int tr){
+        if(tl==tr) tree[v]=a[tl];
+        else {
+            int tm=(tl+tr)/2;
+            build(a,2*v,tl,tm);
+            build(a,2*v+1,tm+1,tr);
+            tree[v]=tree[2*v]+tree[2*v+1];
         }
     }
-
-    long long query(int node, int start, int end, int l, int r) {
-        if (r < start || end < l)
-            return 0;
-
-        if (l <= start && end <= r)
-            return tree[node];
-
-        int mid = (start + end) / 2;
-        long long left = query(2 * node, start, mid, l, r);
-        long long right = query(2 * node + 1, mid + 1, end, l, r);
-        return left + right;
+    long long query(int v,int tl,int tr,int l,int r){
+        if(l>r) return 0;
+        if(l==tl && r==tr) return tree[v];
+        int tm=(tl+tr)/2;
+        return query(2*v,tl,tm,l,min(r,tm))+query(2*v+1,tm+1,tr,max(l,tm+1),r);
     }
 };
-
-int main() {
-    int n;
-    cin >> n;
-
-    vector<int> usage(n);
-    for (int i = 0; i < n; i++)
-        cin >> usage[i];
-
-    SegmentTree seg(n);
-    seg.build(usage, 1, 0, n - 1);
-
-    int q;
-    cin >> q;
-
-    while (q--) {
-        int L, R;
-        cin >> L >> R;
-
-        long long demand = seg.query(1, 0, n - 1, L, R);
-
-        int fee;
-        if (demand <= 200) fee = 10;
-        else if (demand <= 500) fee = 20;
-        else if (demand <= 1000) fee = 30;
-        else fee = 50;
-
-        cout << fee << "\n";
+void problem3() {
+    int n,q; 
+    cout << "Problem 3: Smart Parking Fee Prediction\n";
+    cout << "Enter number of parking slots: "; cin >> n;
+    vector<int> usage(n); 
+    cout << "Enter parking usage:\n";
+    for(int i=0;i<n;i++) cin >> usage[i];
+    SegmentTree seg(n); seg.build(usage,1,0,n-1);
+    cout << "Enter number of queries: "; cin >> q;
+    while(q--){
+        int l,r; cin >> l >> r;
+        long long demand=seg.query(1,0,n-1,l,r);
+        int fee = demand<=100?10:demand<=500?20:demand<=1000?30:50;
+        cout << "Predicted fee: " << fee << "\n";
     }
-}
-  </div>
-</div>
-
-
-<!-- ==================== PROBLEM 4 ==================== -->
-<div class="card">
-  <div class="title">4. Public Transport Scheduling</div>
-  <div class="algo">Algorithm: Fenwick Tree + Moving Average Forecast</div>
-
-  <p class="desc"><b>Problem:</b> Forecast daily travel demand to generate efficient bus schedules.</p>
-
-  <p class="solution"><b>Solution:</b> Fenwick Tree supports fast prefix sums. A rolling-average recurrence predicts future passenger counts.</p>
-
-  <span class="sdg sdg7">SDG 7: Clean Energy</span>
-  <span class="sdg sdg11">SDG 11: Sustainable Cities</span>
-  <span class="sdg sdg13">SDG 13: Climate Action</span>
-
-  <div class="code-title">C++ Code</div>
-  <div class="code-block">
-#include &lt;bits/stdc++.h&gt;
-using namespace std;
-
-struct Fenwick {
-    int n;
-    vector<long long> bit;
-
-    Fenwick(int n) : n(n), bit(n + 1, 0) {}
-
-    void update(int i, long long val) {
-        for (++i; i <= n; i += i & -i)
-            bit[i] += val;
-    }
-
-    long long sum(int i) {
-        long long s = 0;
-        for (++i; i > 0; i -= i & -i)
-            s += bit[i];
-        return s;
-    }
-
-    long long range(int l, int r) {
-        return sum(r) - (l ? sum(l - 1) : 0);
-    }
-};
-
-int main() {
-    int n;
-    cin >> n;
-
-    vector<long long> usage(n);
-    for (int i = 0; i < n; i++)
-        cin >> usage[i];
-
-    Fenwick fen(n);
-    for (int i = 0; i < n; i++)
-        fen.update(i, usage[i]);
-
-    int k;
-    cin >> k;
-
-    int window = 5;
-    vector<long long> forecast;
-
-    for (int t = 0; t < k; t++) {
-        int start = max(0, n - window);
-        long long total = fen.range(start, n - 1);
-        long long next = total / (min(window, n));
-
-        forecast.push_back(next);
-
-        usage.push_back(next);
-        fen.update(n, next);
-        n++;
-    }
-
-    for (auto x : forecast)
-        cout << x << " ";
-}
-  </div>
-</div>
-
-
-<!-- ==================== PROBLEM 5 ==================== -->
-<div class="card">
-  <div class="title">5. Metro Construction Phase Optimization</div>
-  <div class="algo">Algorithm: Max-Heap Sorting by ROI</div>
-
-  <p class="desc"><b>Problem:</b> Prioritize metro construction phases for maximum return on investment.</p>
-
-  <p class="solution"><b>Solution:</b> Use a max-heap to sort phases based on ROI = benefit / cost.</p>
-
-  <span class="sdg sdg9">SDG 9: Infrastructure</span>
-  <span class="sdg sdg11">SDG 11: Sustainable Cities</span>
-  <span class="sdg sdg8">SDG 8: Economic Growth</span>
-
-  <div class="code-title">C++ Code</div>
-  <div class="code-block">
-#include &lt;bits/stdc++.h&gt;
-using namespace std;
-
-struct Phase {
-    string name;
-    double cost, benefit;
-};
-
-int main() {
-    int n;
-    cin >> n;
-
-    vector<Phase> phases(n);
-    for (int i = 0; i < n; i++)
-        cin >> phases[i].name >> phases[i].cost >> phases[i].benefit;
-
-    auto roi = [&](Phase &p) {
-        return p.benefit / p.cost;
-    };
-
-    priority_queue<pair<double, int>> pq;
-
-    for (int i = 0; i < n; i++)
-        pq.push({roi(phases[i]), i});
-
-    while (!pq.empty()) {
-        auto [value, idx] = pq.top();
-        pq.pop();
-        cout << phases[idx].name << " ROI=" << fixed << setprecision(3) << value << "\n";
-    }
-}
-  </div>
-</div>
-
-
-<!-- ==================== PROBLEM 6 ==================== -->
-<div class="card">
-  <div class="title">6. Streetlight Energy Reduction</div>
-  <div class="algo">Algorithm: Backtracking + Scheduling</div>
-
-  <p class="desc"><b>Problem:</b> Reduce electricity consumption while maintaining minimum safe brightness.</p>
-
-  <p class="solution"><b>Solution:</b> Backtracking explores all safe brightness combinations per hour; minimum-cost schedule is selected.</p>
-
-  <span class="sdg sdg7">SDG 7: Clean Energy</span>
-  <span class="sdg sdg11">SDG 11: Sustainable Cities</span>
-  <span class="sdg sdg13">SDG 13: Climate Action</span>
-
-  <div class="code-title">C++ Code</div>
-  <div class="code-block">
-#include &lt;bits/stdc++.h&gt;
-using namespace std;
-
-int H, minBrightness;
-vector<int> level;
-vector<int> bestSchedule;
-long long bestCost = LLONG_MAX;
-
-void backtrack(int hour) {
-    if (hour == H) {
-        long long cost = accumulate(level.begin(), level.end(), 0LL);
-        if (cost < bestCost) {
-            bestCost = cost;
-            bestSchedule = level;
-        }
-        return;
-    }
-
-    for (int b = minBrightness; b <= 100; b += 10) {
-        level[hour] = b;
-        backtrack(hour + 1);
-    }
+    cout << "\n";
 }
 
-int main() {
-    cin >> H >> minBrightness;
-
-    level.assign(H, 0);
-    backtrack(0);
-
-    cout << "Minimum Cost: " << bestCost << "\n";
-    for (int x : bestSchedule)
-        cout << x << " ";
+// =======================
+// Problem 4: City Energy Demand Forecasting
+// Simple Linear Regression: y = slope*x + intercept
+// =======================
+void problem4() {
+    int n; cout << "Problem 4: City Energy Demand Forecasting\n";
+    cout << "Enter number of past days: "; cin >> n;
+    vector<double> x(n),y(n);
+    cout << "Enter day index and energy consumption:\n";
+    for(int i=0;i<n;i++) cin >> x[i] >> y[i];
+    double sumX=0,sumY=0,sumXY=0,sumXX=0;
+    for(int i=0;i<n;i++){ sumX+=x[i]; sumY+=y[i]; sumXY+=x[i]*y[i]; sumXX+=x[i]*x[i]; }
+    double slope=(n*sumXY - sumX*sumY)/(n*sumXX - sumX*sumX);
+    double intercept=(sumY - slope*sumX)/n;
+    double nextDay=x.back()+1;
+    double prediction=slope*nextDay + intercept;
+    cout << "Predicted energy: " << prediction << "\n\n";
 }
-  </div>
-</div>
 
-
-<!-- ==================== PROBLEM 7 ==================== -->
-<div class="card">
-  <div class="title">7. Transport Ticket Dynamic Pricing</div>
-  <div class="algo">Algorithm: AVL Tree (Set) + Max Heap</div>
-
-  <p class="desc"><b>Problem:</b> Ticket prices must adjust dynamically based on real-time usage.</p>
-
-  <p class="solution"><b>Solution:</b> Balanced BST stores price bands, max-heap monitors peak demand, dynamic price = base + adjustment.</p>
-
-  <span class="sdg sdg8">SDG 8: Economic Growth</span>
-  <span class="sdg sdg9">SDG 9: Innovation</span>
-  <span class="sdg sdg11">SDG 11: Sustainable Cities</span>
-
-  <div class="code-title">C++ Code</div>
-  <div class="code-block">
-#include &lt;bits/stdc++.h&gt;
-using namespace std;
-
-int main() {
-    int n;
-    cin >> n;
-
-    set<int> priceBands;
-    for (int i = 0; i < n; i++) {
-        int p;
-        cin >> p;
-        priceBands.insert(p);
-    }
-
-    int m;
-    cin >> m;
-
-    priority_queue<int> peakDemand;
-
-    for (int i = 0; i < m; i++) {
-        int d;
-        cin >> d;
-        peakDemand.push(d);
-    }
-
-    int base = *priceBands.begin();
-    int peak = peakDemand.top();
-
-    int price = base + (peak / 100);
-
-    cout << "Dynamic Price = " << price;
-}
-  </div>
-</div>
-
-
-<!-- ==================== PROBLEM 8 ==================== -->
-<div class="card">
-  <div class="title">8. Garbage Plant Load Balancing</div>
-  <div class="algo">Algorithm: Min Heap + Queue Simulation</div>
-
-  <p class="desc"><b>Problem:</b> Evenly distribute waste across plants to avoid overload.</p>
-
-  <p class="solution"><b>Solution:</b> Use a min-heap to always assign waste to the plant with the smallest current load.</p>
-
-  <span class="sdg sdg11">SDG 11: Sustainable Cities</span>
-  <span class="sdg sdg12">SDG 12: Responsible Consumption</span>
-  <span class="sdg sdg13">SDG 13: Climate Action</span>
-
-  <div class="code-title">C++ Code</div>
-  <div class="code-block">
-#include &lt;bits/stdc++.h&gt;
-using namespace std;
-
-struct Plant {
-    long long load;
-    int id;
-    bool operator<(const Plant &other) const {
-        return load > other.load;
-    }
-};
-
-int main() {
-    int plants, arrivals;
-    cin >> plants >> arrivals;
-
-    priority_queue<Plant> pq;
-
-    for (int i = 0; i < plants; i++)
-        pq.push({0, i});
-
-    for (int i = 0; i < arrivals; i++) {
-        long long w;
-        cin >> w;
-
-        auto plant = pq.top();
-        pq.pop();
-
-        plant.load += w;
-
-        cout << "Assigned " << w << " to plant " << plant.id << "\n";
-
-        pq.push(plant);
-    }
-
-    cout << "Final Loads:\n";
-
-    vector<long long> loads(plants);
-
-    while (!pq.empty()) {
-        auto p = pq.top();
-        pq.pop();
-        loads[p.id] = p.load;
-    }
-
-    for (int i = 0; i < plants; i++)
-        cout << "Plant " << i << ": " << loads[i] << "\n";
-}
-  </div>
-</div>
-
-
-<!-- ==================== PROBLEM 9 ==================== -->
-<div class="card">
-  <div class="title">9. Building Maintenance Prediction</div>
-  <div class="algo">Algorithm: 2-3 Tree (Multiset) + Divide & Conquer</div>
-
-  <p class="desc"><b>Problem:</b> Predict recurring maintenance patterns in buildings.</p>
-
-  <p class="solution"><b>Solution:</b> Store logs in a multiset. Divide-and-conquer detects repetition patterns by comparing mid boundaries.</p>
-
-  <span class="sdg sdg9">SDG 9: Infrastructure</span>
-  <span class="sdg sdg11">SDG 11: Sustainable Cities</span>
-  <span class="sdg sdg12">SDG 12: Responsible Consumption</span>
-
-  <div class="code-title">C++ Code</div>
-  <div class="code-block">
-#include &lt;bits/stdc++.h&gt;
-using namespace std;
-
-int main() {
-    int n;
-    cin >> n;
-
-    multiset<int> logs;
-    for (int i = 0; i < n; i++) {
-        int t;
-        cin >> t;
-        logs.insert(t);
-    }
-
-    vector<int> arr(logs.begin(), logs.end());
-
-    function<int(int,int)> solve = [&](int l, int r) {
-        if (l == r) return 1;
-
-        int mid = (l + r) / 2;
-
-        int left = solve(l, mid);
-        int right = solve(mid + 1, r);
-
-        if (arr[mid] == arr[mid + 1]) return left + right - 1;
-        return left + right;
-    };
-
-    cout << "Pattern Score = " << solve(0, arr.size() - 1);
-}
-  </div>
-</div>
-
-
-<!-- ==================== PROBLEM 10 ==================== -->
-<div class="card">
-  <div class="title">10. Subsidy Distribution Optimization</div>
-  <div class="algo">Algorithm: Quick Sort + 0/1 Knapsack</div>
-
-  <p class="desc"><b>Problem:</b> Select beneficiaries who maximize social impact under a limited subsidy fund.</p>
-
-  <p class="solution"><b>Solution:</b> Sort applicants by benefit-to-cost ratio, then apply 0/1 knapsack to choose optimal beneficiaries.</p>
-
-  <span class="sdg sdg1">SDG 1: No Poverty</span>
-  <span class="sdg sdg8">SDG 8: Economic Growth</span>
-  <span class="sdg sdg10">SDG 10: Reduced Inequalities</span>
-
-  <div class="code-title">C++ Code</div>
-  <div class="code-block">
-#include &lt;bits/stdc++.h&gt;
-using namespace std;
-
-struct Beneficiary {
-    double benefit, cost;
-};
-
-int main() {
-    int n, W;
-    cin >> n >> W;
-
-    vector<Beneficiary> b(n);
-    for (int i = 0; i < n; i++)
-        cin >> b[i].benefit >> b[i].cost;
-
-    sort(b.begin(), b.end(),
-         [&](auto &A, auto &B) {
-             return (A.benefit / A.cost) > (B.benefit / B.cost);
-         });
-
-    vector<int> w(n), v(n);
-    for (int i = 0; i < n; i++) {
-        w[i] = round(b[i].cost);
-        v[i] = round(b[i].benefit);
-    }
-
-    vector<int> dp(W + 1, 0);
-
-    for (int i = 0; i < n; i++) {
-        for (int cap = W; cap >= w[i]; cap--) {
-            dp[cap] = max(dp[cap], dp[cap - w[i]] + v[i]);
+// =======================
+// Problem 5: Metro Construction Phase Optimization
+// Optimize construction phases to minimize total cost
+// =======================
+void problem5() {
+    int n,m; cout << "Problem 5: Metro Construction Phase Optimization\n";
+    cout << "Enter number of stations and phases: "; cin >> n >> m;
+    vector<int> cost(n); cout << "Enter construction cost per station:\n";
+    for(int i=0;i<n;i++) cin >> cost[i];
+    vector<int> dp(n+1,INT_MAX/2);
+    dp[0]=0;
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=min(i,m);j++){
+            dp[i]=min(dp[i],dp[i-j]+cost[i-1]);
         }
     }
-
-    cout << "Max Benefit = " << *max_element(dp.begin(), dp.end());
+    cout << "Minimum construction cost: " << dp[n] << "\n\n";
 }
-  </div>
-</div>
+
+// =======================
+// Problem 6: Streetlight Energy Reduction
+// Dim half the streetlights with highest power consumption
+// =======================
+void problem6() {
+    int n; cout << "Problem 6: Streetlight Energy Reduction\n";
+    cout << "Enter number of streetlights: "; cin >> n;
+    vector<int> power(n); cout << "Enter power consumption:\n";
+    for(int i=0;i<n;i++) cin >> power[i];
+    sort(power.begin(), power.end());
+    int reduced = accumulate(power.begin(),power.begin()+n/2,0);
+    cout << "Energy reduced by dimming half streetlights: " << reduced << "\n\n";
+}
+
+// =======================
+// Problem 7: Transport Ticket Dynamic Pricing
+// Dynamic pricing based on demand thresholds
+// =======================
+void problem7() {
+    int n; cout << "Problem 7: Transport Ticket Dynamic Pricing\n";
+    cout << "Enter number of time slots: "; cin >> n;
+    vector<int> demand(n); cout << "Enter demand for each slot:\n";
+    for(int i=0;i<n;i++) cin >> demand[i];
+    for(int i=0;i<n;i++){
+        int price = demand[i]<50?100:demand[i]<100?150:200;
+        cout << "Time slot " << i << " price: " << price << "\n";
+    }
+    cout << "\n";
+}
+
+// =======================
+// Problem 8: Garbage Plant Load Balancing
+// Move garbage from overloaded plants to underloaded
+// =======================
+void problem8() {
+    int n; cout << "Problem 8: Garbage Plant Load Balancing\n";
+    cout << "Enter number of garbage plants: "; cin >> n;
+    vector<int> load(n); cout << "Enter initial load:\n";
+    for(int i=0;i<n;i++) cin >> load[i];
+    sort(load.begin(), load.end());
+    int totalReduced = 0;
+    for(int i=0;i<n/2;i++) totalReduced += load[n-i-1]-load[i];
+    cout << "Load balanced by moving garbage: " << totalReduced << "\n\n";
+}
+
+// =======================
+// Problem 9: Building Maintenance Prediction
+// Predict maintenance using age and past repairs
+// =======================
+void problem9() {
+    int n; cout << "Problem 9: Building Maintenance Prediction\n";
+    cout << "Enter number of buildings: "; cin >> n;
+    vector<int> age(n), repairs(n);
+    cout << "Enter age and past repair count:\n";
+    for(int i=0;i<n;i++) cin >> age[i] >> repairs[i];
+    for(int i=0;i<n;i++){
+        double predicted = repairs[i]*1.05 + age[i]*0.1;
+        cout << "Building " << i << " predicted maintenance: " << predicted << "\n";
+    }
+    cout << "\n";
+}
+
+// =======================
+// Problem 10: Subsidy Distribution Optimization
+// Distribute subsidy to maximum citizens within budget
+// =======================
+void problem10() {
+    int n,budget; cout << "Problem 10: Subsidy Distribution Optimization\n";
+    cout << "Enter number of citizens and total subsidy budget: "; cin >> n >> budget;
+    vector<int> need(n); cout << "Enter subsidy need per citizen:\n";
+    for(int i=0;i<n;i++) cin >> need[i];
+    sort(need.begin(),need.end());
+    int count=0;
+    for(int i=0;i<n;i++){
+        if(budget>=need[i]){ budget-=need[i]; count++; } else break;
+    }
+    cout << "Maximum citizens receiving subsidy: " << count << "\n\n";
+}
+
+// =======================
+// Main Menu
+// =======================
+int main() {
+    while(true){
+        int choice;
+        cout << "\n--- Smart City Problems Menu ---\n";
+        cout << "1. Best Allocation of City Budget\n2. Tax Officer Route Optimization\n3. Smart Parking Fee Prediction\n4. City Energy Demand Forecasting\n";
+        cout << "5. Metro Construction Phase Optimization\n6. Streetlight Energy Reduction\n7. Transport Ticket Dynamic Pricing\n8. Garbage Plant Load Balancing\n";
+        cout << "9. Building Maintenance Prediction\n10. Subsidy Distribution Optimization\n0. Exit\nEnter choice: ";
+        cin >> choice;
+        if(choice==0) break;
+        switch(choice){
+            case 1: problem1(); break;
+            case 2: problem2(); break;
+            case 3: problem3(); break;
+            case 4: problem4(); break;
+            case 5: problem5(); break;
+            case 6: problem6(); break;
+            case 7: problem7(); break;
+            case 8: problem8(); break;
+            case 9: problem9(); break;
+            case 10: problem10(); break;
+            default: cout << "Invalid choice\n";
+        }
+    }
+    return 0;
+}
 
 
       </div> <!-- END LEFT COLUMN -->
