@@ -9,14 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /*
-      Portfolio layout
-      - Two-column detailed grid with align-items: start (critical)
-      - Collapsible C++ examples using <details>
-      - Summary cards on top
-      - Responsive: collapses to single column below 980px
-    */
-
     :root{
       --bg: #f4f7fb;
       --panel: #ffffff;
@@ -24,7 +16,6 @@
       --accent-a: #0f4fa8;
       --accent-b: #0b6fb6;
       --card-shadow: 0 18px 40px rgba(14,30,60,0.06);
-      --radius: 14px;
       --text: #042a44;
       --mono: "JetBrains Mono", monospace;
       --sans: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
@@ -38,20 +29,16 @@
     .container{max-width:1180px;margin:28px auto;padding:18px}
 
     /* Header */
-    .header{
-      display:flex;align-items:center;gap:16px;padding:14px 18px;border-radius:12px;background:#083b72;color:#fff;box-shadow:0 10px 40px rgba(4,20,60,0.12)
-    }
+    .header{display:flex;align-items:center;gap:16px;padding:14px 18px;border-radius:12px;background:#083b72;color:#fff;box-shadow:0 10px 40px rgba(4,20,60,0.12)}
     .logo{width:56px;height:56px;border-radius:10px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px}
-    .header .title{font-size:18px;font-weight:700}
-    .header .sub{font-size:12px;opacity:0.95;margin-left:8px}
+    .title{font-size:18px;font-weight:700}
+    .sub{font-size:12px;opacity:0.95;margin-left:8px}
 
-    /* Hero */
     .hero{display:flex;flex-direction:column;gap:18px;margin-top:18px}
     .hero-banner{background:linear-gradient(90deg,var(--accent-a),var(--accent-b));color:white;padding:28px;border-radius:14px;box-shadow:0 18px 44px rgba(7,40,90,0.12)}
     .hero-banner h1{margin:0;font-size:28px}
     .hero-banner p{margin:8px 0 0;color:rgba(255,255,255,0.94);font-size:15px;max-width:100%}
 
-    /* Summary grid */
     .summary-grid{margin-top:26px;display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
     @media (max-width:980px){ .summary-grid{grid-template-columns:1fr} .hero-banner{margin-top:0} }
 
@@ -60,44 +47,23 @@
     .summary-card .alg{color:var(--accent-a);font-weight:700;font-size:13px;margin-top:6px}
     .summary-card .muted{color:var(--muted);font-size:13px;margin-top:8px}
 
-    /* DETAILS GRID - critical fix: grid + align-items:start */
+    /* KEY GRID: two-column details with align-items:start so rows remain aligned */
     .details-grid{
       margin-top:30px;
       display:grid;
-      grid-template-columns: repeat(2, 1fr); /* exactly two columns on desktop */
+      grid-template-columns: repeat(2, 1fr);
       gap:26px;
-      align-items: start; /* ensures equal-row baseline alignment */
+      align-items: start; /* critical */
     }
-    @media (max-width:980px){
-      .details-grid{grid-template-columns:1fr;gap:20px}
-    }
+    @media (max-width:980px){ .details-grid{grid-template-columns:1fr;gap:20px} }
 
-    /* Card (detailed) */
-    .card{
-      background:var(--panel);
-      border-radius:12px;
-      padding:22px;
-      box-shadow:var(--card-shadow);
-      border-left:8px solid rgba(11,111,182,0.06);
-      display:flex;flex-direction:column;gap:10px;
-      min-height:160px;
-    }
+    .card{background:var(--panel);border-radius:12px;padding:22px;box-shadow:var(--card-shadow);border-left:8px solid rgba(11,111,182,0.06);display:flex;flex-direction:column;gap:10px;min-height:160px}
     .card h2{margin:0;font-size:20px;color:var(--text);font-weight:800}
-    .card .alg{color:var(--accent-a);font-weight:700;font-size:13px;margin-top:4px}
+    .alg{color:var(--accent-a);font-weight:700;font-size:13px;margin-top:4px}
     .section-title{font-size:13px;font-weight:700;margin-top:8px;color:#093759}
     .section-text{font-size:14px;color:var(--muted);margin-top:6px;line-height:1.6}
 
-    .details-code{
-      margin-top:10px;
-      background:#0f1724;
-      border-radius:8px;
-      padding:12px;
-      overflow:auto;
-      color:#cbeefc;
-      font-family:var(--mono);
-      font-size:13px;
-      line-height:1.5;
-    }
+    .details-code{margin-top:10px;background:#0f1724;border-radius:8px;padding:12px;overflow:auto;color:#cbeefc;font-family:var(--mono);font-size:13px;line-height:1.5}
     pre{margin:0;background:transparent;padding:0;white-space:pre}
     code[class*="language-"]{font-family:var(--mono);font-size:13px;line-height:1.45;color:inherit}
 
@@ -108,8 +74,6 @@
     .top-btn{display:inline-block;margin-top:16px;padding:10px 18px;border-radius:999px;background:linear-gradient(90deg,var(--accent-a),var(--accent-b));color:white;text-decoration:none;font-weight:700}
 
     .card:focus-within{outline:2px solid rgba(11,111,182,0.12)}
-
-    /* end stylesheet */
   </style>
 </head>
 <body>
@@ -129,115 +93,66 @@
     <section class="hero" aria-labelledby="hero-heading">
       <div class="hero-banner" id="hero-heading">
         <h1>Land Use, Zoning & Location Optimization Projects</h1>
-        <p>These problems involve spatial allocation, clustering, matching, zoning, and optimal city planning using algorithmic methods tailored for urban environments.</p>
+        <p>These problems involve spatial allocation, clustering, matching, zoning, and optimal city planning using algorithmic methods limited to taught data structures and algorithms.</p>
       </div>
     </section>
 
-    <!-- Summary grid -->
+    <!-- Summary -->
     <section class="summary-grid" aria-label="Project summary grid">
-
-      <div class="summary-card">
-        <h3>1. Optimal Hospital Location</h3>
-        <div class="alg">Algorithm: 1D Median / k-Medians (approx)</div>
-        <p class="muted">Place hospitals to minimize average distance for citizens.</p>
-      </div>
-
-      <div class="summary-card">
-        <h3>2. School Allocation to Students</h3>
-        <div class="alg">Algorithm: Bipartite Matching / Max-Flow (Dinic)</div>
-        <p class="muted">Match students to nearest valid schools with capacity constraints.</p>
-      </div>
-
-      <div class="summary-card">
-        <h3>3. Smart Parking Slot Allocation</h3>
-        <div class="alg">Algorithm: Hungarian Algorithm</div>
-        <p class="muted">Assign cars to parking slots to minimize total walking distance.</p>
-      </div>
-
-      <div class="summary-card">
-        <h3>4. Industrial vs Residential Separation</h3>
-        <div class="alg">Algorithm: Graph Coloring / Constraint Solver</div>
-        <p class="muted">Assign zoning types ensuring incompatible land uses are separated.</p>
-      </div>
-
-      <div class="summary-card">
-        <h3>5. Public Park Placement Optimization</h3>
-        <div class="alg">Algorithm: Greedy Max-Coverage</div>
-        <p class="muted">Select k park sites maximizing covered population.</p>
-      </div>
-
-      <div class="summary-card">
-        <h3>6. Land Subdivision Optimization</h3>
-        <div class="alg">Algorithm: Divide & Conquer + Geometry</div>
-        <p class="muted">Partition large parcels into balanced subplots with constraints.</p>
-      </div>
-
-      <div class="summary-card">
-        <h3>7. High Footfall Commercial Zone Prediction</h3>
-        <div class="alg">Algorithm: Clustering (k-means / DBSCAN)</div>
-        <p class="muted">Predict hotspots by analyzing movement traces and POIs.</p>
-      </div>
-
-      <div class="summary-card">
-        <h3>8. Creation of Green Belt Buffers</h3>
-        <div class="alg">Algorithm: BFS Layers / Distance Transform</div>
-        <p class="muted">Create buffer belts around polluted zones or city limits.</p>
-      </div>
-
-      <div class="summary-card">
-        <h3>9. Footpath Connectivity Plan</h3>
-        <div class="alg">Algorithm: Shortest Paths / Graph Connectivity</div>
-        <p class="muted">Detect disconnected pedestrian networks and recommend links.</p>
-      </div>
-
-      <div class="summary-card">
-        <h3>10. Underground Utility Routing</h3>
-        <div class="alg">Algorithm: A* Search / Disjoint Shortest Paths</div>
-        <p class="muted">Route utilities avoiding conflicts while minimizing cost.</p>
-      </div>
-
+      <div class="summary-card"><h3>1. Optimal Hospital Location</h3><div class="alg">Algorithm: Median, Sorting & Divide-and-Conquer</div><p class="muted">Place hospitals to minimize travel distance using median & divide-and-conquer approximations.</p></div>
+      <div class="summary-card"><h3>2. School Allocation to Students</h3><div class="alg">Algorithm: Shortest Paths + Greedy Assignment</div><p class="muted">Use distance graphs with Dijkstra + greedy seat assignment, augment with priority queues.</p></div>
+      <div class="summary-card"><h3>3. Smart Parking Slot Allocation</h3><div class="alg">Algorithm: Bipartite Greedy + Sorting + Trie for license lookup</div><p class="muted">Sort by proximity, use greedy assignment and fast lookups (tries) for constraints.</p></div>
+      <div class="summary-card"><h3>4. Industrial vs Residential Separation</h3><div class="alg">Algorithm: Graph Coloring via BFS/DFS + Union-Find</div><p class="muted">Model adjacency as graph and use 2-coloring checks and union-find for connectivity constraints.</p></div>
+      <div class="summary-card"><h3>5. Public Park Placement Optimization</h3><div class="alg">Algorithm: Greedy Max-Coverage + Fenwick / Segment Tree</div><p class="muted">Use range queries to compute marginal coverage efficiently with Fenwick/segment trees.</p></div>
+      <div class="summary-card"><h3>6. Land Subdivision Optimization</h3><div class="alg">Algorithm: Recursion + Sorting + Geometry primitives</div><p class="muted">Divide polygon recursively using sorting and area computation (shoelace) to ensure balanced splits.</p></div>
+      <div class="summary-card"><h3>7. High Footfall Commercial Zone Prediction</h3><div class="alg">Algorithm: Density via Grid + Fenwick + Sorting</div><p class="muted">Bin movement traces into a grid and use prefix/Fenwick queries to find dense cells.</p></div>
+      <div class="summary-card"><h3>8. Creation of Green Belt Buffers</h3><div class="alg">Algorithm: BFS Layers + Queue + Masking</div><p class="muted">Run multi-source BFS on raster grid to create buffer bands respecting obstacles.</p></div>
+      <div class="summary-card"><h3>9. Footpath Connectivity Plan</h3><div class="alg">Algorithm: Dijkstra + Bridge/Articulation detection</div><p class="muted">Use shortest path for routing and graph bridge detection to find critical missing links.</p></div>
+      <div class="summary-card"><h3>10. Underground Utility Routing</h3><div class="alg">Algorithm: A* (with heuristic) or Dijkstra + Disjoint Path Greedy</div><p class="muted">Pathfinding on grid with heuristics and greedy reservation for disjoint routes.</p></div>
     </section>
 
-    <!-- DETAILS GRID -->
+    <!-- Detailed grid -->
     <section class="details-grid" aria-label="Detailed project descriptions">
 
       <!-- 1 -->
       <article class="card" id="p1" tabindex="0" aria-labelledby="p1-title">
         <h2 id="p1-title">1. Optimal Hospital Location</h2>
-        <div class="alg">Algorithm: 1D Median / k-Medians (approx)</div>
+        <div class="alg">Algorithm: Median, Sorting & Divide-and-Conquer</div>
 
         <div class="section-title">Problem Content</div>
         <div class="section-text">Place one or multiple hospitals within a city to minimize travel distance for residents, taking into account population density and accessibility. Stakeholders include citizens, emergency services and urban planners.</div>
 
         <div class="section-title">Algorithmic Solution</div>
-        <div class="section-text">For the single-hospital (1D) case, the median minimizes absolute distance. For k facilities, run k-medians or k-means-like iterative improvement with assignment and center update steps; use heuristics for initialization.</div>
-
-        <div class="section-title">Input / Output (Project Version)</div>
-        <div class="section-text">Input: List of resident coordinates (x,y) and optional weights (population). Output: Coordinates of hospital locations and total travel cost estimate.</div>
-
-        <div class="section-title">Related SDGs</div>
-        <div class="pills">
-          <span class="pill">SDG 3 — Good Health & Well-being</span>
-          <span class="pill">SDG 11 — Sustainable Cities</span>
+        <div class="section-text">
+          We restrict ourselves to classroom algorithms. For a single facility on a line, the median minimizes sum absolute distances — compute via sorting (O(n log n)).
+          For multiple facilities on a grid, use a practical approximation that leverages recursive partitioning: sort points by x (or y), split into halves (divide-and-conquer) and place facility at medians of partitions. Use priority queue (heap) to refine centers by considering local swaps and reassignments.
+          This approach uses Sorting, Heaps, and simple range queries (Fenwick/segment tree if weighted sums are needed) — no external ML or libraries.
         </div>
 
+        <div class="section-title">Input / Output (Project Version)</div>
+        <div class="section-text">Input: List of resident coordinates (x,y), optional weights. Output: Candidate facility coordinates and approximate total travel cost.</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills"><span class="pill">SDG 3 — Good Health & Well-being</span><span class="pill">SDG 11 — Sustainable Cities</span></div>
+
         <details>
-          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (median / simple k=1)</summary>
+          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (median + fenwick for weighted 1D)</summary>
           <div class="details-code" role="region" aria-live="polite">
-<pre><code>// Hospital Location (1D median)
+<pre><code>// Weighted median (1D) using sorting and prefix sums (Fenwick optional)
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
-
-double median_1d(vector<long long>& pts){
+using ll = long long;
+double weighted_median(vector<pair<ll,ll>>& pts){ // {pos, weight}
     sort(pts.begin(), pts.end());
-    int n = pts.size();
-    if(n % 2 == 1) return pts[n/2];
-    return (pts[n/2 - 1] + pts[n/2]) / 2.0;
+    ll total = 0; for(auto &p: pts) total += p.second;
+    ll half = (total+1)/2;
+    ll acc=0;
+    for(auto &p: pts){ acc += p.second; if(acc >= half) return p.first; }
+    return pts.back().first;
 }
-
 int main(){
-    vector<long long> pts = {1,5,9,3,8};
-    cout << fixed << "Median position: " << median_1d(pts) << '\\n';
+    vector<pair<ll,ll>> pts = {{1,2},{5,1},{3,3},{8,1}};
+    cout << "Weighted median (position): " << weighted_median(pts) << '\\n';
     return 0;
 }</code></pre>
           </div>
@@ -247,52 +162,47 @@ int main(){
       <!-- 2 -->
       <article class="card" id="p2" tabindex="0" aria-labelledby="p2-title">
         <h2 id="p2-title">2. School Allocation to Students</h2>
-        <div class="alg">Algorithm: Bipartite Matching / Max-Flow (Dinic)</div>
+        <div class="alg">Algorithm: Shortest Paths + Greedy Assignment (Dijkstra + Heap)</div>
 
         <div class="section-title">Problem Content</div>
         <div class="section-text">Assign students to schools minimizing travel time while respecting school capacities and eligibility zones. Ensure fairness and capacity constraints are satisfied.</div>
 
         <div class="section-title">Algorithmic Solution</div>
-        <div class="section-text">Model as bipartite graph (students → schools) with edges for reachable schools. Use max flow (Dinic) with capacities to enforce school seat limits and minimize cost via repeated flows or min-cost max-flow when costs vary.</div>
-
-        <div class="section-title">Input / Output (Project Version)</div>
-        <div class="section-text">Input: Students with coordinates, schools with coordinates and capacities; optionally cost matrix (distance). Output: Assignment list (student -> school) and total travel cost.</div>
-
-        <div class="section-title">Related SDGs</div>
-        <div class="pills">
-          <span class="pill">SDG 4 — Quality Education</span>
-          <span class="pill">SDG 10 — Reduced Inequalities</span>
+        <div class="section-text">
+          Build a graph where nodes are intersections/centers and edges have travel times. Run Dijkstra (priority queue / heap) from each school to compute distances to all students (or from each student to schools). Then greedily assign students to their nearest available school using a min-heap ordered by distance, decrementing capacities.
+          For tie-breaking or fairness, use secondary criteria (e.g., weighted distances) and manage assignments through balanced trees (AVL/Red-Black) for fast updates.
         </div>
 
+        <div class="section-title">Input / Output (Project Version)</div>
+        <div class="section-text">Input: Graph (nodes/edges), student locations, school nodes & capacities. Output: Assignment list (student -> school) and total travel cost.</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills"><span class="pill">SDG 4 — Quality Education</span><span class="pill">SDG 10 — Reduced Inequalities</span></div>
+
         <details>
-          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (Dinic skeleton)</summary>
+          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (Dijkstra + greedy assignment)</summary>
           <div class="details-code" role="region" aria-live="polite">
-<pre><code>// Dinic's Algorithm (C++) - skeleton for student-school assignment
+<pre><code>// Dijkstra (single source) + greedy assignment skeleton
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
-struct Edge{int to; long long cap; int rev;};
-struct Dinic {
-    int n; vector<vector<Edge>> g; vector<int> level, it;
-    Dinic(int n):n(n),g(n),level(n),it(n){}
-    void add_edge(int u,int v,long long c){
-        g[u].push_back({v,c,(int)g[v].size()});
-        g[v].push_back({u,0,(int)g[u].size()-1});
+using ll = long long;
+const ll INF = LLONG_MAX/4;
+vector<ll> dijkstra(int src, const vector<vector<pair<int,ll>>>& g){
+    int n = g.size(); vector<ll> dist(n, INF);
+    priority_queue<pair<ll,int>, vector<pair<ll,int>>, greater<pair<ll,int>>> pq;
+    dist[src]=0; pq.push({0,src});
+    while(!pq.empty()){
+        auto [d,u]=pq.top(); pq.pop();
+        if(d!=dist[u]) continue;
+        for(auto &e: g[u]){
+            int v=e.first; ll w=e.second;
+            if(dist[v] > d + w){ dist[v] = d + w; pq.push({dist[v], v}); }
+        }
     }
-    bool bfs(int s,int t){ fill(level.begin(), level.end(), -1); queue<int>q; level[s]=0; q.push(s);
-        while(!q.empty()){ int u=q.front(); q.pop(); for(auto &e:g[u]) if(e.cap>0 && level[e.to]==-1){ level[e.to]=level[u]+1; q.push(e.to); } }
-        return level[t]!=-1;
-    }
-    long long dfs(int u,int t,long long f){ if(u==t) return f;
-        for(int &i=it[u]; i<(int)g[u].size(); ++i){ Edge &e = g[u][i];
-            if(e.cap>0 && level[e.to]==level[u]+1){ long long ret = dfs(e.to,t,min(f,e.cap)); if(ret>0){ e.cap-=ret; g[e.to][e.rev].cap+=ret; return ret; } }
-        } return 0;
-    }
-    long long max_flow(int s,int t){ long long flow=0;
-        while(bfs(s,t)){ fill(it.begin(), it.end(), 0); while(true){ long long f=dfs(s,t,LLONG_MAX); if(f==0) break; flow+=f; } } return flow;
-    }
-};
-
-int main(){ /* Build network and run max_flow */ return 0; }</code></pre>
+    return dist;
+}
+// Greedy assignment: compute distances, push student->school pairs into heap, assign until capacity
+int main(){ return 0; }</code></pre>
           </div>
         </details>
       </article>
@@ -300,59 +210,42 @@ int main(){ /* Build network and run max_flow */ return 0; }</code></pre>
       <!-- 3 -->
       <article class="card" id="p3" tabindex="0" aria-labelledby="p3-title">
         <h2 id="p3-title">3. Smart Parking Slot Allocation</h2>
-        <div class="alg">Algorithm: Hungarian Algorithm (Assignment Problem)</div>
+        <div class="alg">Algorithm: Greedy Assignment + Sorting + Trie for fast lookup</div>
 
         <div class="section-title">Problem Content</div>
         <div class="section-text">Assign incoming cars to parking slots to minimize total walking distance while satisfying capacity and accessibility rules. Useful for event parking and smart-city parking management.</div>
 
         <div class="section-title">Algorithmic Solution</div>
-        <div class="section-text">Formulate as a cost matrix (cars × slots) where entry = walking distance. Use the Hungarian algorithm for a minimum-cost assignment in O(n³) for n cars/slots (or use sparse matching heuristics for large-scale).</div>
-
-        <div class="section-title">Input / Output (Project Version)</div>
-        <div class="section-text">Input: Coordinates of cars and slot positions, constraints (handicap slots). Output: Assignment pairs and total walking distance reduction estimate.</div>
-
-        <div class="section-title">Related SDGs</div>
-        <div class="pills">
-          <span class="pill">SDG 11 — Sustainable Cities</span>
-          <span class="pill">SDG 9 — Industry & Infrastructure</span>
+        <div class="section-text">
+          Create a candidate list of (car,slot,distance) pairs by computing distances and sort these pairs (O(m log m)). Use a greedy assignment that picks the smallest-distance pair and reserves the slot and car (similar to the greedy phase of assignment).
+          For constraints like license-area mapping, keep a Trie for fast prefix-based lookups (e.g., permit id patterns). For large-scale, maintain available slots using a balanced BST (AVL/Red-Black) keyed by proximity.
         </div>
 
+        <div class="section-title">Input / Output (Project Version)</div>
+        <div class="section-text">Input: Car coordinates, slot coordinates, constraints. Output: Assignment pairs and total walking distance.</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills"><span class="pill">SDG 11 — Sustainable Cities</span><span class="pill">SDG 9 — Industry & Infrastructure</span></div>
+
         <details>
-          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (Hungarian - condensed)</summary>
+          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (greedy via sorted vector)</summary>
           <div class="details-code" role="region" aria-live="polite">
-<pre><code>// Hungarian Algorithm (condensed) - cost matrix must be square
+<pre><code>// Greedy assign from sorted (car,slot,dist) pairs
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
-vector<int> hungarian(const vector<vector<long long>>& a){
-    int n = a.size();
-    vector<long long> u(n+1), v(n+1);
-    vector<int> p(n+1), way(n+1);
-    for(int i=1;i<=n;++i){
-        p[0]=i; int j0=0;
-        vector<long long> minv(n+1, LLONG_MAX);
-        vector<char> used(n+1,false);
-        while(true){
-            used[j0]=true;
-            int i0 = p[j0]; long long delta=LLONG_MAX; int j1=0;
-            for(int j=1;j<=n;++j) if(!used[j]){
-                long long cur = a[i0-1][j-1]-u[i0]-v[j];
-                if(cur<minv[j]){ minv[j]=cur; way[j]=j0; }
-                if(minv[j]<delta){ delta=minv[j]; j1=j; }
-            }
-            for(int j=0;j<=n;++j){ if(used[j]){ u[p[j]]+=delta; v[j]-=delta; } else minv[j]-=delta; }
-            j0=j1;
-            if(p[j0]==0) break;
-        }
-        while(true){
-            int j1=way[j0]; p[j0]=p[j1]; j0=j1; if(j0==0) break;
+struct Pair {int car, slot; double dist;};
+int main(){
+    vector<Pair> pairs={{0,0,2.3},{1,2,1.1},{0,1,3.0}};
+    sort(pairs.begin(), pairs.end(), [](const Pair&a,const Pair&b){return a.dist<b.dist;});
+    vector<bool> carUsed(10,false), slotUsed(10,false);
+    for(auto &p: pairs){
+        if(!carUsed[p.car] && !slotUsed[p.slot]){
+            carUsed[p.car]=slotUsed[p.slot]=true;
+            cout<<"Assign car "<<p.car<<" -> slot "<<p.slot<<" dist "<<p.dist<<"\\n";
         }
     }
-    vector<int> ans(n,-1);
-    for(int j=1;j<=n;++j) if(p[j]!=0) ans[p[j]-1]=j-1;
-    return ans;
-}
-
-int main(){ return 0; }</code></pre>
+    return 0;
+}</code></pre>
           </div>
         </details>
       </article>
@@ -360,25 +253,24 @@ int main(){ return 0; }</code></pre>
       <!-- 4 -->
       <article class="card" id="p4" tabindex="0" aria-labelledby="p4-title">
         <h2 id="p4-title">4. Industrial vs Residential Separation</h2>
-        <div class="alg">Algorithm: Graph Coloring / Bipartite Check</div>
+        <div class="alg">Algorithm: Graph Coloring via BFS/DFS + Union-Find</div>
 
         <div class="section-title">Problem Content</div>
         <div class="section-text">Assign zoning types (residential/industrial) across adjacent land parcels so incompatible types do not touch edge-to-edge. This prevents harmful co-location of industries and homes.</div>
 
         <div class="section-title">Algorithmic Solution</div>
-        <div class="section-text">Model parcels as nodes and adjacency as edges. A bipartite graph implies a 2-coloring exists. For general planar zoning, graph-coloring heuristics or constraint solvers (SAT/ILP) are used.</div>
-
-        <div class="section-title">Input / Output (Project Version)</div>
-        <div class="section-text">Input: Parcel adjacency graph and parcel attributes. Output: Coloring assignment (zone per parcel) and a feasibility report highlighting conflicts if any.</div>
-
-        <div class="section-title">Related SDGs</div>
-        <div class="pills">
-          <span class="pill">SDG 11 — Sustainable Cities</span>
-          <span class="pill">SDG 3 — Good Health</span>
+        <div class="section-text">
+          Model parcels as graph nodes and adjacencies as edges. Try to 2-color the graph using BFS/DFS — if possible, assign two classes directly. For more general constraints, reduce to union-find groups and then solve conflicts by local reassignments or backtracking for small conflict sets. Use BFS/DFS for traversal and detection of odd cycles.
         </div>
 
+        <div class="section-title">Input / Output (Project Version)</div>
+        <div class="section-text">Input: Parcel adjacency graph and attributes. Output: Zone color per parcel and a conflict report for infeasible cases.</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills"><span class="pill">SDG 11 — Sustainable Cities</span><span class="pill">SDG 3 — Good Health</span></div>
+
         <details>
-          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (bipartite check)</summary>
+          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (bipartite check via BFS)</summary>
           <div class="details-code" role="region" aria-live="polite">
 <pre><code>// Bipartite check (BFS)
 #include &lt;bits/stdc++.h&gt;
@@ -406,27 +298,26 @@ int main(){ return 0; }</code></pre>
       <!-- 5 -->
       <article class="card" id="p5" tabindex="0" aria-labelledby="p5-title">
         <h2 id="p5-title">5. Public Park Placement Optimization</h2>
-        <div class="alg">Algorithm: Greedy Max-Coverage + Fenwick Tree support</div>
+        <div class="alg">Algorithm: Greedy Max-Coverage + Fenwick / Segment Tree</div>
 
         <div class="section-title">Problem Content</div>
         <div class="section-text">Choose k park sites from candidate locations to maximize the population covered within a walking radius. Balances equity and accessibility.</div>
 
         <div class="section-title">Algorithmic Solution</div>
-        <div class="section-text">Greedy approximation: at each step, pick the site that adds the largest marginal coverage. Fenwick trees or spatial indexes accelerate counting and updates.</div>
-
-        <div class="section-title">Input / Output (Project Version)</div>
-        <div class="section-text">Input: Candidate site coordinates, population distribution (points or grid), k. Output: Chosen sites and total covered population.</div>
-
-        <div class="section-title">Related SDGs</div>
-        <div class="pills">
-          <span class="pill">SDG 11 — Sustainable Cities</span>
-          <span class="pill">SDG 3 — Good Health</span>
+        <div class="section-text">
+          Discretize the city into grid cells (or 1D projection), precompute coverage sets for each candidate site. Use a greedy max-coverage heuristic: at each iteration pick the site with maximum marginal benefit. To compute marginal benefits efficiently when population changes, keep counts in a Fenwick tree or segment tree (depending on discretization) so updates and range sums are O(log n).
         </div>
 
+        <div class="section-title">Input / Output (Project Version)</div>
+        <div class="section-text">Input: Candidate coordinates, population grid or points, k. Output: Selected sites and covered population.</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills"><span class="pill">SDG 11 — Sustainable Cities</span><span class="pill">SDG 3 — Good Health</span></div>
+
         <details>
-          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (Fenwick helper)</summary>
+          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (Fenwick for prefix sums)</summary>
           <div class="details-code" role="region" aria-live="polite">
-<pre><code>// Fenwick tree (Binary Indexed Tree)
+<pre><code>// Fenwick (Binary Indexed Tree) for range query support
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 struct Fenwick {
@@ -444,27 +335,26 @@ int main(){ return 0; }</code></pre>
       <!-- 6 -->
       <article class="card" id="p6" tabindex="0" aria-labelledby="p6-title">
         <h2 id="p6-title">6. Land Subdivision Optimization</h2>
-        <div class="alg">Algorithm: Divide & Conquer + Geometry (Shoelace area)</div>
+        <div class="alg">Algorithm: Recursion, Shoelace Area, Sorting</div>
 
         <div class="section-title">Problem Content</div>
         <div class="section-text">Partition large land parcels into smaller balanced plots for development while preserving constraints (road access, minimum parcel area, contour). Important for equitable land use and development planning.</div>
 
         <div class="section-title">Algorithmic Solution</div>
-        <div class="section-text">Use recursive partitioning (kd-like splits guided by population or area) and geometric primitives for area calculation. Use heuristics to satisfy constraints like minimum parcel dimensions and connectivity.</div>
-
-        <div class="section-title">Input / Output (Project Version)</div>
-        <div class="section-text">Input: Polygon describing parcel, constraints (min area, aspect ratio). Output: Set of sub-polygons (subplots) with metadata (area, centroid).</div>
-
-        <div class="section-title">Related SDGs</div>
-        <div class="pills">
-          <span class="pill">SDG 11 — Sustainable Cities</span>
-          <span class="pill">SDG 15 — Life on Land</span>
+        <div class="section-text">
+          Use recursive divide-and-conquer: sort polygon vertices by x (or along principal axis), split polygon into two parts that balance area using the shoelace formula for area. Recurse until each subplot satisfies min area and aspect ratio constraints. For connectivity checks, use BFS on adjacency graph of resulting subplots. These primitives rely only on sorting, recursion, geometry, and BFS.
         </div>
 
+        <div class="section-title">Input / Output (Project Version)</div>
+        <div class="section-text">Input: Polygon boundary, constraints (min area, aspect ratio). Output: Set of sub-polygons, areas, centroids.</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills"><span class="pill">SDG 11 — Sustainable Cities</span><span class="pill">SDG 15 — Life on Land</span></div>
+
         <details>
-          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (Shoelace polygon area)</summary>
+          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (shoelace area)</summary>
           <div class="details-code" role="region" aria-live="polite">
-<pre><code>// Polygon area via Shoelace
+<pre><code>// Shoelace formula for polygon area
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 double polygon_area(const vector<pair<double,double>>& poly){
@@ -484,41 +374,36 @@ int main(){ return 0; }</code></pre>
       <!-- 7 -->
       <article class="card" id="p7" tabindex="0" aria-labelledby="p7-title">
         <h2 id="p7-title">7. High Footfall Commercial Zone Prediction</h2>
-        <div class="alg">Algorithm: Clustering (k-means, DBSCAN)</div>
+        <div class="alg">Algorithm: Grid Binning + Fenwick/Prefix Sum + Sorting</div>
 
         <div class="section-title">Problem Content</div>
         <div class="section-text">Predict commercial hotspots by analyzing movement traces, point-of-interest density, and temporal patterns. Helps city planners allocate services and transit capacity.</div>
 
         <div class="section-title">Algorithmic Solution</div>
-        <div class="section-text">Use density-based clustering (DBSCAN) to find high-density pockets and k-means for partitioning known areas; incorporate temporal features and heatmaps for robustness.</div>
-
-        <div class="section-title">Input / Output (Project Version)</div>
-        <div class="section-text">Input: Movement traces, footfall sensor counts, POI data. Output: Clustered hotspot polygons, ranking by footfall and suggestions for interventions.</div>
-
-        <div class="section-title">Related SDGs</div>
-        <div class="pills">
-          <span class="pill">SDG 8 — Decent Work & Economic Growth</span>
-          <span class="pill">SDG 11 — Sustainable Cities</span>
+        <div class="section-text">
+          Quantize the area into a regular grid. Aggregate footfall counts into cells (bucket). Use Fenwick or prefix-sum 2D arrays for fast sub-rectangle queries to compute total footfall per candidate region. Sort candidate regions by aggregated counts to produce ranked hotspots. For temporal features, maintain time-indexed Fenwick structures or sliding-window sums.
         </div>
 
+        <div class="section-title">Input / Output (Project Version)</div>
+        <div class="section-text">Input: Movement traces (x,y,t), POI data. Output: Ranked hotspot cells and suggestions for interventions.</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills"><span class="pill">SDG 8 — Decent Work & Economic Growth</span><span class="pill">SDG 11 — Sustainable Cities</span></div>
+
         <details>
-          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (k-means assign step)</summary>
+          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (2D prefix sums)</summary>
           <div class="details-code" role="region" aria-live="polite">
-<pre><code>// Simple k-means assignment (points + centers)
+<pre><code>// 2D prefix sums for grid aggregation
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
-using P = pair<double,double>;
-vector<int> assign_clusters(const vector<P>& pts, const vector<P>& centers){
-    int n=pts.size(), k=centers.size(); vector<int> assign(n);
-    for(int i=0;i<n;i++){
-        int best=0; double bestd=1e300;
-        for(int j=0;j<k;j++){
-            double d = pow(pts[i].first-centers[j].first,2) + pow(pts[i].second-centers[j].second,2);
-            if(d<bestd){ bestd=d; best=j; }
-        }
-        assign[i]=best;
-    }
-    return assign;
+vector<vector<long long>> build_prefix(const vector<vector<int>>& a){
+    int n=a.size(), m=a[0].size();
+    vector<vector<long long>> ps(n+1, vector<long long>(m+1,0));
+    for(int i=1;i<=n;i++) for(int j=1;j<=m;j++) ps[i][j] = a[i-1][j-1] + ps[i-1][j] + ps[i][j-1] - ps[i-1][j-1];
+    return ps;
+}
+long long rect_sum(const vector<vector<long long>>& ps,int r1,int c1,int r2,int c2){
+    return ps[r2+1][c2+1]-ps[r1][c2+1]-ps[r2+1][c1]+ps[r1][c1];
 }
 int main(){ return 0; }</code></pre>
           </div>
@@ -528,41 +413,40 @@ int main(){ return 0; }</code></pre>
       <!-- 8 -->
       <article class="card" id="p8" tabindex="0" aria-labelledby="p8-title">
         <h2 id="p8-title">8. Creation of Green Belt Buffers</h2>
-        <div class="alg">Algorithm: BFS Layers / Morphological Buffer</div>
+        <div class="alg">Algorithm: BFS Layers / Distance Transform</div>
 
         <div class="section-title">Problem Content</div>
         <div class="section-text">Create buffer belts around polluted zones or city limits to protect ecosystems, reduce exposure, and create green corridors for biodiversity.</div>
 
         <div class="section-title">Algorithmic Solution</div>
-        <div class="section-text">Use BFS on grids or distance transforms in rasterized maps to compute layered buffers. Constrain with land ownership and protected zones through masked expansion.</div>
-
-        <div class="section-title">Input / Output (Project Version)</div>
-        <div class="section-text">Input: Raster map with pollution sources and obstacles. Output: Buffer layers map with layer indices (distance bands) and suggested planting areas.</div>
-
-        <div class="section-title">Related SDGs</div>
-        <div class="pills">
-          <span class="pill">SDG 13 — Climate Action</span>
-          <span class="pill">SDG 15 — Life on Land</span>
+        <div class="section-text">
+          Represent the map as a grid. Run multi-source BFS from pollution sources to compute distances to all free cells (BFS layers). The layer index corresponds to distance bands; mask out obstacles or protected zones during expansion. For weighted distances use Dijkstra (heap). This method uses only BFS/Dijkstra and simple queue/heap primitives.
         </div>
 
+        <div class="section-title">Input / Output (Project Version)</div>
+        <div class="section-text">Input: Raster map with pollution sources and obstacles. Output: Buffer layers map and suggested planting band locations.</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills"><span class="pill">SDG 13 — Climate Action</span><span class="pill">SDG 15 — Life on Land</span></div>
+
         <details>
-          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (BFS layers)</summary>
+          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (multi-source BFS)</summary>
           <div class="details-code" role="region" aria-live="polite">
-<pre><code>// BFS buffer layers on grid
+<pre><code>// Multi-source BFS for buffer layers
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 vector<vector<int>> buffer_layers(const vector<vector<int>>& grid, const vector<pair<int,int>>& sources){
-    int n = grid.size(), m = grid[0].size();
+    int n=grid.size(), m=grid[0].size();
     vector<vector<int>> dist(n, vector<int>(m, -1));
-    deque<pair<int,int>> q;
-    for(auto &s: sources){ dist[s.first][s.second]=0; q.push_back(s); }
-    const int dr[4]={1,-1,0,0}; const int dc[4]={0,0,1,-1};
+    queue<pair<int,int>>q;
+    for(auto&s: sources){ dist[s.first][s.second]=0; q.push(s); }
+    int dr[4]={1,-1,0,0}, dc[4]={0,0,1,-1};
     while(!q.empty()){
-        auto cur = q.front(); q.pop_front();
-        int r=cur.first, c=cur.second;
-        for(int k=0;k<4;++k){ int nr=r+dr[k], nc=c+dc[k];
+        auto [r,c]=q.front(); q.pop();
+        for(int k=0;k<4;k++){
+            int nr=r+dr[k], nc=c+dc[k];
             if(nr>=0 && nr<n && nc>=0 && nc<m && dist[nr][nc]==-1 && grid[nr][nc]==0){
-                dist[nr][nc]=dist[r][c]+1; q.emplace_back(nr,nc);
+                dist[nr][nc]=dist[r][c]+1; q.push({nr,nc});
             }
         }
     }
@@ -576,46 +460,39 @@ int main(){ return 0; }</code></pre>
       <!-- 9 -->
       <article class="card" id="p9" tabindex="0" aria-labelledby="p9-title">
         <h2 id="p9-title">9. Footpath Connectivity Plan</h2>
-        <div class="alg">Algorithm: Shortest Paths / Graph Connectivity</div>
+        <div class="alg">Algorithm: Dijkstra + Bridge/Articulation Points (DFS)</div>
 
         <div class="section-title">Problem Content</div>
         <div class="section-text">Detect disconnected pedestrian networks, compute shortest safe routes between origins and destinations, and recommend minimal new links to improve connectivity.</div>
 
         <div class="section-title">Algorithmic Solution</div>
-        <div class="section-text">Use graph constructions with nodes at intersections and weights from pedestrian safety metrics. Dijkstra for shortest paths, bridge/ articulation point detection for vulnerabilities, and minimum link addition via connectivity augmentation heuristics.</div>
-
-        <div class="section-title">Input / Output (Project Version)</div>
-        <div class="section-text">Input: Street graph, pedestrian counts, safe path constraints. Output: Shortest-path matrices, suggested new footpath links and estimated improvement metrics.</div>
-
-        <div class="section-title">Related SDGs</div>
-        <div class="pills">
-          <span class="pill">SDG 11 — Sustainable Cities</span>
-          <span class="pill">SDG 3 — Good Health</span>
+        <div class="section-text">
+          Build the pedestrian network graph. Use Dijkstra for shortest routes and compute bridges/articulation points via DFS to find critical single points of failure. For minimal link addition, compute components and add cheapest edges between components (use Kruskal-like union-find on a reduced component graph). All steps rely on taught graph algorithms.
         </div>
 
+        <div class="section-title">Input / Output (Project Version)</div>
+        <div class="section-text">Input: Street graph, pedestrian counts, safe path constraints. Output: Shortest-path matrices, suggested new footpath links and estimated improvements.</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills"><span class="pill">SDG 11 — Sustainable Cities</span><span class="pill">SDG 3 — Good Health</span></div>
+
         <details>
-          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (Dijkstra)</summary>
+          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (bridge detection via DFS)</summary>
           <div class="details-code" role="region" aria-live="polite">
-<pre><code>// Dijkstra shortest paths (adjacency map)
+<pre><code>// Bridge detection (DFS)
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
-unordered_map<int, long long> dijkstra(const unordered_map<int, vector<pair<int,long long>>>& graph, int start){
-    unordered_map<int,long long> dist;
-    for(auto &kv: graph) dist[kv.first] = LLONG_MAX;
-    dist[start]=0;
-    priority_queue<pair<long long,int>, vector<pair<long long,int>>, greater<pair<long long,int>>> pq;
-    pq.push({0,start});
-    while(!pq.empty()){
-        auto [d,u] = pq.top(); pq.pop();
-        if(d>dist[u]) continue;
-        auto it = graph.find(u);
-        if(it == graph.end()) continue;
-        for(auto [v,w]: it->second){
-            long long nd = d + w;
-            if(nd < dist[v]){ dist[v]=nd; pq.push({nd,v}); }
+void dfs(int u,int p, vector<vector<int>>& g, vector<int>& tin, vector<int>& low, vector<int>& visited, int &timer, vector<pair<int,int>>& bridges){
+    visited[u]=1; tin[u]=low[u]=++timer;
+    for(int v: g[u]){
+        if(v==p) continue;
+        if(visited[v]) low[u]=min(low[u], tin[v]);
+        else{
+            dfs(v,u,g,tin,low,visited,timer,bridges);
+            low[u]=min(low[u], low[v]);
+            if(low[v] > tin[u]) bridges.push_back({u,v});
         }
     }
-    return dist;
 }
 int main(){ return 0; }</code></pre>
           </div>
@@ -625,49 +502,46 @@ int main(){ return 0; }</code></pre>
       <!-- 10 -->
       <article class="card" id="p10" tabindex="0" aria-labelledby="p10-title">
         <h2 id="p10-title">10. Underground Utility Routing</h2>
-        <div class="alg">Algorithm: A* Search / Disjoint Shortest Paths</div>
+        <div class="alg">Algorithm: A* (heuristic) / Dijkstra + Greedy disjoint routing</div>
 
         <div class="section-title">Problem Content</div>
         <div class="section-text">Plan the routing of underground utilities (water, sewer, fiber, power) to avoid spatial conflicts and critical infrastructure while minimizing construction cost and length.</div>
 
         <div class="section-title">Algorithmic Solution</div>
-        <div class="section-text">Model as grid/graph with obstacles. Use A* for pathfinding with Manhattan or Euclidean heuristics. For multiple utilities with disjointness constraints, use successive routing with reserved corridors or multi-commodity flow approximations.</div>
-
-        <div class="section-title">Input / Output (Project Version)</div>
-        <div class="section-text">Input: Grid map with obstacles and existing utilities, start & end coordinates for each route. Output: Set of routes avoiding prohibited cells, length and cost metrics, and clash-free corridor map.</div>
-
-        <div class="section-title">Related SDGs</div>
-        <div class="pills">
-          <span class="pill">SDG 9 — Industry & Infrastructure</span>
-          <span class="pill">SDG 6 — Clean Water & Sanitation</span>
+        <div class="section-text">
+          Model the terrain as a grid graph with obstacles. For each utility route, run A* (or Dijkstra) using Manhattan/Euclidean heuristic to find an optimal path. After routing one utility, mark its corridor as blocked and route the next (greedy sequential routing). For disjointness and multiple commodities, use iterative rerouting with priority queues; all primitives are Dijkstra/A* and greedy heuristics built from taught DS.
         </div>
 
+        <div class="section-title">Input / Output (Project Version)</div>
+        <div class="section-text">Input: Grid map with obstacles and existing utilities, start & end coords. Output: Set of routes avoiding prohibited cells, with length and cost metrics.</div>
+
+        <div class="section-title">Related SDGs</div>
+        <div class="pills"><span class="pill">SDG 9 — Industry & Infrastructure</span><span class="pill">SDG 6 — Clean Water & Sanitation</span></div>
+
         <details>
-          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (A* on grid)</summary>
+          <summary style="margin-top:10px;cursor:pointer;font-weight:700;color:var(--accent-a)">C++ Example (A* skeleton)</summary>
           <div class="details-code" role="region" aria-live="polite">
-<pre><code>// A* Search on grid (Manhattan heuristic)
+<pre><code>// A* skeleton (Manhattan heuristic)
 #include &lt;bits/stdc++.h&gt;
 using namespace std;
 int heuristic(pair<int,int> a, pair<int,int> b){ return abs(a.first-b.first) + abs(a.second-b.second); }
 vector<pair<int,int>> astar(const vector<vector<int>>& grid, pair<int,int> start, pair<int,int> goal){
-    int n = grid.size(), m = grid[0].size();
+    int n=grid.size(), m=grid[0].size();
     using Node = tuple<int,int,int,int>; // f, g, r, c
     priority_queue<Node, vector<Node>, greater<Node>> open;
     map<pair<int,int>, pair<int,int>> came_from;
     map<pair<int,int>, int> gscore;
     open.push({heuristic(start,goal), 0, start.first, start.second});
     gscore[start]=0;
-    const int dr[4]={1,-1,0,0}; const int dc[4]={0,0,1,-1};
+    const int dr[4]={1,-1,0,0}, dc[4]={0,0,1,-1};
     while(!open.empty()){
         auto [f,g,r,c] = open.top(); open.pop();
         pair<int,int> cur={r,c};
-        if(cur==goal){
-            vector<pair<int,int>> path; auto curp=cur;
-            while(came_from.count(curp)){ path.push_back(curp); curp = came_from[curp]; }
-            path.push_back(start);
-            reverse(path.begin(), path.end()); return path;
+        if(cur==goal){ vector<pair<int,int>> path; auto curp=cur;
+            while(came_from.count(curp)){ path.push_back(curp); curp=came_from[curp]; }
+            path.push_back(start); reverse(path.begin(), path.end()); return path;
         }
-        for(int k=0;k<4;++k){ int nr=r+dr[k], nc=c+dc[k];
+        for(int k=0;k<4;k++){ int nr=r+dr[k], nc=c+dc[k];
             if(nr>=0 && nr<n && nc>=0 && nc<m && grid[nr][nc]==0){
                 pair<int,int> nxt={nr,nc}; int tentative = g + 1;
                 if(!gscore.count(nxt) || tentative < gscore[nxt]){
@@ -684,18 +558,17 @@ int main(){ return 0; }</code></pre>
         </details>
       </article>
 
-    </section> <!-- end details-grid -->
+    </section>
 
     <div style="text-align:center;margin-top:22px">
       <a class="top-btn" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">← Back to Top</a>
     </div>
 
     <footer class="footer" role="contentinfo">© 2024 Tejas Keri — Portfolio</footer>
+  </div>
 
-  </div> <!-- end container -->
-
-  <!-- keyboard navigation -->
   <script>
+    // keyboard 1..0 shortcuts
     document.addEventListener('keydown', function(e){
       if(e.key >= '0' && e.key <= '9'){
         let idx = (e.key === '0') ? 10 : Number(e.key);
@@ -704,164 +577,15 @@ int main(){ return 0; }</code></pre>
       }
     });
 
-    // Optional: open/close details via keyboard when focused
-    document.addEventListener('keyup', (e) => {
+    // allow keyboard to toggle <summary> when focused
+    document.addEventListener('keyup', (e)=>{
       if(e.key === 'Enter' || e.key === ' '){
         const active = document.activeElement;
-        if(active && active.tagName.toLowerCase() === 'summary'){
+        if(active && active.tagName && active.tagName.toLowerCase() === 'summary'){
           active.parentElement.open = !active.parentElement.open;
         }
       }
     });
   </script>
-
-  <!-- ========================= PADDING BLOCKS FOR 2000+ LINES START ========================= -->
-  <!-- The following long comment sections are intentionally added to increase the overall line count.
-       They do NOT affect page rendering and can be removed later. -->
-
-  <!-- Padding 1 -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-
-  <!-- Padding 2 -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-
-  <!-- Padding 3 -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-
-  <!-- Padding 4 -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-
-  <!-- Padding 5 -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-
-  <!-- Padding 6 -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-
-  <!-- Padding 7 -->
-  <!-- ================================================================================================= -->
-  <!-- ================================================================================================= -->
-
-  <!-- The blocks above are repeated many times to expand the file size -->
-  <!-- For readability you can collapse these comments in your editor or delete them later -->
-
-  <!-- Repetition loop (conceptual): repeated comment groups to ensure file length is large -->
-  <!-- Repetition 1 -->
-  <!-- ================================================================================================= -->
-  <!-- Repetition 2 -->
-  <!-- ================================================================================================= -->
-  <!-- Repetition 3 -->
-  <!-- ================================================================================================= -->
-  <!-- Repetition 4 -->
-  <!-- ================================================================================================= -->
-  <!-- Repetition 5 -->
-  <!-- ================================================================================================= -->
-  <!-- Repetition 6 -->
-  <!-- ================================================================================================= -->
-  <!-- Repetition 7 -->
-  <!-- ================================================================================================= -->
-  <!-- Repetition 8 -->
-  <!-- ================================================================================================= -->
-  <!-- Repetition 9 -->
-  <!-- ================================================================================================= -->
-  <!-- Repetition 10 -->
-  <!-- ================================================================================================= -->
-
-  <!-- Longer padding: copy of the same repeated comment blocks many times to reach 2k+ lines -->
-  <!-- Padding sequence start -->
-  <!--
-    NOTE: This large comment block intentionally repeated to reach the requested file length.
-    It does not affect the layout or function.
-  -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-  <!-- ================================================================================================ -->
-
-  <!-- If you need the file trimmed, remove these padding sections. -->
-
-  <!-- ========================= PADDING BLOCKS FOR 2000+ LINES END ========================= -->
-
 </body>
 </html>
