@@ -667,7 +667,9 @@ unordered_map<int, long long> dijkstra(const unordered_map<int, vector<pair<int,
     while(!pq.empty()){
         auto [d,u] = pq.top(); pq.pop();
         if(d>dist[u]) continue;
-        for(auto [v,w]: graph.at(u)){
+        auto it = graph.find(u);
+        if(it == graph.end()) continue;
+        for(auto [v,w]: it->second){
             long long nd = d + w;
             if(nd < dist[v]){ dist[v]=nd; pq.push({nd,v}); }
         }
@@ -729,7 +731,7 @@ int main(){ return 0; }`
 ];
 
 /* ----------------------------------------------------
-   UI: render cards, wiring, search, keyboard nav
+   Utilities & DOM refs
 ---------------------------------------------------- */
 const listEl = document.getElementById('problemList');
 const centerTitle = document.getElementById('problemTitle');
@@ -756,7 +758,7 @@ function previewCode(codeStr){
   const lines = String(codeStr||'')
     .split('\n')
     .map(l=>l.replace(/\t/g,'    ').trim())
-    .filter(Boolean);
+    .filter(l => l.length > 0);
   let out = lines.slice(0,2).join(' ⸱ ');
   if(out.length > 90) out = out.slice(0,87) + '...';
   return escapeHtml(out) || '';
@@ -771,6 +773,7 @@ function createCardEl(p) {
   btn.setAttribute('title', p.title);
   btn.setAttribute('role', 'listitem');
 
+  // ensure SDG chips are safe
   const sdgHtml = (p.sdgs || []).map(s => `<span class="sdg-chip">${escapeHtml(s)}</span>`).join(' ');
 
   btn.innerHTML = `
@@ -787,6 +790,7 @@ function createCardEl(p) {
       <div class="preview" aria-hidden="true">${previewCode(p.code)}</div>
     </div>
   `;
+
   btn.addEventListener('click', () => loadProblem(p.id, true));
   btn.addEventListener('keydown', (ev) => {
     if (ev.key === 'Enter' || ev.key === ' ') {
@@ -824,8 +828,18 @@ function loadProblem(id, focusCenter=false){
   centerTitle.innerText = p.title;
   centerDesc.innerText = p.desc;
   centerComplexity.innerText = p.complexity;
+  // Use textContent to avoid executing any HTML inside code sample
   centerCode.textContent = p.code;
-  Prism.highlightElement(centerCode);
+
+  // Try safe Prism highlight if available
+  try {
+    if(window.Prism && typeof Prism.highlightElement === 'function'){
+      Prism.highlightElement(centerCode);
+    }
+  } catch (e) {
+    // silently ignore highlighting errors
+    console.warn('Prism highlight failed', e);
+  }
 
   // SDGs in center
   centerSdgs.innerHTML = '';
@@ -847,8 +861,10 @@ function loadProblem(id, focusCenter=false){
     if(elId === id){
       el.classList.add('active');
       el.setAttribute('aria-pressed', 'true');
-      el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-      el.focus({preventScroll:true});
+      // Scroll into view without heavy animation to avoid layout jank
+      try { el.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } catch(e){ el.scrollIntoView(false); }
+      // focus the card for accessibility, but prevent scrolling (we already scrolled)
+      try { el.focus({preventScroll:true}); } catch(e){ el.focus(); }
     } else {
       el.classList.remove('active');
       el.setAttribute('aria-pressed', 'false');
@@ -856,7 +872,7 @@ function loadProblem(id, focusCenter=false){
   });
 
   if(focusCenter){
-    document.getElementById('center').focus({preventScroll:true});
+    try { document.getElementById('center').focus({preventScroll:true}); } catch(e){ document.getElementById('center').focus(); }
   }
 }
 
@@ -898,7 +914,10 @@ document.addEventListener('keydown', (ev) => {
   const cards = Array.from(document.querySelectorAll('.problem-card'));
   if(cards.length === 0) return;
   let idx = cards.findIndex(c => Number(c.getAttribute('data-id')) === currentId);
-  if(idx === -1) idx = 0;
+  if(idx === -1) {
+    // If none selected, start at first for ArrowDown, last for ArrowUp
+    idx = (ev.key === 'ArrowDown') ? -1 : 0;
+  }
   if(ev.key === 'ArrowDown') idx = Math.min(cards.length - 1, idx + 1);
   if(ev.key === 'ArrowUp') idx = Math.max(0, idx - 1);
   const next = cards[idx];
@@ -941,14 +960,14 @@ try {
 ------------------------- */
 renderCards(problems);
 // Optionally auto-open first item:
-loadProblem(problems[0].id, true);
+if(problems && problems.length) loadProblem(problems[0].id, true);
 
 // Search binding (with debounce)
 searchInput.addEventListener('input', debounce((e) => {
   filter(e.target.value);
 }));
 
-// Expose for debug
+// Expose for debug (safe)
 window.__DAA = { problems, loadProblem, filter, setCollapsed };
 </script>
 
