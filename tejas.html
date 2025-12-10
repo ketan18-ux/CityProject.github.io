@@ -68,24 +68,16 @@
     .hero-banner h1 { margin:0; font-size:22px; }
     .hero-banner p { margin:8px 0 0; font-size:14px; color:rgba(255,255,255,0.95); }
 
-    /* The important grid: row flow, top-aligned */
+    /* The important grid: 2 columns x 5 rows exactly (when width allows) */
     .problems-grid {
       display:grid;
       grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(5, auto); /* 5 rows for 10 items -> 2x5 */
       gap:26px;
-      grid-auto-flow: row;               /* force row-major placement */
-      grid-auto-rows: minmax(180px, auto); /* allow variable heights but keep rows stable */
       align-items: start;                /* cards align to top of cell */
     }
 
-    @media (max-width:1100px) {
-      .root { padding:12px; }
-      .sidebar { display:none; }
-      .problems-grid { grid-template-columns: 1fr; }
-      .main { padding:0 6px; }
-    }
-
-    /* Card */
+    /* ensure each card is visually consistent */
     .card {
       background: var(--panel);
       border-radius: 12px;
@@ -119,6 +111,17 @@
     /* focus outlines for keyboard users */
     .card:focus-within { outline:2px solid rgba(11,111,182,0.08); }
     .nav-link:focus { outline:2px solid rgba(255,255,255,0.12); }
+
+    /* Responsive: collapse to single column on narrow screens */
+    @media (max-width:1100px) {
+      .root { padding:12px; }
+      .sidebar { display:none; }
+      .problems-grid { grid-template-columns: 1fr; grid-template-rows: none; }
+      .main { padding:0 6px; }
+    }
+
+    /* Small tweak: ensure details code pre wraps on small screens */
+    .details-code pre { white-space: pre-wrap; word-break: break-word; }
   </style>
 </head>
 <body>
@@ -157,7 +160,7 @@
         <p>All problems below are written using only algorithms & data structures taught in class (graph algorithms, sorting, trees, heaps, segment/fenwick trees, tries, recursion, backtracking, etc.).</p>
       </div>
 
-      <!-- PROBLEMS GRID (single correct format only) -->
+      <!-- PROBLEMS GRID (2x5) -->
       <section class="problems-grid" id="problems-grid" aria-label="Problems list">
 
         <!-- 1 -->
@@ -626,6 +629,9 @@ int main(){ return 0; }
 
     // Keyboard shortcuts 1..0 -> items 1..10
     document.addEventListener('keydown', function(e){
+      // ignore when typing in form fields
+      const tag = document.activeElement && document.activeElement.tagName;
+      if(tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || document.activeElement.isContentEditable) return;
       if(e.key >= '0' && e.key <= '9'){
         let idx = (e.key === '0') ? 10 : Number(e.key);
         const el = document.getElementById('p' + idx);
@@ -652,6 +658,7 @@ int main(){ return 0; }
 
     // Improve keyboard accessibility for <details> toggles
     document.querySelectorAll('details > summary').forEach(s=>{
+      s.setAttribute('tabindex','0');
       s.addEventListener('keydown', function(e){
         if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.parentElement.open = !this.parentElement.open; }
       });
