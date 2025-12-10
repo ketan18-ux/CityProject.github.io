@@ -14,16 +14,22 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
 
 <style>
-/* Root theme variables (kept from original) */
+/* -----------------------------
+   THEME VARIABLES
+   ----------------------------- */
 :root{
   --bg:#071025;
   --panel:#0b1530;
   --muted:#9aa6bf;
   --accent:#22d3ee;
+  --accent-2:#0891b2;
   --glass: rgba(255,255,255,0.04);
   --card-shadow: 0 10px 30px rgba(2,6,23,0.6);
   --radius: 14px;
-  --transition: .2s ease;
+  --trans-fast: 160ms;
+  --trans: 220ms;
+  --trans-slow: 360ms;
+  --glow: 0 10px 30px rgba(34,211,238,0.06);
 }
 .light {
   --bg: #f4f7fb;
@@ -34,20 +40,25 @@
   --card-shadow: 0 8px 22px rgba(16,24,40,0.08);
 }
 
-/* Base page */
+/* -----------------------------
+   BASE PAGE
+   ----------------------------- */
 html,body{
   height:100%;
   margin:0;
   font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   background: linear-gradient(180deg, #041022 0%, #071025 40%, #071025 100%);
   color: #e6eef8;
-  transition: background 0.45s ease, color 0.35s ease;
+  transition: background var(--trans-slow) ease, color var(--trans-slow) ease;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   line-height:1.45;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* Header / Top */
+/* -----------------------------
+   HEADER
+   ----------------------------- */
 .top {
   max-width:1200px;
   margin:28px auto 12px;
@@ -75,7 +86,7 @@ html,body{
 .top-right{ display:flex; align-items:center; gap:14px; }
 .home-btn{
   padding:10px 16px;
-  background:linear-gradient(90deg,#06b6d4,#0891b2);
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));
   color:#022430;
   font-weight:700;
   border-radius:999px;
@@ -83,7 +94,9 @@ html,body{
   box-shadow: 0 6px 18px rgba(2, 27, 37, 0.25);
 }
 
-/* Layout */
+/* -----------------------------
+   LAYOUT
+   ----------------------------- */
 .container {
   max-width:1200px;
   margin:18px auto 60px;
@@ -93,11 +106,13 @@ html,body{
   align-items:start;
   padding: 0 12px;
 }
-@media (max-width: 920px){
+@media (max-width: 980px){
   .container { grid-template-columns: 1fr; }
 }
 
-/* Sidebar (cards gallery) */
+/* -----------------------------
+   SIDEBAR (single column cards)
+   ----------------------------- */
 .sidebar{
   background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
   border-radius:var(--radius);
@@ -108,7 +123,7 @@ html,body{
   position:relative;
 }
 
-/* Search & controls */
+/* search and controls */
 .controls {
   display:flex;
   gap:8px;
@@ -120,7 +135,7 @@ html,body{
   display:flex;
   align-items:center;
   gap:8px;
-  background: rgba(255,255,255,0.025);
+  background: rgba(255,255,255,0.02);
   padding:8px 10px;
   border-radius:999px;
   border:1px solid rgba(255,255,255,0.03);
@@ -142,63 +157,107 @@ html,body{
   background: rgba(255,255,255,0.01);
 }
 
-/* Cards grid (responsive) */
-.cards-grid{
+/* force single column list of cards */
+.cards-list{
   display:grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap:12px;
+  grid-template-columns: 1fr; /* SINGLE COLUMN */
+  gap:14px;
+  margin-top:6px;
 }
-@media (max-width:720px){ .cards-grid { grid-template-columns: repeat(1, 1fr); } }
 
-/* Single card */
+/* -----------------------------
+   PROBLEM CARD (single-row, elevated)
+   ----------------------------- */
 .problem-card{
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
   border-radius:12px;
-  padding:12px;
+  padding:14px;
   cursor:pointer;
   color:var(--muted);
-  transition: transform var(--transition), background var(--transition), box-shadow var(--transition);
+  transition: transform var(--trans) cubic-bezier(.2,.9,.3,1), box-shadow var(--trans), background var(--trans);
   border:1px solid rgba(255,255,255,0.02);
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  min-height:92px;
+  position:relative;
+  overflow:hidden;
+  outline: none;
+}
+.problem-card::before{
+  content: '';
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+  border-radius:12px;
+}
+.problem-card .index {
+  min-width:44px;
+  height:44px;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  font-family:"JetBrains Mono", monospace;
+  color:#def4ff;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005));
+  border:1px solid rgba(255,255,255,0.03);
+  box-shadow: var(--glow);
+  flex-shrink:0;
+}
+.problem-card .body {
+  flex:1;
   display:flex;
   flex-direction:column;
   gap:8px;
-  min-height:78px;
 }
-.problem-card:hover{
-  transform: translateY(-6px);
-  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
-  color:#eafcff;
-  box-shadow: 0 12px 30px rgba(2,6,23,0.45);
-}
+.problem-card h4{ margin:0; font-size:15px; color:#e9fbff; line-height:1.1; }
 .problem-card .meta {
-  font-size:12px;
+  font-size:13px;
   color:var(--muted);
   display:flex;
   justify-content:space-between;
   gap:8px;
   align-items:center;
 }
-.problem-card h4{ margin:0; font-size:15px; color:#e9fbff; }
-.problem-card pre {
-  margin:0;
+.problem-card .preview {
   margin-top:6px;
-  background:transparent;
-  color:var(--muted);
-  font-family:"JetBrains Mono";
+  font-family: "JetBrains Mono", monospace;
   font-size:12px;
+  color:var(--muted);
+  background: rgba(0,0,0,0.02);
+  padding:8px 10px;
+  border-radius:8px;
+  max-width:100%;
+  white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
-  white-space:nowrap;
 }
 
-/* Active / focus */
-.problem-card.active{
-  outline: 2px solid rgba(34,211,238,0.12);
-  box-shadow: 0 14px 34px rgba(3,139,164,0.12);
+/* hover lift + glow */
+.problem-card:hover{
+  transform: translateY(-10px) scale(1.01);
+  box-shadow: 0 22px 44px rgba(2,6,23,0.6), 0 6px 30px rgba(34,211,238,0.05);
+  background: linear-gradient(180deg, rgba(7,28,45,0.6), rgba(8,18,30,0.55));
+  color:#eafcff;
+}
+.problem-card:active{
+  transform: translateY(-3px) scale(0.998);
+}
+
+/* active card indicator */
+.problem-card.active {
+  box-shadow: 0 24px 48px rgba(2,6,23,0.65), 0 8px 40px rgba(34,211,238,0.12);
+  border: 1px solid rgba(34,211,238,0.16);
+  background: linear-gradient(90deg, rgba(6,182,212,0.06), rgba(7,125,170,0.03));
   color:#eafcff;
 }
 
-/* Center content panel */
+/* -----------------------------
+   CENTER PANEL (DETAILS + CODE)
+   ----------------------------- */
 .center{
   background: linear-gradient(180deg, rgba(10,20,45,0.72), rgba(8,16,32,0.78));
   border-radius:var(--radius);
@@ -211,9 +270,16 @@ html,body{
 .center .desc { color:var(--muted); margin:10px 0 12px; font-size:14px; }
 .center .complexity { font-size:13px; color:var(--muted); margin-bottom:14px; }
 pre { background:#0f1724 !important; padding:18px; border-radius:12px; overflow:auto; }
-code { font-family:"JetBrains Mono", monospace; font-size:14px; display:block; white-space:pre; }
+code { font-family:"JetBrains Mono", monospace; font-size:14px; display:block; white-space:pre; color:#cbeefc; }
 
-/* Tiny accessibility helpers */
+/* small responsive tweaks */
+@media (max-width: 720px){
+  .problem-card { min-height:84px; padding:12px; gap:10px; }
+  .problem-card .index { min-width:40px; height:40px; }
+  .center { padding:16px; }
+}
+
+/* accessibility helper */
 .sr-only{
   position:absolute!important;
   height:1px;width:1px;
@@ -241,13 +307,13 @@ code { font-family:"JetBrains Mono", monospace; font-size:14px; display:block; w
   </div>
 </div>
 
-<!-- MAIN -->
+<!-- MAIN LAYOUT -->
 <div class="container" role="main">
-  <!-- SIDEBAR: cards -->
+  <!-- SIDEBAR: cards list -->
   <aside class="sidebar" aria-label="Problem gallery">
     <div class="controls" aria-hidden="false">
       <div class="search" role="search" aria-label="Search problems">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true" style="opacity:0.9"><path d="M21 21l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <input id="searchInput" type="text" placeholder="Search problems (title or id)..." aria-label="Search problems" />
       </div>
       <div class="count" id="count">10 items</div>
@@ -256,7 +322,7 @@ code { font-family:"JetBrains Mono", monospace; font-size:14px; display:block; w
     <h3 style="margin:6px 0 8px;color:#e6f7ff">A. Case Study Gallery</h3>
     <p style="color:var(--muted); font-size:13px; margin-top:0;">Click a card to view description & code in the right panel.</p>
 
-    <div id="problemList" class="cards-grid" tabindex="0"></div>
+    <div id="problemList" class="cards-list" tabindex="0"></div>
   </aside>
 
   <!-- CENTER content -->
@@ -270,8 +336,10 @@ code { font-family:"JetBrains Mono", monospace; font-size:14px; display:block; w
 
 <script>
 /* ----------------------------------------------------
-   PROBLEM DATA (kept as in your original file)
-   - Full content preserved from the earlier data you provided.
+   PROBLEM DATA
+   (All full code blocks are included as strings here.
+    Replace or expand with your original 900+ lines implementations
+    by pasting the full functions into the `code` fields below.)
 ---------------------------------------------------- */
 const problems = [
   {
@@ -284,29 +352,124 @@ const problems = [
 def median_1d(points):
     points = sorted(points)
     n = len(points)
-    if n % 2: return points[n//2]
-    return (points[n//2-1] + points[n//2]) / 2`
+    if n % 2:
+        return points[n//2]
+    return (points[n//2-1] + points[n//2]) / 2
+
+# Example usage:
+if __name__ == "__main__":
+    pts = [1, 5, 9, 3, 8]
+    print("Median:", median_1d(pts))`
   },
   {
     id: 2,
     title: "School Allocation to Students",
     desc: "Assign students to the nearest school under capacity constraints using Max-Flow.",
     complexity: "O(E √V) using Dinic’s Algorithm.",
-    code: `# Max Flow based School Allocation
+    code: `# Max Flow based School Allocation (Dinic)
+from collections import deque
+
 class Dinic:
-    def __init__(self,n):
-        self.n=n; self.adj=[[] for _ in range(n)]
-    # (truncated preview — full implementation exists in your 900+ lines file)`
+    def __init__(self, n):
+        self.n = n
+        self.adj = [[] for _ in range(n)]
+
+    def add_edge(self, u, v, cap):
+        self.adj[u].append([v, cap, len(self.adj[v])])
+        self.adj[v].append([u, 0, len(self.adj[u]) - 1])
+
+    def bfs_level(self, s, t, level):
+        q = deque([s])
+        level[:] = [-1]*self.n
+        level[s] = 0
+        while q:
+            u = q.popleft()
+            for v, cap, rev in self.adj[u]:
+                if cap > 0 and level[v] < 0:
+                    level[v] = level[u] + 1
+                    q.append(v)
+        return level[t] >= 0
+
+    def dfs_flow(self, u, t, f, level, it):
+        if u == t:
+            return f
+        for i in range(it[u], len(self.adj[u])):
+            v, cap, rev = self.adj[u][i]
+            if cap > 0 and level[v] == level[u] + 1:
+                ret = self.dfs_flow(v, t, min(f, cap), level, it)
+                if ret > 0:
+                    self.adj[u][i][1] -= ret
+                    self.adj[v][self.adj[u][i][2]][1] += ret
+                    return ret
+            it[u] += 1
+        return 0
+
+    def max_flow(self, s, t):
+        flow = 0
+        level = [-1]*self.n
+        while self.bfs_level(s, t, level):
+            it = [0]*self.n
+            while True:
+                f = self.dfs_flow(s, t, 10**18, level, it)
+                if f == 0: break
+                flow += f
+        return flow
+
+# (Integrate your full allocation construction here.)`
   },
   {
     id: 3,
     title: "Smart Parking Slot Allocation",
     desc: "Assign cars to slots minimizing walking distance using Hungarian Algorithm.",
     complexity: "O(n³)",
-    code: `# Hungarian Algorithm
+    code: `# Hungarian Algorithm (assignment)
 def hungarian(cost):
-    n=len(cost)
-    # (full implementation is in your main file)`
+    # cost: n x n matrix
+    n = len(cost)
+    u = [0]*(n+1)
+    v = [0]*(n+1)
+    p = [0]*(n+1)
+    way = [0]*(n+1)
+    for i in range(1, n+1):
+        p[0] = i
+        j0 = 0
+        minv = [float('inf')] * (n+1)
+        used = [False] * (n+1)
+        while True:
+            used[j0] = True
+            i0 = p[j0]
+            delta = float('inf')
+            j1 = 0
+            for j in range(1, n+1):
+                if not used[j]:
+                    cur = cost[i0-1][j-1] - u[i0] - v[j]
+                    if cur < minv[j]:
+                        minv[j] = cur
+                        way[j] = j0
+                    if minv[j] < delta:
+                        delta = minv[j]
+                        j1 = j
+            for j in range(0, n+1):
+                if used[j]:
+                    u[p[j]] += delta
+                    v[j] -= delta
+                else:
+                    minv[j] -= delta
+            j0 = j1
+            if p[j0] == 0:
+                break
+        while True:
+            j1 = way[j0]
+            p[j0] = p[j1]
+            j0 = j1
+            if j0 == 0:
+                break
+    # result in p
+    ans = [-1]*n
+    for j in range(1, n+1):
+        if p[j] != 0:
+            ans[p[j]-1] = j-1
+    return ans`
   },
   {
     id: 4,
@@ -314,18 +477,49 @@ def hungarian(cost):
     desc: "Color blocks ensuring industries do not touch residential regions.",
     complexity: "O(V+E) for bipartite check.",
     code: `# Graph bipartite check
-def is_bipartite(g):
-    color={}`
+from collections import deque
+
+def is_bipartite(graph):
+    n = len(graph)
+    color = [-1]*n
+    for i in range(n):
+        if color[i] != -1: continue
+        q = deque([i])
+        color[i] = 0
+        while q:
+            u = q.popleft()
+            for v in graph[u]:
+                if color[v] == -1:
+                    color[v] = color[u]^1
+                    q.append(v)
+                elif color[v] == color[u]:
+                    return False
+    return True`
   },
   {
     id: 5,
     title: "Public Park Placement Optimization",
     desc: "Select park sites to maximize population coverage using greedy + Fenwick Tree.",
     complexity: "O(k n log n)",
-    code: `# Fenwick Tree structure
+    code: `# Fenwick Tree structure (Binary Indexed Tree)
 class Fenwick:
-    def __init__(self,n):
-        self.n=n; self.bit=[0]*(n+1)`
+    def __init__(self, n):
+        self.n = n
+        self.bit = [0]*(n+1)
+
+    def add(self, idx, val):
+        i = idx+1
+        while i <= self.n:
+            self.bit[i] += val
+            i += i & -i
+
+    def sum(self, idx):
+        res = 0
+        i = idx+1
+        while i > 0:
+            res += self.bit[i]
+            i -= i & -i
+        return res`
   },
   {
     id: 6,
@@ -334,24 +528,55 @@ class Fenwick:
     complexity: "O(n log n)",
     code: `# Polygon area via Shoelace
 def polygon_area(poly):
-    s=0; n=len(poly)`
+    s = 0
+    n = len(poly)
+    for i in range(n):
+        x1,y1 = poly[i]
+        x2,y2 = poly[(i+1)%n]
+        s += x1*y2 - x2*y1
+    return abs(s)/2`
   },
   {
     id: 7,
     title: "High Footfall Commercial Zone Prediction",
     desc: "Predict high footfall zones using clustering + movement density.",
     complexity: "O(nk) per iteration",
-    code: `# Simple clustering logic
+    code: `# Simple clustering logic example (k-means like)
 def assign(points, centers):
-    out=[[] for _ in centers]`
+    clusters = [[] for _ in centers]
+    for p in points:
+        best = 0
+        bestd = float('inf')
+        for i,c in enumerate(centers):
+            d = (p[0]-c[0])**2 + (p[1]-c[1])**2
+            if d < bestd:
+                bestd = d; best = i
+        clusters[best].append(p)
+    return clusters`
   },
   {
     id: 8,
     title: "Creation of Green Belt Buffers",
     desc: "Use BFS/DFS layers to form multi-zone buffer around polluted areas.",
     complexity: "O(V+E)",
-    code: `# BFS buffer
-from collections import deque`
+    code: `# BFS buffer layers
+from collections import deque
+
+def buffer_layers(grid, sources):
+    n = len(grid); m = len(grid[0])
+    dist = [[-1]*m for _ in range(n)]
+    q = deque()
+    for (r,c) in sources:
+        dist[r][c] = 0; q.append((r,c))
+    dirs = [(1,0),(-1,0),(0,1),(0,-1)]
+    while q:
+        r,c = q.popleft()
+        for dr,dc in dirs:
+            nr,nc = r+dr, c+dc
+            if 0<=nr<n and 0<=nc<m and dist[nr][nc] == -1:
+                dist[nr][nc] = dist[r][c] + 1
+                q.append((nr,nc))
+    return dist`
   },
   {
     id: 9,
@@ -359,7 +584,21 @@ from collections import deque`
     desc: "Model nodes as junctions and compute shortest safe routes.",
     complexity: "Dijkstra — O(E log V)",
     code: `# Dijkstra Shortest Path
-import heapq`
+import heapq
+
+def dijkstra(graph, start):
+    dist = {v: float('inf') for v in graph}
+    dist[start] = 0
+    h = [(0, start)]
+    while h:
+        d, u = heapq.heappop(h)
+        if d > dist[u]: continue
+        for v,w in graph[u]:
+            nd = d + w
+            if nd < dist[v]:
+                dist[v] = nd
+                heapq.heappush(h, (nd, v))
+    return dist`
   },
   {
     id: 10,
@@ -367,15 +606,39 @@ import heapq`
     desc: "Plan underground cables avoiding obstacles using A*.",
     complexity: "O(E log V)",
     code: `# A* Search
+import heapq
+
 def heuristic(a,b):
-    return abs(a[0]-b[0]) + abs(a[1]-b[1])`
+    return abs(a[0]-b[0]) + abs(a[1]-b[1])
+
+def astar(grid, start, goal):
+    n,m = len(grid), len(grid[0])
+    open_set = [(heuristic(start, goal), 0, start)]
+    gscore = {start:0}
+    came_from = {}
+    while open_set:
+        _, cost, cur = heapq.heappop(open_set)
+        if cur == goal:
+            path = []
+            while cur in came_from:
+                path.append(cur)
+                cur = came_from[cur]
+            return path[::-1]
+        for dr,dc in [(1,0),(-1,0),(0,1),(0,-1)]:
+            nr, nc = cur[0]+dr, cur[1]+dc
+            if 0<=nr<n and 0<=nc<m and grid[nr][nc] != 1: # assume 1 is obstacle
+                tentative = gscore[cur] + 1
+                nxt = (nr,nc)
+                if tentative < gscore.get(nxt, float('inf')):
+                    gscore[nxt] = tentative
+                    came_from[nxt] = cur
+                    heapq.heappush(open_set, (tentative + heuristic(nxt, goal), tentative, nxt))
+    return None`
   }
 ];
 
 /* ----------------------------------------------------
-   RENDER CARD GRID (efficiently)
-   - Create document fragments to minimize reflows
-   - Add keyboard accessibility (Enter / Space) and aria attributes
+   RENDER CARDS (single-column), with accessibility
 ---------------------------------------------------- */
 const listEl = document.getElementById('problemList');
 const centerTitle = document.getElementById('problemTitle');
@@ -388,45 +651,42 @@ const searchInput = document.getElementById('searchInput');
 let currentId = null;
 
 function createCardEl(p) {
-  const card = document.createElement('button');
-  card.type = "button";
-  card.className = 'problem-card';
-  card.setAttribute('data-id', p.id);
-  card.setAttribute('aria-pressed', 'false');
-  card.setAttribute('title', p.title);
-  card.innerHTML = `
-    <div style="display:flex;justify-content:space-between;align-items:center">
-      <h4>${p.id}. ${p.title}</h4>
-      <div class="meta" aria-hidden="true">
-        <span style="font-size:12px">${p.id}</span>
+  const btn = document.createElement('button');
+  btn.type = "button";
+  btn.className = 'problem-card';
+  btn.setAttribute('data-id', p.id);
+  btn.setAttribute('aria-pressed', 'false');
+  btn.setAttribute('title', p.title);
+  btn.innerHTML = `
+    <div class="index">${p.id}</div>
+    <div class="body">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <h4>${p.title}</h4>
+        <div class="meta" aria-hidden="true">
+          <small>${p.complexity.split(';')[0]}</small>
+        </div>
       </div>
+      <div class="meta">${p.desc}</div>
+      <div class="preview">${previewCode(p.code)}</div>
     </div>
-    <div class="meta">
-      <span style="display:inline-block;max-width:70%">${p.desc}</span>
-      <small style="opacity:.9">${p.complexity.split(';')[0]}</small>
-    </div>
-    <pre aria-hidden="true">${previewCode(p.code)}</pre>
   `;
-  // Click & keyboard handling
-  card.addEventListener('click', () => loadProblem(p.id, true));
-  card.addEventListener('keydown', (ev) => {
+  btn.addEventListener('click', () => loadProblem(p.id, true));
+  btn.addEventListener('keydown', (ev) => {
     if (ev.key === 'Enter' || ev.key === ' ') {
       ev.preventDefault();
       loadProblem(p.id, true);
     }
   });
-  return card;
+  return btn;
 }
 
-// Small preview extractor: first line or two, safe for display
 function previewCode(codeStr){
-  const lines = String(codeStr).split('\n').map(l=>l.trim());
+  const lines = String(codeStr).split('\n').map(l=>l.trim()).filter(Boolean);
   let out = lines.slice(0,2).join(' ⸱ ');
-  if(out.length > 80) out = out.slice(0,77) + '...';
-  return out;
+  if(out.length > 90) out = out.slice(0,87) + '...';
+  return out || '';
 }
 
-// Initial render
 function renderCards(items){
   listEl.innerHTML = '';
   const frag = document.createDocumentFragment();
@@ -437,8 +697,8 @@ function renderCards(items){
   countEl.innerText = `${items.length} items`;
 }
 
-// Load problem into center panel
-function loadProblem(id, focusCenter = false){
+// load into center panel and highlight
+function loadProblem(id, focusCenter=false){
   const p = problems.find(x => x.id === id);
   if(!p) return;
   currentId = id;
@@ -448,13 +708,12 @@ function loadProblem(id, focusCenter = false){
   centerCode.textContent = p.code;
   Prism.highlightElement(centerCode);
 
-  // Update active card
+  // active styling
   document.querySelectorAll('.problem-card').forEach(el => {
     const elId = Number(el.getAttribute('data-id'));
     if(elId === id){
       el.classList.add('active');
       el.setAttribute('aria-pressed', 'true');
-      // ensure visible inside sidebar
       el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     } else {
       el.classList.remove('active');
@@ -463,12 +722,13 @@ function loadProblem(id, focusCenter = false){
   });
 
   if(focusCenter){
-    // focus center for keyboard users
     document.getElementById('center').focus({preventScroll:true});
   }
 }
 
-// Search / filter (title or id)
+/* -------------------------
+   SEARCH & FILTER
+   ------------------------- */
 function filter(q){
   const term = String(q||'').trim().toLowerCase();
   if(!term){
@@ -482,7 +742,6 @@ function filter(q){
   renderCards(filtered);
 }
 
-// Debounce helper
 function debounce(fn, wait=180){
   let t;
   return (...args) => {
@@ -491,24 +750,11 @@ function debounce(fn, wait=180){
   };
 }
 
-// initialize
-renderCards(problems);
-
-// If you previously had internal 900+ lines, the full algorithmic implementations
-// should remain in that file. This view is optimized to serve those implementations
-// as the 'code' field for each card — here we show previews and load the full
-// implementation into the center for reading/highlighting. If you'd like, we can
-// automatically wire the large original functions into the 'code' property
-// programmatically (left as an easy follow-up if you want me to inject them).
-
-// Search binding
-searchInput.addEventListener('input', debounce((e) => {
-  filter(e.target.value);
-}));
-
-// Keyboard: support arrow navigation through cards
+/* -------------------------
+   KEYBOARD NAVIGATION (Up/Down)
+   ------------------------- */
 document.addEventListener('keydown', (ev) => {
-  if(!['ArrowDown','ArrowUp'].includes(ev.key)) return;
+  if(['ArrowDown','ArrowUp'].indexOf(ev.key) === -1) return;
   const cards = Array.from(document.querySelectorAll('.problem-card'));
   if(cards.length === 0) return;
   let idx = cards.findIndex(c => Number(c.getAttribute('data-id')) === currentId);
@@ -523,10 +769,19 @@ document.addEventListener('keydown', (ev) => {
   }
 });
 
-// For progressive enhancement: if you want the first item open on load
-// loadProblem(problems[0].id);
+/* -------------------------
+   INIT
+   ------------------------- */
+renderCards(problems);
+// Optionally auto-open first item (commented by default)
+// loadProblem(problems[0].id, true);
 
-// Expose for debugging
+// Search binding
+searchInput.addEventListener('input', debounce((e) => {
+  filter(e.target.value);
+}));
+
+// Expose for debug
 window.__DAA = { problems, loadProblem, filter };
 </script>
 
