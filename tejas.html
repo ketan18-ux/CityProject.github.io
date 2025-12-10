@@ -21,11 +21,17 @@
       --sans: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
       --sidebar-w: 300px;
       --max-width: 1200px;
+
+      /* animation tuning */
+      --hover-lift: -6px;           /* soft lift amount (Option 1) */
+      --hover-scale: 1.03;          /* soft scale */
+      --glow-color: rgba(11,111,182,0.18);
+      --card-transition: 360ms cubic-bezier(.2,.9,.3,1);
     }
 
     /* Basic reset */
     * { box-sizing: border-box; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
-    html,body { height:100%; margin:0; font-family:var(--sans); background:linear-gradient(180deg,#f7fbfd 0%,#f4f7fb 100%); color:var(--text); }
+    html,body { height:100%; margin:0; font-family:var(--sans); background:linear-gradient(180deg,#f7fbfd 0%,#f4f7fb 100%); color:var(--text); -webkit-font-smoothing:antialiased; }
     a{ color:inherit; text-decoration:none; }
     img{ max-width:100%; display:block; height:auto; }
 
@@ -39,6 +45,7 @@
       color:white; padding:22px; border-radius:12px;
       position:sticky; top:18px; height: calc(100vh - 36px); overflow:auto;
       box-shadow:0 12px 30px rgba(7,20,40,0.12);
+      transition: box-shadow 300ms ease, transform 300ms ease;
     }
     .sidebar .brand { display:flex; gap:12px; align-items:center; margin-bottom:12px; }
     .logo { width:56px; height:56px; border-radius:10px; background:rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:18px; }
@@ -49,8 +56,21 @@
     .profile div { margin-bottom:6px; }
 
     .nav { display:flex; flex-direction:column; gap:8px; margin-top:18px; }
-    .nav-link { display:block; padding:10px 12px; border-radius:10px; background:rgba(255,255,255,0.02); font-weight:600; color:rgba(255,255,255,0.95); }
-    .nav-link.active { background: rgba(255,255,255,0.06); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02); }
+    .nav-link {
+      display:block; padding:10px 12px; border-radius:10px; background:rgba(255,255,255,0.02);
+      font-weight:600; color:rgba(255,255,255,0.95); position:relative; overflow:hidden;
+      transition: transform 220ms ease, box-shadow 220ms ease, background 220ms ease;
+    }
+    .nav-link::after{
+      content:""; position:absolute; left:10px; bottom:6px; height:3px; width:0; background:rgba(255,255,255,0.18); border-radius:3px; transition: width 300ms ease;
+    }
+    .nav-link:hover{ transform: translateX(8px); box-shadow: 0 10px 20px rgba(0,0,0,0.12); }
+    .nav-link:hover::after{ width: calc(100% - 20px); }
+
+    .nav-link.active {
+      background: rgba(255,255,255,0.06);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+    }
 
     .nav-note { margin-top:14px; font-size:12px; opacity:0.95; }
 
@@ -68,7 +88,11 @@
       border-radius:12px;
       box-shadow:0 14px 36px rgba(7,40,90,0.12);
       margin-bottom:18px;
+      transform-origin:center;
+      transition: transform 350ms var(--card-transition);
     }
+    .hero-banner:hover{ transform: translateY(-4px) scale(1.01); }
+
     .hero-banner h1 { margin:0; font-size:22px; }
     .hero-banner p { margin:8px 0 0; font-size:14px; color:rgba(255,255,255,0.95); }
 
@@ -83,7 +107,7 @@
 
     @media (max-width:1100px) {
       .root { padding:12px; }
-      .sidebar { display:none; }
+      .sidebar { display:none; transform:none !important; }
       .problems-grid { grid-template-columns: 1fr; grid-template-rows: none; }
       .main { padding:0 6px; }
     }
@@ -100,7 +124,43 @@
       gap:10px;
       min-height: 220px;
       position:relative;
+
+      /* entrance */
+      opacity: 0;
+      transform: translateY(18px) scale(0.995);
+      transition: transform var(--card-transition), box-shadow var(--card-transition), opacity 420ms ease;
+      will-change: transform, box-shadow;
     }
+
+    /* in-view class is toggled by JS on intersection */
+    .card.in-view{ opacity:1; transform: translateY(0) scale(1); }
+
+    /* Hover (Soft Premium Pop Out - Option 1) */
+    .card:hover{
+      transform: translateY(var(--hover-lift)) scale(var(--hover-scale));
+      box-shadow: 0 26px 60px rgba(8,40,90,0.18), 0 6px 18px rgba(11,111,182,0.06);
+      border-left-color: rgba(11,111,182,0.16);
+      transition: transform 220ms cubic-bezier(.2,.9,.3,1), box-shadow 220ms cubic-bezier(.2,.9,.3,1);
+    }
+
+    /* Glow effect via pseudo element for smoothness (no layout shift) */
+    .card::before{
+      content:"";
+      position:absolute; inset:0; border-radius:12px;
+      box-shadow: 0 0 0 0 rgba(11,111,182,0);
+      transition: box-shadow 220ms ease;
+      pointer-events:none;
+    }
+    .card:hover::before{ box-shadow: 0 18px 50px var(--glow-color); }
+
+    /* Gentle idle floating pulse (very subtle) */
+    @keyframes floatPulse {
+      0% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-4px) scale(1.001); }
+      100% { transform: translateY(0) scale(1); }
+    }
+    .card.idle { animation: floatPulse 6.5s ease-in-out infinite; }
+
     .card h2 { margin:0; font-size:20px; font-weight:800; color:var(--text); }
     .alg { color:var(--accent-a); font-weight:700; font-size:13px; margin-top:4px; }
     .section-title { font-size:13px; font-weight:700; margin-top:8px; color:#093759; }
@@ -110,19 +170,27 @@
     .pill { background: rgba(2,6,23,0.04); padding:8px 12px; border-radius:999px; font-size:13px; color:var(--muted); }
 
     /* Collapsible code block styling */
-    details summary { cursor:pointer; font-weight:700; color:var(--accent-a); margin-top:10px; }
-    .details-code { margin-top:8px; background:#0f1724; border-radius:8px; padding:12px; overflow:auto; color:#cbeefc; font-family:var(--mono); font-size:13px; line-height:1.5; }
+    details summary { cursor:pointer; font-weight:700; color:var(--accent-a); margin-top:10px; list-style:none; outline:none; }
+    details summary::-webkit-details-marker { display:none; }
+    details[open] summary { color: var(--accent-b); }
+
+    .details-code { margin-top:8px; background:#0f1724; border-radius:8px; padding:12px; overflow:auto; color:#cbeefc; font-family:var(--mono); font-size:13px; line-height:1.5; transform-origin: top center; transition: transform 300ms ease, opacity 260ms ease; }
+    details:not([open]) .details-code{ display:none; }
+
     pre { margin:0; white-space:pre; font-family:var(--mono); font-size:13px; }
 
     /* Image toggle styling */
-    .toggle-image { margin-top:8px; cursor:pointer; color:var(--accent-b); font-weight:700; text-decoration:underline; }
-    .image-panel { display:none; margin-top:10px; border-radius:8px; overflow:hidden; border:1px solid rgba(2,6,23,0.04); }
-    .image-panel img { width:100%; height:auto; display:block; }
+    .toggle-image { margin-top:8px; cursor:pointer; color:var(--accent-b); font-weight:700; text-decoration:underline; transition: color 180ms ease; }
+    .toggle-image:focus{ outline:2px dashed rgba(11,111,182,0.18); outline-offset:4px; border-radius:6px; }
+    .image-panel { max-height:0; overflow:hidden; margin-top:10px; border-radius:8px; transition: max-height 420ms cubic-bezier(.2,.9,.3,1), opacity 300ms ease, transform 380ms ease; opacity:0; transform: translateY(-6px); border:1px solid rgba(2,6,23,0.04); }
+    .image-panel.open { opacity:1; transform: translateY(0); max-height: 800px; }
+    .image-panel img { width:100%; height:auto; display:block; border-radius:8px; box-shadow: 0 8px 24px rgba(2,12,40,0.08); }
 
     /* Footer / top button */
     .footer { margin-top:28px; padding:14px; border-radius:12px; background:#083b72; color:white; text-align:center; font-size:14px; box-shadow:0 12px 28px rgba(7,40,90,0.12); }
 
-    .top-btn { display:inline-block; margin-top:16px; padding:10px 18px; border-radius:999px; background:linear-gradient(90deg,var(--accent-a),var(--accent-b)); color:white; text-decoration:none; font-weight:700; }
+    .top-btn { display:inline-block; margin-top:16px; padding:10px 18px; border-radius:999px; background:linear-gradient(90deg,var(--accent-a),var(--accent-b)); color:white; text-decoration:none; font-weight:700; transition: transform 200ms ease, box-shadow 200ms ease; }
+    .top-btn:hover{ transform: translateY(-4px); box-shadow: 0 12px 30px rgba(7,40,90,0.18); }
 
     /* technical section styles (dark) */
     .tech-wrap{ margin-top:28px; padding:20px; border-radius:12px; background:linear-gradient(180deg,#031223,#071b2a); color:#cfeafc; box-shadow:0 10px 30px rgba(2,10,20,0.35); }
@@ -135,7 +203,19 @@
 
     /* focus outlines for keyboard users */
     .card:focus-within { outline:2px solid rgba(11,111,182,0.08); }
-    .nav-link:focus { outline:2px solid rgba(255,255,255,0.12); }
+    .nav-link:focus { outline:2px dashed rgba(255,255,255,0.12); outline-offset:4px; }
+
+    /* subtle animated anchor highlight when card active (for keyboard) */
+    .nav-link.active::before{
+      content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:linear-gradient(180deg,var(--accent-a),var(--accent-b));
+      border-radius:4px 0 0 4px; box-shadow: 0 8px 26px rgba(11,111,182,0.12);
+    }
+
+    /* small responsive tweaks */
+    @media (max-width:700px){
+      .hero-banner h1 { font-size:20px; }
+      .card { padding:16px; }
+    }
   </style>
 </head>
 <body>
@@ -197,7 +277,7 @@
         <section class="problems-grid" id="problems-grid" aria-label="Problems list">
 
           <!-- 1 -->
-          <article class="card" id="p1" tabindex="0" aria-labelledby="p1-title">
+          <article class="card idle" id="p1" tabindex="0" aria-labelledby="p1-title">
             <h2 id="p1-title">1. Optimal Hospital Location</h2>
             <div class="alg">Algorithm: Weighted Median (Math Foundations)</div>
 
@@ -216,8 +296,8 @@
               <span class="pill">SDG 11 — Sustainable Cities</span>
             </div>
 
-            <p class="toggle-image" onclick="toggleImage('img1')">📷 Click to View Image</p>
-            <div class="image-panel" id="img1">
+            <p class="toggle-image" role="button" tabindex="0" onclick="toggleImage('img1')" onkeydown="if(event.key==='Enter') toggleImage('img1')">📷 Click to View Image</p>
+            <div class="image-panel" id="img1" aria-hidden="true">
               <img src="images/image1.jpg" alt="Problem 1 image (dummy: image1)">
             </div>
 
@@ -247,7 +327,7 @@ int main(){
           </article>
 
           <!-- 2 -->
-          <article class="card" id="p2" tabindex="0" aria-labelledby="p2-title">
+          <article class="card idle" id="p2" tabindex="0" aria-labelledby="p2-title">
             <h2 id="p2-title">2. School Allocation to Students</h2>
             <div class="alg">Algorithm: Dijkstra + Greedy Assignment (Heap)</div>
 
@@ -266,8 +346,8 @@ int main(){
               <span class="pill">SDG 10 — Reduced Inequalities</span>
             </div>
 
-            <p class="toggle-image" onclick="toggleImage('img2')">📷 Click to View Image</p>
-            <div class="image-panel" id="img2">
+            <p class="toggle-image" role="button" tabindex="0" onclick="toggleImage('img2')" onkeydown="if(event.key==='Enter') toggleImage('img2')">📷 Click to View Image</p>
+            <div class="image-panel" id="img2" aria-hidden="true">
               <img src="images/image2.jpg" alt="Problem 2 image (dummy: image2)">
             </div>
 
@@ -314,7 +394,7 @@ int main(){ ios::sync_with_stdio(false); cin.tie(nullptr);
           </article>
 
           <!-- 3 -->
-          <article class="card" id="p3" tabindex="0" aria-labelledby="p3-title">
+          <article class="card idle" id="p3" tabindex="0" aria-labelledby="p3-title">
             <h2 id="p3-title">3. Smart Parking Slot Allocation</h2>
             <div class="alg">Algorithm: Greedy Assignment + Trie for permit lookup</div>
 
@@ -333,8 +413,8 @@ int main(){ ios::sync_with_stdio(false); cin.tie(nullptr);
               <span class="pill">SDG 9 — Industry & Infrastructure</span>
             </div>
 
-            <p class="toggle-image" onclick="toggleImage('img3')">📷 Click to View Image</p>
-            <div class="image-panel" id="img3">
+            <p class="toggle-image" role="button" tabindex="0" onclick="toggleImage('img3')" onkeydown="if(event.key==='Enter') toggleImage('img3')">📷 Click to View Image</p>
+            <div class="image-panel" id="img3" aria-hidden="true">
               <img src="images/image3.jpg" alt="Problem 3 image (dummy: image3)">
             </div>
 
@@ -369,7 +449,7 @@ int main(){ ios::sync_with_stdio(false); cin.tie(nullptr);
           </article>
 
           <!-- 4 -->
-          <article class="card" id="p4" tabindex="0" aria-labelledby="p4-title">
+          <article class="card idle" id="p4" tabindex="0" aria-labelledby="p4-title">
             <h2 id="p4-title">4. Industrial vs Residential Separation</h2>
             <div class="alg">Algorithm: Graph Coloring (BFS/DFS)</div>
 
@@ -388,8 +468,8 @@ int main(){ ios::sync_with_stdio(false); cin.tie(nullptr);
               <span class="pill">SDG 3 — Good Health</span>
             </div>
 
-            <p class="toggle-image" onclick="toggleImage('img4')">📷 Click to View Image</p>
-            <div class="image-panel" id="img4">
+            <p class="toggle-image" role="button" tabindex="0" onclick="toggleImage('img4')" onkeydown="if(event.key==='Enter') toggleImage('img4')">📷 Click to View Image</p>
+            <div class="image-panel" id="img4" aria-hidden="true">
               <img src="images/image4.jpg" alt="Problem 4 image (dummy: image4)">
             </div>
 
@@ -424,7 +504,7 @@ int main(){ int n,m; cin>>n>>m; vector&lt;vector<int&gt;&gt g(n);
           </article>
 
           <!-- 5 -->
-          <article class="card" id="p5" tabindex="0" aria-labelledby="p5-title">
+          <article class="card idle" id="p5" tabindex="0" aria-labelledby="p5-title">
             <h2 id="p5-title">5. Public Park Placement Optimization</h2>
             <div class="alg">Algorithm: Greedy Max-Coverage + Fenwick tree support</div>
 
@@ -443,8 +523,8 @@ int main(){ int n,m; cin>>n>>m; vector&lt;vector<int&gt;&gt g(n);
               <span class="pill">SDG 3 — Good Health</span>
             </div>
 
-            <p class="toggle-image" onclick="toggleImage('img5')">📷 Click to View Image</p>
-            <div class="image-panel" id="img5">
+            <p class="toggle-image" role="button" tabindex="0" onclick="toggleImage('img5')" onkeydown="if(event.key==='Enter') toggleImage('img5')">📷 Click to View Image</p>
+            <div class="image-panel" id="img5" aria-hidden="true">
               <img src="images/image5.jpg" alt="Problem 5 image (dummy: image5)">
             </div>
 
@@ -488,7 +568,7 @@ int main(){
           </article>
 
           <!-- 6 -->
-          <article class="card" id="p6" tabindex="0" aria-labelledby="p6-title">
+          <article class="card idle" id="p6" tabindex="0" aria-labelledby="p6-title">
             <h2 id="p6-title">6. Land Subdivision Optimization</h2>
             <div class="alg">Algorithm: Divide & Conquer.</div>
 
@@ -507,8 +587,8 @@ int main(){
               <span class="pill">SDG 15 — Life on Land</span>
             </div>
 
-            <p class="toggle-image" onclick="toggleImage('img6')">📷 Click to View Image</p>
-            <div class="image-panel" id="img6">
+            <p class="toggle-image" role="button" tabindex="0" onclick="toggleImage('img6')" onkeydown="if(event.key==='Enter') toggleImage('img6')">📷 Click to View Image</p>
+            <div class="image-panel" id="img6" aria-hidden="true">
               <img src="images/image6.jpg" alt="Problem 6 image (dummy: image6)">
             </div>
 
@@ -530,7 +610,7 @@ int main(){ int n; cin>>n; vector&lt;pair<double,double&gt;&gt poly(n); for(int 
           </article>
 
           <!-- 7 -->
-          <article class="card" id="p7" tabindex="0" aria-labelledby="p7-title">
+          <article class="card idle" id="p7" tabindex="0" aria-labelledby="p7-title">
             <h2 id="p7-title">7. High Footfall Commercial Zone Prediction</h2>
             <div class="alg">Algorithm: Grid Binning + 2D Prefix Sums</div>
 
@@ -549,8 +629,8 @@ int main(){ int n; cin>>n; vector&lt;pair<double,double&gt;&gt poly(n); for(int 
               <span class="pill">SDG 11 — Sustainable Cities</span>
             </div>
 
-            <p class="toggle-image" onclick="toggleImage('img7')">📷 Click to View Image</p>
-            <div class="image-panel" id="img7">
+            <p class="toggle-image" role="button" tabindex="0" onclick="toggleImage('img7')" onkeydown="if(event.key==='Enter') toggleImage('img7')">📷 Click to View Image</p>
+            <div class="image-panel" id="img7" aria-hidden="true">
               <img src="images/image7.jpg" alt="Problem 7 image (dummy: image7)">
             </div>
 
@@ -578,7 +658,7 @@ int main(){
           </article>
 
           <!-- 8 -->
-          <article class="card" id="p8" tabindex="0" aria-labelledby="p8-title">
+          <article class="card idle" id="p8" tabindex="0" aria-labelledby="p8-title">
             <h2 id="p8-title">8. Creation of Green Belt Buffers</h2>
             <div class="alg">Algorithm: Multi-source BFS / Grid Morphological Buffer</div>
 
@@ -597,8 +677,8 @@ int main(){
               <span class="pill">SDG 15 — Life on Land</span>
             </div>
 
-            <p class="toggle-image" onclick="toggleImage('img8')">📷 Click to View Image</p>
-            <div class="image-panel" id="img8">
+            <p class="toggle-image" role="button" tabindex="0" onclick="toggleImage('img8')" onkeydown="if(event.key==='Enter') toggleImage('img8')">📷 Click to View Image</p>
+            <div class="image-panel" id="img8" aria-hidden="true">
               <img src="images/image8.jpg" alt="Problem 8 image (dummy: image8)">
             </div>
 
@@ -626,7 +706,7 @@ int main(){
           </article>
 
           <!-- 9 -->
-          <article class="card" id="p9" tabindex="0" aria-labelledby="p9-title">
+          <article class="card idle" id="p9" tabindex="0" aria-labelledby="p9-title">
             <h2 id="p9-title">9. Footpath Connectivity Plan</h2>
             <div class="alg">Algorithm: Dijkstra + Bridge/Articulation detection (DFS)</div>
 
@@ -645,8 +725,8 @@ int main(){
               <span class="pill">SDG 3 — Good Health</span>
             </div>
 
-            <p class="toggle-image" onclick="toggleImage('img9')">📷 Click to View Image</p>
-            <div class="image-panel" id="img9">
+            <p class="toggle-image" role="button" tabindex="0" onclick="toggleImage('img9')" onkeydown="if(event.key==='Enter') toggleImage('img9')">📷 Click to View Image</p>
+            <div class="image-panel" id="img9" aria-hidden="true">
               <img src="images/image9.jpg" alt="Problem 9 image (dummy: image9)">
             </div>
 
@@ -679,7 +759,7 @@ int main(){ int n,m; cin>>n>>m; vector<vector<int>> g(n); for(int i=0;i&lt;m;i++
           </article>
 
           <!-- 10 -->
-          <article class="card" id="p10" tabindex="0" aria-labelledby="p10-title">
+          <article class="card idle" id="p10" tabindex="0" aria-labelledby="p10-title">
             <h2 id="p10-title">10. Underground Utility Routing</h2>
             <div class="alg">Algorithm: A* / Dijkstra + Greedy Disjoint Routing</div>
 
@@ -698,8 +778,8 @@ int main(){ int n,m; cin>>n>>m; vector<vector<int>> g(n); for(int i=0;i&lt;m;i++
               <span class="pill">SDG 6 — Clean Water & Sanitation</span>
             </div>
 
-            <p class="toggle-image" onclick="toggleImage('img10')">📷 Click to View Image</p>
-            <div class="image-panel" id="img10">
+            <p class="toggle-image" role="button" tabindex="0" onclick="toggleImage('img10')" onkeydown="if(event.key==='Enter') toggleImage('img10')">📷 Click to View Image</p>
+            <div class="image-panel" id="img10" aria-hidden="true">
               <img src="images/image10.jpg" alt="Problem 10 image (dummy: image10)">
             </div>
 
@@ -784,7 +864,7 @@ int main(){
               <li>Optimization Techniquess</li>
             </ul>
           </div>
-                   
+
         <div class="tech-card">
             <h3>B. SDG Mapping Summary</h3>
             <div style="background:rgba(255,255,255,0.02); padding:12px; border-radius:8px;">
@@ -799,7 +879,7 @@ int main(){
             <li>SDG 12 – Responsible Consumption & Production: Data-driven decision-making methods help minimize resource waste and improve efficiency.</li>
 
             <li>SDG 13 – Climate Action: Computational optimization assists in analyzing environmental data and generating sustainable solutions.</li>
-           
+
             <li>SDG 17 – Partnerships for the Goals: Standardized documentation, modular code, and open data formats enable collaboration and scalability.</li>
 
             </div>
@@ -956,15 +1036,20 @@ int main(){
     });
 
     // IntersectionObserver to highlight current visible card in sidebar (only when main view visible)
-    const options = { root: null, rootMargin: '-40% 0px -40% 0px', threshold: 0 };
+    const options = { root: null, rootMargin: '-40% 0px -40% 0px', threshold: 0.12 };
     const observer = new IntersectionObserver((entries)=>{
       if(document.getElementById('main').classList.contains('hidden')) return; // only run when main is visible
       entries.forEach(entry=>{
+        const el = entry.target;
         if(entry.isIntersecting){
-          const id = entry.target.id;
+          el.classList.add('in-view');
+          // also mark nav link active (single)
           document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('active'));
-          const link = document.querySelector('.nav-link[data-target="' + id + '"]');
+          const link = document.querySelector('.nav-link[data-target="' + el.id + '"]');
           if(link) link.classList.add('active');
+        } else {
+          // optional: don't remove in-view so cards remain visible once revealed
+          // el.classList.remove('in-view');
         }
       });
     }, options);
@@ -976,15 +1061,91 @@ int main(){
       s.addEventListener('keydown', function(e){
         if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.parentElement.open = !this.parentElement.open; }
       });
+      // little animation on open/close
+      s.parentElement.addEventListener('toggle', function(){
+        const detailsCode = this.querySelector('.details-code');
+        if(this.open){
+          if(detailsCode) detailsCode.style.display='block';
+        } else {
+          if(detailsCode) detailsCode.style.display='none';
+        }
+      });
     });
 
-    // Toggle image panels
+    // Toggle image panels with smooth spring-like timing
     function toggleImage(id){
       const panel = document.getElementById(id);
       if(!panel) return;
-      panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
-      if(panel.style.display === 'block') panel.scrollIntoView({behavior:'smooth', block:'center'});
+      const isOpen = panel.classList.contains('open');
+      if(isOpen){
+        panel.classList.remove('open');
+        panel.setAttribute('aria-hidden','true');
+      } else {
+        panel.classList.add('open');
+        panel.setAttribute('aria-hidden','false');
+        // scroll to image smoothly but slightly delayed so animation is visible
+        setTimeout(()=>{ panel.scrollIntoView({behavior:'smooth', block:'center'}); }, 180);
+      }
     }
+
+    // subtle parallax on mouse move across a card (lightweight)
+    document.querySelectorAll('.card').forEach(card=>{
+      card.addEventListener('mousemove', function(e){
+        const rect = this.getBoundingClientRect();
+        const x = (e.clientX - rect.left) - rect.width/2;
+        const y = (e.clientY - rect.top) - rect.height/2;
+        const rx = (y / rect.height) * 3; // rotateX small
+        const ry = (x / rect.width) * -3; // rotateY small
+        this.style.transform = `translateY(var(--hover-lift)) scale(var(--hover-scale)) rotateX(${rx}deg) rotateY(${ry}deg)`;
+      });
+      card.addEventListener('mouseleave', function(){
+        // reset transform (respect in-view state)
+        this.style.transform = '';
+      });
+      card.addEventListener('mouseenter', function(){
+        // ensure any transform reset occurs smoothly
+        // small delay harmless
+      });
+    });
+
+    // ensure image panels close when clicking outside (accessibility)
+    document.addEventListener('click', function(e){
+      // if click is inside any .toggle-image or .image-panel, do nothing
+      if(e.target.closest('.toggle-image') || e.target.closest('.image-panel')) return;
+      document.querySelectorAll('.image-panel.open').forEach(panel=>{
+        panel.classList.remove('open');
+        panel.setAttribute('aria-hidden','true');
+      });
+    });
+
+    // make nav-link keyboard actionable (Enter toggles view)
+    document.querySelectorAll('.nav-link').forEach(link=>{
+      link.setAttribute('tabindex','0');
+      link.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+      });
+    });
+
+    // small progressive enhancement: animate hero once on load
+    window.addEventListener('load', function(){
+      const hero = document.querySelector('.hero-banner');
+      if(hero){
+        hero.animate([
+          { transform: 'translateY(10px) scale(0.997)', opacity: 0.0 },
+          { transform: 'translateY(0px) scale(1)', opacity: 1.0 }
+        ], { duration: 600, easing: 'cubic-bezier(.2,.9,.3,1)' });
+      }
+    });
+
+    // ensure cards that are already in viewport get class immediately (for fast loads)
+    document.addEventListener('DOMContentLoaded', function(){
+      document.querySelectorAll('.card[id]').forEach(card=>{
+        const rect = card.getBoundingClientRect();
+        if(rect.top < window.innerHeight * 0.8){
+          card.classList.add('in-view');
+        }
+      });
+    });
   </script>
 </body>
 </html>
