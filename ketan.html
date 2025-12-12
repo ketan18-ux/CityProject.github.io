@@ -1,1212 +1,486 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Ketan Shinde | Smart City Map – DAA Portfolio</title>
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --bg-main: #020617;
-      --panel-bg: #020617;
-      --panel-border: rgba(148, 163, 184, 0.45);
-      --accent: #22c1c3;
-      --accent-blue: #38bdf8;
-      --accent-green: #22c55e;
-      --accent-purple: #a78bfa;
-      --text-main: #e5e7eb;
-      --text-muted: #9ca3af;
-      --radius-lg: 18px;
-      --radius-md: 14px;
-      --shadow-strong: 0 20px 50px rgba(0, 0, 0, 0.9);
-      --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.85);
-      --transition-fast: 0.25s ease;
+    :root{
+      --bg:#020617; --panel:#020617; --muted: #9ca3af; --text:#e5e7eb;
+      --accent1:#22c1c3; --accent2:#38bdf8; --radius:14px; --t:.22s;
     }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      background:radial-gradient(circle at top,#0f172a 0,#020617 50%,#000 100%);
+      color:var(--text); font-family:"Poppins",system-ui,-apple-system,"Segoe UI",sans-serif;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+    }
+    .topbar{
+      position:sticky; top:0; z-index:40;
+      display:flex; justify-content:space-between; align-items:center;
+      padding:12px 18px; background:rgba(2,6,23,0.9);
+      border-bottom:1px solid rgba(148,163,184,0.18); backdrop-filter:blur(10px);
+    }
+    .topbar-title{font-family:Montserrat, sans-serif; font-weight:600; font-size:16px}
+    .topbar-sub{font-size:12px;color:var(--muted)}
+    .chip{padding:6px 10px;border-radius:999px;border:1px solid rgba(148,163,184,0.35); color:var(--muted); font-size:12px}
+    .btn-pill{background:linear-gradient(135deg,var(--accent1),var(--accent2)); color:#02101a; padding:8px 14px; border-radius:999px; text-decoration:none; font-weight:600; box-shadow:0 8px 22px rgba(56,189,248,0.18)}
+    .layout{max-width:1350px;margin:20px auto;padding:0 18px 36px}
+    .hero-strip{color:var(--muted); margin-bottom:14px; font-size:13px}
+    .city-shell{border-radius:22px; background:
+      radial-gradient(circle at 0 0, rgba(56,189,248,0.12), transparent 40%),
+      radial-gradient(circle at 100% 0, rgba(34,197,94,0.12), transparent 45%),
+      var(--bg); padding:18px; min-height:560px; border:1px solid rgba(148,163,184,0.12); box-shadow:0 30px 60px rgba(0,0,0,0.8)}
+    .city-header{display:flex; justify-content:space-between; align-items:flex-end; gap:10px; margin-bottom:10px}
+    .city-title{font-family:Montserrat,sans-serif; font-size:18px; letter-spacing:.06em}
+    .city-sub{color:var(--muted); font-size:12px}
+    .legend{display:flex; gap:10px; align-items:center; font-size:12px; color:var(--muted)}
+    .legend-dot{width:10px;height:10px;border-radius:50%; background:linear-gradient(90deg,var(--accent1),var(--accent2)); box-shadow:0 0 8px rgba(56,189,248,0.25)}
+    .city-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px}
+    .map-node{background:linear-gradient(180deg,rgba(10,14,20,0.6), rgba(2,6,23,0.9)); padding:12px;border-radius:14px; border:1px solid rgba(148,163,184,0.08); cursor:pointer; display:flex; flex-direction:column; gap:8px; transition:all var(--t)}
+    .map-node:hover{transform:translateY(-6px); box-shadow:0 30px 60px rgba(0,0,0,0.6); border-color:rgba(56,189,248,0.22)}
+    .map-node-icon{font-size:22px}
+    .map-node-title{font-family:Montserrat, sans-serif; font-size:13px}
+    .map-node-meta{display:flex; gap:8px; font-size:11px; color:var(--muted)}
+    .node-badge{padding:3px 8px;border-radius:999px;border:1px solid rgba(148,163,184,0.12)}
+    .docs-node{border-style:dashed; border-color:rgba(249,115,22,0.12)}
+    /* overlay panels */
+    .overlay{position:fixed; inset:0; display:none; z-index:80; align-items:center; justify-content:center; background:rgba(0,0,0,0.86); padding:36px}
+    .overlay.open{display:flex}
+    .panel-shell{display:none; width:100%; max-width:980px; background:var(--panel); border-radius:16px; border:1px solid rgba(148,163,184,0.08); box-shadow:0 30px 80px rgba(0,0,0,0.8); padding:14px; max-height:86vh; overflow:hidden; flex-direction:column}
+    .panel-shell.open{display:flex}
+    .panel-header{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; border-bottom:1px solid rgba(31,41,55,0.6); padding-bottom:8px}
+    .panel-title{font-family:Montserrat, sans-serif; font-size:15px}
+    .panel-chip-row{display:flex; gap:8px; flex-wrap:wrap}
+    .panel-chip{padding:4px 8px;border-radius:999px;border:1px solid rgba(148,163,184,0.12); font-size:12px; color:var(--muted)}
+    .panel-scroll{overflow:auto; padding-right:6px; margin-top:10px; font-size:14px}
+    .panel-block{background:rgba(8,10,14,0.6); border-radius:10px; padding:10px; border:1px solid rgba(55,65,81,0.5); margin-bottom:10px}
+    .panel-block h3{font-family:Montserrat,sans-serif; font-size:13px; margin-bottom:6px}
+    .panel-block p{line-height:1.5; color:var(--text)}
+    .figure{display:block; max-width:100%; border-radius:10px; margin:12px auto}
+    .github-link, .dataset-link, .efficiency-link{display:inline-flex; gap:8px; align-items:center; padding:6px 10px; border-radius:999px; text-decoration:none; font-size:13px; border:1px solid rgba(56,189,248,0.12); color:#e6f6ff; background:rgba(6,10,14,0.6)}
+    .dataset-link{border-color:rgba(34,197,94,0.12)}
+    .back-btn{background:linear-gradient(135deg,var(--accent1),var(--accent2)); color:#02101a; padding:7px 12px; border-radius:999px; border:none; cursor:pointer; font-weight:600}
+    .sdg-box{padding:8px 10px;border-radius:10px;border:1px solid rgba(34,197,94,0.12); background:rgba(22,163,74,0.06); color:#bff1d1}
+    @media(max-width:940px){.city-grid{grid-template-columns:1fr}; .panel-shell{max-width:92%}}
+  </style>
+</head>
+<body>
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  <header class="topbar">
+    <div>
+      <div class="topbar-title">SMART CITY • INFRASTRUCTURE & ROUTING</div>
+      <div class="topbar-sub">DAA Portfolio – Infrastructure & Network Optimization · Student: Ketan Shinde</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <span class="chip">2024 · Design & Analysis of Algorithms</span>
+      <a class="btn-pill" href="index.html">⬅ Back to Home</a>
+    </div>
+  </header>
 
-    body {
-      min-height: 100vh;
-      background: radial-gradient(circle at top, #0f172a 0, #020617 50%, #000 100%);
-      color: var(--text-main);
-      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      overflow-x: hidden;
-    }
+  <main class="layout">
+    <div class="hero-strip">View your city as an <strong style="color:#a5b4fc">algorithmic map</strong>: click any glowing zone to open its case study.</div>
 
-    /* TOP BAR */
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 18px;
-      background: rgba(2, 6, 23, 0.9);
-      border-bottom: 1px solid rgba(148, 163, 184, 0.3);
-      backdrop-filter: blur(14px);
-    }
-
-    .topbar-title {
-      font-family: "Montserrat", sans-serif;
-      font-size: 17px;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-    }
-
-    .topbar-sub {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .topbar-left {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .topbar-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 11px;
-    }
-
-    .chip {
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      color: var(--text-muted);
-    }
-
-    .btn-pill {
-      border-radius: 999px;
-      padding: 7px 14px;
-      border: none;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      text-decoration: none;
-      background: linear-gradient(135deg, #22c1c3, #38bdf8);
-      color: #020617;
-      box-shadow: 0 8px 22px rgba(56, 189, 248, 0.45);
-      transition: var(--transition-fast);
-    }
-
-    .btn-pill:hover {
-      transform: translateY(-1px) scale(1.02);
-      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.7);
-    }
-
-    /* CITY MAP LAYOUT */
-    .layout {
-      max-width: 1350px;
-      margin: 18px auto 30px;
-      padding: 0 18px 26px;
-      position: relative;
-    }
-
-    .hero-strip {
-      margin-bottom: 14px;
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    .hero-strip span {
-      color: #a5b4fc;
-    }
-
-    .city-shell {
-      position: relative;
-      border-radius: 24px;
-      background:
-        radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.2) 0, transparent 50%),
-        radial-gradient(circle at 100% 0%, rgba(34, 197, 94, 0.2) 0, transparent 55%),
-        #020617;
-      box-shadow: var(--shadow-strong);
-      overflow: hidden;
-      min-height: 560px;
-      border: 1px solid rgba(148, 163, 184, 0.45);
-    }
-
-    .city-map {
-      position: relative;
-      padding: 22px 24px 26px;
-      overflow: hidden;
-      min-height: 560px;
-    }
-
-    .city-map::before,
-    .city-map::after {
-      content: "";
-      position: absolute;
-      inset: -80%;
-      opacity: 0.18;
-      pointer-events: none;
-    }
-
-    @keyframes panGrid {
-      from { transform: translate3d(0, 0, 0); }
-      to   { transform: translate3d(80px, 80px, 0); }
-    }
-
-    @keyframes driftGlow {
-      from { transform: translate3d(-4%, -4%, 0) scale(1.02); }
-      to   { transform: translate3d(4%, 4%, 0) scale(1.04); }
-    }
-
-    /* MAP NODES */
-    .city-grid {
-      position: relative;
-      z-index: 1;
-      margin-top: 8px;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      grid-auto-rows: minmax(110px, 1fr);
-      gap: 18px;
-      padding: 6px 2px 8px;
-    }
-
-    .map-node {
-      border-radius: var(--radius-md);
-      border: 1px solid rgba(148, 163, 184, 0.55);
-      background: radial-gradient(circle at 30% 0, rgba(15, 23, 42, 0.9) 0, #020617 55%);
-      color: var(--text-main);
-      padding: 12px 14px;
-      box-shadow: var(--shadow-soft);
-      text-align: left;
-      cursor: pointer;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      overflow: hidden;
-      transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
-    }
-
-    .map-node:hover {
-      transform: translateY(-3px) scale(1.02);
-      border-color: rgba(56, 189, 248, 0.9);
-      background: radial-gradient(circle at 0% 0%, rgba(34, 193, 195, 0.22) 0, #020617 60%);
-    }
-
-    .map-node-icon {
-      font-size: 24px;
-      margin-bottom: 6px;
-    }
-
-    .map-node-title {
-      font-family: "Montserrat", sans-serif;
-      font-size: 13px;
-      line-height: 1.3;
-    }
-
-    /* OVERLAY PANELS */
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.96);
-      display: none;
-      z-index: 40;
-      justify-content: center;
-      align-items: stretch;
-      padding: 46px 14px 18px;
-      box-sizing: border-box;
-    }
-
-    .overlay.open {
-      display: flex;
-    }
-
-    .panel-shell {
-      display: none;
-      width: 100%;
-      max-width: 950px;
-      margin: 0 auto;
-      background:
-        radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.25) 0, transparent 55%),
-        radial-gradient(circle at 100% 100%, rgba(34, 197, 94, 0.25) 0, transparent 55%),
-        var(--panel-bg);
-      border-radius: 20px;
-      border: 1px solid var(--panel-border);
-      box-shadow: var(--shadow-strong);
-      padding: 14px 14px 14px;
-      flex-direction: column;
-    }
-
-    .panel-shell.open {
-      display: flex;
-    }
-
-    /* LINK BUTTONS */
-    .github-link {
-      margin-top: 6px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      padding: 5px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--accent-blue);
-      background: rgba(56, 189, 248, 0.12);
-      color: #e0f2fe;
-      transition: var(--transition-fast);
-      text-decoration: none;
-    }
-    .github-link:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(56, 189, 248, 0.5);
-    }
-
-    /* GREEN DATASET BUTTON */
-    .dataset-link {
-      margin-top: 6px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      padding: 5px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--accent-green);
-      background: rgba(34, 197, 94, 0.12);
-      color: #bbf7d0;
-      transition: var(--transition-fast);
-      text-decoration: none;
-    }
-    .dataset-link:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(34, 197, 94, 0.4);
-    }
-
-    /* PURPLE EFFICIENCY BUTTON */
-    .efficiency-link {
-      margin-top: 6px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      padding: 5px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--accent-purple);
-      background: rgba(167, 139, 250, 0.15);
-      color: #ede9fe;
-      transition: var(--transition-fast);
-      text-decoration: none;
-    }
-    .efficiency-link:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(167, 139, 250, 0.4);
-    }
-<!-- 1: ROAD NETWORK -->
-<section class="panel-shell" id="p1-panel">
-  <div class="panel-header">
-    <div class="panel-title-group">
-      <div class="panel-title">1. Optimal Road Network Construction</div>
-      <div class="panel-chip-row">
-        <span class="panel-chip">Transport Infrastructure</span>
-        <span class="panel-chip algo">Minimum Spanning Tree · Kruskal + Prim · Union–Find</span>
+    <section class="city-shell">
+      <div class="city-header">
+        <div>
+          <div class="city-title">CITY NETWORK OVERVIEW</div>
+          <div class="city-sub">Each glowing zone represents one DAA case study from the Infrastructure & Network Optimization bucket.</div>
+        </div>
+        <div class="legend"><span><span class="legend-dot"></span></span><div style="color:var(--muted)">Click to open details</div></div>
       </div>
-    </div>
-    <div class="panel-controls">
-      <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
-    </div>
-  </div>
 
-  <div class="panel-scroll">
+      <div class="city-grid">
+        <button class="map-node" data-target="p1"><div class="map-node-icon">🛣️</div><div class="map-node-title">1. Road Network Construction</div><div class="map-node-meta"><span class="node-id">MST</span><span class="node-badge">Transport</span></div></button>
+        <button class="map-node" data-target="p2"><div class="map-node-icon">🧭</div><div class="map-node-title">2. Shortest Travel-Time Routing</div><div class="map-node-meta"><span class="node-id">Shortest Path</span><span class="node-badge">Commute</span></div></button>
+        <button class="map-node" data-target="p3"><div class="map-node-icon">🚦</div><div class="map-node-title">3. Signal Timing Optimization</div><div class="map-node-meta"><span class="node-id">Queues</span><span class="node-badge">Junctions</span></div></button>
+        <button class="map-node" data-target="p4"><div class="map-node-icon">🚑</div><div class="map-node-title">4. Emergency Route Planner</div><div class="map-node-meta"><span class="node-id">BFS/DFS</span><span class="node-badge">Emergency</span></div></button>
+        <button class="map-node" data-target="p5"><div class="map-node-icon">🚰</div><div class="map-node-title">5. Water Pressure Optimization</div><div class="map-node-meta"><span class="node-id">Graph + Sorting</span><span class="node-badge">Water</span></div></button>
+        <button class="map-node" data-target="p6"><div class="map-node-icon">⚡</div><div class="map-node-title">6. Power Grid Load Minimization</div><div class="map-node-meta"><span class="node-id">Prim</span><span class="node-badge">Electricity</span></div></button>
+        <button class="map-node" data-target="p7"><div class="map-node-icon">🚮</div><div class="map-node-title">7. Garbage Truck Routing</div><div class="map-node-meta"><span class="node-id">Dijkstra</span><span class="node-badge">Waste</span></div></button>
+        <button class="map-node" data-target="p8"><div class="map-node-icon">🚌</div><div class="map-node-title">8. Bus Timetable Generator</div><div class="map-node-meta"><span class="node-id">Sorting</span><span class="node-badge">Public Transport</span></div></button>
+        <button class="map-node" data-target="p9"><div class="map-node-icon">🌉</div><div class="map-node-title">9. Bridge Priority Model</div><div class="map-node-meta"><span class="node-id">DFS Bridges</span><span class="node-badge">Bridges</span></div></button>
+        <button class="map-node" data-target="p10"><div class="map-node-icon">🌧️</div><div class="map-node-title">10. Flood Evacuation Simulation</div><div class="map-node-meta"><span class="node-id">Multi-source BFS</span><span class="node-badge">Disaster</span></div></button>
 
-    <div class="panel-block">
-      <h3>Problem Context</h3>
-      <p>
-        The city is expanding with several new townships. Each pair of major junctions
-        has an estimated construction cost. If engineers connect roads randomly,
-        loops and overspending will occur. We must build a <strong>minimum-cost</strong>
-        backbone road network that connects all junctions.
-      </p>
-    </div>
-
-    <div class="panel-block">
-      <h3>Algorithmic Solution</h3>
-      <p>The road map is a weighted graph where edges = construction cost.</p>
-      <ul>
-        <li><strong>Kruskal:</strong> Sort edges + Union–Find → O(E log E)</li>
-        <li><strong>Prim:</strong> Min-heap priority queue → O(E log V)</li>
-      </ul>
-      <p>Both produce the same MST cost, validating correctness.</p>
-    </div>
-
-    <div class="panel-block">
-      <h3>IO Format</h3>
-      <p class="io-label">Input</p>
-      <p>6–8 junctions + road list (u, v, cost)</p>
-
-      <p class="io-label">Output</p>
-      <p>MST edges + final minimum construction cost.</p>
-    </div>
-
-    <div class="panel-block">
-      <h3>SDG Alignment</h3>
-      <div class="sdg-box">
-        🌱 <strong>SDG 9 — Infrastructure:</strong> Low-cost road layout. <br>
-        🌱 <strong>SDG 11 — Sustainable Cities:</strong> Ensures transport accessibility.
+        <button class="map-node docs-node" data-target="doc"><div class="map-node-icon">📑</div><div class="map-node-title">Technical Docs &amp; SDG Mapping</div><div class="map-node-meta"><span class="node-id">Metrics · DS · SDG</span><span class="node-badge">Documentation</span></div></button>
       </div>
-    </div>
+    </section>
+  </main>
 
-    <div class="panel-block">
-      <img src="/CityProject.github.io/ketan/mst_road_network.jpg"
-           alt="MST Road Network"
-           style="width:450px; display:block; margin:auto; border-radius:10px;">
-    </div>
+  <!-- overlay -->
+  <div class="overlay" id="overlay">
 
-    <div class="panel-block">
-      <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P1/P1.cpp" target="_blank">
-        📘 View C++ Code (Kruskal + Prim)
-      </a>
-    </div>
-
-    <div class="panel-block">
-      <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P1/P1_input.csv" target="_blank">
-        📄 View Input Dataset
-      </a>
-    </div>
-
-    <div class="panel-block">
-      <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P1/P1_efficiency.txt" target="_blank">
-        ⚡ View Efficiency Analysis
-      </a>
-    </div>
-
-  </div>
-</section>
-
-
-
-<!-- 2: SHORTEST TRAVEL-TIME ROUTING -->
-<section class="panel-shell" id="p2-panel">
-  <div class="panel-header">
-    <div class="panel-title-group">
-      <div class="panel-title">2. Shortest Travel-Time Routing</div>
-      <div class="panel-chip-row">
-        <span class="panel-chip">Mobility</span>
-        <span class="panel-chip algo">Dijkstra + BFS</span>
+    <!-- PANEL TEMPLATE: P1 -->
+    <section class="panel-shell" id="p1-panel">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">1. Optimal Road Network Construction</div>
+          <div class="panel-chip-row">
+            <span class="panel-chip">Transport Infrastructure</span>
+            <span class="panel-chip">Kruskal · Prim · Union-Find</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <button class="back-btn" data-close>⬅ Back</button>
+        </div>
       </div>
-    </div>
-    <div class="panel-controls">
-      <button class="back-btn" data-close>⬅ Back to Map</button>
-    </div>
-  </div>
 
-  <div class="panel-scroll">
+      <div class="panel-scroll">
+        <div class="panel-block">
+          <h3>Problem</h3>
+          <p>Build a min-cost backbone that connects all major junctions while avoiding redundant loops. Input: weighted undirected graph of junctions and candidate road costs. Output: MST edges + total cost.</p>
+        </div>
 
-    <div class="panel-block">
-      <h3>Problem Context</h3>
-      <p>
-        Shortest-distance routes are not always fastest. Internal streets
-        get jammed, while ring roads are faster. We compute <strong>minimum time</strong>
-        from a source zone to all zones.
-      </p>
-    </div>
+        <div class="panel-block">
+          <h3>Implementation</h3>
+          <p>We implement Kruskal + Union-Find and Prim (heap). Compare outputs for correctness and show selected edges.</p>
+        </div>
 
-    <div class="panel-block">
-      <h3>Algorithmic Approach</h3>
-      <ul>
-        <li><strong>Dijkstra:</strong> For weighted travel-time roads</li>
-        <li><strong>BFS:</strong> For unweighted or equal-time pedestrian links</li>
-      </ul>
-    </div>
+        <div class="panel-block">
+          <img class="figure" alt="MST Road Network" src="https://raw.githubusercontent.com/ketan18-ux/CityProject.github.io/main/ketan/mst_road_network.jpg">
+        </div>
 
-    <div class="panel-block">
-      <h3>IO Format</h3>
-      <p class="io-label">Input</p>
-      <p>Travel-time adjacency list + source zone.</p>
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/p1_mst_roads.cpp" target="_blank">📂 View C++: p1_mst_roads.cpp</a>
+        </div>
 
-      <p class="io-label">Output</p>
-      <p>Minimum travel times + reconstructed paths.</p>
-    </div>
+        <div class="panel-block">
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p1_dataset.csv" target="_blank">📄 Dataset (CSV)</a>
+          &nbsp;
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p1_efficiency.txt" target="_blank">⚡ Efficiency Analysis</a>
+        </div>
 
-    <div class="panel-block">
-      <h3>SDG Impact</h3>
-      <div class="sdg-box">
-        🌱 SDG 11.2 — Efficient mobility & commute reduction.
+        <div class="panel-block sdg-box">
+          🌱 <strong>SDG 9.1</strong> (Sustainable Infrastructure) · 🌱 <strong>SDG 11.2</strong> (Accessible Transport)
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="panel-block">
-      <div class="figure-placeholder">🖼️ IMAGE HERE — time-weighted graph</div>
-    </div>
-
-    <div class="panel-block">
-      <a class="github-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P2/P2.cpp" target="_blank">
-        📘 View C++ Code (Dijkstra + BFS)
-      </a>
-    </div>
-
-    <!-- Multiple Datasets -->
-    <div class="panel-block">
-      <a class="dataset-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P2/roads.csv" target="_blank">
-        📄 roads.csv
-      </a>
-      <br>
-      <a class="dataset-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P2/zones.csv" target="_blank">
-        📄 zones.csv
-      </a>
-    </div>
-
-    <div class="panel-block">
-      <a class="efficiency-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P2/P2_efficiency.txt" target="_blank">
-        ⚡ View Efficiency Analysis
-      </a>
-    </div>
-
-  </div>
-</section>
-
-
-
-<!-- 3: SIGNAL TIMING -->
-<section class="panel-shell" id="p3-panel">
-  <div class="panel-header">
-    <div class="panel-title-group">
-      <div class="panel-title">3. Traffic Signal Timing Optimization</div>
-      <div class="panel-chip-row">
-        <span class="panel-chip">Junctions</span>
-        <span class="panel-chip algo">Queues + Sorting</span>
+    <!-- P2 -->
+    <section class="panel-shell" id="p2-panel">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">2. Shortest Travel-Time Routing</div>
+          <div class="panel-chip-row"><span class="panel-chip">Commuter Mobility</span><span class="panel-chip">Dijkstra</span></div>
+        </div>
+        <div><button class="back-btn" data-close>⬅ Back</button></div>
       </div>
-    </div>
+      <div class="panel-scroll">
+        <div class="panel-block"><h3>Problem</h3><p>Compute minimal travel time from a source node to all others on a time-weighted graph. Use Dijkstra + reconstruct paths.</p></div>
 
-    <div class="panel-controls">
-      <button class="back-btn" data-close>⬅ Back</button>
-    </div>
-  </div>
+        <div class="panel-block"><img class="figure" alt="Routing Demo" src="https://raw.githubusercontent.com/ketan18-ux/CityProject.github.io/main/ketan/shortestpath_demo.png"></div>
 
-  <div class="panel-scroll">
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/shortestpath.cpp" target="_blank">📂 View C++: shortestpath.cpp</a>
+        </div>
 
-    <div class="panel-block">
-      <h3>Problem Context</h3>
-      <p>Equal signal timings cause jams. We allocate green time dynamically based on queue sizes.</p>
-    </div>
-
-    <div class="panel-block">
-      <h3>Algorithm</h3>
-      <ul>
-        <li>Queue lengths collected</li>
-        <li>Sorted using Merge/Quick Sort</li>
-        <li>Priorities assigned using simple greedy rule</li>
-      </ul>
-    </div>
-
-    <div class="panel-block">
-      <h3>IO Format</h3>
-      <p class="io-label">Input</p>
-      <p>Queue lengths + total cycle time</p>
-      <p class="io-label">Output</p>
-      <p>Allocated green time table</p>
-    </div>
-
-    <div class="panel-block">
-      <div class="figure-placeholder">🖼️ IMAGE HERE — signal timing chart</div>
-    </div>
-
-    <div class="panel-block">
-      <a class="github-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P3/P3.cpp" target="_blank">
-        📘 View C++ Code (Signal Timing)
-      </a>
-    </div>
-
-    <div class="panel-block">
-      <a class="dataset-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P3/lanes.csv" target="_blank">
-        📄 lanes.csv
-      </a>
-    </div>
-
-    <div class="panel-block">
-      <a class="efficiency-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P3/efficiency_signal_timing.txt" target="_blank">
-        ⚡ View Efficiency Analysis
-      </a>
-    </div>
-
-  </div>
-</section>
-
-
-
-<!-- 4: EMERGENCY ROUTE -->
-<section class="panel-shell" id="p4-panel">
-  <div class="panel-header">
-    <div class="panel-title-group">
-      <div class="panel-title">4. Emergency Vehicle Fastest Route Planner</div>
-      <div class="panel-chip-row">
-        <span class="panel-chip">Emergency</span>
-        <span class="panel-chip algo">BFS + DFS</span>
+        <div class="panel-block">
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p2_dataset.csv" target="_blank">📄 Dataset</a>
+          &nbsp;
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p2_efficiency.txt" target="_blank">⚡ Efficiency</a>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="panel-controls">
-      <button class="back-btn" data-close>⬅ Back</button>
-    </div>
-  </div>
-
-  <div class="panel-scroll">
-
-    <div class="panel-block">
-      <h3>Context</h3>
-      <p>Blocked roads change connectivity. Emergency vehicles need reachable fastest routes.</p>
-    </div>
-
-    <div class="panel-block">
-      <h3>Algorithm</h3>
-      <ul>
-        <li>DFS → connected components</li>
-        <li>BFS → shortest hops</li>
-      </ul>
-    </div>
-
-    <div class="panel-block">
-      <h3>IO Format</h3>
-      <p>Nodes, edges, blocked edges, start → incident.</p>
-    </div>
-
-    <div class="panel-block">
-      <div class="figure-placeholder">🖼️ IMAGE HERE — blocked roads + BFS route</div>
-    </div>
-
-    <div class="panel-block">
-      <a class="github-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P4/P4.cpp" target="_blank">
-        📘 View C++ Code (Emergency BFS)
-      </a>
-    </div>
-
-    <div class="panel-block">
-      <a class="dataset-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P4/roads.csv" target="_blank">📄 roads.csv</a>
-      <br>
-      <a class="dataset-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P4/locations.csv" target="_blank">📄 locations.csv</a>
-      <br>
-      <a class="dataset-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P4/blocked.csv" target="_blank">📄 blocked.csv</a>
-    </div>
-
-    <div class="panel-block">
-      <a class="efficiency-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P4/efficiency_emergency_route.txt" target="_blank">
-        ⚡ View Efficiency Analysis
-      </a>
-    </div>
-
-  </div>
-</section>
-<!-- 5: WATER PIPELINE PRESSURE OPTIMIZATION -->
-<section class="panel-shell" id="p5-panel">
-  <div class="panel-header">
-    <div class="panel-title-group">
-      <div class="panel-title">5. Water Pipeline Pressure Optimization</div>
-      <div class="panel-chip-row">
-        <span class="panel-chip">Water Distribution</span>
-        <span class="panel-chip algo">Graph Traversal + Sorting</span>
+    <!-- P3 -->
+    <section class="panel-shell" id="p3-panel">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">3. Traffic Signal Timing Optimization</div>
+          <div class="panel-chip-row"><span class="panel-chip">Junction Management</span><span class="panel-chip">Queues · Heap</span></div>
+        </div>
+        <div><button class="back-btn" data-close>⬅ Back</button></div>
       </div>
-    </div>
-    <div class="panel-controls">
-      <button class="back-btn" data-close>⬅ Back</button>
-    </div>
-  </div>
+      <div class="panel-scroll">
+        <div class="panel-block"><h3>Problem</h3><p>Allocate green times proportionally to queue lengths per lane using efficient sorting and priority queue methods.</p></div>
 
-  <div class="panel-scroll">
+        <div class="panel-block"><img class="figure" alt="Signal Timing" src="https://raw.githubusercontent.com/ketan18-ux/CityProject.github.io/main/ketan/signal_timing.png"></div>
 
-    <div class="panel-block">
-      <h3>Problem Context</h3>
-      <p>
-        Water supply networks have trunk and branch pipelines. Some far-end colonies face
-        <strong>low pressure</strong> because certain pipes become bottlenecks.  
-        The goal is to identify the most critical pipelines using graph analysis.
-      </p>
-    </div>
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/signal_timing.cpp" target="_blank">📂 View C++: signal_timing.cpp</a>
+        </div>
 
-    <div class="panel-block">
-      <h3>Algorithmic Strategy</h3>
-      <ul>
-        <li>BFS/DFS → Measures downstream demand behind each pipe</li>
-        <li>Compute “load score” for each pipe</li>
-        <li>Sort pipes in descending priority (O(E log E))</li>
-      </ul>
-      <p>
-        The top pipelines in the ranking represent the best upgrade candidates.
-      </p>
-    </div>
-
-    <div class="panel-block">
-      <h3>IO Format</h3>
-      <p class="io-label">Input</p>
-      <p>Pipes, capacities, consumer demand.</p>
-
-      <p class="io-label">Output</p>
-      <p>Sorted list of most critical pipelines.</p>
-    </div>
-
-    <div class="panel-block">
-      <div class="figure-placeholder">🖼️ IMAGE HERE — pipeline network analysis</div>
-    </div>
-
-    <div class="panel-block">
-      <a class="github-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P5/P5.cpp"
-         target="_blank">
-        📘 View C++ Code (Water Pressure Algorithm)
-      </a>
-    </div>
-
-    <div class="panel-block">
-      <!-- Multiple datasets -->
-      <a class="dataset-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P5/pipes.csv"
-         target="_blank">📄 pipes.csv</a>
-      <br>
-      <a class="dataset-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P5/nodes.csv"
-         target="_blank">📄 nodes.csv</a>
-    </div>
-
-    <div class="panel-block">
-      <a class="efficiency-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P5/efficiency_pipeline.txt"
-         target="_blank">
-        ⚡ View Efficiency Analysis
-      </a>
-    </div>
-
-  </div>
-</section>
-
-
-
-<!-- 6: POWER GRID LOAD MINIMIZATION -->
-<section class="panel-shell" id="p6-panel">
-  <div class="panel-header">
-    <div class="panel-title-group">
-      <div class="panel-title">6. Power Grid Load Minimization</div>
-      <div class="panel-chip-row">
-        <span class="panel-chip">Electricity Grid</span>
-        <span class="panel-chip algo">Prim’s MST + Min-Heap</span>
+        <div class="panel-block">
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p3_dataset.csv" target="_blank">📄 Dataset</a>
+          &nbsp;
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p3_efficiency.txt" target="_blank">⚡ Efficiency</a>
+        </div>
       </div>
-    </div>
-    <div class="panel-controls">
-      <button class="back-btn" data-close>⬅ Back</button>
-    </div>
-  </div>
+    </section>
 
-  <div class="panel-scroll">
-
-    <div class="panel-block">
-      <h3>Problem Context</h3>
-      <p>
-        The electric supply network must connect new apartments and substations 
-        using the <strong>minimum cable cost</strong> while reducing energy loss.
-        We create an optimal wiring backbone using MST principles.
-      </p>
-    </div>
-
-    <div class="panel-block">
-      <h3>Algorithm</h3>
-      <ul>
-        <li>Prim’s algorithm using priority queue</li>
-        <li>Select cheapest safe cable at each step</li>
-        <li>Complexity: O(E log V)</li>
-      </ul>
-    </div>
-
-    <div class="panel-block">
-      <h3>IO Format</h3>
-      <p class="io-label">Input</p>
-      <p>Nodes + weighted cables.</p>
-
-      <p class="io-label">Output</p>
-      <p>MST edges + final construction cost.</p>
-    </div>
-
-    <div class="panel-block">
-      <div class="figure-placeholder">🖼️ IMAGE HERE — power grid MST</div>
-    </div>
-
-    <div class="panel-block">
-      <a class="github-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P6/P6.cpp"
-         target="_blank">
-        📘 View C++ Code (Power Grid MST)
-      </a>
-    </div>
-
-    <div class="panel-block">
-      <a class="dataset-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P6/grid_nodes.csv"
-         target="_blank">📄 grid_nodes.csv</a>
-      <br>
-      <a class="dataset-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P6/grid_edges.csv"
-         target="_blank">📄 grid_edges.csv</a>
-    </div>
-
-    <div class="panel-block">
-      <a class="efficiency-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P6/efficiency_powergrid.txt"
-         target="_blank">
-        ⚡ View Efficiency Analysis
-      </a>
-    </div>
-
-  </div>
-</section>
-
-
-
-<!-- 7: GARBAGE ROUTING -->
-<section class="panel-shell" id="p7-panel">
-  <div class="panel-header">
-    <div class="panel-title-group">
-      <div class="panel-title">7. Garbage Truck Route Optimization</div>
-      <div class="panel-chip-row">
-        <span class="panel-chip">Solid Waste Management</span>
-        <span class="panel-chip algo">Dijkstra + Greedy</span>
+    <!-- P4 -->
+    <section class="panel-shell" id="p4-panel">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">4. Emergency Vehicle Fastest Route Planner</div>
+          <div class="panel-chip-row"><span class="panel-chip">Emergency Response</span><span class="panel-chip">BFS/DFS</span></div>
+        </div>
+        <div><button class="back-btn" data-close>⬅ Back</button></div>
       </div>
-    </div>
-    <div class="panel-controls">
-      <button class="back-btn" data-close>⬅ Back</button>
-    </div>
-  </div>
+      <div class="panel-scroll">
+        <div class="panel-block"><h3>Problem</h3><p>Find feasible shortest hop route from a station to incident after removing blocked roads using DFS and multi-source BFS.</p></div>
 
-  <div class="panel-scroll">
+        <div class="panel-block"><img class="figure" alt="Emergency Route" src="https://raw.githubusercontent.com/ketan18-ux/CityProject.github.io/main/ketan/emergency_route_map.jpg"></div>
 
-    <div class="panel-block">
-      <h3>Problem Context</h3>
-      <p>
-        Waste collection trucks waste fuel and time if routes are not optimized.
-        We compute the shortest possible traversal of all pickup points 
-        using Dijkstra + Greedy routing.
-      </p>
-    </div>
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/emergency_route.cpp" target="_blank">📂 View C++: emergency_route.cpp</a>
+        </div>
 
-    <div class="panel-block">
-      <h3>Algorithm</h3>
-      <ul>
-        <li>Dijkstra → shortest distance between every pair</li>
-        <li>Greedy → nearest unvisited pickup next</li>
-        <li>Sorting → candidate comparison</li>
-      </ul>
-    </div>
-
-    <div class="panel-block">
-      <h3>IO Format</h3>
-      <p class="io-label">Input</p>
-      <p>Pickup points + distance matrix + depot.</p>
-
-      <p class="io-label">Output</p>
-      <p>Route order + total distance.</p>
-    </div>
-
-    <div class="panel-block">
-      <div class="figure-placeholder">🖼️ IMAGE HERE — truck visiting all points</div>
-    </div>
-
-    <div class="panel-block">
-      <a class="github-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P7/P7.cpp"
-         target="_blank">
-        📘 View C++ Code (Garbage Routing)
-      </a>
-    </div>
-
-    <div class="panel-block">
-      <a class="dataset-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P7/garbage_nodes.csv"
-         target="_blank">📄 garbage_nodes.csv</a>
-      <br>
-      <a class="dataset-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P7/garbage_edges.csv"
-         target="_blank">📄 garbage_edges.csv</a>
-    </div>
-
-    <div class="panel-block">
-      <a class="efficiency-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P7/efficiency_garbage_route.txt"
-         target="_blank">
-        ⚡ View Efficiency Analysis
-      </a>
-    </div>
-
-  </div>
-</section>
-<!-- 8: BUS TIMETABLE GENERATION -->
-<section class="panel-shell" id="p8-panel">
-  <div class="panel-header">
-    <div class="panel-title-group">
-      <div class="panel-title">8. Public Transport Timetable Generation</div>
-      <div class="panel-chip-row">
-        <span class="panel-chip">Public Transport</span>
-        <span class="panel-chip algo">Sorting + Greedy Interval Scheduling</span>
+        <div class="panel-block">
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p4_dataset.csv" target="_blank">📄 Dataset</a>
+          &nbsp;
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p4_efficiency.txt" target="_blank">⚡ Efficiency</a>
+        </div>
       </div>
-    </div>
-    <div class="panel-controls">
-      <button class="back-btn" data-close>⬅ Back</button>
-    </div>
-  </div>
+    </section>
 
-  <div class="panel-scroll">
-
-    <div class="panel-block">
-      <h3>Problem Context</h3>
-      <p>
-        The city has limited buses but a large number of possible trips.
-        If two trips overlap, the same bus cannot perform both.  
-        The goal is to generate an optimal timetable using interval scheduling.
-      </p>
-    </div>
-
-    <div class="panel-block">
-      <h3>Algorithm</h3>
-      <ul>
-        <li>Sort trips by finish time (O(n log n))</li>
-        <li>Greedily pick non-overlapping trips</li>
-        <li>Optimal selection of maximum trips</li>
-      </ul>
-    </div>
-
-    <div class="panel-block">
-      <h3>IO Format</h3>
-      <p class="io-label">Input</p>
-      <p>Trip list with start/end time.</p>
-
-      <p class="io-label">Output</p>
-      <p>Optimized bus timetable.</p>
-    </div>
-
-    <div class="panel-block">
-      <div class="figure-placeholder">🖼️ IMAGE HERE — timeline of bus trips</div>
-    </div>
-
-    <div class="panel-block">
-      <a class="github-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P8/P8.cpp"
-         target="_blank">
-        📘 View C++ Code (Bus Timetable)
-      </a>
-    </div>
-
-    <div class="panel-block">
-      <a class="dataset-link" 
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P8/trips.csv" 
-         target="_blank">📄 trips.csv</a>
-    </div>
-
-    <div class="panel-block">
-      <a class="efficiency-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P8/efficiency_timetable.txt"
-         target="_blank">
-        ⚡ View Efficiency Analysis
-      </a>
-    </div>
-
-  </div>
-</section>
-
-
-
-
-<!-- 9: BRIDGE PRIORITY MODEL -->
-<section class="panel-shell" id="p9-panel">
-  <div class="panel-header">
-    <div class="panel-title-group">
-      <div class="panel-title">9. Bridge Construction Priority Model</div>
-      <div class="panel-chip-row">
-        <span class="panel-chip">Critical Infrastructure</span>
-        <span class="panel-chip algo">DFS Bridge Detection (Tarjan Low-Link)</span>
+    <!-- P5 -->
+    <section class="panel-shell" id="p5-panel">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">5. Water Pipeline Pressure Optimization</div>
+          <div class="panel-chip-row"><span class="panel-chip">Water Distribution</span><span class="panel-chip">DFS/BFS + Sort</span></div>
+        </div>
+        <div><button class="back-btn" data-close>⬅ Back</button></div>
       </div>
-    </div>
-    <div class="panel-controls">
-      <button class="back-btn" data-close>⬅ Back</button>
-    </div>
-  </div>
+      <div class="panel-scroll">
+        <div class="panel-block"><h3>Problem</h3><p>Compute downstream dependency scores per pipe and rank pipes by criticality using traversal and sorting.</p></div>
 
-  <div class="panel-scroll">
+        <div class="panel-block"><img class="figure" alt="Water Network" src="https://raw.githubusercontent.com/ketan18-ux/CityProject.github.io/main/ketan/water_pressure.png"></div>
 
-    <div class="panel-block">
-      <h3>Problem Context</h3>
-      <p>
-        Some bridges are so crucial that removing them disconnects entire regions.
-        We must detect such "critical links" using DFS and low-link values.
-      </p>
-    </div>
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/water_pressure.cpp" target="_blank">📂 View C++: water_pressure.cpp</a>
+        </div>
 
-    <div class="panel-block">
-      <h3>Algorithm</h3>
-      <ul>
-        <li>DFS timestamps each node</li>
-        <li>Compute <code>low[]</code> values to detect back-edges</li>
-        <li>If <code>low[v] > disc[u]</code>, edge (u,v) is a bridge</li>
-        <li>Complexity: O(V + E)</li>
-      </ul>
-    </div>
-
-    <div class="panel-block">
-      <h3>IO Format</h3>
-      <p class="io-label">Input</p>
-      <p>Undirected graph.</p>
-
-      <p class="io-label">Output</p>
-      <p>List of all critical bridges.</p>
-    </div>
-
-    <div class="panel-block">
-      <div class="figure-placeholder">🖼️ IMAGE HERE — critical edges highlighted</div>
-    </div>
-
-    <div class="panel-block">
-      <a class="github-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P9/P9.cpp"
-         target="_blank">
-        📘 View C++ Code (Bridge Detection)
-      </a>
-    </div>
-
-    <div class="panel-block">
-      <a class="dataset-link" 
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P9/graph.csv" 
-         target="_blank">📄 graph.csv</a>
-    </div>
-
-    <div class="panel-block">
-      <a class="efficiency-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P9/efficiency_bridge.txt"
-         target="_blank">
-        ⚡ View Efficiency Analysis
-      </a>
-    </div>
-
-  </div>
-</section>
-
-
-
-
-<!-- 10: FLOOD EVACUATION SIMULATION -->
-<section class="panel-shell" id="p10-panel">
-  <div class="panel-header">
-    <div class="panel-title-group">
-      <div class="panel-title">10. Flood Evacuation Simulation</div>
-      <div class="panel-chip-row">
-        <span class="panel-chip">Disaster Management</span>
-        <span class="panel-chip algo">Multi-Source BFS</span>
+        <div class="panel-block">
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p5_dataset.csv" target="_blank">📄 Dataset</a>
+          &nbsp;
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p5_efficiency.txt" target="_blank">⚡ Efficiency</a>
+        </div>
       </div>
-    </div>
-    <div class="panel-controls">
-      <button class="back-btn" data-close>⬅ Back</button>
-    </div>
-  </div>
+    </section>
 
-  <div class="panel-scroll">
-
-    <div class="panel-block">
-      <h3>Problem Context</h3>
-      <p>
-        Flood water spreads outward from riverbanks in waves.
-        Authorities must know which shelters remain reachable before waters rise.
-      </p>
-    </div>
-
-    <div class="panel-block">
-      <h3>Algorithm</h3>
-      <ul>
-        <li>Push all flood-source nodes into BFS queue</li>
-        <li>BFS level → time of flood arrival</li>
-        <li>Compare with safe evacuation threshold</li>
-        <li>Complexity: O(V + E)</li>
-      </ul>
-    </div>
-
-    <div class="panel-block">
-      <h3>IO Format</h3>
-      <p class="io-label">Input</p>
-      <p>Graph + flood sources + shelters + time threshold.</p>
-
-      <p class="io-label">Output</p>
-      <p>Flood arrival times + shelter safety classification.</p>
-    </div>
-
-    <div class="panel-block">
-      <div class="figure-placeholder">🖼️ IMAGE HERE — BFS flood wave spread</div>
-    </div>
-
-    <div class="panel-block">
-      <a class="github-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P10/P10.cpp"
-         target="_blank">
-        📘 View C++ Code (Flood BFS)
-      </a>
-    </div>
-
-    <div class="panel-block">
-      <a class="dataset-link" 
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P10/flood_graph.csv" 
-         target="_blank">📄 flood_graph.csv</a>
-      <br>
-      <a class="dataset-link" 
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P10/shelters.csv" 
-         target="_blank">📄 shelters.csv</a>
-    </div>
-
-    <div class="panel-block">
-      <a class="efficiency-link"
-         href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P10/efficiency_flood.txt"
-         target="_blank">
-        ⚡ View Efficiency Analysis
-      </a>
-    </div>
-
-  </div>
-</section>
-<!-- DOCUMENTATION PANEL -->
-<section class="panel-shell" id="doc-panel">
-  <div class="panel-header">
-    <div class="panel-title-group">
-      <div class="panel-title">Technical Documentation & SDG Mapping</div>
-      <div class="panel-chip-row">
-        <span class="panel-chip">Project Metrics</span>
-        <span class="panel-chip">Design Techniques</span>
-        <span class="panel-chip algo">SDG 6 · SDG 7 · SDG 9 · SDG 11 · SDG 13</span>
+    <!-- P6 -->
+    <section class="panel-shell" id="p6-panel">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">6. Power Grid Load Minimization</div>
+          <div class="panel-chip-row"><span class="panel-chip">Electric Grid</span><span class="panel-chip">Prim’s MST</span></div>
+        </div>
+        <div><button class="back-btn" data-close>⬅ Back</button></div>
       </div>
-    </div>
-    <div class="panel-controls">
-      <button class="back-btn" data-close>⬅ Back</button>
-    </div>
-  </div>
+      <div class="panel-scroll">
+        <div class="panel-block"><h3>Problem</h3><p>Connect substations and colonies with minimal total cost using Prim's algorithm on a weighted graph.</p></div>
 
-  <div class="panel-scroll">
+        <div class="panel-block"><img class="figure" alt="Power Grid MST" src="https://raw.githubusercontent.com/ketan18-ux/CityProject.github.io/main/ketan/powergrid_mst.jpg"></div>
 
-    <div class="panel-block">
-      <h3>A. Overall Project Metrics</h3>
-      <ul>
-        <li>Total C++ LOC: <strong>2000+ lines</strong></li>
-        <li>Total Programs: <strong>10 simulations</strong></li>
-        <li>Data Files: <strong>20+ CSV datasets</strong></li>
-        <li>Algorithms Covered: MST, Dijkstra, BFS, DFS, Sorting, Scheduling</li>
-        <li>Complexity Included: <strong>All modules include time & space analysis</strong></li>
-      </ul>
-    </div>
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/powergrid_mst.cpp" target="_blank">📂 View C++: powergrid_mst.cpp</a>
+        </div>
 
-    <div class="panel-block">
-      <h3>B. Algorithm Design Techniques</h3>
-      <ul>
-        <li>Greedy optimisation (MST, routing, scheduling)</li>
-        <li>Graph modelling of city infrastructure</li>
-        <li>Sorting as a backbone for ranking and scheduling</li>
-        <li>BFS / DFS traversal patterns</li>
-        <li>Heaps & Union–Find for efficient graph processing</li>
-      </ul>
-    </div>
-
-    <div class="panel-block">
-      <h3>C. Data Structures Used</h3>
-      <ul>
-        <li>Arrays & vectors for storing zones, edges, queues</li>
-        <li>Queues & stacks for BFS/DFS</li>
-        <li>Priority queues (heaps) for Dijkstra/Prim</li>
-        <li>Disjoint Set Union (Union–Find) for Kruskal’s MST</li>
-        <li>Adjacency lists for efficient graph storage</li>
-      </ul>
-    </div>
-
-    <div class="panel-block">
-      <h3>D. Algorithms Implemented</h3>
-
-      <p class="doc-inline-title">Graph Algorithms</p>
-      <ul>
-        <li>BFS (single-source + multi-source)</li>
-        <li>DFS (connectivity + bridge detection)</li>
-        <li>Dijkstra’s shortest path</li>
-        <li>Prim’s & Kruskal’s MST</li>
-        <li>Tarjan-style low-link bridges</li>
-      </ul>
-
-      <p class="doc-inline-title">Sorting & Scheduling</p>
-      <ul>
-        <li>Merge Sort / Quick Sort — roads, pipes, trips</li>
-        <li>Greedy interval scheduling — bus timetable</li>
-        <li>Greedy routing — garbage collection</li>
-      </ul>
-    </div>
-
-    <div class="panel-block">
-      <h3>E. SDG Mapping Summary</h3>
-      <div class="sdg-box">
-        🌱 <strong>SDG 6 – Clean Water:</strong> Pipeline pressure optimisation.<br>
-        ⚡ <strong>SDG 7 – Clean Energy:</strong> Efficient power grid routing.<br>
-        🛣️ <strong>SDG 9 – Infrastructure:</strong> Roads, bridges, MST-based planning.<br>
-        🏙️ <strong>SDG 11 – Sustainable Cities:</strong> Transport, waste, disaster modules.<br>
-        🌧️ <strong>SDG 13 – Climate Action:</strong> Flood modelling & evacuation planning.
+        <div class="panel-block">
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p6_dataset.csv" target="_blank">📄 Dataset</a>
+          &nbsp;
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p6_efficiency.txt" target="_blank">⚡ Efficiency</a>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <!-- P7 -->
+    <section class="panel-shell" id="p7-panel">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">7. Garbage Truck Route Optimization</div>
+          <div class="panel-chip-row"><span class="panel-chip">Solid Waste</span><span class="panel-chip">Dijkstra + Greedy</span></div>
+        </div>
+        <div><button class="back-btn" data-close>⬅ Back</button></div>
+      </div>
+      <div class="panel-scroll">
+        <div class="panel-block"><h3>Problem</h3><p>Build an efficient collection route using precomputed shortest paths and a greedy nearest-neighbor heuristic.</p></div>
+
+        <div class="panel-block"><img class="figure" alt="Garbage Routing" src="https://raw.githubusercontent.com/ketan18-ux/CityProject.github.io/main/ketan/garbage_route.png"></div>
+
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/garbage_routing.cpp" target="_blank">📂 View C++: garbage_routing.cpp</a>
+        </div>
+
+        <div class="panel-block">
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p7_dataset.csv" target="_blank">📄 Dataset</a>
+          &nbsp;
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p7_efficiency.txt" target="_blank">⚡ Efficiency</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- P8 -->
+    <section class="panel-shell" id="p8-panel">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">8. Public Transport Timetable Generation</div>
+          <div class="panel-chip-row"><span class="panel-chip">Public Transport</span><span class="panel-chip">Interval Scheduling</span></div>
+        </div>
+        <div><button class="back-btn" data-close>⬅ Back</button></div>
+      </div>
+      <div class="panel-scroll">
+        <div class="panel-block"><h3>Problem</h3><p>Select maximum number of non-overlapping trips via efficient sorting and greedy selection.</p></div>
+
+        <div class="panel-block"><img class="figure" alt="Bus Timetable" src="https://raw.githubusercontent.com/ketan18-ux/CityProject.github.io/main/ketan/bus_timetable.png"></div>
+
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/bus_timetable.cpp" target="_blank">📂 View C++: bus_timetable.cpp</a>
+        </div>
+
+        <div class="panel-block">
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p8_dataset.csv" target="_blank">📄 Dataset</a>
+          &nbsp;
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p8_efficiency.txt" target="_blank">⚡ Efficiency</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- P9 -->
+    <section class="panel-shell" id="p9-panel">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">9. Bridge Construction Priority Model</div>
+          <div class="panel-chip-row"><span class="panel-chip">Critical Infrastructure</span><span class="panel-chip">DFS Bridges</span></div>
+        </div>
+        <div><button class="back-btn" data-close>⬅ Back</button></div>
+      </div>
+      <div class="panel-scroll">
+        <div class="panel-block"><h3>Problem</h3><p>Detect bridges using DFS low-link values; list edges whose removal disconnects the graph.</p></div>
+
+        <div class="panel-block"><img class="figure" alt="Bridge Map" src="https://raw.githubusercontent.com/ketan18-ux/CityProject.github.io/main/ketan/bridge_map.png"></div>
+
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/bridge_priority.cpp" target="_blank">📂 View C++: bridge_priority.cpp</a>
+        </div>
+
+        <div class="panel-block">
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p9_dataset.csv" target="_blank">📄 Dataset</a>
+          &nbsp;
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p9_efficiency.txt" target="_blank">⚡ Efficiency</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- P10 -->
+    <section class="panel-shell" id="p10-panel">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">10. Flood Evacuation Simulation</div>
+          <div class="panel-chip-row"><span class="panel-chip">Disaster Management</span><span class="panel-chip">Multi-source BFS</span></div>
+        </div>
+        <div><button class="back-btn" data-close>⬅ Back</button></div>
+      </div>
+      <div class="panel-scroll">
+        <div class="panel-block"><h3>Problem</h3><p>Run multi-source BFS starting from flood sources to compute arrival times and classify shelters as safe/unsafe within a threshold.</p></div>
+
+        <div class="panel-block"><img class="figure" alt="Flood BFS" src="https://raw.githubusercontent.com/ketan18-ux/CityProject.github.io/main/ketan/flood_bfs_map.png"></div>
+
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/flood_evacuation.cpp" target="_blank">📂 View C++: flood_evacuation.cpp</a>
+        </div>
+
+        <div class="panel-block">
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p10_dataset.csv" target="_blank">📄 Dataset</a>
+          &nbsp;
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p10_efficiency.txt" target="_blank">⚡ Efficiency</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- DOCS -->
+    <section class="panel-shell" id="doc-panel">
+      <div class="panel-header">
+        <div>
+          <div class="panel-title">Technical Documentation &amp; SDG Mapping</div>
+          <div class="panel-chip-row"><span class="panel-chip">Project Metrics</span><span class="panel-chip">Design Techniques</span></div>
+        </div>
+        <div><button class="back-btn" data-close>⬅ Back</button></div>
+      </div>
+
+      <div class="panel-scroll">
+        <div class="panel-block">
+          <h3>A. Project Metrics</h3>
+          <ul style="margin-left:18px;color:var(--text)">
+            <li>Total C++ lines (approx): <strong>2000+</strong></li>
+            <li>Input datasets: CSV files for P1–P10 in <code>/ketan/datasets/</code></li>
+            <li>Efficiency analyses in <code>/ketan/analysis/</code></li>
+          </ul>
+        </div>
+
+        <div class="panel-block">
+          <h3>B. Where to find everything</h3>
+          <p>All repository code and data referenced here are in the GitHub repo. Use these quick links:</p>
+          <p style="display:flex;gap:8px;flex-wrap:wrap">
+            <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io" target="_blank">📂 Repo Home</a>
+            <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan" target="_blank">📁 /ketan (folder)</a>
+          </p>
+        </div>
+
+        <div class="panel-block sdg-box">
+          <strong>SDG mapping summary:</strong><br>
+          SDG 6, SDG 7, SDG 9, SDG 11, SDG 13 — each module references specific SDG impacts.
+        </div>
+      </div>
+    </section>
 
   </div>
-</section>
 
+  <script>
+    // panel open/close
+    const overlay = document.getElementById('overlay');
+    const nodes = document.querySelectorAll('.map-node');
+    const panels = document.querySelectorAll('.panel-shell');
 
-
-<!-- OVERLAY CLICK HANDLER + PANEL SCRIPT -->
-<script>
-  const overlay = document.getElementById("overlay");
-  const nodes = document.querySelectorAll(".map-node");
-  const panels = document.querySelectorAll(".panel-shell");
-
-  // OPEN PANEL
-  function openPanel(id) {
-    panels.forEach(p => p.classList.remove("open"));
-    const target = document.getElementById(id + "-panel");
-    if (target) {
-      target.classList.add("open");
-      overlay.classList.add("open");
+    function openPanel(id){
+      panels.forEach(p=>p.classList.remove('open'));
+      const el = document.getElementById(id + '-panel');
+      if(!el) return;
+      el.classList.add('open');
+      overlay.classList.add('open');
+      // scroll top on open
+      const scroll = el.querySelector('.panel-scroll');
+      if(scroll) scroll.scrollTop = 0;
     }
-  }
 
-  // CLICK ANY NODE → OPEN PANEL
-  nodes.forEach(node => {
-    node.addEventListener("click", () => {
-      const tgt = node.getAttribute("data-target");
-      openPanel(tgt);
+    nodes.forEach(n=>{
+      n.addEventListener('click', ()=> {
+        const tgt = n.getAttribute('data-target');
+        openPanel(tgt);
+      });
     });
-  });
 
-  // CLOSE PANEL
-  function closeAll() {
-    overlay.classList.remove("open");
-    panels.forEach(p => p.classList.remove("open"));
-  }
+    document.querySelectorAll('[data-close]').forEach(btn=>{
+      btn.addEventListener('click', ()=> {
+        overlay.classList.remove('open');
+        panels.forEach(p=>p.classList.remove('open'));
+      });
+    });
 
-  // BACK BUTTONS
-  document.querySelectorAll("[data-close]").forEach(btn => {
-    btn.addEventListener("click", closeAll);
-  });
+    // click outside to close
+    overlay.addEventListener('click', (e)=>{
+      if(e.target === overlay){
+        overlay.classList.remove('open');
+        panels.forEach(p=>p.classList.remove('open'));
+      }
+    });
 
-  // CLICK OUTSIDE PANEL TO CLOSE
-  overlay.addEventListener("click", e => {
-    if (e.target === overlay) closeAll();
-  });
-</script>
-
+    // keyboard escape
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape'){
+        overlay.classList.remove('open');
+        panels.forEach(p=>p.classList.remove('open'));
+      }
+    });
+  </script>
 
 </body>
 </html>
