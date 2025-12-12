@@ -1,0 +1,115 @@
+Efficiency Analysis — Dijkstra’s Algorithm (Binary Min-Heap)
+Assumptions
+
+V = number of zones (vertices)
+
+E = number of roads (edges)
+
+Adjacency list representation
+
+Priority queue = min-heap
+
+Step 1 — Initialization
+
+Set initial distances
+
+Mark all nodes unvisited
+
+Insert source node into the min-heap
+
+Time:
+O(V) for initialization
+O(log V) for first heap insertion
+
+Total:
+➡ O(V)
+
+Step 2 — Extract-Min Operations
+
+The main loop removes the vertex with smallest travel time
+
+This happens V times
+
+Each extract-min operation costs O(log V)
+
+Total:
+➡ V × O(log V) = O(V log V)
+
+Step 3 — Relaxing Edges (Updating Distances)
+
+For each extracted node, all outgoing edges are checked
+
+Across entire algorithm, each edge is processed once
+
+Each relaxation may cause a heap update (push/decrease-key)
+
+Heap update costs O(log V)
+
+Total:
+➡ E × O(log V) = O(E log V)
+
+Step 4 — Combine All Costs
+O(V) + O(V log V) + O(E log V)
+
+
+Factor out log V:
+
+➡ O((V + E) log V)
+
+Common simplification when E ≥ V:
+
+➡ O(E log V)
+
+Space Complexity
+
+Distance array: O(V)
+
+Parent array: O(V)
+
+Min-heap: O(V) to O(E)
+
+Adjacency list: O(V + E)
+
+Total space:
+➡ O(V + E)
+
+3. EFFICIENCY ANALYSIS — BFS (Unweighted Shortest Path)
+
+(For hop-based routing model)
+
+Efficiency Analysis — BFS Algorithm
+Step 1 — Initialization
+
+Distance array (V entries)
+
+Parent array
+
+Queue is initialized
+
+Time: O(V)
+
+Step 2 — BFS traversal
+
+Each vertex is visited once
+
+Each edge is explored once
+
+Queue operations are O(1)
+
+Total time:
+
+➡ O(V + E)
+
+Space Complexity
+
+Distance array: O(V)
+
+Parent array: O(V)
+
+Queue: O(V)
+
+Graph (adjacency list): O(V + E)
+
+Total:
+
+➡ O(V + E)
