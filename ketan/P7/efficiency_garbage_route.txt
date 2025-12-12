@@ -1,0 +1,68 @@
+Efficiency Analysis — Garbage Truck Route Optimization (Problem 7)
+
+Goal:
+Compute a full distance matrix using Dijkstra and then construct a
+near-optimal garbage collection route using the Nearest-Neighbour heuristic.
+
+Definitions:
+V = number of pickup points (20 in dataset)
+E = number of connecting roads (20 in dataset)
+
+--------------------------------------------------------------------
+STEP 1 — Dijkstra from Every Node (All-Pairs Shortest Paths)
+--------------------------------------------------------------------
+Each Dijkstra call uses:
+    O(E log V)
+
+We call Dijkstra V times:
+    O(V * E log V)
+
+Space:
+    dist array per run: O(V)
+    adjacency list:      O(V + E)
+
+--------------------------------------------------------------------
+STEP 2 — Build Distance Matrix
+--------------------------------------------------------------------
+Fill V × V table:
+    O(V^2)
+
+Magnitude small compared to Dijkstra step.
+
+--------------------------------------------------------------------
+STEP 3 — Greedy TSP Route (Nearest Neighbour)
+--------------------------------------------------------------------
+At each step, choose nearest unvisited node:
+    Worst case: check V nodes per step → O(V)
+    V steps total → O(V^2)
+
+Space:
+    visited array:  O(V)
+    route array:    O(V)
+
+--------------------------------------------------------------------
+OVERALL TIME COMPLEXITY
+--------------------------------------------------------------------
+Dijkstra (dominant):  O(V * E log V)
+Distance matrix:      O(V^2)
+Greedy route:         O(V^2)
+
+Total:
+    O(V * E log V)
+
+For V = 20, E = 20 → extremely fast in real-time.
+
+--------------------------------------------------------------------
+SPACE COMPLEXITY
+--------------------------------------------------------------------
+Adjacency list:        O(V + E)
+Distance matrix:       O(V^2)
+Route storage:         O(V)
+
+Total:
+    O(V^2)
+
+--------------------------------------------------------------------
+Conclusion:
+Algorithm is highly efficient for medium-size smart-city routing.
+Provides near-optimal garbage truck sequence using lightweight heuristics.
