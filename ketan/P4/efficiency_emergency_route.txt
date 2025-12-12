@@ -1,0 +1,74 @@
+Efficiency Analysis — Emergency Fastest Route Planner
+Algorithms used: DFS (reachability check) + BFS (shortest hop path)
+
+Let:
+V = number of locations (20 in dataset)
+E = number of roads (20 in dataset)
+B = number of blocked roads
+
+----------------------------------------------------------
+STEP 1 — Load Graph and Remove Blocked Roads
+----------------------------------------------------------
+- Building adjacency list: O(V + E)
+- Removing blocked edges:
+    Each removal uses erase() over adjacency list.
+    Worst case: removal cost O(deg(u)) + O(deg(v)).
+    Over all B blocked edges:
+        Total ≤ O(B + total degrees processed) 
+        Which is bounded by O(E)
+Overall complexity for preprocessing:
+    O(V + E)
+
+----------------------------------------------------------
+STEP 2 — DFS Reachability Check
+----------------------------------------------------------
+Purpose: Check if ambulance station can still reach incident 
+         after removing blocked roads.
+
+DFS visits each node and edge once.
+Cost:
+    O(V + E)
+
+----------------------------------------------------------
+STEP 3 — BFS Shortest Hop Path
+----------------------------------------------------------
+Uses adjacency list + queue.
+Each vertex enqueued once, each edge checked once.
+Cost:
+    O(V + E)
+
+----------------------------------------------------------
+STEP 4 — Reconstruct Path
+----------------------------------------------------------
+A simple parent-pointer backtracking.
+Cost:
+    O(V)
+
+----------------------------------------------------------
+OVERALL COMPLEXITY
+----------------------------------------------------------
+Preprocessing:  O(V + E)
+DFS:            O(V + E)
+BFS:            O(V + E)
+Path Build:     O(V)
+
+Total:
+    O(V + E)
+
+----------------------------------------------------------
+SPACE COMPLEXITY
+----------------------------------------------------------
+Adjacency list: O(V + E)
+Visited array:  O(V)
+Parent array:   O(V)
+Distance array: O(V)
+
+Total space: 
+    O(V + E)
+
+----------------------------------------------------------
+FINAL CONCLUSION
+----------------------------------------------------------
+The emergency route planner runs in linear time O(V + E),
+making it extremely efficient and suitable for real-time
+ambulance navigation even in large city networks.
