@@ -1,15 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct AdjEdge {
-    int to;
-    double w;
-};
-
-struct MSTEdge {
-    int u, v;
-    double w;
-};
+struct AdjEdge { int to; double w; };
+struct MSTEdge { int u, v; double w; };
 
 struct PowerGrid {
     int n;
@@ -25,17 +18,13 @@ struct PowerGrid {
     }
 
     void addEdge(int u, int v, double w) {
-        if (u < 0 || v < 0 || u >= n || v >= n) return;
-        adj[u].push_back({v, w});
-        adj[v].push_back({u, w});
-    }
-
-    void labelNode(int i, const string &s) {
-        if (i >= 0 && i < n) name[i] = s;
+        if (u<0 || v<0 || u>=n || v>=n) return;
+        adj[u].push_back({v,w});
+        adj[v].push_back({u,w});
     }
 };
 
-// DFS to check connectivity (MST needs connected graph)
+// ---------------- Connectivity Check (DFS) ---------------- //
 void dfsConn(int u, const PowerGrid &g, vector<int> &vis) {
     vis[u] = 1;
     for (auto &e : g.adj[u])
@@ -51,144 +40,133 @@ bool isConnected(const PowerGrid &g) {
     return true;
 }
 
-// Prim's MST with priority queue (min-heap)
+// ---------------- Prim's MST with Min-Heap ---------------- //
 pair<vector<MSTEdge>, double> primMST(const PowerGrid &g, int start) {
     int n = g.n;
     vector<int> used(n, 0);
-    vector<MSTEdge> mstEdges;
-    double total = 0.0;
+    vector<MSTEdge> mst;
+    double total = 0;
 
     using T = pair<double, pair<int,int>>; // (weight,(u,v))
     priority_queue<T, vector<T>, greater<T>> pq;
 
     used[start] = 1;
     for (auto &e : g.adj[start])
-        pq.push({e.w, {start, e.to}});
+        pq.push({e.w,{start,e.to}});
 
-    while (!pq.empty() && mstEdges.size() < n - 1) {
+    while (!pq.empty() && mst.size() < n - 1) {
         auto top = pq.top(); pq.pop();
         double w = top.first;
         int u = top.second.first;
         int v = top.second.second;
 
         if (used[v]) continue;
+
         used[v] = 1;
-        mstEdges.push_back({u, v, w});
+        mst.push_back({u,v,w});
         total += w;
 
         for (auto &nx : g.adj[v])
             if (!used[nx.to])
-                pq.push({nx.w, {v, nx.to}});
+                pq.push({nx.w,{v,nx.to}});
     }
-    return {mstEdges, total};
+
+    return {mst,total};
 }
 
-// Print MST result neatly
-void printMST(const vector<MSTEdge> &mst, double total,
-              const PowerGrid &g) {
-    cout << "\n--- Recommended Power Backbone (MST) ---\n";
+// ---------------- Print MST ---------------- //
+void printMST(const vector<MSTEdge> &mst, double total) {
+    cout << "\n--- Minimum Cost Power Backbone (MST) ---\n";
     cout << left << setw(8) << "From"
          << setw(8) << "To"
-         << setw(12) << "Cost/Loss\n";
+         << "Cost\n";
     cout << string(30,'-') << "\n";
 
     for (auto &e : mst) {
-        cout << setw(8) << e.u;
-        cout << setw(8) << e.v;
-        cout << setw(12) << fixed << setprecision(2) << e.w;
-        cout << "\n";
+        cout << setw(8) << e.u
+             << setw(8) << e.v
+             << fixed << setprecision(2) << e.w << "\n";
     }
-    cout << "\nTotal wiring cost + loss: " 
-         << total << "\n\n";
+
+    cout << "\nTotal MST Cost: " << total << "\n\n";
 }
 
-// Example sample grid
-void buildSampleGrid(PowerGrid &g, int &start) {
-    /*
-         0 (Main Substation)
-        /  \
-     10    12
-      /      \
-     1        2
-    / \      / \
-   4   6    7   5
-    */
+// ---------------- CSV Loaders ---------------- //
+bool loadNodesCSV(PowerGrid &g) {
+    ifstream fin("grid_nodes.csv");
+    if (!fin.is_open()) return false;
 
-    g.init(6);
-    g.labelNode(0,"Main Substation");
-    g.labelNode(1,"New Colony A");
-    g.labelNode(2,"New Colony B");
-    g.labelNode(3,"Transformer A1");
-    g.labelNode(4,"Transformer A2");
-    g.labelNode(5,"Transformer B1");
+    vector<string> names;
+    string line;
+    getline(fin, line); // header
 
-    g.addEdge(0,1,10.0);
-    g.addEdge(0,2,12.0);
-    g.addEdge(1,3,4.0);
-    g.addEdge(1,4,6.0);
-    g.addEdge(2,5,7.5);
+    while (getline(fin, line)) {
+        size_t pos = line.find(',');
+        if (pos == string::npos) continue;
+        string lbl = line.substr(pos + 1);
+        names.push_back(lbl);
+    }
 
-    start = 0;
+    g.init(names.size());
+    g.name = names;
+    return true;
 }
 
+bool loadEdgesCSV(PowerGrid &g) {
+    ifstream fin("grid_edges.csv");
+    if (!fin.is_open()) return false;
+
+    string line;
+    getline(fin,line);
+
+    while (getline(fin, line)) {
+        stringstream ss(line);
+        string a,b,c;
+        getline(ss,a,',');
+        getline(ss,b,',');
+        getline(ss,c,',');
+
+        int u = stoi(a);
+        int v = stoi(b);
+        double w = stod(c);
+
+        g.addEdge(u,v,w);
+    }
+    return true;
+}
+
+// ---------------- MAIN ---------------- //
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
+    cout << "Problem 6 — Power Grid Load Minimization (CSV Enabled)\n\n";
+
     PowerGrid g;
+    bool ok1 = loadNodesCSV(g);
+    bool ok2 = loadEdgesCSV(g);
+
     int start = 0;
 
-    cout << "Problem 6: Power Grid Load Minimization\n\n";
-    cout << "1. Use sample power grid\n";
-    cout << "2. Enter custom grid\n";
-    cout << "Choice: ";
-    int mode;
-    cin >> mode;
-
-    if (mode == 2) {
-        int nodes, edges;
-        cout << "\nEnter number of nodes: ";
-        cin >> nodes;
-        g.init(nodes);
-
-        cout << "Enter label for each node:\n";
-        for (int i = 0; i < nodes; i++) {
-            string s;
-            cout << "Node " << i << ": ";
-            cin.ignore();
-            getline(cin, s);
-            g.labelNode(i, s);
-        }
-
-        cout << "\nEnter number of cables: ";
-        cin >> edges;
-        cout << "Enter: u v cost\n";
-        for (int i = 0; i < edges; i++) {
-            int u,v; double w;
-            cin >> u >> v >> w;
-            g.addEdge(u,v,w);
-        }
-
-        cout << "\nEnter start node index: ";
-        cin >> start;
-
-    } else {
-        buildSampleGrid(g, start);
-        cout << "\nUsing sample power grid...\n\n";
+    if (!ok1 || !ok2) {
+        cout << "❌ CSV files not found! Please add grid_nodes.csv and grid_edges.csv.\n";
+        return 0;
     }
+
+    cout << "Loaded " << g.n << " nodes.\n";
+
+    cout << "Enter starting node index (substation): ";
+    cin >> start;
 
     if (!isConnected(g)) {
         cout << "\nERROR: Graph is not fully connected.\n";
-        cout << "Cannot compute MST until network connections are complete.\n";
         return 0;
     }
 
     auto [mst, total] = primMST(g, start);
 
-    printMST(mst, total, g);
+    printMST(mst, total);
 
     cout << "Time Complexity: O(E log V)\n";
-    cout << "All colonies are connected using minimum wiring cost.\n";
-
     return 0;
 }
