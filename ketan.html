@@ -753,10 +753,97 @@
   <div class="overlay" id="overlay">
 
     <!-- 1: ROAD NETWORK -->
-    <section class="panel-shell" id="p10-panel$0".replace("href="" target="_blank">🚀 View C++ Code · Input Dataset · Efficiency Analysis</a>
+    <section class="panel-shell" id="p1-panel">
+      <div class="panel-header">
+        <div class="panel-title-group">
+          <div class="panel-title">1. Optimal Road Network Construction</div>
+          <div class="panel-chip-row">
+            <span class="panel-chip">Transport Infrastructure</span>
+            <span class="panel-chip algo">Minimum Spanning Tree · Kruskal + Prim + Union–Find</span>
+          </div>
+        </div>
+        <div class="panel-controls">
+          <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
+        </div>
+      </div>
+      <div class="panel-scroll">
+        <div class="panel-block">
+          <h3>Problem Context</h3>
+          <p>
+            The city is expanding with several new townships. Each pair of major junctions has an estimated
+            road construction cost (land, materials, labour). If engineers connect junctions in an ad-hoc manner,
+            they may create redundant loops, overspend the budget, and still leave some junctions disconnected.
+          </p>
+          <p>
+            We need a <strong>backbone road layout</strong> that connects all junctions with the minimum possible total cost,
+            while guaranteeing that every junction is reachable from every other one.
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Algorithmic Solution (Kruskal + Prim + Union–Find)</h3>
+          <p>
+            The road network is modeled as a weighted, undirected graph <em>G(V, E)</em>.
+            Each junction is a vertex; each potential road is an edge with its construction cost as weight.
+          </p>
+          <ul>
+            <li><strong>Kruskal’s MST:</strong> Sort all edges by increasing cost and add them one by one if they do not form a cycle. Cycle detection is done in near O(1) time using <strong>Disjoint Set Union (Union–Find)</strong> with path compression and union by rank. Overall time: <strong>O(E log E)</strong>.</li>
+            <li><strong>Prim’s MST:</strong> Start from any junction and repeatedly add the cheapest edge that connects a new junction to the growing tree using a <strong>min-priority queue (heap)</strong>. Time: <strong>O(E log V)</strong> with adjacency list.</li>
+          </ul>
+          <p>
+            In this project, we implement both methods and compare their MST cost to ensure correctness.
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Input / Output (Project Version)</h3>
+          <p class="io-label">Input</p>
+          <p>
+            A fixed small example with 6 junctions and 8–10 candidate roads. Each road is given as
+            <em>(u, v, cost)</em>. Data is reused for diagrams and C++ simulations.
+          </p>
+          <p class="io-label" style="margin-top:4px;">Output</p>
+          <p>
+            Road segments selected in the MST and the total construction cost. Both Kruskal and Prim
+            should produce the same cost, which validates the solution.
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Related SDGs</h3>
+          <div class="sdg-box">
+            🌱 <strong>SDG 9.1 – Sustainable Infrastructure:</strong> Designs a cost-efficient backbone of main roads that can later be densified.<br />
+            🌱 <strong>SDG 11.2 – Accessible Transport:</strong> Ensures all key junctions are connected so public transport can be deployed everywhere.
+          </div>
+        </div>
+        <div class="panel-block">
+          <h3>How These Algorithms Help in General</h3>
+          <p>
+            MST algorithms are used in designing <strong>electric grids, optical fiber networks, water pipelines,
+            and campus-wide networks</strong>. Union–Find is also widely used for connectivity checking,
+            clustering, and detecting cycles efficiently in many graph-based problems.
+          </p>
+        </div>
+        <div class="panel-block">
+ <img src="/CityProject.github.io/ketan/mst_road_network.jpg"
+     alt="MST Road Network"
+     style="width:450px; height:auto; display:block; margin:auto; border-radius:10px;">
+        </div>
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/p1_mst_roads.cpp" target="_blank">
+            <span>📂</span> View C++ Code for Road Network (Kruskal + Prim)
+          </a>
         </div>
 
-        
+        <!-- NEW: dataset + efficiency links for P1 -->
+        <div class="panel-block">
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p1_dataset.csv" target="_blank">
+            <span>📄</span> View Input Dataset
+          </a>
+        </div>
+
+        <div class="panel-block">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p1_efficiency.txt" target="_blank">
+            <span>⚡</span> View Efficiency Analysis
+          </a>
+        </div>
 
       </div>
     </section>
@@ -837,14 +924,24 @@
           </div>
         </div>
 
-        
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/shortestpath.cpp" target="_blank">
+            <span>📂</span> View C++ Code for Travel-Time Routing (Dijkstra + BFS)
+          </a>
+        </div>
 
         <!-- NEW: dataset + efficiency links for P2 -->
         <div class="panel-block">
-          <a class="resource-btn" href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P$1" target="_blank">🚀 View C++ Code · Input Dataset · Efficiency Analysis</a>
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p2_dataset.csv" target="_blank">
+            <span>📄</span> View Input Dataset
+          </a>
         </div>
 
-        
+        <div class="panel-block">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p2_efficiency.txt" target="_blank">
+            <span>⚡</span> View Efficiency Analysis
+          </a>
+        </div>
 
       </div>
     </section>
@@ -924,14 +1021,24 @@
           </div>
         </div>
 
-        
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/signal_timing.cpp" target="_blank">
+            <span>📂</span> View C++ Code for Signal Timing Optimization
+          </a>
+        </div>
 
         <!-- NEW: dataset + efficiency links for P3 -->
         <div class="panel-block">
-          <a class="resource-btn" href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P$1" target="_blank">🚀 View C++ Code · Input Dataset · Efficiency Analysis</a>
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p3_dataset.csv" target="_blank">
+            <span>📄</span> View Input Dataset
+          </a>
         </div>
 
-        
+        <div class="panel-block">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p3_efficiency.txt" target="_blank">
+            <span>⚡</span> View Efficiency Analysis
+          </a>
+        </div>
 
       </div>
     </section>
@@ -1007,14 +1114,24 @@
           </div>
         </div>
 
-        
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/emergency_route.cpp" target="_blank">
+            <span>📂</span> View C++ Code for Emergency Routing (BFS + DFS)
+          </a>
+        </div>
 
         <!-- NEW: dataset + efficiency links for P4 -->
         <div class="panel-block">
-          <a class="resource-btn" href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P$1" target="_blank">🚀 View C++ Code · Input Dataset · Efficiency Analysis</a>
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p4_dataset.csv" target="_blank">
+            <span>📄</span> View Input Dataset
+          </a>
         </div>
 
-        
+        <div class="panel-block">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p4_efficiency.txt" target="_blank">
+            <span>⚡</span> View Efficiency Analysis
+          </a>
+        </div>
 
       </div>
     </section>
@@ -1096,14 +1213,24 @@
           </div>
         </div>
 
-        
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/water_pressure.cpp" target="_blank">
+            <span>📂</span> View C++ Code for Water Pressure Analysis
+          </a>
+        </div>
 
         <!-- NEW: dataset + efficiency links for P5 -->
         <div class="panel-block">
-          <a class="resource-btn" href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P$1" target="_blank">🚀 View C++ Code · Input Dataset · Efficiency Analysis</a>
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p5_dataset.csv" target="_blank">
+            <span>📄</span> View Input Dataset
+          </a>
         </div>
 
-        
+        <div class="panel-block">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p5_efficiency.txt" target="_blank">
+            <span>⚡</span> View Efficiency Analysis
+          </a>
+        </div>
 
       </div>
     </section>
@@ -1179,14 +1306,24 @@
           </div>
         </div>
 
-        
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/powergrid_mst.cpp" target="_blank">
+            <span>📂</span> View C++ Code for Power Grid MST
+          </a>
+        </div>
 
         <!-- NEW: dataset + efficiency links for P6 -->
         <div class="panel-block">
-          <a class="resource-btn" href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P$1" target="_blank">🚀 View C++ Code · Input Dataset · Efficiency Analysis</a>
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p6_dataset.csv" target="_blank">
+            <span>📄</span> View Input Dataset
+          </a>
         </div>
 
-        
+        <div class="panel-block">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p6_efficiency.txt" target="_blank">
+            <span>⚡</span> View Efficiency Analysis
+          </a>
+        </div>
 
       </div>
     </section>
@@ -1262,14 +1399,24 @@
           </div>
         </div>
 
-        
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/garbage_routing.cpp" target="_blank">
+            <span>📂</span> View C++ Code for Garbage Truck Routing
+          </a>
+        </div>
 
         <!-- NEW: dataset + efficiency links for P7 -->
         <div class="panel-block">
-          <a class="resource-btn" href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P$1" target="_blank">🚀 View C++ Code · Input Dataset · Efficiency Analysis</a>
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p7_dataset.csv" target="_blank">
+            <span>📄</span> View Input Dataset
+          </a>
         </div>
 
-        
+        <div class="panel-block">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p7_efficiency.txt" target="_blank">
+            <span>⚡</span> View Efficiency Analysis
+          </a>
+        </div>
 
       </div>
     </section>
@@ -1345,14 +1492,24 @@
           </div>
         </div>
 
-        
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/bus_timetable.cpp" target="_blank">
+            <span>📂</span> View C++ Code for Bus Timetable Generation
+          </a>
+        </div>
 
         <!-- NEW: dataset + efficiency links for P8 -->
         <div class="panel-block">
-          <a class="resource-btn" href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P$1" target="_blank">🚀 View C++ Code · Input Dataset · Efficiency Analysis</a>
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p8_dataset.csv" target="_blank">
+            <span>📄</span> View Input Dataset
+          </a>
         </div>
 
-        
+        <div class="panel-block">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p8_efficiency.txt" target="_blank">
+            <span>⚡</span> View Efficiency Analysis
+          </a>
+        </div>
 
       </div>
     </section>
@@ -1429,14 +1586,24 @@
           </div>
         </div>
 
-        
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/bridge_priority.cpp" target="_blank">
+            <span>📂</span> View C++ Code for Bridge Priority Model
+          </a>
+        </div>
 
         <!-- NEW: dataset + efficiency links for P9 -->
         <div class="panel-block">
-          <a class="resource-btn" href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P$1" target="_blank">🚀 View C++ Code · Input Dataset · Efficiency Analysis</a>
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p9_dataset.csv" target="_blank">
+            <span>📄</span> View Input Dataset
+          </a>
         </div>
 
-        
+        <div class="panel-block">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p9_efficiency.txt" target="_blank">
+            <span>⚡</span> View Efficiency Analysis
+          </a>
+        </div>
 
       </div>
     </section>
@@ -1513,157 +1680,19 @@
           </div>
         </div>
 
-        
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/flood_evacuation.cpp" target="_blank">
+            <span>📂</span> View C++ Code for Flood Evacuation Simulation
+          </a>
+        </div>
 
         <!-- NEW: dataset + efficiency links for P10 -->
         <div class="panel-block">
-          <a class="resource-btn" href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P$1" target="_blank">🚀 View C++ Code · Input Dataset · Efficiency Analysis</a>
-        </div>
-
-        
-
-      </div>
-    </section>
-
-    <!-- DOCS PANEL -->
-    <section class="panel-shell" id="doc-panel">
-      <div class="panel-header">
-        <div class="panel-title-group">
-          <div class="panel-title">Technical Documentation &amp; SDG Mapping</div>
-          <div class="panel-chip-row">
-            <span class="panel-chip">Project Metrics</span>
-            <span class="panel-chip">Design Techniques &amp; DS</span>
-            <span class="panel-chip algo">SDG 9 · SDG 11 · SDG 6 · SDG 7</span>
-          </div>
-        </div>
-        <div class="panel-controls">
-          <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
-        </div>
-      </div>
-      <div class="panel-scroll">
-        <div class="panel-block">
-          <h3>A. Project Metrics (All 10 Problems)</h3>
-          <ul>
-            <li>Total lines of C++ code (approx.): <strong>2000–2500</strong></li>
-            <li>Total independent functions implemented: <strong>20+ core routines</strong></li>
-            <li>Data / input files prepared: <strong>10+</strong> (CSV, plain text)</li>
-            <li>Figures / diagrams to be inserted: <strong>10+ (one per case study)</strong></li>
-            <li>Every module includes <strong>time and space complexity analysis</strong> in comments.</li>
-          </ul>
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p10_dataset.csv" target="_blank">
+            <span>📄</span> View Input Dataset
+          </a>
         </div>
 
         <div class="panel-block">
-          <h3>B. Design Techniques Used</h3>
-          <ul>
-            <li>Greedy design (MST, routing, scheduling).</li>
-            <li>Graph modeling of physical networks (roads, water, power, waste, evacuation).</li>
-            <li>Efficient sorting (Merge Sort / Quick Sort) as a backbone step in multiple problems.</li>
-            <li>Traversal patterns: BFS, DFS, multi-source BFS.</li>
-            <li>Data-driven ranking and prioritisation through sorting and scoring.</li>
-          </ul>
-        </div>
-
-        <div class="panel-block">
-          <h3>C. Data Structures Used</h3>
-          <p class="doc-inline-title">Core Structures</p>
-          <ul>
-            <li>Arrays and vectors for lists of nodes, edges, queues, and trips.</li>
-            <li>Queues and stacks for BFS/DFS and simulation.</li>
-            <li>Priority queues (heaps) for Dijkstra and Prim.</li>
-            <li>Disjoint Set Union (Union–Find) for Kruskal.</li>
-            <li>Adjacency lists for efficient graph storage.</li>
-          </ul>
-        </div>
-
-        <div class="panel-block">
-          <h3>D. Algorithms Implemented in This Bucket</h3>
-          <p class="doc-inline-title">Graph Algorithms</p>
-          <ul>
-            <li>BFS, DFS, Multi-source BFS.</li>
-            <li>Dijkstra’s shortest path (with heap).</li>
-            <li>Prim’s and Kruskal’s MST (with Union–Find).</li>
-            <li>DFS-based bridge detection (Tarjan-style low-link values).</li>
-          </ul>
-          <p class="doc-inline-title">Sorting &amp; Scheduling</p>
-          <ul>
-            <li>Merge Sort / Quick Sort to sort roads, trips, and pipes by cost, time or criticality.</li>
-            <li>Greedy interval scheduling for bus timetables.</li>
-            <li>Greedy nearest-neighbour routing for garbage collection after precomputing distances.</li>
-          </ul>
-        </div>
-
-        <div class="panel-block">
-          <h3>E. SDG Mapping Summary</h3>
-          <div class="sdg-box">
-            🌱 <strong>SDG 6 – Clean Water &amp; Sanitation:</strong> Water pipeline analysis and pressure optimisation.<br />
-            🌱 <strong>SDG 7 – Affordable &amp; Clean Energy:</strong> Power grid MST design for low-loss distribution.<br />
-            🌱 <strong>SDG 9 – Industry, Innovation &amp; Infrastructure:</strong> Road, bridge and network planning modules.<br />
-            🌱 <strong>SDG 11 – Sustainable Cities &amp; Communities:</strong> Mobility, waste routing, disaster evacuation and public transport scheduling.<br />
-            🌱 <strong>SDG 13 – Climate Action:</strong> Flood simulations and emission-reducing mobility strategies.
-          </div>
-        </div>
-
-        <div class="panel-block">
-          <h3>Repository (root)</h3>
-          <p>
-            All project files are stored in the GitHub repo. Use the buttons in each panel to view C++ code, datasets and efficiency analysis.
-          </p>
-          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io" target="_blank"><span>🔗</span> View Project on GitHub</a>
-        </div>
-
-      </div>
-    </section>
-
-  </div>
-
-  <script>
-    const overlay = document.getElementById("overlay");
-    const nodes = document.querySelectorAll(".map-node");
-    const panels = document.querySelectorAll(".panel-shell");
-
-    function openPanel(id) {
-      panels.forEach(p => p.classList.remove("open"));
-      const target = document.getElementById(id + "-panel");
-      if (target) {
-        target.classList.add("open");
-        overlay.classList.add("open");
-      }
-    }
-
-    nodes.forEach(node => {
-      node.addEventListener("click", () => {
-        const tgt = node.getAttribute("data-target");
-        openPanel(tgt);
-      });
-    });
-
-    function closeAll() {
-      overlay.classList.remove("open");
-      panels.forEach(p => p.classList.remove("open"));
-    }
-
-    document.querySelectorAll("[data-close]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        closeAll();
-      });
-    });
-
-    overlay.addEventListener("click", (e) => {
-      if (e.target === overlay) {
-        closeAll();
-      }
-    });
-
-    // Keyboard accessibility: Esc to close
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeAll();
-    });
-
-    // Make links open in new tab safely
-    document.querySelectorAll('.github-link, .dataset-link, .efficiency-link').forEach(a => {
-      a.setAttribute('rel', 'noopener noreferrer');
-    });
-  </script>
-
-</body>
-</html>
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p10_efficiency.txt" target="_blank">
+            <span>⚡</span> View Efficiency Analysis
