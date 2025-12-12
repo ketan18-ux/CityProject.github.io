@@ -1,0 +1,21 @@
+id,name,type
+0,River Bank,FLOOD
+1,Low Lying Colony,NORMAL
+2,Market Area,NORMAL
+3,City Park,NORMAL
+4,Main Junction,NORMAL
+5,Hill Side,NORMAL
+6,School Shelter,SHELTER
+7,Stadium Shelter,SHELTER
+8,Harbor Road,NORMAL
+9,University Gate,NORMAL
+10,Metro Station,NORMAL
+11,Stadium Block,NORMAL
+12,Forest Edge,NORMAL
+13,Highway Exit,NORMAL
+14,Logistics Depot,NORMAL
+15,City Mall,NORMAL
+16,West End,NORMAL
+17,East End,NORMAL
+18,South Ridge,NORMAL
+19,North Ridge,NORMAL
