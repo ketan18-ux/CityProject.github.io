@@ -1,0 +1,83 @@
+Assumptions
+
+V = Number of vertices
+
+E = Number of edges
+
+Graph stored as an adjacency list
+
+Priority queue implemented as a binary min-heap
+
+Each edge is processed at most once
+
+Step 1 — Initialization
+
+Initialize key[] array of size V
+
+Initialize inMST[] array of size V
+
+Insert the starting node into the priority queue
+
+Cost:
+
+Initialization: O(V)
+
+First heap insertion: O(log V)
+
+Total for Step 1:
+➡ O(V)
+
+Step 2 — Extract-Min Operations (Main Loop)
+
+Prim extracts the minimum-key vertex once per vertex
+
+Each extraction from a binary min-heap costs O(log V)
+
+Total for V extractions:
+➡ V × O(log V) = O(V log V)
+
+Step 3 — Edge Relaxation (Updating Neighbor Keys)
+
+For each extracted vertex, all its adjacent edges are checked
+
+Across the whole run, each edge is examined at most once
+
+Updating a neighbor’s key (Decrease-Key) costs O(log V)
+
+Total for E relaxations:
+➡ E × O(log V) = O(E log V)
+
+Step 4 — Total Time Complexity
+
+Combine all steps:
+
+Step 1: O(V)
+
+Step 2: O(V log V)
+
+Step 3: O(E log V)
+
+Total Time:
+➡ O(V + V log V + E log V)
+Factor out log V:
+
+➡ O((V + E) log V)
+
+If the graph is connected (usually E ≥ V):
+
+➡ O(E log V)
+
+Space Complexity
+
+Adjacency list: O(V + E)
+
+Key array: O(V)
+
+Parent array: O(V)
+
+inMST array: O(V)
+
+Heap size: up to O(E) (lazy updates)
+
+Total Space:
+➡ O(V + E)
