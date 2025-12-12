@@ -1647,3 +1647,31 @@
         </div>
         <div class="panel-block">
           <h3>How Th
+<!-- FULL HTML CODE DOCUMENT -->
+<!-- Your entire Smart City Map HTML file will be placed here. -->
+
+<!-- JavaScript added for panel opening/closing -->
+<script>
+  const overlay = document.getElementById("overlay");
+  const nodes = document.querySelectorAll(".map-node");
+  const panels = document.querySelectorAll(".panel-shell");
+  const closeButtons = document.querySelectorAll("[data-close]");
+
+  nodes.forEach(node => {
+    node.addEventListener("click", () => {
+      const target = node.getAttribute("data-target");
+      const panel = document.getElementById(`${target}-panel`);
+      if (panel) {
+        overlay.classList.add("open");
+        panel.classList.add("open");
+      }
+    });
+  });
+
+  closeButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      overlay.classList.remove("open");
+      panels.forEach(p => p.classList.remove("open"));
+    });
+  });
+</script>
