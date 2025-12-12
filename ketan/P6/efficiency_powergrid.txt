@@ -1,0 +1,63 @@
+Efficiency Analysis — Power Grid Load Minimization (Prim’s MST)
+
+Goal:
+Compute a Minimum Spanning Tree (MST) to minimize wiring cost in a city power grid.
+
+Definitions:
+V = number of nodes (20 in dataset)
+E = number of cables (20 in dataset)
+
+------------------------------------------------------------
+STEP 1 — Connectivity Check using DFS
+------------------------------------------------------------
+Before MST, graph must be connected.
+
+DFS visits every node and edge once.
+
+Time:  O(V + E)
+Space: O(V)
+
+------------------------------------------------------------
+STEP 2 — Building the MST using Prim’s Algorithm
+------------------------------------------------------------
+Priority queue (min-heap) stores edges.
+
+Operations:
+1. Insert all edges from starting node → O(deg(start))
+2. Repeatedly extract minimum edge → O(log E)
+3. Add new vertex to MST
+4. Add new edges into heap → cost proportional to all edges once
+
+Total time for all extractions and insertions:
+    O(E log V)
+
+------------------------------------------------------------
+STEP 3 — Storing MST Edges and Computing Total Cost
+------------------------------------------------------------
+Storing n−1 edges → O(V)
+Accumulating weights → O(V)
+
+------------------------------------------------------------
+OVERALL TIME COMPLEXITY
+------------------------------------------------------------
+Connectivity Check (DFS):   O(V + E)
+Prim’s Algorithm:           O(E log V)
+
+Total:
+    O(E log V)
+
+------------------------------------------------------------
+SPACE COMPLEXITY
+------------------------------------------------------------
+Adjacency list:      O(V + E)
+Visited array:       O(V)
+Priority queue:      O(E)
+MST output edges:    O(V)
+
+Total:
+    O(V + E)
+
+------------------------------------------------------------
+Conclusion:
+Prim’s MST with a binary min-heap is efficient for smart-city power grids.
+Its O(E log V) performance easily scales to thousands of junctions.
