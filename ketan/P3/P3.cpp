@@ -1,6 +1,6 @@
 // File: signal_timing.cpp
 // Problem 3 – Traffic Signal Timing Optimization
-// Core ideas: queues, sorting, priority queue, proportional green allocation
+// Updated: loads lanes from lanes.csv (20-input dataset expected)
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -24,18 +24,18 @@ struct LanePriority {
 
 void printLaneTable(const vector<Lane> &lanes, int cycleTime) {
     cout << "\n=== Signal Timing Plan (Cycle " << cycleTime << " sec) ===\n\n";
-    cout << left << setw(12) << "Lane"
-         << setw(15) << "Queue"
+    cout << left << setw(20) << "Lane"
+         << setw(10) << "Queue"
          << setw(18) << "Base Green (s)"
          << "Final Green (s)\n";
-    cout << string(60, '-') << "\n";
+    cout << string(70, '-') << "\n";
 
     cout.setf(ios::fixed);
     cout << setprecision(2);
 
     for (const auto &ln : lanes) {
-        cout << left << setw(12) << ln.name
-             << setw(15) << ln.queueLength
+        cout << left << setw(20) << ln.name
+             << setw(10) << ln.queueLength
              << setw(18) << ln.baseGreen
              << ln.allocatedGreen << "\n";
     }
@@ -119,6 +119,7 @@ void adjustUsingPriorityQueue(vector<Lane> &lanes, int cycleTime) {
         remaining -= add;
         steps++;
 
+        // reduce the effective queue used for priority decisions
         top.queueLength = max(0, top.queueLength - 1);
         pq.push(top);
     }
@@ -151,13 +152,65 @@ void simulateMultipleCycles(vector<Lane> lanes,
         }
 
         cout << "Remaining queues after this cycle:\n";
-        cout << left << setw(12) << "Lane" << "Queue Length\n";
-        cout << string(26, '-') << "\n";
+        cout << left << setw(20) << "Lane" << "Queue Length\n";
+        cout << string(40, '-') << "\n";
         for (auto &ln : lanes) {
-            cout << left << setw(12) << ln.name << ln.queueLength << "\n";
+            cout << left << setw(20) << ln.name << ln.queueLength << "\n";
         }
         cout << "\n";
     }
+}
+
+// ---------- CSV Loader (lanes.csv: lane,queue) ---------- //
+
+bool loadLanesCSV(const string &filename, vector<Lane> &lanes) {
+    ifstream fin(filename);
+    if (!fin.is_open()) return false;
+
+    lanes.clear();
+    string line;
+
+    // Read header
+    if (!getline(fin, line)) return false;
+
+    while (getline(fin, line)) {
+        if (line.size() == 0) continue;
+        // parse CSV: lane,queue
+        string lane;
+        string queueStr;
+
+        // Handle possible commas inside quotes? keep simple: no quotes expected
+        size_t commaPos = line.find(',');
+        if (commaPos == string::npos) continue;
+        lane = line.substr(0, commaPos);
+        queueStr = line.substr(commaPos + 1);
+
+        // trim whitespace (both ends)
+        auto trim = [](string &s) {
+            size_t a = 0;
+            while (a < s.size() && isspace((unsigned char)s[a])) a++;
+            size_t b = s.size();
+            while (b > a && isspace((unsigned char)s[b-1])) b--;
+            s = s.substr(a, b - a);
+        };
+        trim(lane);
+        trim(queueStr);
+        if (lane.empty() || queueStr.empty()) continue;
+
+        int q = 0;
+        try {
+            q = stoi(queueStr);
+        } catch (...) {
+            q = 0;
+        }
+        Lane ln;
+        ln.name = lane;
+        ln.queueLength = max(0, q);
+        ln.baseGreen = 0.0;
+        ln.allocatedGreen = 0.0;
+        lanes.push_back(ln);
+    }
+    return true;
 }
 
 // ---------- Sample Data ---------- //
@@ -171,9 +224,9 @@ vector<Lane> buildSampleLanes() {
     return lanes;
 }
 
-// ---------- Custom Input ---------- //
+// ---------- Custom Input (interactive fallback) ---------- //
 
-vector<Lane> buildCustomLanes() {
+vector<Lane> buildCustomLanesInteractive() {
     int n;
     cout << "Enter number of lanes (e.g., 4): ";
     cin >> n;
@@ -185,9 +238,14 @@ vector<Lane> buildCustomLanes() {
     cout << "\nEnter lane name and queue length (vehicles):\n";
     for (int i = 0; i < n; i++) {
         cout << "Lane " << i + 1 << " name: ";
-        cin >> lanes[i].name;
+        cin >> ws;
+        string name;
+        getline(cin, name);
+        if (name.empty()) { name = "Lane" + to_string(i+1); }
+        lanes[i].name = name;
         cout << "Queue length for " << lanes[i].name << ": ";
-        cin >> lanes[i].queueLength;
+        int q; cin >> q;
+        lanes[i].queueLength = max(0, q);
         lanes[i].baseGreen = 0.0;
         lanes[i].allocatedGreen = 0.0;
     }
@@ -200,20 +258,28 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    cout << "Problem 3 – Traffic Signal Timing Optimization\n\n";
-    cout << "1. Use sample 4-way junction\n";
-    cout << "2. Enter custom lane data\n";
-    cout << "Choice: ";
-
-    int choice;
-    cin >> choice;
+    cout << "Problem 3 – Traffic Signal Timing Optimization (CSV-enabled)\n\n";
 
     vector<Lane> lanes;
-    if (choice == 2) {
-        lanes = buildCustomLanes();
+    bool loaded = loadLanesCSV("lanes.csv", lanes);
+    if (loaded) {
+        cout << "Loaded lanes from lanes.csv (count = " << lanes.size() << ")\n";
     } else {
+        cout << "lanes.csv not found or invalid. Using sample 4-way junction.\n";
         lanes = buildSampleLanes();
-        cout << "\nUsing sample junction with lanes: North, East, South, West.\n";
+    }
+
+    // If CSV had too many lanes, we still support them
+    int n = (int)lanes.size();
+    if (n == 0) {
+        cout << "No lanes available. Exiting.\n";
+        return 0;
+    }
+
+    cout << "\nList of lanes and initial queues:\n";
+    for (int i = 0; i < n; ++i) {
+        cout << setw(2) << i << " - " << setw(20) << lanes[i].name
+             << " queue=" << lanes[i].queueLength << "\n";
     }
 
     int cycleTime;
@@ -236,7 +302,7 @@ int main() {
 
     if (simChoice == 1) {
         int dischargeRate, cycles;
-        cout << "Enter discharge rate (vehicles per second during green): ";
+        cout << "Enter discharge rate (vehicles per second during green, e.g., 1): ";
         cin >> dischargeRate;
         if (dischargeRate <= 0) dischargeRate = 1;
 
@@ -248,10 +314,10 @@ int main() {
     }
 
     cout << "\nTime Complexity:\n";
-    cout << "- Sorting / proportional allocation: O(n)\n";
-    cout << "- Priority-based adjustment (heap): approx O(K log n), "
-            "where K is number of adjustment steps.\n";
-    cout << "Overall: Efficient enough for real-time junction control.\n";
+    cout << "- Proportional allocation: O(n)\n";
+    cout << "- Priority-based adjustment (heap): O(n + K log n)\n";
+    cout << "- Simulation (C cycles): O(C × (n + K log n))\n";
+    cout << "Overall: efficient for real-time junction control (n=20 in dataset).\n";
 
     return 0;
 }
