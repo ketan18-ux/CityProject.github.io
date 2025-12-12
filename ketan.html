@@ -637,7 +637,7 @@
         <div class="city-grid">
           <!-- 1 -->
           <button class="map-node" data-target="p1">
-            <div class="map-node-icon">🛣️</div>
+            <div class="map-node-icon">🛣</div>
             <div class="map-node-title">1. Road Network Construction</div>
             <div class="map-node-meta">
               <span class="node-id">MST</span>
@@ -727,7 +727,7 @@
 
           <!-- 10 -->
           <button class="map-node" data-target="p10">
-            <div class="map-node-icon">🌧️</div>
+            <div class="map-node-icon">🌧</div>
             <div class="map-node-title">10. Flood Evacuation Simulation</div>
             <div class="map-node-meta">
               <span class="node-id">Multi-source BFS</span>
@@ -822,17 +822,17 @@
           </p>
         </div>
         <div class="panel-block">
-          <img src="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/mst_road_network.jpg"
-               alt="MST Road Network"
-               style="width:450px; height:auto; display:block; margin:auto; border-radius:10px;">
+ <img src="/CityProject.github.io/ketan/mst_road_network.jpg"
+     alt="MST Road Network"
+     style="width:450px; height:auto; display:block; margin:auto; border-radius:10px;">
         </div>
         <div class="panel-block">
-          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P1/P1.cpp" target="_blank">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/p1_mst_roads.cpp" target="_blank">
             <span>📂</span> View C++ Code
           </a>
         </div>
 
-        <!-- Input dataset button (links to folder) -->
+        <!-- NEW: dataset + efficiency links for P1 -->
         <div class="panel-block">
           <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P1" target="_blank">
             <span>📄</span> View Input Dataset
@@ -840,7 +840,7 @@
         </div>
 
         <div class="panel-block">
-          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P1/P1_efficiency.txt" target="_blank">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P1/p1_efficiency.txt" target="_blank">
             <span>⚡</span> View Efficiency Analysis
           </a>
         </div>
@@ -901,14 +901,36 @@
             (sequence of zones) from the source. Unreachable zones are reported separately.
           </p>
         </div>
+        <div class="panel-block">
+          <h3>Related SDGs</h3>
+          <div class="sdg-box">
+            🌱 <strong>SDG 11.2 – Sustainable Transport:</strong> Reduces average commute time and supports efficient public transport routing.<br />
+            🌱 <strong>SDG 9.C – Smart Infrastructure:</strong> Forms a core component of intelligent navigation systems and traffic management platforms.
+          </div>
+        </div>
+        <div class="panel-block">
+          <h3>How These Algorithms Help in General</h3>
+          <p>
+            Dijkstra is the backbone of almost every navigation system (cars, buses, trains, maps).
+            BFS is heavily used for unweighted pathfinding and level-based exploration in communication networks,
+            social networks, and games. Efficient shortest path algorithms are a fundamental building block
+            for any smart-city software stack.
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Insert Figure Here</h3>
+          <div class="figure-placeholder">
+            📍 IMAGE PLACEHOLDER — Insert time-weighted road graph with highlighted fastest route from source to a few key destinations.
+          </div>
+        </div>
 
         <div class="panel-block">
-          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P2/P2.cpp" target="_blank">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/shortestpath.cpp" target="_blank">
             <span>📂</span> View C++ Code
           </a>
         </div>
 
-        <!-- dataset folder link -->
+        <!-- NEW: dataset + efficiency links for P2 -->
         <div class="panel-block">
           <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P2" target="_blank">
             <span>📄</span> View Input Dataset
@@ -916,7 +938,7 @@
         </div>
 
         <div class="panel-block">
-          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P2/P2_efficiency.txt" target="_blank">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P2/p2_efficiency.txt" target="_blank">
             <span>⚡</span> View Efficiency Analysis
           </a>
         </div>
@@ -966,13 +988,46 @@
             This implements a greedy but efficient strategy that adapts to real-time demand while staying fast enough for live updates.
           </p>
         </div>
+        <div class="panel-block">
+          <h3>Input / Output (Project Version)</h3>
+          <p class="io-label">Input</p>
+          <p>
+            Queue length for each lane (e.g., North, East, South, West) and total cycle time (e.g., 120 seconds).
+          </p>
+          <p class="io-label" style="margin-top:4px;">Output</p>
+          <p>
+            Suggested green time for each lane in that cycle, printed as a table (lane name vs allocated time).
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Related SDGs</h3>
+          <div class="sdg-box">
+            🌱 <strong>SDG 11.2 – Sustainable Transport:</strong> Smoother junction flow benefits buses and non-motorised transport as well.<br />
+            🌱 <strong>SDG 11.6 – Reduced Environmental Impact:</strong> Lower idle times at signals reduce fuel use and urban air pollution.
+          </div>
+        </div>
+        <div class="panel-block">
+          <h3>How These Algorithms Help in General</h3>
+          <p>
+            Queue-based modeling is used in CPU scheduling, operating systems, and call centers.
+            Priority queues and efficient sorting allow us to react quickly to changing loads,
+            making them ideal tools for real-time traffic signal control and many other resource allocation problems.
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Insert Figure Here</h3>
+          <div class="figure-placeholder">
+            📍 IMAGE PLACEHOLDER — Insert timing diagram or bar chart showing green time allocation per lane based on queue length.
+          </div>
+        </div>
 
         <div class="panel-block">
-          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P3/P3.cpp" target="_blank">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/signal_timing.cpp" target="_blank">
             <span>📂</span> View C++ Code
           </a>
         </div>
 
+        <!-- NEW: dataset + efficiency links for P3 -->
         <div class="panel-block">
           <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P3" target="_blank">
             <span>📄</span> View Input Dataset
@@ -980,7 +1035,7 @@
         </div>
 
         <div class="panel-block">
-          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P3/efficiency_signal_timing.txt" target="_blank">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P3/p3_efficiency.txt" target="_blank">
             <span>⚡</span> View Efficiency Analysis
           </a>
         </div>
@@ -1025,13 +1080,47 @@
             This combination is efficient and robust enough for small to medium-size networks and can be extended with weights later.
           </p>
         </div>
+        <div class="panel-block">
+          <h3>Input / Output (Project Version)</h3>
+          <p class="io-label">Input</p>
+          <p>
+            Undirected graph with 5–7 nodes, list of edges, list of blocked roads, station node index, and incident node index.
+          </p>
+          <p class="io-label" style="margin-top:4px;">Output</p>
+          <p>
+            Whether a feasible route exists or not, shortest hop-count distance, and one example path (sequence of nodes)
+            from station to incident.
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Related SDGs</h3>
+          <div class="sdg-box">
+            🌱 <strong>SDG 3 – Good Health & Well-being:</strong> Faster emergency response directly improves survival rates.<br />
+            🌱 <strong>SDG 11.5 – Disaster Risk Reduction:</strong> The same framework can be reused for evacuation and fire safety planning.
+          </div>
+        </div>
+        <div class="panel-block">
+          <h3>How These Algorithms Help in General</h3>
+          <p>
+            BFS and DFS are core building blocks of graph theory: they are used to detect connectivity,
+            find shortest paths in unweighted graphs, and explore states in many AI search problems.
+            Mastering BFS/DFS is essential for any infrastructure or routing-related algorithm.
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Insert Figure Here</h3>
+          <div class="figure-placeholder">
+            📍 IMAGE PLACEHOLDER — Insert city map with blocked roads crossed out and a highlighted BFS path from station to incident.
+          </div>
+        </div>
 
         <div class="panel-block">
-          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P4/P4.cpp" target="_blank">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/emergency_route.cpp" target="_blank">
             <span>📂</span> View C++ Code
           </a>
         </div>
 
+        <!-- NEW: dataset + efficiency links for P4 -->
         <div class="panel-block">
           <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P4" target="_blank">
             <span>📄</span> View Input Dataset
@@ -1039,7 +1128,7 @@
         </div>
 
         <div class="panel-block">
-          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P4/efficiency_emergency_route.txt" target="_blank">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P4/p4_efficiency.txt" target="_blank">
             <span>⚡</span> View Efficiency Analysis
           </a>
         </div>
@@ -1074,13 +1163,63 @@
             so that they can be upgraded first within a limited budget.
           </p>
         </div>
+        <div class="panel-block">
+          <h3>Algorithmic Solution (DFS/BFS + Sorting)</h3>
+          <p>
+            Instead of implementing full max-flow (which is heavy), we adopt an efficient, syllabus-friendly approach:
+          </p>
+          <ul>
+            <li>Use <strong>BFS/DFS</strong> to compute how many consumer nodes are downstream of each pipe
+                (roughly how many households depend on that edge).</li>
+            <li>Store each pipe with its usage score (downstream demand / capacity ratio) in an array.</li>
+            <li>Sort all pipes using an efficient sorting algorithm such as <strong>Merge Sort</strong> or <strong>Quick Sort</strong>
+                in O(E log E) to rank them from most critical to least critical.</li>
+          </ul>
+          <p>
+            The top-ranked pipes are reported as the main bottlenecks where upgrades will have maximum impact on pressure.
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Input / Output (Project Version)</h3>
+          <p class="io-label">Input</p>
+          <p>
+            A small directed graph of pipes, capacities for each pipe, and demand values at consumer nodes.
+          </p>
+          <p class="io-label" style="margin-top:4px;">Output</p>
+          <p>
+            A sorted list of pipes with their criticality score, showing which ones to reinforce first
+            to improve water pressure across the network.
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Related SDGs</h3>
+          <div class="sdg-box">
+            🌱 <strong>SDG 6.1 – Safe and Affordable Drinking Water:</strong> Prioritised pipeline upgrades help ensure reliable supply to all colonies.<br />
+            🌱 <strong>SDG 9.1 – Sustainable Infrastructure:</strong> Data-driven identification of bottlenecks ensures infrastructure investments are optimally used.
+          </div>
+        </div>
+        <div class="panel-block">
+          <h3>How These Algorithms Help in General</h3>
+          <p>
+            Combining graph traversal (BFS/DFS) with efficient sorting is a common pattern:
+            we first compute metrics for each component and then rank them by importance.
+            The same approach can be applied to traffic hotspots, power line loads, and even social network influence analysis.
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Insert Figure Here</h3>
+          <div class="figure-placeholder">
+            📍 IMAGE PLACEHOLDER — Insert water network diagram showing main trunk, branches and top 2–3 critical pipes marked.
+          </div>
+        </div>
 
         <div class="panel-block">
-          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P5/P5.cpp" target="_blank">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/water_pressure.cpp" target="_blank">
             <span>📂</span> View C++ Code
           </a>
         </div>
 
+        <!-- NEW: dataset + efficiency links for P5 -->
         <div class="panel-block">
           <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P5" target="_blank">
             <span>📄</span> View Input Dataset
@@ -1088,7 +1227,7 @@
         </div>
 
         <div class="panel-block">
-          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P5/efficiency_pipeline.txt" target="_blank">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P5/p5_efficiency.txt" target="_blank">
             <span>⚡</span> View Efficiency Analysis
           </a>
         </div>
@@ -1119,13 +1258,61 @@
             The goal is to connect all substations and new colonies with minimal total wiring cost and loss.
           </p>
         </div>
+        <div class="panel-block">
+          <h3>Algorithmic Solution (Prim’s MST with Priority Queue)</h3>
+          <p>
+            We model substations and colonies as nodes and cables as weighted edges (weight = cost + loss).
+            Prim’s algorithm is ideal for this dense-ish network:
+          </p>
+          <ul>
+            <li>Start from a root substation and push all outgoing edges into a <strong>min-heap</strong>.</li>
+            <li>Repeatedly extract the minimum-weight edge that connects a new node to the growing tree.</li>
+            <li>Complexity is <strong>O(E log V)</strong>, efficient for typical grid sizes.</li>
+          </ul>
+          <p>
+            The resulting MST represents the recommended power backbone network for the new region.
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Input / Output (Project Version)</h3>
+          <p class="io-label">Input</p>
+          <p>
+            An undirected graph of 6–7 substations/colonies with cable weights. Input is stored as adjacency lists.
+          </p>
+          <p class="io-label" style="margin-top:4px;">Output</p>
+          <p>
+            List of MST edges chosen, showing which substations/colonies get directly connected and the final total cost.
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Related SDGs</h3>
+          <div class="sdg-box">
+            🌱 <strong>SDG 7 – Affordable and Clean Energy:</strong> Efficient grid layouts reduce technical losses and cost of expansion.<br />
+            🌱 <strong>SDG 9 – Industry, Innovation and Infrastructure:</strong> Supports expansion of reliable and sustainable power infrastructure.
+          </div>
+        </div>
+        <div class="panel-block">
+          <h3>How This Algorithm Helps in General</h3>
+          <p>
+            Prim’s MST is widely used in network design problems: computer networks, cable TV, and backbone layouts.
+            It is particularly preferred when the graph is dense and adjacency lists are available,
+            since it gives a near-optimal performance with heaps.
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Insert Figure Here</h3>
+          <div class="figure-placeholder">
+            📍 IMAGE PLACEHOLDER — Insert power grid diagram showing MST cables between substations and colonies.
+          </div>
+        </div>
 
         <div class="panel-block">
-          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P6/P6.cpp" target="_blank">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/powergrid_mst.cpp" target="_blank">
             <span>📂</span> View C++ Code
           </a>
         </div>
 
+        <!-- NEW: dataset + efficiency links for P6 -->
         <div class="panel-block">
           <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P6" target="_blank">
             <span>📄</span> View Input Dataset
@@ -1133,7 +1320,7 @@
         </div>
 
         <div class="panel-block">
-          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P6/efficiency_powergrid.txt" target="_blank">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P6/p6_efficiency.txt" target="_blank">
             <span>⚡</span> View Efficiency Analysis
           </a>
         </div>
@@ -1164,13 +1351,61 @@
             and inconsistent service in some wards.
           </p>
         </div>
+        <div class="panel-block">
+          <h3>Algorithmic Solution (Shortest Paths + Greedy Selection)</h3>
+          <p>
+            We do not use full TSP here. Instead, we combine:
+          </p>
+          <ul>
+            <li><strong>Dijkstra’s algorithm</strong> to pre-compute shortest distances between all key points (depot and pickup locations).</li>
+            <li><strong>Greedy nearest-neighbour route construction</strong>: starting from depot, repeatedly go to the nearest unvisited pickup point based on precomputed distances.</li>
+            <li>Efficient <strong>sorting</strong> can be used to order candidate next locations or to compare alternative heuristic tours (O(n log n)).</li>
+          </ul>
+          <p>
+            This gives a good-quality, efficient route planning method suitable for small- to medium-sized wards.
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Input / Output (Project Version)</h3>
+          <p class="io-label">Input</p>
+          <p>
+            Number of pickup points, distance matrix between all locations (including depot),
+            and starting depot index.
+          </p>
+          <p class="io-label" style="margin-top:4px;">Output</p>
+          <p>
+            An ordered sequence of locations forming the garbage collection tour and the total travel distance.
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Related SDGs</h3>
+          <div class="sdg-box">
+            🌱 <strong>SDG 11.6 – Waste Management:</strong> Efficient routing helps ensure bins are cleared before overflow.<br />
+            🌱 <strong>SDG 13 – Climate Action:</strong> Shorter routes directly reduce fuel consumption and emissions.
+          </div>
+        </div>
+        <div class="panel-block">
+          <h3>How These Algorithms Help in General</h3>
+          <p>
+            Combining shortest path computation with greedy ordering is a common approach in logistics:
+            courier deliveries, school bus routes, and supply chain optimisation.
+            Even if the route is not globally optimal, it is much better than a human-designed ad-hoc path.
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Insert Figure Here</h3>
+          <div class="figure-placeholder">
+            📍 IMAGE PLACEHOLDER — Insert ward map showing garbage truck path passing through all pickup points efficiently.
+          </div>
+        </div>
 
         <div class="panel-block">
-          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P7/P7.cpp" target="_blank">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/garbage_routing.cpp" target="_blank">
             <span>📂</span> View C++ Code
           </a>
         </div>
 
+        <!-- NEW: dataset + efficiency links for P7 -->
         <div class="panel-block">
           <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P7" target="_blank">
             <span>📄</span> View Input Dataset
@@ -1178,7 +1413,7 @@
         </div>
 
         <div class="panel-block">
-          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P7/efficiency_garbage_route.txt" target="_blank">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P7/p7_efficiency.txt" target="_blank">
             <span>⚡</span> View Efficiency Analysis
           </a>
         </div>
@@ -1208,13 +1443,62 @@
             some buses will have overlapping assignments, or buses may remain idle during busy periods.
           </p>
         </div>
+        <div class="panel-block">
+          <h3>Algorithmic Solution (Interval Scheduling with Sorting)</h3>
+          <p>
+            Each candidate bus trip is an interval [start time, end time].
+            We want to select a maximum number of non-overlapping trips for each bus.
+          </p>
+          <ul>
+            <li>Trips are sorted by finishing time using <strong>Merge Sort</strong> / <strong>Quick Sort</strong> in O(n log n).</li>
+            <li>Then we greedily pick the earliest finishing trip that does not overlap with the last chosen trip.</li>
+          </ul>
+          <p>
+            This is the classic optimal solution to the interval scheduling problem and is very efficient in both
+            theory and practice.
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Input / Output (Project Version)</h3>
+          <p class="io-label">Input</p>
+          <p>
+            List of candidate trips with start and end times (e.g., in hours or minutes for one day).
+          </p>
+          <p class="io-label" style="margin-top:4px;">Output</p>
+          <p>
+            A subset of trips assigned to a particular bus (Bus 1) such that no two selected trips overlap,
+            along with the number of trips served.
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Related SDGs</h3>
+          <div class="sdg-box">
+            🌱 <strong>SDG 11.2 – Public Transport Access:</strong> Better timetables improve reliability and service frequency for commuters.<br />
+            🌱 <strong>SDG 9.4 – Resource Efficiency:</strong> Maximises utilisation of existing buses before demanding more vehicles.
+          </div>
+        </div>
+        <div class="panel-block">
+          <h3>How These Algorithms Help in General</h3>
+          <p>
+            Sorting + greedy interval selection is used in CPU scheduling, room booking systems, exam timetables,
+            and many other scheduling tasks. It is a powerful simple pattern that gives mathematically optimal results
+            with O(n log n) time complexity.
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Insert Figure Here</h3>
+          <div class="figure-placeholder">
+            📍 IMAGE PLACEHOLDER — Insert timeline figure with non-overlapping trips highlighted for Bus 1.
+          </div>
+        </div>
 
         <div class="panel-block">
-          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P8/P8.cpp" target="_blank">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/bus_timetable.cpp" target="_blank">
             <span>📂</span> View C++ Code
           </a>
         </div>
 
+        <!-- NEW: dataset + efficiency links for P8 -->
         <div class="panel-block">
           <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P8" target="_blank">
             <span>📄</span> View Input Dataset
@@ -1222,7 +1506,7 @@
         </div>
 
         <div class="panel-block">
-          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P8/efficiency_bus_timetable.txt" target="_blank">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P8/p8_efficiency.txt" target="_blank">
             <span>⚡</span> View Efficiency Analysis
           </a>
         </div>
@@ -1253,13 +1537,62 @@
             “critical links” and prioritise them for regular inspection and strengthening.
           </p>
         </div>
+        <div class="panel-block">
+          <h3>Algorithmic Solution (DFS Bridges)</h3>
+          <p>
+            The road network is modeled as an undirected graph. We use a <strong>DFS-based bridge detection algorithm</strong>:
+          </p>
+          <ul>
+            <li>Perform DFS and maintain discovery time and lowest reachable discovery time (<code>disc[u]</code> and <code>low[u]</code>) for each vertex.</li>
+            <li>An edge (u, v) is a <strong>bridge</strong> if <code>low[v] > disc[u]</code>, meaning there is no alternate path from v back to u or its ancestors.</li>
+            <li>The algorithm runs in <strong>O(V + E)</strong> time, which is linear and efficient.</li>
+          </ul>
+          <p>
+            Identified bridges are added to a priority list for monitoring and retrofitting.
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Input / Output (Project Version)</h3>
+          <p class="io-label">Input</p>
+          <p>
+            An undirected graph of regions connected by roads/bridges. For demo, a small network with
+            a mix of cycles and tree-like parts is used.
+          </p>
+          <p class="io-label" style="margin-top:4px;">Output</p>
+          <p>
+            List of edges that are bridges (critical links). These are the edges whose removal would increase the
+            number of connected components of the graph.
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Related SDGs</h3>
+          <div class="sdg-box">
+            🌱 <strong>SDG 9 – Resilient Infrastructure:</strong> Protects key transport links to ensure reliability.<br />
+            🌱 <strong>SDG 11 – Sustainable Cities:</strong> Helps in planning safer and more robust urban road networks.
+          </div>
+        </div>
+        <div class="panel-block">
+          <h3>How This Algorithm Helps in General</h3>
+          <p>
+            Bridge detection is part of larger network reliability analysis. Similar ideas are applied in communication
+            networks (finding vulnerable links), social networks (critical connections between communities),
+            and power grids. DFS-based solutions are elegant and very efficient.
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Insert Figure Here</h3>
+          <div class="figure-placeholder">
+            📍 IMAGE PLACEHOLDER — Insert regional network graph with bridges highlighted in a strong colour.
+          </div>
+        </div>
 
         <div class="panel-block">
-          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P9/P9.cpp" target="_blank">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/bridge_priority.cpp" target="_blank">
             <span>📂</span> View C++ Code
           </a>
         </div>
 
+        <!-- NEW: dataset + efficiency links for P9 -->
         <div class="panel-block">
           <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P9" target="_blank">
             <span>📄</span> View Input Dataset
@@ -1267,7 +1600,7 @@
         </div>
 
         <div class="panel-block">
-          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P9/efficiency_bridge_priority.txt" target="_blank">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P9/p9_efficiency.txt" target="_blank">
             <span>⚡</span> View Efficiency Analysis
           </a>
         </div>
@@ -1298,13 +1631,62 @@
             before floodwaters cut off roads, so that people can be moved safely.
           </p>
         </div>
+        <div class="panel-block">
+          <h3>Algorithmic Solution (Multi-source BFS)</h3>
+          <p>
+            Localities are graph nodes and roads are edges. Initial flood sources (river bank, lakefront)
+            are inserted into a queue with distance/time = 0. Then we run <strong>multi-source BFS</strong>:
+          </p>
+          <ul>
+            <li>Each BFS level represents the time step when water reaches a new locality.</li>
+            <li>Arrival times at shelter nodes are compared with evacuation deadlines.</li>
+          </ul>
+          <p>
+            Time complexity is <strong>O(V + E)</strong>, so this method easily scales to reasonably large city graphs.
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Input / Output (Project Version)</h3>
+          <p class="io-label">Input</p>
+          <p>
+            Undirected graph of 7–10 localities, a list of flood-source nodes, and a set of shelter nodes.
+            A time-step threshold is given as the safe evacuation limit.
+          </p>
+          <p class="io-label" style="margin-top:4px;">Output</p>
+          <p>
+            Flood arrival time for each locality and classification of each shelter as “safe” or “unsafe”
+            based on whether water reaches before the threshold.
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Related SDGs</h3>
+          <div class="sdg-box">
+            🌱 <strong>SDG 11.5 – Disaster Risk Reduction:</strong> Supports planning that reduces deaths and affected people due to disasters.<br />
+            🌱 <strong>SDG 13 – Climate Action:</strong> Models climate-related flood events and helps prepare adaptive responses.
+          </div>
+        </div>
+        <div class="panel-block">
+          <h3>How This Algorithm Helps in General</h3>
+          <p>
+            Multi-source BFS is a natural model for spreading processes: floods, fire, disease, information,
+            or even viral rumours on social networks. Understanding wave-like propagation helps planners
+            locate safe zones, design barriers, and schedule timely evacuations.
+          </p>
+        </div>
+        <div class="panel-block">
+          <h3>Insert Figure Here</h3>
+          <div class="figure-placeholder">
+            📍 IMAGE PLACEHOLDER — Insert BFS-level map showing waves of flood spread and which shelters remain reachable in time.
+          </div>
+        </div>
 
         <div class="panel-block">
-          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P10/P10.cpp" target="_blank">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/flood_evacuation.cpp" target="_blank">
             <span>📂</span> View C++ Code
           </a>
         </div>
 
+        <!-- NEW: dataset + efficiency links for P10 -->
         <div class="panel-block">
           <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P10" target="_blank">
             <span>📄</span> View Input Dataset
@@ -1312,7 +1694,7 @@
         </div>
 
         <div class="panel-block">
-          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P10/efficiency_flood_bfs.txt" target="_blank">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/P10/p10_efficiency.txt" target="_blank">
             <span>⚡</span> View Efficiency Analysis
           </a>
         </div>
@@ -1341,7 +1723,7 @@
           <ul>
             <li>Total lines of C++ code (approx.): <strong>2000–2500</strong></li>
             <li>Total independent functions implemented: <strong>20+ core routines</strong></li>
-            <li>Data / input files prepared: <strong>6–10</strong> (JSON, CSV, plain text, Excel)</li>
+            <li>Data / input files prepared: <strong>10+</strong> (CSV, plain text)</li>
             <li>Figures / diagrams to be inserted: <strong>10+ (one per case study)</strong></li>
             <li>Every module includes <strong>time and space complexity analysis</strong> in comments.</li>
           </ul>
@@ -1390,13 +1772,22 @@
         <div class="panel-block">
           <h3>E. SDG Mapping Summary</h3>
           <div class="sdg-box">
-            🌱 <strong>SDG 6 – Clean Water & Sanitation:</strong> Water pipeline analysis and pressure optimisation.<br />
-            🌱 <strong>SDG 7 – Affordable & Clean Energy:</strong> Power grid MST design for low-loss distribution.<br />
-            🌱 <strong>SDG 9 – Industry, Innovation & Infrastructure:</strong> Road, bridge and network planning modules.<br />
-            🌱 <strong>SDG 11 – Sustainable Cities & Communities:</strong> Mobility, waste routing, disaster evacuation and public transport scheduling.<br />
+            🌱 <strong>SDG 6 – Clean Water &amp; Sanitation:</strong> Water pipeline analysis and pressure optimisation.<br />
+            🌱 <strong>SDG 7 – Affordable &amp; Clean Energy:</strong> Power grid MST design for low-loss distribution.<br />
+            🌱 <strong>SDG 9 – Industry, Innovation &amp; Infrastructure:</strong> Road, bridge and network planning modules.<br />
+            🌱 <strong>SDG 11 – Sustainable Cities &amp; Communities:</strong> Mobility, waste routing, disaster evacuation and public transport scheduling.<br />
             🌱 <strong>SDG 13 – Climate Action:</strong> Flood simulations and emission-reducing mobility strategies.
           </div>
         </div>
+
+        <div class="panel-block">
+          <h3>Repository (root)</h3>
+          <p>
+            All project files are stored in the GitHub repo. Use the buttons in each panel to view C++ code, datasets and efficiency analysis.
+          </p>
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io" target="_blank"><span>🔗</span> View Project on GitHub</a>
+        </div>
+
       </div>
     </section>
 
@@ -1438,6 +1829,16 @@
       if (e.target === overlay) {
         closeAll();
       }
+    });
+
+    // Keyboard accessibility: Esc to close
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeAll();
+    });
+
+    // Make links open in new tab safely
+    document.querySelectorAll('.github-link, .dataset-link, .efficiency-link').forEach(a => {
+      a.setAttribute('rel', 'noopener noreferrer');
     });
   </script>
 
