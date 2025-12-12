@@ -1,0 +1,80 @@
+Efficiency Analysis — Bridge Construction Priority Model (Problem 9)
+
+Goal:
+Identify all “critical links” (bridges) in a road network and rank them
+based on the size of the components they disconnect.
+
+Definitions:
+V = number of nodes (20 in dataset)
+E = number of roads (20 in dataset)
+B = number of bridges
+
+--------------------------------------------------------------------
+STEP 1 – DFS-based Bridge Detection
+--------------------------------------------------------------------
+Tarjan’s algorithm uses:
+- disc[u] = discovery time
+- low[u]  = lowest reachable discovery time
+
+For each edge (u,v):
+If low[v] > disc[u], then (u,v) is a bridge.
+
+Time complexity:
+    O(V + E)
+Space:
+    disc[]: O(V)
+    low[] : O(V)
+    recursion stack: O(V)
+
+--------------------------------------------------------------------
+STEP 2 – Component Size Computation
+--------------------------------------------------------------------
+We treat the graph as undirected and run BFS from each unvisited node.
+Every BFS finds a connected component.
+
+Time:
+    O(V + E)
+
+Space:
+    component ID array:  O(V)
+    component size list: O(V)
+
+--------------------------------------------------------------------
+STEP 3 – Scoring Each Bridge
+--------------------------------------------------------------------
+For a bridge (u, v), score = size(component(u)) + size(component(v))
+
+Operations:
+    For each bridge → O(1)
+Sorting B bridges:
+    O(B log B)
+
+Since B << E in sparse graphs, cost is small.
+
+--------------------------------------------------------------------
+OVERALL TIME COMPLEXITY
+--------------------------------------------------------------------
+Bridge detection:         O(V + E)
+Component computation:    O(V + E)
+Sorting bridges:          O(B log B)
+
+Total:
+    O(V + E + B log B)
+Dominated by:
+    O(V + E)
+
+--------------------------------------------------------------------
+SPACE COMPLEXITY
+--------------------------------------------------------------------
+Adjacency list:       O(V + E)
+Discovery arrays:     O(V)
+Component arrays:     O(V)
+Bridge storage:       O(B)
+
+Total:
+    O(V + E)
+
+--------------------------------------------------------------------
+Conclusion:
+The DFS-based algorithm is optimal for sparse city networks.
+It detects vulnerable roads extremely efficiently and ranks them for planning.
