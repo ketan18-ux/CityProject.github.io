@@ -522,6 +522,31 @@
       font-size: 14px;
     }
 
+    /* NEW BUTTON STYLES (datasets & efficiency) */
+    .dataset-link, .efficiency-link {
+      margin-top: 6px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(34, 197, 94, 0.8);
+      background: rgba(15, 23, 42, 0.9);
+      color: #d1fae5;
+      text-decoration: none;
+    }
+
+    .dataset-link span,
+    .efficiency-link span {
+      font-size: 14px;
+    }
+
+    .dataset-link:hover, .efficiency-link:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 22px rgba(34, 197, 94, 0.15);
+    }
+
     .sdg-box {
       margin-top: 4px;
       padding: 6px 8px;
@@ -582,7 +607,7 @@
   <header class="topbar">
     <div class="topbar-left">
       <div class="topbar-title">SMART CITY • INFRASTRUCTURE & ROUTING</div>
-      <div class="topbar-sub">DAA Portfolio – Infrastructure & Network Optimization Bucket · Student: Ketan Shinde</div>
+      <div class="topbar-sub">DAA Portfolio – Infrastructure &amp; Network Optimization Bucket · Student: Ketan Shinde</div>
     </div>
     <div class="topbar-actions">
       <span class="chip">2024 · Design & Analysis of Algorithms</span>
@@ -806,6 +831,20 @@
             <span>📂</span> View C++ Code for Road Network (Kruskal + Prim)
           </a>
         </div>
+
+        <!-- NEW: dataset + efficiency links for P1 -->
+        <div class="panel-block">
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p1_dataset.csv" target="_blank">
+            <span>📄</span> View Input Dataset
+          </a>
+        </div>
+
+        <div class="panel-block">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p1_efficiency.txt" target="_blank">
+            <span>⚡</span> View Efficiency Analysis
+          </a>
+        </div>
+
       </div>
     </section>
 
@@ -884,11 +923,26 @@
             📍 IMAGE PLACEHOLDER — Insert time-weighted road graph with highlighted fastest route from source to a few key destinations.
           </div>
         </div>
+
         <div class="panel-block">
           <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/shortestpath.cpp" target="_blank">
             <span>📂</span> View C++ Code for Travel-Time Routing (Dijkstra + BFS)
           </a>
         </div>
+
+        <!-- NEW: dataset + efficiency links for P2 -->
+        <div class="panel-block">
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p2_dataset.csv" target="_blank">
+            <span>📄</span> View Input Dataset
+          </a>
+        </div>
+
+        <div class="panel-block">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p2_efficiency.txt" target="_blank">
+            <span>⚡</span> View Efficiency Analysis
+          </a>
+        </div>
+
       </div>
     </section>
 
@@ -966,11 +1020,26 @@
             📍 IMAGE PLACEHOLDER — Insert timing diagram or bar chart showing green time allocation per lane based on queue length.
           </div>
         </div>
+
         <div class="panel-block">
           <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/signal_timing.cpp" target="_blank">
             <span>📂</span> View C++ Code for Signal Timing Optimization
           </a>
         </div>
+
+        <!-- NEW: dataset + efficiency links for P3 -->
+        <div class="panel-block">
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p3_dataset.csv" target="_blank">
+            <span>📄</span> View Input Dataset
+          </a>
+        </div>
+
+        <div class="panel-block">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p3_efficiency.txt" target="_blank">
+            <span>⚡</span> View Efficiency Analysis
+          </a>
+        </div>
+
       </div>
     </section>
 
@@ -1044,11 +1113,26 @@
             📍 IMAGE PLACEHOLDER — Insert city map with blocked roads crossed out and a highlighted BFS path from station to incident.
           </div>
         </div>
+
         <div class="panel-block">
           <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/emergency_route.cpp" target="_blank">
             <span>📂</span> View C++ Code for Emergency Routing (BFS + DFS)
           </a>
         </div>
+
+        <!-- NEW: dataset + efficiency links for P4 -->
+        <div class="panel-block">
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p4_dataset.csv" target="_blank">
+            <span>📄</span> View Input Dataset
+          </a>
+        </div>
+
+        <div class="panel-block">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p4_efficiency.txt" target="_blank">
+            <span>⚡</span> View Efficiency Analysis
+          </a>
+        </div>
+
       </div>
     </section>
 
@@ -1128,11 +1212,26 @@
             📍 IMAGE PLACEHOLDER — Insert water network diagram showing main trunk, branches and top 2–3 critical pipes marked.
           </div>
         </div>
+
         <div class="panel-block">
           <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/water_pressure.cpp" target="_blank">
             <span>📂</span> View C++ Code for Water Pressure Analysis
           </a>
         </div>
+
+        <!-- NEW: dataset + efficiency links for P5 -->
+        <div class="panel-block">
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p5_dataset.csv" target="_blank">
+            <span>📄</span> View Input Dataset
+          </a>
+        </div>
+
+        <div class="panel-block">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p5_efficiency.txt" target="_blank">
+            <span>⚡</span> View Efficiency Analysis
+          </a>
+        </div>
+
       </div>
     </section>
 
@@ -1206,11 +1305,26 @@
             📍 IMAGE PLACEHOLDER — Insert power grid diagram showing MST cables between substations and colonies.
           </div>
         </div>
+
         <div class="panel-block">
           <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/powergrid_mst.cpp" target="_blank">
             <span>📂</span> View C++ Code for Power Grid MST
           </a>
         </div>
+
+        <!-- NEW: dataset + efficiency links for P6 -->
+        <div class="panel-block">
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p6_dataset.csv" target="_blank">
+            <span>📄</span> View Input Dataset
+          </a>
+        </div>
+
+        <div class="panel-block">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p6_efficiency.txt" target="_blank">
+            <span>⚡</span> View Efficiency Analysis
+          </a>
+        </div>
+
       </div>
     </section>
 
@@ -1284,11 +1398,26 @@
             📍 IMAGE PLACEHOLDER — Insert ward map showing garbage truck path passing through all pickup points efficiently.
           </div>
         </div>
+
         <div class="panel-block">
           <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/garbage_routing.cpp" target="_blank">
             <span>📂</span> View C++ Code for Garbage Truck Routing
           </a>
         </div>
+
+        <!-- NEW: dataset + efficiency links for P7 -->
+        <div class="panel-block">
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p7_dataset.csv" target="_blank">
+            <span>📄</span> View Input Dataset
+          </a>
+        </div>
+
+        <div class="panel-block">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p7_efficiency.txt" target="_blank">
+            <span>⚡</span> View Efficiency Analysis
+          </a>
+        </div>
+
       </div>
     </section>
 
@@ -1362,11 +1491,26 @@
             📍 IMAGE PLACEHOLDER — Insert timeline figure with non-overlapping trips highlighted for Bus 1.
           </div>
         </div>
+
         <div class="panel-block">
           <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/bus_timetable.cpp" target="_blank">
             <span>📂</span> View C++ Code for Bus Timetable Generation
           </a>
         </div>
+
+        <!-- NEW: dataset + efficiency links for P8 -->
+        <div class="panel-block">
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p8_dataset.csv" target="_blank">
+            <span>📄</span> View Input Dataset
+          </a>
+        </div>
+
+        <div class="panel-block">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p8_efficiency.txt" target="_blank">
+            <span>⚡</span> View Efficiency Analysis
+          </a>
+        </div>
+
       </div>
     </section>
 
@@ -1441,11 +1585,26 @@
             📍 IMAGE PLACEHOLDER — Insert regional network graph with bridges highlighted in a strong colour.
           </div>
         </div>
+
         <div class="panel-block">
           <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/bridge_priority.cpp" target="_blank">
             <span>📂</span> View C++ Code for Bridge Priority Model
           </a>
         </div>
+
+        <!-- NEW: dataset + efficiency links for P9 -->
+        <div class="panel-block">
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p9_dataset.csv" target="_blank">
+            <span>📄</span> View Input Dataset
+          </a>
+        </div>
+
+        <div class="panel-block">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p9_efficiency.txt" target="_blank">
+            <span>⚡</span> View Efficiency Analysis
+          </a>
+        </div>
+
       </div>
     </section>
 
@@ -1520,11 +1679,26 @@
             📍 IMAGE PLACEHOLDER — Insert BFS-level map showing waves of flood spread and which shelters remain reachable in time.
           </div>
         </div>
+
         <div class="panel-block">
           <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/flood_evacuation.cpp" target="_blank">
             <span>📂</span> View C++ Code for Flood Evacuation Simulation
           </a>
         </div>
+
+        <!-- NEW: dataset + efficiency links for P10 -->
+        <div class="panel-block">
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p10_dataset.csv" target="_blank">
+            <span>📄</span> View Input Dataset
+          </a>
+        </div>
+
+        <div class="panel-block">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p10_efficiency.txt" target="_blank">
+            <span>⚡</span> View Efficiency Analysis
+          </a>
+        </div>
+
       </div>
     </section>
 
