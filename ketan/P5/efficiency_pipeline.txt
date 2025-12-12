@@ -1,0 +1,68 @@
+Efficiency Analysis — Water Pipeline Pressure Optimization (Problem 5)
+
+Goal:
+Rank pipes based on downstream demand and pipe capacity using:
+1. DFS to compute subtree demand.
+2. Quick Sort to rank pipes by score = downstreamDemand / capacity.
+
+Definitions:
+n = number of nodes (20 in dataset)
+m = number of pipes (20 in dataset)
+
+------------------------------------------------------------
+STEP 1 — DFS to Compute Downstream Demand
+------------------------------------------------------------
+The DFS traverses each node and each pipe exactly once.
+Adjacency list representation is used.
+
+Time:
+    O(n + m)
+
+Space:
+    subtreeDemand array: O(n)
+    recursion stack: O(n)
+    adjacency list: O(n + m)
+
+------------------------------------------------------------
+STEP 2 — Compute Pipe Score
+------------------------------------------------------------
+For each pipe (u, v):
+- find the higher subtree demand
+- compute score = demand / capacity
+
+Cost:
+    O(m)
+
+------------------------------------------------------------
+STEP 3 — Quick Sort of Pipes by Score
+------------------------------------------------------------
+Quick sort average case: O(m log m)
+Worst case (rare): O(m²)
+
+Since m = 20, sorting is extremely fast.
+
+------------------------------------------------------------
+STEP 4 — Overall Time Complexity
+------------------------------------------------------------
+DFS:            O(n + m)
+Score compute:  O(m)
+Sorting:        O(m log m)
+
+Total:
+    O(n + m log m)
+
+------------------------------------------------------------
+STEP 5 — Space Complexity
+------------------------------------------------------------
+Adjacency list:     O(n + m)
+Demand arrays:      O(n)
+Pipes array:        O(m)
+
+Total:
+    O(n + m)
+
+------------------------------------------------------------
+Conclusion:
+The algorithm is efficient for smart-city water networks. 
+Even for large networks with thousands of pipes, 
+O(n + m log m) is scalable and suitable for real-time monitoring.
