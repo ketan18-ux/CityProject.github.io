@@ -1,0 +1,68 @@
+Efficiency Analysis – Flood Evacuation Simulation (Problem 10)
+
+Goal:
+Simulate how flood spreads through a large city road network using
+multi-source BFS, determine flood arrival time for every locality, and
+classify shelters as SAFE or UNSAFE.
+
+Definitions:
+V = number of localities (20 in provided dataset)
+E = number of city roads (20)
+S = number of shelters (2)
+
+----------------------------------------------------------------------
+STEP 1 – Multi-Source BFS
+----------------------------------------------------------------------
+All flood sources are inserted into the BFS queue initially with distance 0.
+
+For every road (u, v):
+    dist[v] = dist[u] + 1
+
+This simulates discrete time-steps for flood spreading.
+
+Time Complexity:
+    O(V + E)
+Space Complexity:
+    O(V)
+
+----------------------------------------------------------------------
+STEP 2 – Flood Arrival Reporting
+----------------------------------------------------------------------
+For every node:
+    Print dist[node]
+Cost:
+    O(V)
+
+----------------------------------------------------------------------
+STEP 3 – Shelter Safety Analysis
+A shelter is UNSAFE if:
+    dist[shelter] <= safeThreshold
+
+This requires:
+    O(S)
+
+----------------------------------------------------------------------
+STEP 4 – Evacuation Priority Sorting
+Shelters that flood early are sorted by flood time.
+
+Cost:
+    O(S log S)
+
+Since S is very small compared to V, time is negligible.
+
+----------------------------------------------------------------------
+TOTAL TIME COMPLEXITY
+----------------------------------------------------------------------
+    O(V + E + S log S)
+Dominated by:
+    O(V + E)
+
+----------------------------------------------------------------------
+TOTAL SPACE COMPLEXITY
+----------------------------------------------------------------------
+    O(V + E)
+
+----------------------------------------------------------------------
+Conclusion:
+The algorithm scales linearly with city size and is optimal for
+real-time disaster management systems.
