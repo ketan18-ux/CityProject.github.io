@@ -1,0 +1,62 @@
+Efficiency Analysis — Traffic Signal Timing Optimization
+Problem 3: Proportional + Priority-based green allocation
+
+Assumptions
+- n = number of lanes
+- cycleTime = total signal cycle time (seconds)
+- K = number of priority-adjustment steps (dynamic, depends on remaining seconds)
+- C = number of simulated cycles (if multi-cycle simulation is run)
+
+Goal
+- Allocate green seconds per lane using:
+  1) A proportional base allocation
+  2) Priority-based refinement using a max-heap
+
+Step 1 — Load and Initialization
+- Read n lanes from CSV (lane name + queue length).
+- Initialize base/allocated green arrays.
+- Cost: O(n) time to read and initialize.
+- Space: O(n) for arrays holding lanes and green values.
+
+Step 2 — Proportional Allocation (Base)
+- Compute equal base pool (e.g., 20% of cycle) and extraPool = cycleTime - basePool.
+- Compute totalQueue = sum of all queue lengths (O(n)).
+- For each lane, compute fraction = queue_i / totalQueue and allocate extraPool * fraction.
+- Time: traverse lanes once → O(n).
+- Space: no extra storage beyond O(n).
+
+Step 3 — Priority-based Adjustment (Max-Heap)
+- Build max-heap of size n with lane priorities (queue lengths).
+  - Heap build: O(n).
+- Repeatedly pop the highest-priority lane, add a fixed chunk (e.g., 2s) or remaining seconds,
+  decrement its effective queue, and push back if still positive.
+  - Each pop/push: O(log n).
+  - Let K = number of adjustments (practically small, often < cycleTime / chunk).
+- Time: O(n) + O(K log n).
+- Worst-case (conservative): K could be as large as O(cycleTime / chunk); then cost ≈ O((cycleTime) log n).
+- Space: heap stores O(n) entries → O(n).
+
+Step 4 — Single-Cycle Complexity (Combine)
+- Proportional: O(n)
+- Priority refinement: O(n) + O(K log n)
+- Combined single cycle: O(n + K log n)
+
+Step 5 — Multi-Cycle Simulation (C cycles)
+- Repeat Step 2 + Step 3 each cycle, then update queues after served vehicles:
+- Total simulation time: O(C × (n + K log n))
+- Space: O(n) persistent arrays.
+
+Practical Remarks
+- For typical junctions n is small (4–8); even for 20 lanes the algorithm is light.
+- K is bounded by cycleTime and traffic dynamics; in practice K << cycleTime because adjustments stop when remaining seconds are exhausted.
+- The algorithm is therefore efficient and suitable for real-time control on modest hardware.
+
+Final Summary
+- Time (single cycle): O(n + K log n)
+- Space: O(n)
+- Simulation (C cycles): O(C × (n + K log n))
+
+Where:
+- n = number of lanes (20 in the provided dataset)
+- K = number of adjustment steps (implementation parameter, small in practice)
+- C = number of simulated cycles
