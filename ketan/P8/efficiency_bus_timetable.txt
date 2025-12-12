@@ -1,0 +1,85 @@
+Efficiency Analysis — Bus Timetable Generation (Problem 8)
+
+Goal:
+Generate an optimal bus schedule by:
+1. Sorting trips by finishing times using Merge Sort.
+2. Selecting the maximum number of non-overlapping trips (single bus).
+3. Allocating trips across multiple buses using a min-heap.
+
+Let:
+n = number of trips (20 in dataset)
+B = number of buses
+
+------------------------------------------------------------
+STEP 1 — Sorting Trips (Merge Sort)
+------------------------------------------------------------
+Merge Sort divides the list and merges sorted halves.
+
+Time:
+    O(n log n)
+
+Space:
+    O(n) extra space for merging
+
+Why needed:
+Greedy scheduling works only when trips are sorted by increasing end time.
+
+------------------------------------------------------------
+STEP 2 — Greedy Selection for One Bus
+------------------------------------------------------------
+Scan the sorted trips and select every trip whose start ≥ lastEnd.
+
+Operations:
+- Each trip considered once.
+
+Time:
+    O(n)
+Space:
+    O(1)
+
+Output:
+- Maximum set of non-overlapping trips.
+
+------------------------------------------------------------
+STEP 3 — Multi-Bus Allocation Using Min-Heap
+------------------------------------------------------------
+Each bus holds:
+    (last finishing time, bus index)
+
+For each trip:
+    - Extract bus with earliest availability → O(log B)
+    - Check compatibility
+    - Push updated bus info back → O(log B)
+
+Total:
+    O(n log B)
+
+Space:
+    O(B) for heap
+    O(n) for allocations
+
+------------------------------------------------------------
+OVERALL TIME COMPLEXITY
+------------------------------------------------------------
+Sorting:                 O(n log n)
+Single-bus greedy:       O(n)
+Multi-bus allocation:    O(n log B)
+
+Total:
+    O(n log n + n log B)
+
+For typical values (n=20, B<=5), runtime is almost instantaneous.
+
+------------------------------------------------------------
+SPACE COMPLEXITY
+------------------------------------------------------------
+Merge sort temporary arrays: O(n)
+Min-heap for buses:          O(B)
+Schedules per bus:           O(n)
+Total:
+    O(n + B)
+
+------------------------------------------------------------
+Conclusion:
+This hybrid approach (sorting + greedy + heap) is highly efficient.
+It scales easily to thousands of trips and dozens of buses.
