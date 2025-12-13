@@ -1700,6 +1700,71 @@
     });
   });
 </script>
+<!-- DOCS PANEL -->
+<section class="panel-shell" id="doc-panel">
+  <div class="panel-header">
+    <div class="panel-title-group">
+      <div class="panel-title">Technical Documentation & SDG Mapping</div>
+      <div class="panel-chip-row">
+        <span class="panel-chip">Design & Analysis of Algorithms</span>
+        <span class="panel-chip algo">Data Structures · Complexity · SDGs</span>
+      </div>
+    </div>
+    <div class="panel-controls">
+      <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
+    </div>
+  </div>
+
+  <div class="panel-scroll">
+
+    <div class="panel-block">
+      <h3>Project Architecture</h3>
+      <p>
+        Each city problem is modeled using graphs, queues, heaps, or sorting-based structures.
+        The frontend acts as a visual controller, while each algorithm is implemented separately in C++.
+      </p>
+    </div>
+
+    <div class="panel-block">
+      <h3>Algorithms & Data Structures Used</h3>
+      <ul>
+        <li>Graphs (Adjacency List)</li>
+        <li>BFS / DFS</li>
+        <li>Dijkstra (Min Heap)</li>
+        <li>Minimum Spanning Tree (Kruskal, Prim)</li>
+        <li>Union–Find (DSU)</li>
+        <li>Sorting (Merge / Quick)</li>
+      </ul>
+    </div>
+
+    <div class="panel-block">
+      <h3>Time & Space Complexity Summary</h3>
+      <ul>
+        <li>MST (Kruskal): O(E log E)</li>
+        <li>Dijkstra: O((V + E) log V)</li>
+        <li>BFS / DFS: O(V + E)</li>
+        <li>Sorting: O(n log n)</li>
+      </ul>
+    </div>
+
+    <div class="panel-block">
+      <h3>SDG Mapping Summary</h3>
+      <div class="sdg-box">
+        <strong>SDG 9:</strong> Infrastructure planning (roads, power, water)<br>
+        <strong>SDG 11:</strong> Sustainable cities & transport<br>
+        <strong>SDG 13:</strong> Climate action (flood evacuation)<br>
+        <strong>SDG 6:</strong> Water resource management
+      </div>
+    </div>
+
+    <div class="panel-block">
+      <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io" target="_blank">
+        <span>📂</span> Full Project Repository
+      </a>
+    </div>
+
+  </div>
+</section>
 
 </body>
 </html>
