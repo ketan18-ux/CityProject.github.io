@@ -11,390 +11,22 @@
   <style>
     :root {
       --bg-main: #020617;
-      --panel-bg: rgba(2,6,23,0.96);
-      --panel-border: rgba(148, 163, 184, 0.45);
-      --accent: #22c1c3;
-      --accent-blue: #38bdf8;
-      --accent-green: #22c55e;
-      --text-main: #e5e7eb;
-      --text-muted: #9ca3af;
-      --radius-lg: 18px;
-      --radius-md: 14px;
-      --shadow-strong: 0 25px 70px rgba(0,0,0,0.95);
-      --shadow-soft: 0 10px 30px rgba(15,23,42,0.85);
-      --transition-fast: 0.25s ease;
-    }
-
-    * { margin:0; padding:0; box-sizing:border-box; }
-
-    body {
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at 20% 0%, rgba(56,189,248,0.18), transparent 40%),
-        radial-gradient(circle at 80% 20%, rgba(34,197,94,0.18), transparent 45%),
-        #020617;
-      color: var(--text-main);
-      font-family: "Poppins", system-ui, sans-serif;
-      overflow-x: hidden;
-      animation: bgPulse 14s ease-in-out infinite alternate;
-    }
-
-    @keyframes bgPulse {
-      from { filter: brightness(0.95); }
-      to   { filter: brightness(1.05); }
-    }
-
-    /* ================= TOP BAR ================= */
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 18px;
-      background: rgba(2,6,23,0.88);
-      border-bottom: 1px solid rgba(148,163,184,0.3);
-      backdrop-filter: blur(14px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-    }
-
-    .topbar-title {
-      font-family: "Montserrat", sans-serif;
-      font-size: 17px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-shadow: 0 0 12px rgba(56,189,248,0.35);
-    }
-
-    .topbar-sub { font-size: 11px; color: var(--text-muted); }
-
-    .topbar-left { display:flex; flex-direction:column; gap:2px; }
-
-    .topbar-actions { display:flex; gap:10px; align-items:center; }
-
-    .chip {
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,0.6);
-      color: var(--text-muted);
-      backdrop-filter: blur(8px);
-    }
-
-    .btn-pill {
-      border-radius: 999px;
-      padding: 7px 14px;
-      border: none;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 600;
-      background: linear-gradient(135deg, #22c1c3, #38bdf8);
-      color: #020617;
-      box-shadow: 0 0 0 rgba(56,189,248,0);
-      transition: all 0.3s ease;
-      text-decoration:none;
-    }
-
-    .btn-pill:hover {
-      transform: translateY(-2px) scale(1.05);
-      box-shadow: 0 0 26px rgba(56,189,248,0.85);
-    }
-
-    /* ================= LAYOUT ================= */
-    .layout { max-width:1350px; margin:18px auto 30px; padding:0 18px 26px; }
-
-    .hero-strip { margin-bottom:14px; font-size:12px; color:var(--text-muted); }
-    .hero-strip span { color:#a5b4fc; }
-
-    /* ================= CITY MAP ================= */
-    .city-shell {
-      position: relative;
-      border-radius: 24px;
-      background:
-        radial-gradient(circle at 0% 0%, rgba(56,189,248,0.25), transparent 50%),
-        radial-gradient(circle at 100% 0%, rgba(34,197,94,0.25), transparent 55%),
-        #020617;
-      box-shadow: var(--shadow-strong);
-      overflow: hidden;
-      min-height: 560px;
-      border: 1px solid rgba(148,163,184,0.45);
-    }
-
-    .city-map { padding:22px 24px 26px; }
-
-    .city-header {
-      margin-bottom:12px;
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-end;
-    }
-
-    .city-title {
-      font-family:"Montserrat",sans-serif;
-      font-size:18px;
-      letter-spacing:0.08em;
-      text-transform:uppercase;
-    }
-
-    .city-sub { font-size:11px; color:var(--text-muted); }
-
-    .legend { font-size:11px; display:flex; align-items:center; gap:8px; }
-
-    .legend-dot {
-      width:10px; height:10px; border-radius:999px;
-      background: radial-gradient(circle at 30% 0, #22c1c3 0, #0f172a 60%);
-      box-shadow:0 0 10px rgba(56,189,248,0.9);
-      animation: glowDot 1.8s infinite alternate;
-    }
-
-    @keyframes glowDot {
-      from { box-shadow:0 0 6px rgba(56,189,248,0.4); }
-      to   { box-shadow:0 0 14px rgba(56,189,248,0.95); }
-    }
-
-    /* ================= GRID BLOCKS ================= */
-    .city-grid {
-      margin-top:10px;
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0,1fr));
-      gap:18px;
-    }
-
-    .map-node {
-      position:relative;
-      border-radius:var(--radius-md);
-      border:1px solid rgba(148,163,184,0.55);
-      background: radial-gradient(circle at 30% 0, rgba(15,23,42,0.9) 0, #020617 55%);
-      padding:14px 16px;
-      box-shadow:var(--shadow-soft);
-      cursor:pointer;
-      text-align:left;
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-      transition: all 0.35s ease;
-      overflow:hidden;
-    }
-
-    .map-node::before {
-      content:"";
-      position:absolute;
-      inset:-1px;
-      background:linear-gradient(120deg, transparent, rgba(56,189,248,0.35), transparent);
-      opacity:0;
-      transition:opacity 0.4s ease;
-    }
-
-    .map-node:hover::before { opacity:1; }
-
-    .map-node:hover {
-      transform: translateY(-6px) scale(1.03);
-      border-color: rgba(56,189,248,0.9);
-      box-shadow:0 0 36px rgba(56,189,248,0.85);
-    }
-
-    .map-node-title {
-      font-family:"Montserrat",sans-serif;
-      font-size:13px;
-    }
-
-    .map-node-meta {
-      font-size:10px;
-      color:var(--text-muted);
-      display:flex;
-      gap:6px;
-      flex-wrap:wrap;
-    }
-
-    .node-id { color:#a5b4fc; }
-
-    .docs-node {
-      border-style:dashed;
-      border-color:rgba(249,115,22,0.9);
-      animation: docsPulse 1.8s infinite alternate;
-    }
-
-    @keyframes docsPulse {
-      from { box-shadow:0 0 10px rgba(249,115,22,0.4); }
-      to   { box-shadow:0 0 22px rgba(249,115,22,0.85); }
-    }
-
-    /* ================= OVERLAY + PANELS ================= */
-    .overlay {
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,0.92);
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      opacity:0;
-      pointer-events:none;
-      transition:opacity 0.35s ease;
-      z-index:100;
-    }
-
-    .overlay.open {
-      opacity:1;
-      pointer-events:auto;
-    }
-
-    .panel-shell {
-      background:var(--panel-bg);
-      border-radius:20px;
-      border:1px solid var(--panel-border);
-      box-shadow:var(--shadow-strong);
-      width:100%;
-      max-width:950px;
-      max-height:90vh;
-      display:none;
-      flex-direction:column;
-      transform:scale(0.92) translateY(30px);
-      opacity:0;
-      transition:all 0.4s ease;
-      backdrop-filter: blur(18px);
-    }
-
-    .panel-shell.open {
-      display:flex;
-      transform:scale(1) translateY(0);
-      opacity:1;
-    }
-
-    .panel-header {
-      padding:18px 22px;
-      border-bottom:1px solid rgba(148,163,184,0.25);
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      background:linear-gradient(
-        90deg,
-        rgba(56,189,248,0.12),
-        rgba(34,197,94,0.08),
-        transparent
-      );
-    }
-
-    .panel-title {
-      font-family:"Montserrat",sans-serif;
-      font-size:17px;
-      letter-spacing:0.06em;
-      text-shadow:0 0 14px rgba(56,189,248,0.45);
-    }
-
-    .panel-chip {
-      font-size:11px;
-      padding:4px 8px;
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,0.4);
-      background:rgba(15,23,42,0.6);
-    }
-
-    .panel-chip.algo {
-      border-color:rgba(56,189,248,0.6);
-      color:#7dd3fc;
-    }
-
-    .panel-scroll {
-      padding:22px;
-      overflow-y:auto;
-    }
-
-    .panel-block {
-      margin-bottom:18px;
-      padding:16px 18px;
-      border-radius:14px;
-      background: radial-gradient(circle at top, rgba(15,23,42,0.9), #020617);
-      border:1px solid rgba(148,163,184,0.25);
-      box-shadow:0 10px 25px rgba(0,0,0,0.7);
-      animation:blockIn 0.5s ease forwards;
-    }
-
-    @keyframes blockIn {
-      from { opacity:0; transform:translateY(16px); }
-      to   { opacity:1; transform:translateY(0); }
-    }
-
-    .panel-block h3 {
-      margin-bottom:6px;
-      font-size:14px;
-      color:#a5f3fc;
-    }
-
-    .github-link {
-      display:inline-block;
-      padding:10px 14px;
-      border-radius:12px;
-      background:linear-gradient(135deg,#22c55e,#38bdf8);
-      color:#020617;
-      font-weight:600;
-      text-decoration:none;
-      box-shadow:0 0 22px rgba(34,197,94,0.6);
-      transition:all 0.3s ease;
-    }
-
-    .github-link:hover {
-      transform:scale(1.05);
-      box-shadow:0 0 34px rgba(34,197,94,0.95);
-    }
-
-    .back-btn {
-      background:transparent;
-      border:1px solid rgba(148,163,184,0.45);
-      padding:6px 12px;
-      border-radius:999px;
-      color:var(--text-main);
-      cursor:pointer;
-      transition:all 0.25s ease;
-    }
-
-    .back-btn:hover {
-      border-color:#38bdf8;
-      color:#38bdf8;
-      box-shadow:0 0 14px rgba(56,189,248,0.6);
-    }
-  </style>
-</head>
-
-<body>
-
-<!-- ================= YOUR ORIGINAL BODY CONTENT ================= -->
-<!-- ⚠ NOTHING REMOVED — EXACTLY AS YOU SENT ⚠ -->
-
-<header class="topbar">
-  <div class="topbar-left">
-    <div class="topbar-title">SMART CITY • INFRASTRUCTURE & ROUTING</div>
-    <div class="topbar-sub">DAA Portfolio – Student: Ketan Shinde</div>
-  </div>
-  <div class="topbar-actions">
-    <span class="chip">Design & Analysis of Algorithms</span>
-    <a href="index.html" class="btn-pill">⬅ Back to Home</a>
-  </div>
-</header>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ketan Shinde | Smart City Map – DAA Portfolio</title>
-
-  <!-- GOOGLE FONTS -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --bg-main: #020617;
       --panel-bg: #020617;
-      --panel-border: rgba(148, 163, 184, 0.45);
-      --accent: #22c1c3;
-      --accent-blue: #38bdf8;
+      --panel-border: rgba(148,163,184,0.45);
+
+      /* Smooth academic colors */
+      --blue: #38bdf8;
+      --cyan: #22c1c3;
+      --green: #22c55e;
+
       --text-main: #e5e7eb;
       --text-muted: #9ca3af;
+
       --radius-lg: 18px;
       --radius-md: 14px;
-      --shadow-strong: 0 20px 50px rgba(0, 0, 0, 0.9);
-      --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.85);
-      --transition-fast: 0.25s ease;
+
+      --shadow-strong: 0 20px 50px rgba(0,0,0,0.9);
+      --shadow-soft: 0 10px 30px rgba(15,23,42,0.85);
     }
 
     * {
@@ -405,7 +37,7 @@
 
     body {
       min-height: 100vh;
-      background: radial-gradient(circle at top, #0f172a 0, #020617 50%, #000 100%);
+      background: radial-gradient(circle at top, #0f172a, #020617);
       color: var(--text-main);
       font-family: "Poppins", system-ui, sans-serif;
       overflow-x: hidden;
@@ -420,27 +52,28 @@
       justify-content: space-between;
       align-items: center;
       padding: 10px 18px;
-      background: rgba(2, 6, 23, 0.9);
-      border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+      background: rgba(2,6,23,0.9);
+      border-bottom: 1px solid rgba(148,163,184,0.3);
       backdrop-filter: blur(14px);
-    }
-
-    .topbar-title {
-      font-family: "Montserrat", sans-serif;
-      font-size: 17px;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-    }
-
-    .topbar-sub {
-      font-size: 11px;
-      color: var(--text-muted);
     }
 
     .topbar-left {
       display: flex;
       flex-direction: column;
       gap: 2px;
+    }
+
+    .topbar-title {
+      font-family: "Montserrat", sans-serif;
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--blue);
+    }
+
+    .topbar-sub {
+      font-size: 11px;
+      color: var(--text-muted);
     }
 
     .topbar-actions {
@@ -453,7 +86,7 @@
     .chip {
       padding: 4px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.6);
+      border: 1px solid rgba(148,163,184,0.6);
       color: var(--text-muted);
     }
 
@@ -463,20 +96,11 @@
       border: none;
       cursor: pointer;
       font-size: 13px;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      font-weight: 600;
       text-decoration: none;
-      background: linear-gradient(135deg, #22c1c3, #38bdf8);
+      background: linear-gradient(135deg, var(--cyan), var(--blue));
       color: #020617;
-      box-shadow: 0 8px 22px rgba(56, 189, 248, 0.45);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .btn-pill:hover {
-      transform: translateY(-1px) scale(1.02);
-      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.7);
+      box-shadow: 0 8px 22px rgba(56,189,248,0.45);
     }
 
     /* ================= LAYOUT ================= */
@@ -501,13 +125,13 @@
       position: relative;
       border-radius: 24px;
       background:
-        radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.2) 0, transparent 50%),
-        radial-gradient(circle at 100% 0%, rgba(34, 197, 94, 0.2) 0, transparent 55%),
+        radial-gradient(circle at 0% 0%, rgba(56,189,248,0.18), transparent 50%),
+        radial-gradient(circle at 100% 0%, rgba(34,197,94,0.18), transparent 55%),
         #020617;
       box-shadow: var(--shadow-strong);
       overflow: hidden;
       min-height: 560px;
-      border: 1px solid rgba(148, 163, 184, 0.45);
+      border: 1px solid rgba(148,163,184,0.45);
     }
 
     .city-map {
@@ -527,6 +151,7 @@
       font-size: 18px;
       letter-spacing: 0.08em;
       text-transform: uppercase;
+      color: var(--blue);
     }
 
     .city-sub {
@@ -545,22 +170,22 @@
       width: 10px;
       height: 10px;
       border-radius: 999px;
-      background: radial-gradient(circle at 30% 0, #22c1c3 0, #0f172a 60%);
-      box-shadow: 0 0 8px rgba(56, 189, 248, 0.8);
+      background: radial-gradient(circle at 30% 0, var(--cyan), #0f172a 60%);
+      box-shadow: 0 0 10px rgba(56,189,248,0.8);
     }
 
     /* ================= GRID BLOCKS ================= */
     .city-grid {
       margin-top: 10px;
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0,1fr));
       gap: 18px;
     }
 
     .map-node {
       border-radius: var(--radius-md);
-      border: 1px solid rgba(148, 163, 184, 0.55);
-      background: radial-gradient(circle at 30% 0, rgba(15, 23, 42, 0.9) 0, #020617 55%);
+      border: 1px solid rgba(148,163,184,0.55);
+      background: radial-gradient(circle at 30% 0, rgba(15,23,42,0.9), #020617 55%);
       color: var(--text-main);
       padding: 14px 16px;
       box-shadow: var(--shadow-soft);
@@ -569,18 +194,19 @@
       display: flex;
       flex-direction: column;
       gap: 6px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      transition: 0.3s ease;
     }
 
     .map-node:hover {
-      transform: translateY(-6px) scale(1.02);
-      border-color: rgba(56, 189, 248, 0.9);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8);
+      border-color: var(--blue);
+      box-shadow: 0 0 28px rgba(56,189,248,0.6);
+      transform: translateY(-4px);
     }
 
     .map-node-title {
       font-family: "Montserrat", sans-serif;
       font-size: 13px;
+      color: var(--blue);
     }
 
     .map-node-meta {
@@ -595,53 +221,13 @@
       color: #a5b4fc;
     }
 
-    .map-node.docs-node {
+    .docs-node {
       border-style: dashed;
-      border-color: rgba(249, 115, 22, 0.8);
+      border-color: rgba(249,115,22,0.9);
     }
-
-    /* ================= OVERLAY + PANEL ANIMATION ================= */
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.92);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.35s ease;
-      z-index: 100;
-    }
-
-    .overlay.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .panel-shell {
-      background: var(--panel-bg);
-      border-radius: 20px;
-      border: 1px solid var(--panel-border);
-      box-shadow: var(--shadow-strong);
-      width: 100%;
-      max-width: 950px;
-      max-height: 90vh;
-      display: none;
-      flex-direction: column;
-      transform: scale(0.92) translateY(20px);
-      opacity: 0;
-      transition: all 0.35s ease;
-    }
-
-    .panel-shell.open {
-      display: flex;
-      transform: scale(1) translateY(0);
-      opacity: 1;
-    }
-
   </style>
 </head>
+
 <body>
 
 <header class="topbar">
@@ -774,19 +360,17 @@
 <!-- ================= PANEL P1 ================= -->
 <section class="panel-shell" id="p1-panel">
   <div class="panel-header">
-    <div class="panel-title-group">
+    <div>
       <div class="panel-title">1. Optimal Road Network Construction</div>
-      <div class="panel-chip-row">
-        <span class="panel-chip">Transport Infrastructure</span>
-        <span class="panel-chip algo">Minimum Spanning Tree · Kruskal + Prim + Union–Find</span>
+      <div class="panel-chip">
+        Transport Infrastructure · Minimum Spanning Tree · Kruskal + Prim + Union–Find
       </div>
     </div>
-    <div class="panel-controls">
-      <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
-    </div>
+    <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
   </div>
 
   <div class="panel-scroll">
+
     <div class="panel-block">
       <h3>Problem Context</h3>
       <p>
@@ -852,30 +436,29 @@
         📂 View Complete Implementation (Code · Dataset · Analysis)
       </a>
     </div>
+
   </div>
 </section>
 
 <!-- ================= PANEL P2 ================= -->
 <section class="panel-shell" id="p2-panel">
   <div class="panel-header">
-    <div class="panel-title-group">
+    <div>
       <div class="panel-title">2. Shortest Travel-Time Routing</div>
-      <div class="panel-chip-row">
-        <span class="panel-chip">Commuter Mobility</span>
-        <span class="panel-chip algo">Dijkstra + BFS (Time-weighted Graph)</span>
+      <div class="panel-chip">
+        Commuter Mobility · Dijkstra + BFS (Time-weighted Graph)
       </div>
     </div>
-    <div class="panel-controls">
-      <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
-    </div>
+    <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
   </div>
 
   <div class="panel-scroll">
+
     <div class="panel-block">
       <h3>Problem Context</h3>
       <p>
         During peak office hours, shortest-distance routes are not always the fastest.
-        Narrow roads may be congested, while longer ring roads may provide quicker travel.
+        Narrow roads may be congested, while slightly longer ring roads may provide quicker travel.
       </p>
       <p>
         Citizens require a routing system that minimises <strong>travel time</strong>,
@@ -931,25 +514,23 @@
         📂 View Complete Implementation (Code · Dataset · Analysis)
       </a>
     </div>
+
   </div>
 </section>
-
 <!-- ================= PANEL P3 ================= -->
 <section class="panel-shell" id="p3-panel">
   <div class="panel-header">
-    <div class="panel-title-group">
+    <div>
       <div class="panel-title">3. Traffic Signal Timing Optimization</div>
-      <div class="panel-chip-row">
-        <span class="panel-chip">Junction Management</span>
-        <span class="panel-chip algo">Queues · Priority Queue · Efficient Sorting</span>
+      <div class="panel-chip">
+        Junction Management · Queues · Priority Queue · Efficient Sorting
       </div>
     </div>
-    <div class="panel-controls">
-      <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
-    </div>
+    <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
   </div>
 
   <div class="panel-scroll">
+
     <div class="panel-block">
       <h3>Problem Context</h3>
       <p>
@@ -1014,24 +595,24 @@
         📂 View Complete Implementation (Code · Dataset · Analysis)
       </a>
     </div>
+
   </div>
 </section>
+
 <!-- ================= PANEL P4 ================= -->
 <section class="panel-shell" id="p4-panel">
   <div class="panel-header">
-    <div class="panel-title-group">
+    <div>
       <div class="panel-title">4. Emergency Vehicle Fastest Route Planner</div>
-      <div class="panel-chip-row">
-        <span class="panel-chip">Emergency Response</span>
-        <span class="panel-chip algo">BFS + DFS on Reduced Graph</span>
+      <div class="panel-chip">
+        Emergency Response · BFS + DFS on Reduced Graph
       </div>
     </div>
-    <div class="panel-controls">
-      <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
-    </div>
+    <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
   </div>
 
   <div class="panel-scroll">
+
     <div class="panel-block">
       <h3>Problem Context</h3>
       <p>
@@ -1090,25 +671,24 @@
         📂 View Complete Implementation (Code · Dataset · Analysis)
       </a>
     </div>
+
   </div>
 </section>
 
 <!-- ================= PANEL P5 ================= -->
 <section class="panel-shell" id="p5-panel">
   <div class="panel-header">
-    <div class="panel-title-group">
+    <div>
       <div class="panel-title">5. Water Pipeline Pressure Optimization</div>
-      <div class="panel-chip-row">
-        <span class="panel-chip">Water Distribution</span>
-        <span class="panel-chip algo">Graph Traversal + Efficient Sorting</span>
+      <div class="panel-chip">
+        Water Distribution · Graph Traversal + Efficient Sorting
       </div>
     </div>
-    <div class="panel-controls">
-      <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
-    </div>
+    <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
   </div>
 
   <div class="panel-scroll">
+
     <div class="panel-block">
       <h3>Problem Context</h3>
       <p>
@@ -1176,25 +756,23 @@
         📂 View Complete Implementation (Code · Dataset · Analysis)
       </a>
     </div>
+
   </div>
 </section>
-
 <!-- ================= PANEL P6 ================= -->
 <section class="panel-shell" id="p6-panel">
   <div class="panel-header">
-    <div class="panel-title-group">
+    <div>
       <div class="panel-title">6. Power Grid Load Minimization</div>
-      <div class="panel-chip-row">
-        <span class="panel-chip">Electric Grid</span>
-        <span class="panel-chip algo">Prim’s MST + Min-Heap</span>
+      <div class="panel-chip">
+        Electric Grid · Prim’s MST + Min-Heap
       </div>
     </div>
-    <div class="panel-controls">
-      <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
-    </div>
+    <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
   </div>
 
   <div class="panel-scroll">
+
     <div class="panel-block">
       <h3>Problem Context</h3>
       <p>
@@ -1260,24 +838,24 @@
         📂 View Complete Implementation (Code · Dataset · Analysis)
       </a>
     </div>
+
   </div>
 </section>
+
 <!-- ================= PANEL P7 ================= -->
 <section class="panel-shell" id="p7-panel">
   <div class="panel-header">
-    <div class="panel-title-group">
+    <div>
       <div class="panel-title">7. Garbage Truck Route Optimization</div>
-      <div class="panel-chip-row">
-        <span class="panel-chip">Solid Waste Management</span>
-        <span class="panel-chip algo">Dijkstra + Greedy Ordering + Sorting</span>
+      <div class="panel-chip">
+        Solid Waste Management · Dijkstra + Greedy Ordering + Sorting
       </div>
     </div>
-    <div class="panel-controls">
-      <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
-    </div>
+    <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
   </div>
 
   <div class="panel-scroll">
+
     <div class="panel-block">
       <h3>Problem Context</h3>
       <p>
@@ -1345,25 +923,24 @@
         📂 View Complete Implementation (Code · Dataset · Analysis)
       </a>
     </div>
+
   </div>
 </section>
 
 <!-- ================= PANEL P8 ================= -->
 <section class="panel-shell" id="p8-panel">
   <div class="panel-header">
-    <div class="panel-title-group">
+    <div>
       <div class="panel-title">8. Public Transport Timetable Generation</div>
-      <div class="panel-chip-row">
-        <span class="panel-chip">Public Transport</span>
-        <span class="panel-chip algo">Efficient Sorting + Greedy Interval Selection</span>
+      <div class="panel-chip">
+        Public Transport · Efficient Sorting + Greedy Interval Selection
       </div>
     </div>
-    <div class="panel-controls">
-      <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
-    </div>
+    <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
   </div>
 
   <div class="panel-scroll">
+
     <div class="panel-block">
       <h3>Problem Context</h3>
       <p>
@@ -1425,25 +1002,23 @@
         📂 View Complete Implementation (Code · Dataset · Analysis)
       </a>
     </div>
+
   </div>
 </section>
-
 <!-- ================= PANEL P9 ================= -->
 <section class="panel-shell" id="p9-panel">
   <div class="panel-header">
-    <div class="panel-title-group">
+    <div>
       <div class="panel-title">9. Bridge Construction Priority Model</div>
-      <div class="panel-chip-row">
-        <span class="panel-chip">Critical Infrastructure</span>
-        <span class="panel-chip algo">DFS-Based Bridge Detection</span>
+      <div class="panel-chip">
+        Critical Infrastructure · DFS-Based Bridge Detection
       </div>
     </div>
-    <div class="panel-controls">
-      <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
-    </div>
+    <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
   </div>
 
   <div class="panel-scroll">
+
     <div class="panel-block">
       <h3>Problem Context</h3>
       <p>
@@ -1498,25 +1073,24 @@
         📂 View Complete Implementation (Code · Dataset · Analysis)
       </a>
     </div>
+
   </div>
 </section>
 
 <!-- ================= PANEL P10 ================= -->
 <section class="panel-shell" id="p10-panel">
   <div class="panel-header">
-    <div class="panel-title-group">
+    <div>
       <div class="panel-title">10. Flood Evacuation Simulation</div>
-      <div class="panel-chip-row">
-        <span class="panel-chip">Disaster Management</span>
-        <span class="panel-chip algo">Multi-source BFS</span>
+      <div class="panel-chip">
+        Disaster Management · Multi-source BFS
       </div>
     </div>
-    <div class="panel-controls">
-      <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
-    </div>
+    <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
   </div>
 
   <div class="panel-scroll">
+
     <div class="panel-block">
       <h3>Problem Context</h3>
       <p>
@@ -1569,25 +1143,24 @@
         📂 View Complete Implementation (Code · Dataset · Analysis)
       </a>
     </div>
+
   </div>
 </section>
 
 <!-- ================= TECHNICAL DOCUMENTATION ================= -->
 <section class="panel-shell" id="doc-panel">
   <div class="panel-header">
-    <div class="panel-title-group">
+    <div>
       <div class="panel-title">Technical Documentation & SDG Mapping</div>
-      <div class="panel-chip-row">
-        <span class="panel-chip">DAA Portfolio</span>
-        <span class="panel-chip algo">Algorithms · Data · Complexity</span>
+      <div class="panel-chip">
+        DAA Portfolio · Algorithms · Data · Complexity
       </div>
     </div>
-    <div class="panel-controls">
-      <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
-    </div>
+    <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
   </div>
 
   <div class="panel-scroll">
+
     <div class="panel-block">
       <h3>Dataset Design</h3>
       <p>
@@ -1622,8 +1195,12 @@
         No third-party libraries or frameworks are used.
       </p>
     </div>
+
   </div>
 </section>
+
+</div> <!-- END OVERLAY -->
+
 <!-- ================= OVERLAY SCRIPT ================= -->
 <script>
   const overlay = document.getElementById("overlay");
@@ -1634,59 +1211,8 @@
     node.addEventListener("click", () => {
       const targetId = node.dataset.target + "-panel";
 
-      // Reset all panels
       panels.forEach(p => {
         p.classList.remove("open");
-        p.style.opacity = "0";
-        p.style.transform = "translateY(30px) scale(0.98)";
-      });
-
-      // Open overlay
-      overlay.classList.add("open");
-      document.body.style.overflow = "hidden";
-
-      // Animate selected panel
-      const panel = document.getElementById(targetId);
-      panel.classList.add("open");
-
-      requestAnimationFrame(() => {
-        panel.style.opacity = "1";
-        panel.style.transform = "translateY(0) scale(1)";
-      });
-    });
-  });
-
-  // Close buttons
-  document.querySelectorAll("[data-close]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      overlay.classList.remove("open");
-      document.body.style.overflow = "";
-
-      panels.forEach(p => {
-        p.classList.remove("open");
-        p.style.opacity = "0";
-        p.style.transform = "translateY(30px) scale(0.98)";
-      });
-    });
-  });
-</script>
-
-</body>
-</html>
-
-<script>
-  const overlay = document.getElementById("overlay");
-  const nodes = document.querySelectorAll(".map-node");
-  const panels = document.querySelectorAll(".panel-shell");
-
-  nodes.forEach(node => {
-    node.addEventListener("click", () => {
-      const targetId = node.dataset.target + "-panel";
-
-      panels.forEach(p => {
-        p.classList.remove("open");
-        p.style.opacity = "0";
-        p.style.transform = "translateY(30px) scale(0.98)";
       });
 
       overlay.classList.add("open");
@@ -1694,11 +1220,6 @@
 
       const panel = document.getElementById(targetId);
       panel.classList.add("open");
-
-      requestAnimationFrame(() => {
-        panel.style.opacity = "1";
-        panel.style.transform = "translateY(0) scale(1)";
-      });
     });
   });
 
@@ -1706,12 +1227,7 @@
     btn.addEventListener("click", () => {
       overlay.classList.remove("open");
       document.body.style.overflow = "";
-
-      panels.forEach(p => {
-        p.classList.remove("open");
-        p.style.opacity = "0";
-        p.style.transform = "translateY(30px) scale(0.98)";
-      });
+      panels.forEach(p => p.classList.remove("open"));
     });
   });
 </script>
