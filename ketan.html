@@ -1646,125 +1646,128 @@
           </div>
         </div>
         <div class="panel-block">
-          <h3>How These Algorithms Help in General</h3>
-        <p>
-          Multi-source BFS is widely used to model the spread of floods, fires, epidemics,
-          power failures, and information in networks.
-          It provides minimum-time reachability efficiently,
-          making it ideal for evacuation planning and disaster response systems.
-        </p>
+                    <h3>How This Algorithm Helps in General</h3>
+          <p>
+            Multi-source BFS is widely used in simulations where multiple origins expand simultaneously:
+            flood spread, fire propagation, disease outbreaks, and network broadcast analysis.
+            It provides a clean and fast way to compute earliest arrival times across a network.
+          </p>
+        </div>
+
+        <div class="panel-block">
+          <h3>Insert Figure Here</h3>
+          <div class="figure-placeholder">
+            📍 IMAGE PLACEHOLDER — Insert city graph showing flood sources spreading outward and safe shelters marked.
+          </div>
+        </div>
+
+        <div class="panel-block">
+          <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/flood_evacuation.cpp" target="_blank">
+            <span>📂</span> View C++ Code for Flood Evacuation (Multi-source BFS)
+          </a>
+        </div>
+
+        <div class="panel-block">
+          <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p10_dataset.csv" target="_blank">
+            <span>📄</span> View Input Dataset
+          </a>
+        </div>
+
+        <div class="panel-block">
+          <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p10_efficiency.txt" target="_blank">
+            <span>⚡</span> View Efficiency Analysis
+          </a>
+        </div>
+      </div>
+    </section>
+    <!-- DOCS PANEL -->
+    <section class="panel-shell" id="doc-panel">
+      <div class="panel-header">
+        <div class="panel-title-group">
+          <div class="panel-title">Technical Documentation & SDG Mapping</div>
+          <div class="panel-chip-row">
+            <span class="panel-chip">DAA Portfolio</span>
+            <span class="panel-chip algo">Algorithms · Datasets · Impact</span>
+          </div>
+        </div>
+        <div class="panel-controls">
+          <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
+        </div>
       </div>
 
-      <div class="panel-block">
-        <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/flood_evacuation.cpp" target="_blank">
-          <span>📂</span> View C++ Code for Flood Evacuation
-        </a>
+      <div class="panel-scroll">
+        <div class="panel-block">
+          <h3>Purpose of This Documentation</h3>
+          <p>
+            This section consolidates the technical reasoning, dataset design,
+            efficiency analysis, and Sustainable Development Goal (SDG) alignment
+            for all 10 smart-city algorithmic case studies.
+          </p>
+        </div>
+
+        <div class="panel-block">
+          <h3>Dataset Design</h3>
+          <ul>
+            <li>Each problem uses a <strong>20-row CSV dataset</strong></li>
+            <li>Columns map directly to algorithm inputs (nodes, edges, weights, queues, times)</li>
+            <li>Datasets are intentionally small for clarity, traceability, and viva explanation</li>
+          </ul>
+        </div>
+
+        <div class="panel-block">
+          <h3>Efficiency Analysis Method</h3>
+          <p>
+            For every problem, time and space complexity are analysed in plain text form.
+            Worst-case, average-case, and practical constraints are discussed
+            using standard Big-O notation aligned with the DAA syllabus.
+          </p>
+        </div>
+
+        <div class="panel-block">
+          <h3>SDG Coverage Summary</h3>
+          <div class="sdg-box">
+            <strong>SDG 3:</strong> Emergency response, health access<br>
+            <strong>SDG 6:</strong> Clean water & pipeline reliability<br>
+            <strong>SDG 7:</strong> Power grid efficiency<br>
+            <strong>SDG 9:</strong> Resilient infrastructure<br>
+            <strong>SDG 11:</strong> Sustainable cities & transport<br>
+            <strong>SDG 13:</strong> Climate action & disaster modelling
+          </div>
+        </div>
+
+        <div class="panel-block">
+          <h3>Academic Integrity</h3>
+          <p>
+            All algorithms are implemented manually in C++ without external libraries
+            beyond STL. Logic is original, well-commented, and suitable for
+            university evaluation, demos, and viva voce.
+          </p>
+        </div>
       </div>
+    </section>
+  </div> <!-- overlay end -->
 
-      <div class="panel-block">
-        <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p10_dataset.csv" target="_blank">
-          <span>📄</span> View Input Dataset
-        </a>
-      </div>
+  <script>
+    const overlay = document.getElementById("overlay");
+    const nodes = document.querySelectorAll(".map-node");
+    const panels = document.querySelectorAll(".panel-shell");
 
-      <div class="panel-block">
-        <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p10_efficiency.txt" target="_blank">
-          <span>⚡</span> View Efficiency Analysis
-        </a>
-      </div>
-
-    </div>
-  </section>
-</div>
-
-<!-- ================= SCRIPT ================= -->
-<script>
-  const overlay = document.getElementById("overlay");
-  const nodes = document.querySelectorAll(".map-node");
-  const panels = document.querySelectorAll(".panel-shell");
-  const closeBtns = document.querySelectorAll("[data-close]");
-
-  nodes.forEach(node => {
-    node.addEventListener("click", () => {
-      const target = node.dataset.target;
-      panels.forEach(p => p.classList.remove("open"));
-      document.getElementById(target + "-panel").classList.add("open");
-      overlay.classList.add("open");
+    nodes.forEach(node => {
+      node.addEventListener("click", () => {
+        const target = node.dataset.target;
+        panels.forEach(p => p.classList.remove("open"));
+        overlay.classList.add("open");
+        document.getElementById(target + "-panel").classList.add("open");
+      });
     });
-  });
 
-  closeBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-      overlay.classList.remove("open");
-      panels.forEach(p => p.classList.remove("open"));
+    document.querySelectorAll("[data-close]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        overlay.classList.remove("open");
+        panels.forEach(p => p.classList.remove("open"));
+      });
     });
-  });
-</script>
-<!-- DOCS PANEL -->
-<section class="panel-shell" id="doc-panel">
-  <div class="panel-header">
-    <div class="panel-title-group">
-      <div class="panel-title">Technical Documentation & SDG Mapping</div>
-      <div class="panel-chip-row">
-        <span class="panel-chip">Design & Analysis of Algorithms</span>
-        <span class="panel-chip algo">Data Structures · Complexity · SDGs</span>
-      </div>
-    </div>
-    <div class="panel-controls">
-      <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
-    </div>
-  </div>
-
-  <div class="panel-scroll">
-
-    <div class="panel-block">
-      <h3>Project Architecture</h3>
-      <p>
-        Each city problem is modeled using graphs, queues, heaps, or sorting-based structures.
-        The frontend acts as a visual controller, while each algorithm is implemented separately in C++.
-      </p>
-    </div>
-
-    <div class="panel-block">
-      <h3>Algorithms & Data Structures Used</h3>
-      <ul>
-        <li>Graphs (Adjacency List)</li>
-        <li>BFS / DFS</li>
-        <li>Dijkstra (Min Heap)</li>
-        <li>Minimum Spanning Tree (Kruskal, Prim)</li>
-        <li>Union–Find (DSU)</li>
-        <li>Sorting (Merge / Quick)</li>
-      </ul>
-    </div>
-
-    <div class="panel-block">
-      <h3>Time & Space Complexity Summary</h3>
-      <ul>
-        <li>MST (Kruskal): O(E log E)</li>
-        <li>Dijkstra: O((V + E) log V)</li>
-        <li>BFS / DFS: O(V + E)</li>
-        <li>Sorting: O(n log n)</li>
-      </ul>
-    </div>
-
-    <div class="panel-block">
-      <h3>SDG Mapping Summary</h3>
-      <div class="sdg-box">
-        <strong>SDG 9:</strong> Infrastructure planning (roads, power, water)<br>
-        <strong>SDG 11:</strong> Sustainable cities & transport<br>
-        <strong>SDG 13:</strong> Climate action (flood evacuation)<br>
-        <strong>SDG 6:</strong> Water resource management
-      </div>
-    </div>
-
-    <div class="panel-block">
-      <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io" target="_blank">
-        <span>📂</span> Full Project Repository
-      </a>
-    </div>
-
-  </div>
-</section>
+  </script>
 
 </body>
 </html>
