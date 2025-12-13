@@ -1646,32 +1646,60 @@
           </div>
         </div>
         <div class="panel-block">
-          <h3>How Th
-<!-- FULL HTML CODE DOCUMENT -->
-<!-- Your entire Smart City Map HTML file will be placed here. -->
+          <h3>How These Algorithms Help in General</h3>
+        <p>
+          Multi-source BFS is widely used to model the spread of floods, fires, epidemics,
+          power failures, and information in networks.
+          It provides minimum-time reachability efficiently,
+          making it ideal for evacuation planning and disaster response systems.
+        </p>
+      </div>
 
-<!-- JavaScript added for panel opening/closing -->
+      <div class="panel-block">
+        <a class="github-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/flood_evacuation.cpp" target="_blank">
+          <span>📂</span> View C++ Code for Flood Evacuation
+        </a>
+      </div>
+
+      <div class="panel-block">
+        <a class="dataset-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/datasets/p10_dataset.csv" target="_blank">
+          <span>📄</span> View Input Dataset
+        </a>
+      </div>
+
+      <div class="panel-block">
+        <a class="efficiency-link" href="https://github.com/ketan18-ux/CityProject.github.io/blob/main/ketan/analysis/p10_efficiency.txt" target="_blank">
+          <span>⚡</span> View Efficiency Analysis
+        </a>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<!-- ================= SCRIPT ================= -->
 <script>
   const overlay = document.getElementById("overlay");
   const nodes = document.querySelectorAll(".map-node");
   const panels = document.querySelectorAll(".panel-shell");
-  const closeButtons = document.querySelectorAll("[data-close]");
+  const closeBtns = document.querySelectorAll("[data-close]");
 
   nodes.forEach(node => {
     node.addEventListener("click", () => {
-      const target = node.getAttribute("data-target");
-      const panel = document.getElementById(`${target}-panel`);
-      if (panel) {
-        overlay.classList.add("open");
-        panel.classList.add("open");
-      }
+      const target = node.dataset.target;
+      panels.forEach(p => p.classList.remove("open"));
+      document.getElementById(target + "-panel").classList.add("open");
+      overlay.classList.add("open");
     });
   });
 
-  closeButtons.forEach(btn => {
+  closeBtns.forEach(btn => {
     btn.addEventListener("click", () => {
       overlay.classList.remove("open");
       panels.forEach(p => p.classList.remove("open"));
     });
   });
 </script>
+
+</body>
+</html>
