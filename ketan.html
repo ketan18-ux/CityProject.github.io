@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ketan Shinde | Smart City Map – DAA Portfolio</title>
 
-  <!-- Fonts -->
+  <!-- GOOGLE FONTS -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
@@ -38,11 +38,11 @@
       overflow-x: hidden;
     }
 
-    /* TOP BAR */
+    /* ================= TOP BAR ================= */
     .topbar {
       position: sticky;
       top: 0;
-      z-index: 20;
+      z-index: 50;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -98,14 +98,19 @@
       background: linear-gradient(135deg, #22c1c3, #38bdf8);
       color: #020617;
       box-shadow: 0 8px 22px rgba(56, 189, 248, 0.45);
-      transition: var(--transition-fast);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
+    .btn-pill:hover {
+      transform: translateY(-1px) scale(1.02);
+      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.7);
+    }
+
+    /* ================= LAYOUT ================= */
     .layout {
       max-width: 1350px;
       margin: 18px auto 30px;
       padding: 0 18px 26px;
-      position: relative;
     }
 
     .hero-strip {
@@ -118,6 +123,7 @@
       color: #a5b4fc;
     }
 
+    /* ================= CITY MAP ================= */
     .city-shell {
       position: relative;
       border-radius: 24px;
@@ -132,7 +138,6 @@
     }
 
     .city-map {
-      position: relative;
       padding: 22px 24px 26px;
       min-height: 560px;
     }
@@ -142,7 +147,6 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
-      gap: 10px;
     }
 
     .city-title {
@@ -172,8 +176,9 @@
       box-shadow: 0 0 8px rgba(56, 189, 248, 0.8);
     }
 
+    /* ================= GRID BLOCKS ================= */
     .city-grid {
-      margin-top: 8px;
+      margin-top: 10px;
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 18px;
@@ -184,13 +189,20 @@
       border: 1px solid rgba(148, 163, 184, 0.55);
       background: radial-gradient(circle at 30% 0, rgba(15, 23, 42, 0.9) 0, #020617 55%);
       color: var(--text-main);
-      padding: 12px 14px;
+      padding: 14px 16px;
       box-shadow: var(--shadow-soft);
-      text-align: left;
       cursor: pointer;
+      text-align: left;
       display: flex;
       flex-direction: column;
       gap: 6px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+
+    .map-node:hover {
+      transform: translateY(-6px) scale(1.02);
+      border-color: rgba(56, 189, 248, 0.9);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8);
     }
 
     .map-node-title {
@@ -214,9 +226,49 @@
       border-style: dashed;
       border-color: rgba(249, 115, 22, 0.8);
     }
+
+    /* ================= OVERLAY + PANEL ANIMATION ================= */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+      z-index: 100;
+    }
+
+    .overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .panel-shell {
+      background: var(--panel-bg);
+      border-radius: 20px;
+      border: 1px solid var(--panel-border);
+      box-shadow: var(--shadow-strong);
+      width: 100%;
+      max-width: 950px;
+      max-height: 90vh;
+      display: none;
+      flex-direction: column;
+      transform: scale(0.92) translateY(20px);
+      opacity: 0;
+      transition: all 0.35s ease;
+    }
+
+    .panel-shell.open {
+      display: flex;
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+
   </style>
 </head>
-
 <body>
 
 <header class="topbar">
@@ -237,6 +289,7 @@
 
   <section class="city-shell">
     <div class="city-map">
+
       <div class="city-header">
         <div>
           <div class="city-title">City Network Overview</div>
@@ -507,6 +560,7 @@
     </div>
   </div>
 </section>
+
 <!-- ================= PANEL P3 ================= -->
 <section class="panel-shell" id="p3-panel">
   <div class="panel-header">
@@ -543,12 +597,18 @@
         At the start of each signal cycle, queue lengths are measured.
       </p>
       <ul>
-        <li>Queue lengths are stored in an array and sorted using an efficient algorithm
-            such as Merge Sort or Quick Sort in <strong>O(k log k)</strong>, where k is number of lanes.</li>
-        <li>A <strong>priority queue (max-heap)</strong> can also be used to repeatedly pick the
-            most congested lane in <strong>O(log k)</strong> time.</li>
-        <li>Green time is distributed proportionally: every lane gets a base time,
-            and extra time is allocated according to congestion level.</li>
+        <li>
+          Queue lengths are stored in an array and sorted using an efficient algorithm
+          such as Merge Sort or Quick Sort in <strong>O(k log k)</strong>, where k is number of lanes.
+        </li>
+        <li>
+          A <strong>priority queue (max-heap)</strong> can also be used to repeatedly pick the
+          most congested lane in <strong>O(log k)</strong> time.
+        </li>
+        <li>
+          Green time is distributed proportionally: every lane gets a base time,
+          and extra time is allocated according to congestion level.
+        </li>
       </ul>
     </div>
 
@@ -583,7 +643,6 @@
     </div>
   </div>
 </section>
-
 <!-- ================= PANEL P4 ================= -->
 <section class="panel-shell" id="p4-panel">
   <div class="panel-header">
@@ -615,10 +674,14 @@
         The road network is treated as an unweighted graph after removing blocked edges.
       </p>
       <ul>
-        <li><strong>DFS:</strong> Used first to ensure the destination lies in the same
-            connected component as the emergency station.</li>
-        <li><strong>BFS:</strong> Applied to find the shortest path in terms of number of hops,
-            which approximates the fastest route.</li>
+        <li>
+          <strong>DFS:</strong> Used first to ensure the destination lies in the same
+          connected component as the emergency station.
+        </li>
+        <li>
+          <strong>BFS:</strong> Applied to find the shortest path in terms of number of hops,
+          which approximates the fastest route.
+        </li>
       </ul>
       <p>
         This approach runs in <strong>O(V + E)</strong> time and is suitable for rapid response.
@@ -656,6 +719,7 @@
     </div>
   </div>
 </section>
+
 <!-- ================= PANEL P5 ================= -->
 <section class="panel-shell" id="p5-panel">
   <div class="panel-header">
@@ -990,6 +1054,7 @@
     </div>
   </div>
 </section>
+
 <!-- ================= PANEL P9 ================= -->
 <section class="panel-shell" id="p9-panel">
   <div class="panel-header">
@@ -1182,34 +1247,55 @@
       <p>
         All implementations are original C++ programs using STL only.
         No third-party libraries or frameworks are used.
-        Suitable for evaluation, demonstration, and viva.
       </p>
     </div>
   </div>
 </section>
-
-</div> <!-- overlay end -->
-
+<!-- ================= OVERLAY SCRIPT ================= -->
 <script>
-const overlay = document.getElementById("overlay");
-const nodes = document.querySelectorAll(".map-node");
-const panels = document.querySelectorAll(".panel-shell");
+  const overlay = document.getElementById("overlay");
+  const nodes = document.querySelectorAll(".map-node");
+  const panels = document.querySelectorAll(".panel-shell");
 
-nodes.forEach(node => {
-  node.addEventListener("click", () => {
-    const target = node.dataset.target + "-panel";
-    panels.forEach(p => p.classList.remove("open"));
-    overlay.classList.add("open");
-    document.getElementById(target).classList.add("open");
-  });
-});
+  nodes.forEach(node => {
+    node.addEventListener("click", () => {
+      const targetId = node.dataset.target + "-panel";
 
-document.querySelectorAll("[data-close]").forEach(btn => {
-  btn.addEventListener("click", () => {
-    overlay.classList.remove("open");
-    panels.forEach(p => p.classList.remove("open"));
+      // Reset all panels
+      panels.forEach(p => {
+        p.classList.remove("open");
+        p.style.opacity = "0";
+        p.style.transform = "translateY(30px) scale(0.98)";
+      });
+
+      // Open overlay
+      overlay.classList.add("open");
+      document.body.style.overflow = "hidden";
+
+      // Animate selected panel
+      const panel = document.getElementById(targetId);
+      panel.classList.add("open");
+
+      requestAnimationFrame(() => {
+        panel.style.opacity = "1";
+        panel.style.transform = "translateY(0) scale(1)";
+      });
+    });
   });
-});
+
+  // Close buttons
+  document.querySelectorAll("[data-close]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      overlay.classList.remove("open");
+      document.body.style.overflow = "";
+
+      panels.forEach(p => {
+        p.classList.remove("open");
+        p.style.opacity = "0";
+        p.style.transform = "translateY(30px) scale(0.98)";
+      });
+    });
+  });
 </script>
 
 </body>
