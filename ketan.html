@@ -34,7 +34,7 @@
       min-height: 100vh;
       background: radial-gradient(circle at top, #0f172a 0, #020617 50%, #000 100%);
       color: var(--text-main);
-      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: "Poppins", system-ui, sans-serif;
       overflow-x: hidden;
     }
 
@@ -101,12 +101,6 @@
       transition: var(--transition-fast);
     }
 
-    .btn-pill:hover {
-      transform: translateY(-1px) scale(1.02);
-      box-shadow: 0 12px 30px rgba(56, 189, 248, 0.7);
-    }
-
-    /* LAYOUT */
     .layout {
       max-width: 1350px;
       margin: 18px auto 30px;
@@ -123,6 +117,7 @@
     .hero-strip span {
       color: #a5b4fc;
     }
+
     .city-shell {
       position: relative;
       border-radius: 24px;
@@ -139,48 +134,10 @@
     .city-map {
       position: relative;
       padding: 22px 24px 26px;
-      overflow: hidden;
       min-height: 560px;
     }
 
-    .city-map::before,
-    .city-map::after {
-      content: "";
-      position: absolute;
-      inset: -80%;
-      opacity: 0.18;
-      pointer-events: none;
-    }
-
-    .city-map::before {
-      background-image:
-        linear-gradient(90deg, rgba(148, 163, 184, 0.28) 1px, transparent 1px),
-        linear-gradient(0deg, rgba(148, 163, 184, 0.28) 1px, transparent 1px);
-      background-size: 80px 80px;
-      animation: panGrid 24s linear infinite;
-    }
-
-    .city-map::after {
-      background:
-        radial-gradient(circle at 15% 25%, rgba(56, 189, 248, 0.4) 0, transparent 45%),
-        radial-gradient(circle at 75% 35%, rgba(34, 197, 94, 0.5) 0, transparent 40%),
-        radial-gradient(circle at 45% 80%, rgba(96, 165, 250, 0.45) 0, transparent 40%);
-      animation: driftGlow 22s linear infinite alternate;
-    }
-
-    @keyframes panGrid {
-      from { transform: translate3d(0, 0, 0); }
-      to   { transform: translate3d(80px, 80px, 0); }
-    }
-
-    @keyframes driftGlow {
-      from { transform: translate3d(-4%, -4%, 0) scale(1.02); }
-      to   { transform: translate3d(4%, 4%, 0) scale(1.04); }
-    }
-
     .city-header {
-      position: relative;
-      z-index: 1;
       margin-bottom: 12px;
       display: flex;
       justify-content: space-between;
@@ -207,12 +164,6 @@
       gap: 8px;
     }
 
-    .legend span {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
     .legend-dot {
       width: 10px;
       height: 10px;
@@ -222,14 +173,10 @@
     }
 
     .city-grid {
-      position: relative;
-      z-index: 1;
       margin-top: 8px;
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      grid-auto-rows: minmax(110px, 1fr);
       gap: 18px;
-      padding: 6px 2px 8px;
     }
 
     .map-node {
@@ -241,991 +188,1029 @@
       box-shadow: var(--shadow-soft);
       text-align: left;
       cursor: pointer;
-      position: relative;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      overflow: hidden;
-      transition: transform var(--transition-fast),
-                  box-shadow var(--transition-fast),
-                  border-color var(--transition-fast),
-                  background var(--transition-fast);
-    }
-
-    .map-node:hover {
-      transform: translateY(-3px) scale(1.02);
-      border-color: rgba(56, 189, 248, 0.9);
-      box-shadow: 0 16px 35px rgba(15, 23, 42, 0.95);
-      background: radial-gradient(circle at 0% 0%, rgba(34, 193, 195, 0.22) 0, #020617 60%);
-    }
-
-    .map-node-icon {
-      font-size: 24px;
-      margin-bottom: 6px;
+      gap: 6px;
     }
 
     .map-node-title {
       font-family: "Montserrat", sans-serif;
       font-size: 13px;
-      line-height: 1.3;
     }
 
     .map-node-meta {
-      margin-top: 6px;
       font-size: 10px;
       color: var(--text-muted);
       display: flex;
+      gap: 6px;
       flex-wrap: wrap;
-      gap: 4px;
-    }
-
-    .node-badge {
-      padding: 2px 6px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.8);
     }
 
     .node-id {
-      font-size: 11px;
       color: #a5b4fc;
-      font-weight: 500;
     }
 
     .map-node.docs-node {
       border-style: dashed;
       border-color: rgba(249, 115, 22, 0.8);
-      background: radial-gradient(circle at 0 0, rgba(249, 115, 22, 0.22) 0, #020617 60%);
-    }
-
-    .map-node.docs-node:hover {
-      border-color: rgba(251, 191, 36, 0.95);
-    }
-
-    /* OVERLAY */
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.96);
-      display: none;
-      z-index: 40;
-      justify-content: center;
-      align-items: stretch;
-      padding: 46px 14px 18px;
-    }
-
-    .overlay.open {
-      display: flex;
-    }
-
-    .panel-shell {
-      display: none;
-      width: 100%;
-      max-width: 950px;
-      margin: 0 auto;
-      background: var(--panel-bg);
-      border-radius: 20px;
-      border: 1px solid var(--panel-border);
-      box-shadow: var(--shadow-strong);
-      padding: 14px;
-      flex-direction: column;
-    }
-
-    .panel-shell.open {
-      display: flex;
     }
   </style>
 </head>
 
 <body>
-    <!-- ================= PANEL 1 ================= -->
-    <section class="panel-shell" id="p1-panel">
-      <div class="panel-header">
-        <div class="panel-title-group">
-          <div class="panel-title">1. Optimal Road Network Construction</div>
-          <div class="panel-chip-row">
-            <span class="panel-chip">Transport Infrastructure</span>
-            <span class="panel-chip algo">Minimum Spanning Tree · Kruskal + Prim + Union–Find</span>
+
+<header class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-title">SMART CITY • INFRASTRUCTURE & ROUTING</div>
+    <div class="topbar-sub">DAA Portfolio – Student: Ketan Shinde</div>
+  </div>
+  <div class="topbar-actions">
+    <span class="chip">Design & Analysis of Algorithms</span>
+    <a href="index.html" class="btn-pill">⬅ Back to Home</a>
+  </div>
+</header>
+
+<main class="layout">
+  <div class="hero-strip">
+    View the city as an <span>algorithmic map</span>. Each zone is one DAA case study.
+  </div>
+
+  <section class="city-shell">
+    <div class="city-map">
+      <div class="city-header">
+        <div>
+          <div class="city-title">City Network Overview</div>
+          <div class="city-sub">
+            Infrastructure & Network Optimization using core DAA algorithms.
           </div>
         </div>
-        <div class="panel-controls">
-          <button class="back-btn" data-close>⬅ Back to Map</button>
+        <div class="legend">
+          <span><span class="legend-dot"></span> Algorithm Zone</span>
         </div>
       </div>
 
-      <div class="panel-scroll">
+      <div class="city-grid">
 
-        <div class="panel-block">
-          <h3>Problem Context</h3>
-          <p>
-            As the city expands, multiple new junctions and townships must be connected using roads.
-            Each potential road has a construction cost based on land acquisition, materials,
-            and labour. If roads are constructed randomly, cycles may form, increasing cost
-            without improving connectivity.
-          </p>
-          <p>
-            The objective is to design a backbone road network that connects all junctions
-            with <strong>minimum total construction cost</strong> while ensuring that every
-            junction remains reachable.
-          </p>
-        </div>
-
-        <div class="panel-block">
-          <h3>Algorithmic Solution</h3>
-          <p>
-            The city road system is modeled as a weighted, undirected graph
-            <em>G(V, E)</em>, where vertices represent junctions and edges represent
-            possible roads with weights equal to construction cost.
-          </p>
-          <ul>
-            <li>
-              <strong>Kruskal’s Algorithm:</strong> All edges are sorted by cost.
-              Edges are added one by one if they do not form a cycle.
-              Cycle detection is done efficiently using
-              <strong>Disjoint Set Union (Union–Find)</strong> with path compression.
-              Time Complexity: <strong>O(E log E)</strong>.
-            </li>
-            <li>
-              <strong>Prim’s Algorithm:</strong> The MST is grown from a starting node
-              by repeatedly selecting the minimum-cost edge using a
-              <strong>priority queue</strong>.
-              Time Complexity: <strong>O(E log V)</strong>.
-            </li>
-          </ul>
-          <p>
-            Both algorithms produce the same MST cost, validating correctness.
-          </p>
-        </div>
-
-        <div class="panel-block">
-          <h3>Input / Output</h3>
-          <p class="io-label">Input</p>
-          <p>
-            Number of junctions and list of candidate roads represented as
-            <code>(u, v, cost)</code>.
-          </p>
-          <p class="io-label">Output</p>
-          <p>
-            Selected MST edges and the minimum total construction cost.
-          </p>
-        </div>
-
-        <div class="panel-block">
-          <h3>SDG Mapping</h3>
-          <div class="sdg-box">
-            <strong>SDG 9.1:</strong> Builds resilient and cost-efficient infrastructure<br>
-            <strong>SDG 11.2:</strong> Ensures accessible transport connectivity
+        <button class="map-node" data-target="p1">
+          <div class="map-node-title">1. Road Network Construction</div>
+          <div class="map-node-meta">
+            <span class="node-id">MST</span>
+            <span>Transport</span>
           </div>
-        </div>
+        </button>
 
-        <div class="panel-block">
-          <h3>General Importance</h3>
-          <p>
-            Minimum Spanning Tree algorithms are widely used in road planning,
-            power grids, communication networks, and pipeline layouts.
-            Union–Find is a fundamental structure used in connectivity problems.
-          </p>
-        </div>
+        <button class="map-node" data-target="p2">
+          <div class="map-node-title">2. Shortest Travel-Time Routing</div>
+          <div class="map-node-meta">
+            <span class="node-id">Dijkstra</span>
+            <span>Mobility</span>
+          </div>
+        </button>
 
-        <div class="panel-block">
-          <a class="github-link"
-             href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P1"
-             target="_blank">
-            📂 View Code, Dataset & Efficiency 
-          </a>
-        </div>
+        <button class="map-node" data-target="p3">
+          <div class="map-node-title">3. Traffic Signal Timing Optimization</div>
+          <div class="map-node-meta">
+            <span class="node-id">Queues</span>
+            <span>Junctions</span>
+          </div>
+        </button>
+
+        <button class="map-node" data-target="p4">
+          <div class="map-node-title">4. Emergency Route Planner</div>
+          <div class="map-node-meta">
+            <span class="node-id">BFS / DFS</span>
+            <span>Emergency</span>
+          </div>
+        </button>
+
+        <button class="map-node" data-target="p5">
+          <div class="map-node-title">5. Water Pressure Optimization</div>
+          <div class="map-node-meta">
+            <span class="node-id">Graphs</span>
+            <span>Water</span>
+          </div>
+        </button>
+
+        <button class="map-node" data-target="p6">
+          <div class="map-node-title">6. Power Grid Load Minimization</div>
+          <div class="map-node-meta">
+            <span class="node-id">Prim</span>
+            <span>Electricity</span>
+          </div>
+        </button>
+
+        <button class="map-node" data-target="p7">
+          <div class="map-node-title">7. Garbage Truck Routing</div>
+          <div class="map-node-meta">
+            <span class="node-id">Greedy</span>
+            <span>Waste</span>
+          </div>
+        </button>
+
+        <button class="map-node" data-target="p8">
+          <div class="map-node-title">8. Bus Timetable Generation</div>
+          <div class="map-node-meta">
+            <span class="node-id">Sorting</span>
+            <span>Transport</span>
+          </div>
+        </button>
+
+        <button class="map-node" data-target="p9">
+          <div class="map-node-title">9. Bridge Priority Model</div>
+          <div class="map-node-meta">
+            <span class="node-id">DFS</span>
+            <span>Infrastructure</span>
+          </div>
+        </button>
+
+        <button class="map-node" data-target="p10">
+          <div class="map-node-title">10. Flood Evacuation Simulation</div>
+          <div class="map-node-meta">
+            <span class="node-id">Multi-source BFS</span>
+            <span>Disaster</span>
+          </div>
+        </button>
+
+        <button class="map-node docs-node" data-target="doc">
+          <div class="map-node-title">Technical Documentation</div>
+          <div class="map-node-meta">
+            <span class="node-id">SDG · Datasets · Analysis</span>
+          </div>
+        </button>
 
       </div>
-    </section>
+    </div>
+  </section>
+</main>
+<!-- ================= FULLSCREEN OVERLAY ================= -->
+<div class="overlay" id="overlay">
 
-    <!-- ================= PANEL 2 ================= -->
-    <section class="panel-shell" id="p2-panel">
-      <div class="panel-header">
-        <div class="panel-title-group">
-          <div class="panel-title">2. Shortest Travel-Time Routing</div>
-          <div class="panel-chip-row">
-            <span class="panel-chip">Commuter Mobility</span>
-            <span class="panel-chip algo">Dijkstra + BFS</span>
-          </div>
-        </div>
-        <div class="panel-controls">
-          <button class="back-btn" data-close>⬅ Back to Map</button>
-        </div>
+<!-- ================= PANEL P1 ================= -->
+<section class="panel-shell" id="p1-panel">
+  <div class="panel-header">
+    <div class="panel-title-group">
+      <div class="panel-title">1. Optimal Road Network Construction</div>
+      <div class="panel-chip-row">
+        <span class="panel-chip">Transport Infrastructure</span>
+        <span class="panel-chip algo">Minimum Spanning Tree · Kruskal + Prim + Union–Find</span>
       </div>
+    </div>
+    <div class="panel-controls">
+      <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
+    </div>
+  </div>
 
-      <div class="panel-scroll">
+  <div class="panel-scroll">
+    <div class="panel-block">
+      <h3>Problem Context</h3>
+      <p>
+        The city is expanding with several new townships. Each pair of major junctions has an estimated
+        road construction cost (land, materials, labour). If engineers connect junctions in an ad-hoc manner,
+        they may create redundant loops, overspend the budget, and still leave some junctions disconnected.
+      </p>
+      <p>
+        We need a <strong>backbone road layout</strong> that connects all junctions with the minimum possible
+        total cost, while guaranteeing that every junction is reachable from every other one.
+      </p>
+    </div>
 
-        <div class="panel-block">
-          <h3>Problem Context</h3>
-          <p>
-            During peak hours, the shortest-distance route may not be the fastest.
-            Traffic congestion, narrow roads, and signal delays affect travel time.
-            Citizens require routes optimized for <strong>minimum travel time</strong>.
-          </p>
-        </div>
+    <div class="panel-block">
+      <h3>Algorithmic Solution</h3>
+      <p>
+        The road network is modeled as a weighted, undirected graph <em>G(V, E)</em>, where junctions are vertices
+        and candidate roads are edges weighted by construction cost.
+      </p>
+      <ul>
+        <li>
+          <strong>Kruskal’s Algorithm:</strong> Sort all edges by increasing weight and add them one by one
+          if they do not form a cycle. Cycle detection is done using <strong>Union–Find</strong>
+          with path compression and union by rank. Time complexity: <strong>O(E log E)</strong>.
+        </li>
+        <li>
+          <strong>Prim’s Algorithm:</strong> Start from any junction and grow the MST by repeatedly choosing
+          the minimum-weight edge that connects a new vertex to the tree using a min-heap.
+          Time complexity: <strong>O(E log V)</strong>.
+        </li>
+      </ul>
+      <p>
+        Both algorithms should yield the same total cost, which validates correctness.
+      </p>
+    </div>
 
-        <div class="panel-block">
-          <h3>Algorithmic Solution</h3>
-          <p>
-            The city is modeled as a directed weighted graph where weights
-            represent travel time.
-          </p>
-          <ul>
-            <li>
-              <strong>Dijkstra’s Algorithm:</strong> Computes shortest travel time
-              from a source to all other nodes using a min-heap.
-              Time Complexity: <strong>O((V+E) log V)</strong>.
-            </li>
-            <li>
-              <strong>BFS:</strong> Applied to unweighted pedestrian-only subgraphs
-              to compute fast reachability in <strong>O(V+E)</strong>.
-            </li>
-          </ul>
-        </div>
+    <div class="panel-block">
+      <h3>Input / Output</h3>
+      <p><strong>Input:</strong> Junction list and road list with construction costs.</p>
+      <p><strong>Output:</strong> Set of roads forming the MST and the minimum total cost.</p>
+    </div>
 
-        <div class="panel-block">
-          <h3>Input / Output</h3>
-          <p>
-            <strong>Input:</strong> Zones, roads with time weights, source node.
-          </p>
-          <p>
-            <strong>Output:</strong> Minimum travel time and path to each zone.
-          </p>
-        </div>
+    <div class="panel-block">
+      <h3>Related SDGs</h3>
+      <p>
+        <strong>SDG 9.1:</strong> Sustainable infrastructure planning.<br>
+        <strong>SDG 11.2:</strong> Accessible and connected transport networks.
+      </p>
+    </div>
 
-        <div class="panel-block">
-          <div class="sdg-box">
-            <strong>SDG 11.2:</strong> Sustainable urban mobility<br>
-            <strong>SDG 9.C:</strong> Smart transport systems
-          </div>
-        </div>
+    <div class="panel-block">
+      <h3>How This Helps in General</h3>
+      <p>
+        Minimum Spanning Trees are used in power grids, water pipelines, fiber networks,
+        and computer networks to design cost-efficient backbones.
+      </p>
+    </div>
 
-        <div class="panel-block">
-          <a class="github-link"
-             href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P2"
-             target="_blank">
-            📂 View Code, Dataset & Efficiency 
-          </a>
-        </div>
+    <div class="panel-block">
+      <a class="github-link"
+         href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P1"
+         target="_blank">
+        📂 View Complete Implementation (Code · Dataset · Analysis)
+      </a>
+    </div>
+  </div>
+</section>
 
+<!-- ================= PANEL P2 ================= -->
+<section class="panel-shell" id="p2-panel">
+  <div class="panel-header">
+    <div class="panel-title-group">
+      <div class="panel-title">2. Shortest Travel-Time Routing</div>
+      <div class="panel-chip-row">
+        <span class="panel-chip">Commuter Mobility</span>
+        <span class="panel-chip algo">Dijkstra + BFS (Time-weighted Graph)</span>
       </div>
-    </section>
-    <!-- ================= PANEL 3 ================= -->
-    <section class="panel-shell" id="p3-panel">
-      <div class="panel-header">
-        <div class="panel-title-group">
-          <div class="panel-title">3. Traffic Signal Timing Optimization</div>
-          <div class="panel-chip-row">
-            <span class="panel-chip">Junction Management</span>
-            <span class="panel-chip algo">Queues · Priority Queue · Efficient Sorting</span>
-          </div>
-        </div>
-        <div class="panel-controls">
-          <button class="back-btn" data-close>⬅ Back to Map</button>
-        </div>
+    </div>
+    <div class="panel-controls">
+      <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
+    </div>
+  </div>
+
+  <div class="panel-scroll">
+    <div class="panel-block">
+      <h3>Problem Context</h3>
+      <p>
+        During peak office hours, shortest-distance routes are not always the fastest.
+        Narrow roads may be congested, while longer ring roads may provide quicker travel.
+      </p>
+      <p>
+        Citizens require a routing system that minimises <strong>travel time</strong>,
+        not physical distance.
+      </p>
+    </div>
+
+    <div class="panel-block">
+      <h3>Algorithmic Solution</h3>
+      <p>
+        The city is represented as a directed, weighted graph where edge weights represent
+        travel time in minutes.
+      </p>
+      <ul>
+        <li>
+          <strong>Dijkstra’s Algorithm:</strong> Computes minimum travel time from a source
+          to all other zones using a priority queue.
+          Time complexity: <strong>O((V + E) log V)</strong>.
+        </li>
+        <li>
+          <strong>BFS:</strong> Used for unweighted pedestrian-only or signal-free subgraphs
+          where all edges have equal travel time.
+        </li>
+      </ul>
+    </div>
+
+    <div class="panel-block">
+      <h3>Input / Output</h3>
+      <p><strong>Input:</strong> Road network with time costs and a source zone.</p>
+      <p><strong>Output:</strong> Minimum travel time and path to each zone.</p>
+    </div>
+
+    <div class="panel-block">
+      <h3>Related SDGs</h3>
+      <p>
+        <strong>SDG 11.2:</strong> Sustainable urban mobility.<br>
+        <strong>SDG 9.C:</strong> Smart transport infrastructure.
+      </p>
+    </div>
+
+    <div class="panel-block">
+      <h3>How This Helps in General</h3>
+      <p>
+        Shortest-path algorithms are the foundation of navigation systems,
+        logistics routing, and communication networks.
+      </p>
+    </div>
+
+    <div class="panel-block">
+      <a class="github-link"
+         href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P2"
+         target="_blank">
+        📂 View Complete Implementation (Code · Dataset · Analysis)
+      </a>
+    </div>
+  </div>
+</section>
+<!-- ================= PANEL P3 ================= -->
+<section class="panel-shell" id="p3-panel">
+  <div class="panel-header">
+    <div class="panel-title-group">
+      <div class="panel-title">3. Traffic Signal Timing Optimization</div>
+      <div class="panel-chip-row">
+        <span class="panel-chip">Junction Management</span>
+        <span class="panel-chip algo">Queues · Priority Queue · Efficient Sorting</span>
       </div>
+    </div>
+    <div class="panel-controls">
+      <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
+    </div>
+  </div>
 
-      <div class="panel-scroll">
-        <div class="panel-block">
-          <h3>Problem Context</h3>
-          <p>
-            Fixed green-light durations at urban junctions often fail to match real traffic demand.
-            Some approaches remain congested while others receive unused green time, leading to
-            increased waiting time, fuel consumption, and emissions.
-          </p>
-          <p>
-            The objective is to dynamically allocate green time based on observed queue lengths
-            at each approach, ensuring fair and efficient traffic flow.
-          </p>
-        </div>
+  <div class="panel-scroll">
+    <div class="panel-block">
+      <h3>Problem Context</h3>
+      <p>
+        Fixed and equal green times at a multi-road junction cause inefficient traffic flow.
+        Some directions remain congested while others are underutilised, leading to increased
+        waiting time, fuel consumption, and emissions.
+      </p>
+      <p>
+        The goal is to dynamically allocate green time based on real-time traffic demand
+        measured as queue length at each lane.
+      </p>
+    </div>
 
-        <div class="panel-block">
-          <h3>Algorithmic Solution</h3>
-          <p>
-            Each lane is modeled as a <strong>queue</strong> representing waiting vehicles.
-            At the start of each signal cycle:
-          </p>
-          <ul>
-            <li>Queue lengths are measured and stored in an array.</li>
-            <li>Lanes are ranked using <strong>efficient sorting</strong> (Merge Sort / Quick Sort).</li>
-            <li>A <strong>max-priority queue</strong> is used to allocate additional green time
-                to the most congested lanes.</li>
-          </ul>
-          <p>
-            This greedy yet efficient strategy adapts in real time while remaining fast enough
-            for live signal control.
-          </p>
-        </div>
+    <div class="panel-block">
+      <h3>Algorithmic Solution</h3>
+      <p>
+        Each lane at the junction is represented using a <strong>queue</strong> of vehicles.
+        At the start of each signal cycle, queue lengths are measured.
+      </p>
+      <ul>
+        <li>Queue lengths are stored in an array and sorted using an efficient algorithm
+            such as Merge Sort or Quick Sort in <strong>O(k log k)</strong>, where k is number of lanes.</li>
+        <li>A <strong>priority queue (max-heap)</strong> can also be used to repeatedly pick the
+            most congested lane in <strong>O(log k)</strong> time.</li>
+        <li>Green time is distributed proportionally: every lane gets a base time,
+            and extra time is allocated according to congestion level.</li>
+      </ul>
+    </div>
 
-        <div class="panel-block">
-          <h3>Input / Output</h3>
-          <p class="io-label">Input</p>
-          <p>
-            Queue length of each lane (North, South, East, West) and total signal cycle time.
-          </p>
-          <p class="io-label">Output</p>
-          <p>
-            Computed green time allocation for each lane for the current cycle.
-          </p>
-        </div>
+    <div class="panel-block">
+      <h3>Input / Output</h3>
+      <p><strong>Input:</strong> Queue length per lane and total signal cycle time.</p>
+      <p><strong>Output:</strong> Optimised green time allocation for each lane.</p>
+    </div>
 
-        <div class="panel-block">
-          <h3>SDG Mapping</h3>
-          <div class="sdg-box">
-            <strong>SDG 11.2:</strong> Sustainable Transport Systems<br>
-            <strong>SDG 11.6:</strong> Reduced Environmental Impact
-          </div>
-        </div>
+    <div class="panel-block">
+      <h3>Related SDGs</h3>
+      <p>
+        <strong>SDG 11.2:</strong> Efficient urban transport systems.<br>
+        <strong>SDG 11.6:</strong> Reduced environmental impact of cities.
+      </p>
+    </div>
 
-        <div class="panel-block">
-          <h3>General Importance</h3>
-          <p>
-            Queue-based optimization is widely used in operating systems (CPU scheduling),
-            network packet routing, and service systems. Priority queues enable
-            fast decision-making in real-time environments.
-          </p>
-        </div>
+    <div class="panel-block">
+      <h3>How This Helps in General</h3>
+      <p>
+        Queue-based scheduling is widely used in CPU scheduling, network packet handling,
+        and call-center optimisation. Priority queues allow fast adaptation to changing load.
+      </p>
+    </div>
 
-        <div class="panel-block">
-          <a class="github-link"
-             href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P3"
-             target="_blank">
-            📂 View Code, Dataset & Efficiency 
-          </a>
-        </div>
+    <div class="panel-block">
+      <a class="github-link"
+         href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P3"
+         target="_blank">
+        📂 View Complete Implementation (Code · Dataset · Analysis)
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PANEL P4 ================= -->
+<section class="panel-shell" id="p4-panel">
+  <div class="panel-header">
+    <div class="panel-title-group">
+      <div class="panel-title">4. Emergency Vehicle Fastest Route Planner</div>
+      <div class="panel-chip-row">
+        <span class="panel-chip">Emergency Response</span>
+        <span class="panel-chip algo">BFS + DFS on Reduced Graph</span>
       </div>
-    </section>
+    </div>
+    <div class="panel-controls">
+      <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
+    </div>
+  </div>
 
-    <!-- ================= PANEL 4 ================= -->
-    <section class="panel-shell" id="p4-panel">
-      <div class="panel-header">
-        <div class="panel-title-group">
-          <div class="panel-title">4. Emergency Vehicle Fastest Route Planner</div>
-          <div class="panel-chip-row">
-            <span class="panel-chip">Emergency Response</span>
-            <span class="panel-chip algo">BFS + DFS</span>
-          </div>
-        </div>
-        <div class="panel-controls">
-          <button class="back-btn" data-close>⬅ Back to Map</button>
-        </div>
+  <div class="panel-scroll">
+    <div class="panel-block">
+      <h3>Problem Context</h3>
+      <p>
+        During medical emergencies or accidents, normal traffic routes may be blocked
+        due to congestion, road work, or accidents. Emergency vehicles must quickly
+        determine which routes are still usable.
+      </p>
+    </div>
+
+    <div class="panel-block">
+      <h3>Algorithmic Solution</h3>
+      <p>
+        The road network is treated as an unweighted graph after removing blocked edges.
+      </p>
+      <ul>
+        <li><strong>DFS:</strong> Used first to ensure the destination lies in the same
+            connected component as the emergency station.</li>
+        <li><strong>BFS:</strong> Applied to find the shortest path in terms of number of hops,
+            which approximates the fastest route.</li>
+      </ul>
+      <p>
+        This approach runs in <strong>O(V + E)</strong> time and is suitable for rapid response.
+      </p>
+    </div>
+
+    <div class="panel-block">
+      <h3>Input / Output</h3>
+      <p><strong>Input:</strong> Road graph, blocked roads, source and destination nodes.</p>
+      <p><strong>Output:</strong> Fastest feasible route or indication that none exists.</p>
+    </div>
+
+    <div class="panel-block">
+      <h3>Related SDGs</h3>
+      <p>
+        <strong>SDG 3:</strong> Good health and well-being.<br>
+        <strong>SDG 11.5:</strong> Disaster and emergency resilience.
+      </p>
+    </div>
+
+    <div class="panel-block">
+      <h3>How This Helps in General</h3>
+      <p>
+        BFS and DFS are foundational graph algorithms used in routing,
+        network reliability, and state-space search problems.
+      </p>
+    </div>
+
+    <div class="panel-block">
+      <a class="github-link"
+         href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P4"
+         target="_blank">
+        📂 View Complete Implementation (Code · Dataset · Analysis)
+      </a>
+    </div>
+  </div>
+</section>
+<!-- ================= PANEL P5 ================= -->
+<section class="panel-shell" id="p5-panel">
+  <div class="panel-header">
+    <div class="panel-title-group">
+      <div class="panel-title">5. Water Pipeline Pressure Optimization</div>
+      <div class="panel-chip-row">
+        <span class="panel-chip">Water Distribution</span>
+        <span class="panel-chip algo">Graph Traversal + Efficient Sorting</span>
       </div>
+    </div>
+    <div class="panel-controls">
+      <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
+    </div>
+  </div>
 
-      <div class="panel-scroll">
-        <div class="panel-block">
-          <h3>Problem Context</h3>
-          <p>
-            During accidents, fires, or medical emergencies, certain roads may become blocked
-            due to congestion or damage. Emergency vehicles must identify whether a feasible
-            route exists and, if so, reach the destination as quickly as possible.
-          </p>
-        </div>
+  <div class="panel-scroll">
+    <div class="panel-block">
+      <h3>Problem Context</h3>
+      <p>
+        In a city’s water distribution network, trunk pipelines feed several residential branches.
+        During peak hours, some tail-end colonies receive very low water pressure, while others
+        receive excess supply. Budget constraints make it impossible to upgrade all pipelines at once.
+      </p>
+      <p>
+        The objective is to identify the most critical pipelines (bottlenecks) so that upgrades
+        can be prioritised for maximum improvement in water pressure.
+      </p>
+    </div>
 
-        <div class="panel-block">
-          <h3>Algorithmic Solution</h3>
-          <p>
-            The road network is treated as an unweighted graph after removing blocked roads.
-          </p>
-          <ul>
-            <li>
-              <strong>DFS:</strong> Used to verify connectivity between the emergency station
-              and the incident location.
-            </li>
-            <li>
-              <strong>BFS:</strong> Finds the minimum-hop route, which approximates the fastest
-              path when each road segment has similar traversal time.
-            </li>
-          </ul>
-          <p>
-            The combined approach is efficient, robust, and suitable for real-time emergency planning.
-          </p>
-        </div>
+    <div class="panel-block">
+      <h3>Algorithmic Solution</h3>
+      <p>
+        The pipeline network is modeled as a directed graph where nodes represent junctions
+        and edges represent pipelines with capacity constraints.
+      </p>
+      <ul>
+        <li>
+          <strong>DFS/BFS:</strong> Used to compute how many consumer nodes depend on each pipeline
+          (downstream demand).
+        </li>
+        <li>
+          Each pipeline is assigned a criticality score based on demand-to-capacity ratio.
+        </li>
+        <li>
+          Pipelines are sorted using an efficient sorting algorithm such as Merge Sort
+          in <strong>O(E log E)</strong> time.
+        </li>
+      </ul>
+      <p>
+        The highest-ranked pipelines are flagged as bottlenecks for immediate upgrade.
+      </p>
+    </div>
 
-        <div class="panel-block">
-          <h3>Input / Output</h3>
-          <p>
-            <strong>Input:</strong> Graph of roads, list of blocked roads, station node, incident node.
-          </p>
-          <p>
-            <strong>Output:</strong> Reachability status, shortest hop count, and one feasible path.
-          </p>
-        </div>
+    <div class="panel-block">
+      <h3>Input / Output</h3>
+      <p><strong>Input:</strong> Pipeline graph, capacities, and consumer demand values.</p>
+      <p><strong>Output:</strong> Sorted list of pipelines by criticality.</p>
+    </div>
 
-        <div class="panel-block">
-          <h3>SDG Mapping</h3>
-          <div class="sdg-box">
-            <strong>SDG 3:</strong> Good Health & Well-being<br>
-            <strong>SDG 11.5:</strong> Disaster Risk Reduction
-          </div>
-        </div>
+    <div class="panel-block">
+      <h3>Related SDGs</h3>
+      <p>
+        <strong>SDG 6.1:</strong> Access to safe drinking water.<br>
+        <strong>SDG 9.1:</strong> Sustainable infrastructure investment.
+      </p>
+    </div>
 
-        <div class="panel-block">
-          <h3>General Importance</h3>
-          <p>
-            BFS and DFS are foundational graph traversal techniques used in navigation,
-            network diagnostics, and AI search problems. Their simplicity and efficiency
-            make them ideal for emergency response systems.
-          </p>
-        </div>
+    <div class="panel-block">
+      <h3>How This Helps in General</h3>
+      <p>
+        Combining graph traversal with sorting is a common pattern in infrastructure analysis.
+        Similar techniques are used to prioritise road repairs, power line upgrades,
+        and communication network expansions.
+      </p>
+    </div>
 
-        <div class="panel-block">
-          <a class="github-link"
-             href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P4"
-             target="_blank">
-            📂 View Code, Dataset & Efficiency 
-          </a>
-        </div>
+    <div class="panel-block">
+      <a class="github-link"
+         href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P5"
+         target="_blank">
+        📂 View Complete Implementation (Code · Dataset · Analysis)
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PANEL P6 ================= -->
+<section class="panel-shell" id="p6-panel">
+  <div class="panel-header">
+    <div class="panel-title-group">
+      <div class="panel-title">6. Power Grid Load Minimization</div>
+      <div class="panel-chip-row">
+        <span class="panel-chip">Electric Grid</span>
+        <span class="panel-chip algo">Prim’s MST + Min-Heap</span>
       </div>
-    </section>
+    </div>
+    <div class="panel-controls">
+      <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
+    </div>
+  </div>
 
-    <!-- ================= PANEL 5 ================= -->
-    <section class="panel-shell" id="p5-panel">
-      <div class="panel-header">
-        <div class="panel-title-group">
-          <div class="panel-title">5. Water Pipeline Pressure Optimization</div>
-          <div class="panel-chip-row">
-            <span class="panel-chip">Water Distribution</span>
-            <span class="panel-chip algo">Graph Traversal · Sorting</span>
-          </div>
-        </div>
-        <div class="panel-controls">
-          <button class="back-btn" data-close>⬅ Back to Map</button>
-        </div>
+  <div class="panel-scroll">
+    <div class="panel-block">
+      <h3>Problem Context</h3>
+      <p>
+        As new residential and commercial areas are developed, they must be connected
+        to the existing power grid. Multiple candidate cable routes exist, each with
+        associated cost and transmission loss.
+      </p>
+      <p>
+        The goal is to connect all substations and colonies with minimal total cost
+        while ensuring reliable power delivery.
+      </p>
+    </div>
+
+    <div class="panel-block">
+      <h3>Algorithmic Solution</h3>
+      <p>
+        The power network is modeled as a weighted, undirected graph where nodes are substations
+        and edges are transmission lines weighted by cost and loss.
+      </p>
+      <ul>
+        <li>
+          <strong>Prim’s Algorithm:</strong> Grows a Minimum Spanning Tree starting from
+          a chosen substation using a priority queue.
+        </li>
+        <li>
+          Each step adds the minimum-weight edge that connects a new node to the tree.
+        </li>
+        <li>
+          Time complexity is <strong>O(E log V)</strong>.
+        </li>
+      </ul>
+      <p>
+        The resulting MST represents an efficient backbone for the expanded power grid.
+      </p>
+    </div>
+
+    <div class="panel-block">
+      <h3>Input / Output</h3>
+      <p><strong>Input:</strong> Graph of substations with transmission line weights.</p>
+      <p><strong>Output:</strong> Selected power lines and total grid expansion cost.</p>
+    </div>
+
+    <div class="panel-block">
+      <h3>Related SDGs</h3>
+      <p>
+        <strong>SDG 7:</strong> Affordable and clean energy.<br>
+        <strong>SDG 9:</strong> Reliable infrastructure.
+      </p>
+    </div>
+
+    <div class="panel-block">
+      <h3>How This Helps in General</h3>
+      <p>
+        MST-based planning is widely used in designing electrical grids,
+        cable networks, and large-scale distribution systems.
+      </p>
+    </div>
+
+    <div class="panel-block">
+      <a class="github-link"
+         href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P6"
+         target="_blank">
+        📂 View Complete Implementation (Code · Dataset · Analysis)
+      </a>
+    </div>
+  </div>
+</section>
+<!-- ================= PANEL P7 ================= -->
+<section class="panel-shell" id="p7-panel">
+  <div class="panel-header">
+    <div class="panel-title-group">
+      <div class="panel-title">7. Garbage Truck Route Optimization</div>
+      <div class="panel-chip-row">
+        <span class="panel-chip">Solid Waste Management</span>
+        <span class="panel-chip algo">Dijkstra + Greedy Ordering + Sorting</span>
       </div>
+    </div>
+    <div class="panel-controls">
+      <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
+    </div>
+  </div>
 
-      <div class="panel-scroll">
-        <div class="panel-block">
-          <h3>Problem Context</h3>
-          <p>
-            In water distribution systems, tail-end regions often experience low pressure
-            due to overloaded or undersized pipelines. Budget constraints require
-            prioritizing which pipes to upgrade first.
-          </p>
-        </div>
+  <div class="panel-scroll">
+    <div class="panel-block">
+      <h3>Problem Context</h3>
+      <p>
+        Garbage collection trucks often follow manually designed routes that are repeated every day
+        without considering changes in traffic conditions or ward layouts. This leads to unnecessary
+        fuel consumption, longer collection times, and uneven service quality.
+      </p>
+      <p>
+        The objective is to compute an efficient route that visits all pickup points while keeping
+        the total travel distance as small as possible.
+      </p>
+    </div>
 
-        <div class="panel-block">
-          <h3>Algorithmic Solution</h3>
-          <p>
-            The pipeline network is modeled as a graph:
-          </p>
-          <ul>
-            <li><strong>BFS / DFS:</strong> Determines downstream demand for each pipeline.</li>
-            <li><strong>Sorting:</strong> Pipelines are ranked by a criticality score
-                (demand-to-capacity ratio).</li>
-          </ul>
-          <p>
-            The highest-ranked pipelines are identified as bottlenecks requiring immediate upgrades.
-          </p>
-        </div>
+    <div class="panel-block">
+      <h3>Algorithmic Solution</h3>
+      <p>
+        Instead of solving the full Travelling Salesperson Problem (which is NP-hard), a practical
+        approximation strategy is used:
+      </p>
+      <ul>
+        <li>
+          <strong>Dijkstra’s Algorithm:</strong> Used to compute shortest path distances between
+          the depot and all pickup points, as well as between pickup points themselves.
+        </li>
+        <li>
+          <strong>Greedy Nearest-Neighbor Heuristic:</strong> Starting from the depot, repeatedly
+          visit the nearest unvisited pickup location.
+        </li>
+        <li>
+          <strong>Sorting:</strong> Candidate next stops can be sorted by distance to speed up
+          selection in <strong>O(n log n)</strong>.
+        </li>
+      </ul>
+      <p>
+        This hybrid approach produces good-quality routes efficiently for small to medium wards.
+      </p>
+    </div>
 
-        <div class="panel-block">
-          <h3>Input / Output</h3>
-          <p>
-            <strong>Input:</strong> Pipes with capacities and consumer demand at nodes.
-          </p>
-          <p>
-            <strong>Output:</strong> Sorted list of pipelines by criticality.
-          </p>
-        </div>
+    <div class="panel-block">
+      <h3>Input / Output</h3>
+      <p><strong>Input:</strong> Pickup locations, depot location, and road network distances.</p>
+      <p><strong>Output:</strong> Ordered garbage collection route and total travel distance.</p>
+    </div>
 
-        <div class="panel-block">
-          <h3>SDG Mapping</h3>
-          <div class="sdg-box">
-            <strong>SDG 6.1:</strong> Clean & Affordable Drinking Water<br>
-            <strong>SDG 9.1:</strong> Sustainable Infrastructure
-          </div>
-        </div>
+    <div class="panel-block">
+      <h3>Related SDGs</h3>
+      <p>
+        <strong>SDG 11.6:</strong> Efficient waste management.<br>
+        <strong>SDG 13:</strong> Reduced emissions through optimised routing.
+      </p>
+    </div>
 
-        <div class="panel-block">
-          <h3>General Importance</h3>
-          <p>
-            Combining traversal with ranking is a common analytical pattern used in
-            infrastructure planning, traffic hotspot analysis, and network load management.
-          </p>
-        </div>
+    <div class="panel-block">
+      <h3>How This Helps in General</h3>
+      <p>
+        Greedy routing heuristics combined with shortest-path algorithms are widely used in
+        logistics, courier services, school bus routing, and last-mile delivery systems.
+      </p>
+    </div>
 
-        <div class="panel-block">
-          <a class="github-link"
-             href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P5"
-             target="_blank">
-            📂 View Code, Dataset & Efficiency (ketan/P5)
-          </a>
-        </div>
+    <div class="panel-block">
+      <a class="github-link"
+         href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P7"
+         target="_blank">
+        📂 View Complete Implementation (Code · Dataset · Analysis)
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PANEL P8 ================= -->
+<section class="panel-shell" id="p8-panel">
+  <div class="panel-header">
+    <div class="panel-title-group">
+      <div class="panel-title">8. Public Transport Timetable Generation</div>
+      <div class="panel-chip-row">
+        <span class="panel-chip">Public Transport</span>
+        <span class="panel-chip algo">Efficient Sorting + Greedy Interval Selection</span>
       </div>
-    </section>
-    <!-- ================= PANEL 6 ================= -->
-    <section class="panel-shell" id="p6-panel">
-      <div class="panel-header">
-        <div class="panel-title-group">
-          <div class="panel-title">6. Power Grid Load Minimization</div>
-          <div class="panel-chip-row">
-            <span class="panel-chip">Electric Power Infrastructure</span>
-            <span class="panel-chip algo">Prim’s MST · Min Heap</span>
-          </div>
-        </div>
-        <div class="panel-controls">
-          <button class="back-btn" data-close>⬅ Back to Map</button>
-        </div>
+    </div>
+    <div class="panel-controls">
+      <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
+    </div>
+  </div>
+
+  <div class="panel-scroll">
+    <div class="panel-block">
+      <h3>Problem Context</h3>
+      <p>
+        Urban bus fleets are limited, but the demand for trips is high throughout the day.
+        Poor scheduling can lead to idle buses during peak demand or overlapping assignments.
+      </p>
+      <p>
+        The goal is to generate a timetable that maximises the number of non-overlapping trips
+        handled by each bus.
+      </p>
+    </div>
+
+    <div class="panel-block">
+      <h3>Algorithmic Solution</h3>
+      <p>
+        Each candidate bus trip is modeled as a time interval [start, end].
+      </p>
+      <ul>
+        <li>
+          Trips are sorted by finishing time using an efficient sorting algorithm
+          in <strong>O(n log n)</strong>.
+        </li>
+        <li>
+          A greedy strategy selects the earliest finishing trip that does not overlap
+          with the previously chosen one.
+        </li>
+      </ul>
+      <p>
+        This algorithm is optimal for interval scheduling and is simple to implement.
+      </p>
+    </div>
+
+    <div class="panel-block">
+      <h3>Input / Output</h3>
+      <p><strong>Input:</strong> List of bus trips with start and end times.</p>
+      <p><strong>Output:</strong> Maximum set of non-overlapping trips assigned to a bus.</p>
+    </div>
+
+    <div class="panel-block">
+      <h3>Related SDGs</h3>
+      <p>
+        <strong>SDG 11.2:</strong> Improved public transport reliability.<br>
+        <strong>SDG 9.4:</strong> Efficient use of transport resources.
+      </p>
+    </div>
+
+    <div class="panel-block">
+      <h3>How This Helps in General</h3>
+      <p>
+        Interval scheduling is used in CPU scheduling, exam timetables, classroom allocation,
+        and reservation systems where resource conflicts must be avoided.
+      </p>
+    </div>
+
+    <div class="panel-block">
+      <a class="github-link"
+         href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P8"
+         target="_blank">
+        📂 View Complete Implementation (Code · Dataset · Analysis)
+      </a>
+    </div>
+  </div>
+</section>
+<!-- ================= PANEL P9 ================= -->
+<section class="panel-shell" id="p9-panel">
+  <div class="panel-header">
+    <div class="panel-title-group">
+      <div class="panel-title">9. Bridge Construction Priority Model</div>
+      <div class="panel-chip-row">
+        <span class="panel-chip">Critical Infrastructure</span>
+        <span class="panel-chip algo">DFS-Based Bridge Detection</span>
       </div>
+    </div>
+    <div class="panel-controls">
+      <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
+    </div>
+  </div>
 
-      <div class="panel-scroll">
-        <div class="panel-block">
-          <h3>Problem Context</h3>
-          <p>
-            As new residential and commercial areas are developed, they must be connected
-            to the existing power grid. Multiple cable routes exist between substations,
-            each with different installation costs and transmission losses.
-          </p>
-          <p>
-            The objective is to connect all substations and load points using
-            <strong>minimum total wiring cost</strong> while maintaining reliability.
-          </p>
-        </div>
+  <div class="panel-scroll">
+    <div class="panel-block">
+      <h3>Problem Context</h3>
+      <p>
+        Some bridges and elevated roads are so critical that their failure would disconnect
+        entire regions of the city from hospitals, schools, or business hubs.
+        Identifying such links is essential for maintenance prioritisation.
+      </p>
+    </div>
 
-        <div class="panel-block">
-          <h3>Algorithmic Solution</h3>
-          <p>
-            The power grid is modeled as a weighted, undirected graph where nodes represent
-            substations and edges represent possible cable connections.
-          </p>
-          <ul>
-            <li>
-              <strong>Prim’s Algorithm:</strong> Starts from a main substation and repeatedly
-              selects the minimum-cost edge using a <strong>min-priority queue</strong>.
-            </li>
-            <li>
-              Time Complexity: <strong>O(E log V)</strong>, efficient for dense infrastructure graphs.
-            </li>
-          </ul>
-          <p>
-            The resulting MST defines the optimal power backbone for the region.
-          </p>
-        </div>
+    <div class="panel-block">
+      <h3>Algorithmic Solution</h3>
+      <p>
+        The city road network is modeled as an undirected graph.
+        A DFS-based bridge detection algorithm is applied:
+      </p>
+      <ul>
+        <li>Each node stores discovery time and lowest reachable time.</li>
+        <li>An edge (u, v) is a bridge if <code>low[v] &gt; disc[u]</code>.</li>
+        <li>Runs efficiently in <strong>O(V + E)</strong> time.</li>
+      </ul>
+      <p>
+        Bridges are ranked and marked for inspection and reinforcement.
+      </p>
+    </div>
 
-        <div class="panel-block">
-          <h3>Input / Output</h3>
-          <p>
-            <strong>Input:</strong> Substations, transformers, and cable costs.
-          </p>
-          <p>
-            <strong>Output:</strong> Selected cable connections and total grid cost.
-          </p>
-        </div>
+    <div class="panel-block">
+      <h3>Input / Output</h3>
+      <p><strong>Input:</strong> Graph of regions and connecting bridges.</p>
+      <p><strong>Output:</strong> List of critical bridges.</p>
+    </div>
 
-        <div class="panel-block">
-          <h3>SDG Mapping</h3>
-          <div class="sdg-box">
-            <strong>SDG 7:</strong> Affordable and Clean Energy<br>
-            <strong>SDG 9:</strong> Reliable Infrastructure
-          </div>
-        </div>
+    <div class="panel-block">
+      <h3>Related SDGs</h3>
+      <p>
+        <strong>SDG 9:</strong> Resilient infrastructure<br>
+        <strong>SDG 11:</strong> Safe and sustainable cities
+      </p>
+    </div>
 
-        <div class="panel-block">
-          <h3>General Importance</h3>
-          <p>
-            MST-based planning is widely used in electrical grids, communication backbones,
-            and optical fiber layouts to reduce cost and improve efficiency.
-          </p>
-        </div>
+    <div class="panel-block">
+      <h3>General Importance</h3>
+      <p>
+        Bridge detection is widely used in communication networks,
+        power grids, and transport planning to identify single points of failure.
+      </p>
+    </div>
 
-        <div class="panel-block">
-          <a class="github-link"
-             href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P6"
-             target="_blank">
-            📂 View Code, Dataset & Efficiency 
-          </a>
-        </div>
+    <div class="panel-block">
+      <a class="github-link"
+         href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P9"
+         target="_blank">
+        📂 View Complete Implementation (Code · Dataset · Analysis)
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PANEL P10 ================= -->
+<section class="panel-shell" id="p10-panel">
+  <div class="panel-header">
+    <div class="panel-title-group">
+      <div class="panel-title">10. Flood Evacuation Simulation</div>
+      <div class="panel-chip-row">
+        <span class="panel-chip">Disaster Management</span>
+        <span class="panel-chip algo">Multi-source BFS</span>
       </div>
-    </section>
+    </div>
+    <div class="panel-controls">
+      <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
+    </div>
+  </div>
 
-    <!-- ================= PANEL 7 ================= -->
-    <section class="panel-shell" id="p7-panel">
-      <div class="panel-header">
-        <div class="panel-title-group">
-          <div class="panel-title">7. Garbage Truck Route Optimization</div>
-          <div class="panel-chip-row">
-            <span class="panel-chip">Solid Waste Management</span>
-            <span class="panel-chip algo">Dijkstra · Greedy Strategy</span>
-          </div>
-        </div>
-        <div class="panel-controls">
-          <button class="back-btn" data-close>⬅ Back to Map</button>
-        </div>
+  <div class="panel-scroll">
+    <div class="panel-block">
+      <h3>Problem Context</h3>
+      <p>
+        During heavy rainfall, floods originate from rivers or lakes and spread to nearby localities.
+        Authorities need to identify which shelters remain reachable before roads are submerged.
+      </p>
+    </div>
+
+    <div class="panel-block">
+      <h3>Algorithmic Solution</h3>
+      <p>
+        Flood spread is modeled using <strong>multi-source BFS</strong>:
+      </p>
+      <ul>
+        <li>Flood source nodes are inserted into a queue initially.</li>
+        <li>BFS levels represent time steps of flood expansion.</li>
+        <li>Shelters are marked safe or unsafe based on arrival time.</li>
+      </ul>
+      <p>
+        This ensures optimal time computation in <strong>O(V + E)</strong>.
+      </p>
+    </div>
+
+    <div class="panel-block">
+      <h3>Input / Output</h3>
+      <p><strong>Input:</strong> City graph, flood sources, shelters, time threshold.</p>
+      <p><strong>Output:</strong> Flood arrival times and shelter safety status.</p>
+    </div>
+
+    <div class="panel-block">
+      <h3>Related SDGs</h3>
+      <p>
+        <strong>SDG 11.5:</strong> Disaster risk reduction<br>
+        <strong>SDG 13:</strong> Climate action
+      </p>
+    </div>
+
+    <div class="panel-block">
+      <h3>General Importance</h3>
+      <p>
+        Multi-source BFS is used in modeling floods, fire spread, disease outbreaks,
+        and information propagation across networks.
+      </p>
+    </div>
+
+    <div class="panel-block">
+      <a class="github-link"
+         href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P10"
+         target="_blank">
+        📂 View Complete Implementation (Code · Dataset · Analysis)
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TECHNICAL DOCUMENTATION ================= -->
+<section class="panel-shell" id="doc-panel">
+  <div class="panel-header">
+    <div class="panel-title-group">
+      <div class="panel-title">Technical Documentation & SDG Mapping</div>
+      <div class="panel-chip-row">
+        <span class="panel-chip">DAA Portfolio</span>
+        <span class="panel-chip algo">Algorithms · Data · Complexity</span>
       </div>
+    </div>
+    <div class="panel-controls">
+      <button class="back-btn" type="button" data-close>⬅ Back to Map</button>
+    </div>
+  </div>
 
-      <div class="panel-scroll">
-        <div class="panel-block">
-          <h3>Problem Context</h3>
-          <p>
-            Garbage trucks often follow inefficient manually planned routes, leading
-            to higher fuel consumption and delayed waste collection.
-          </p>
-          <p>
-            The goal is to generate an efficient collection route that minimizes total travel distance.
-          </p>
-        </div>
+  <div class="panel-scroll">
+    <div class="panel-block">
+      <h3>Dataset Design</h3>
+      <p>
+        Each problem uses a structured <strong>20-row CSV dataset</strong>
+        mapped directly to algorithm inputs such as nodes, edges, weights,
+        queue sizes, or timestamps.
+      </p>
+    </div>
 
-        <div class="panel-block">
-          <h3>Algorithmic Solution</h3>
-          <ul>
-            <li>
-              <strong>Dijkstra’s Algorithm:</strong> Computes shortest distances
-              between depot and collection points.
-            </li>
-            <li>
-              <strong>Greedy Nearest-Neighbor:</strong> Always visits the closest unvisited pickup point.
-            </li>
-          </ul>
-          <p>
-            Though not globally optimal like TSP, this approach provides
-            fast and practical solutions for real city wards.
-          </p>
-        </div>
+    <div class="panel-block">
+      <h3>Efficiency Analysis</h3>
+      <p>
+        Time and space complexity are analysed using Big-O notation.
+        Worst-case scenarios are discussed in plain text aligned with
+        the Design and Analysis of Algorithms syllabus.
+      </p>
+    </div>
 
-        <div class="panel-block">
-          <h3>Input / Output</h3>
-          <p>
-            <strong>Input:</strong> Pickup locations, distance matrix, depot.
-          </p>
-          <p>
-            <strong>Output:</strong> Optimized visit order and total travel distance.
-          </p>
-        </div>
+    <div class="panel-block">
+      <h3>SDG Alignment</h3>
+      <p>
+        SDGs covered include 3, 6, 7, 9, 11, and 13.
+        Each algorithm contributes directly to sustainability,
+        resilience, and smart-city planning.
+      </p>
+    </div>
 
-        <div class="panel-block">
-          <h3>SDG Mapping</h3>
-          <div class="sdg-box">
-            <strong>SDG 11.6:</strong> Efficient Waste Management<br>
-            <strong>SDG 13:</strong> Climate Action
-          </div>
-        </div>
+    <div class="panel-block">
+      <h3>Academic Integrity</h3>
+      <p>
+        All implementations are original C++ programs using STL only.
+        No third-party libraries or frameworks are used.
+        Suitable for evaluation, demonstration, and viva.
+      </p>
+    </div>
+  </div>
+</section>
 
-        <div class="panel-block">
-          <h3>General Importance</h3>
-          <p>
-            Route optimization techniques are heavily used in logistics,
-            delivery services, postal systems, and fleet management.
-          </p>
-        </div>
+</div> <!-- overlay end -->
 
-        <div class="panel-block">
-          <a class="github-link"
-             href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P7"
-             target="_blank">
-            📂 View Code, Dataset & Efficiency 
-          </a>
-        </div>
-      </div>
-    </section>
+<script>
+const overlay = document.getElementById("overlay");
+const nodes = document.querySelectorAll(".map-node");
+const panels = document.querySelectorAll(".panel-shell");
 
-    <!-- ================= PANEL 8 ================= -->
-    <section class="panel-shell" id="p8-panel">
-      <div class="panel-header">
-        <div class="panel-title-group">
-          <div class="panel-title">8. Public Transport Timetable Generation</div>
-          <div class="panel-chip-row">
-            <span class="panel-chip">Urban Mobility</span>
-            <span class="panel-chip algo">Sorting · Greedy Interval Scheduling</span>
-          </div>
-        </div>
-        <div class="panel-controls">
-          <button class="back-btn" data-close>⬅ Back to Map</button>
-        </div>
-      </div>
+nodes.forEach(node => {
+  node.addEventListener("click", () => {
+    const target = node.dataset.target + "-panel";
+    panels.forEach(p => p.classList.remove("open"));
+    overlay.classList.add("open");
+    document.getElementById(target).classList.add("open");
+  });
+});
 
-      <div class="panel-scroll">
-        <div class="panel-block">
-          <h3>Problem Context</h3>
-          <p>
-            Cities have limited buses but many potential trips.
-            Poor scheduling leads to idle buses or overlapping assignments.
-          </p>
-        </div>
-
-        <div class="panel-block">
-          <h3>Algorithmic Solution</h3>
-          <p>
-            Each trip is modeled as a time interval <code>[start, end]</code>.
-          </p>
-          <ul>
-            <li>Trips are sorted by finishing time.</li>
-            <li>A greedy strategy selects the maximum number of non-overlapping trips.</li>
-          </ul>
-          <p>
-            This interval scheduling algorithm is optimal and efficient.
-          </p>
-        </div>
-
-        <div class="panel-block">
-          <h3>Input / Output</h3>
-          <p>
-            <strong>Input:</strong> List of candidate bus trips.
-          </p>
-          <p>
-            <strong>Output:</strong> Selected timetable and number of trips served.
-          </p>
-        </div>
-
-        <div class="panel-block">
-          <h3>SDG Mapping</h3>
-          <div class="sdg-box">
-            <strong>SDG 11.2:</strong> Accessible Public Transport<br>
-            <strong>SDG 9.4:</strong> Resource Efficiency
-          </div>
-        </div>
-
-        <div class="panel-block">
-          <h3>General Importance</h3>
-          <p>
-            Interval scheduling is used in CPU scheduling, classroom allocation,
-            exam timetabling, and booking systems.
-          </p>
-        </div>
-
-        <div class="panel-block">
-          <a class="github-link"
-             href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P8"
-             target="_blank">
-            📂 View Code, Dataset & Efficiency 
-          </a>
-        </div>
-      </div>
-    </section>
-    <!-- ================= PANEL 9 ================= -->
-    <section class="panel-shell" id="p9-panel">
-      <div class="panel-header">
-        <div class="panel-title-group">
-          <div class="panel-title">9. Bridge Construction Priority Model</div>
-          <div class="panel-chip-row">
-            <span class="panel-chip">Critical Infrastructure</span>
-            <span class="panel-chip algo">DFS Bridge Detection (Tarjan Method)</span>
-          </div>
-        </div>
-        <div class="panel-controls">
-          <button class="back-btn" data-close>⬅ Back to Map</button>
-        </div>
-      </div>
-
-      <div class="panel-scroll">
-        <div class="panel-block">
-          <h3>Problem Context</h3>
-          <p>
-            Some bridges act as single points of failure in the transport network.
-            If such a bridge collapses or is closed for repair, large regions may
-            become disconnected from hospitals, schools, or workplaces.
-          </p>
-          <p>
-            The goal is to identify <strong>critical bridges</strong> whose failure
-            would disconnect the road network, so they can be prioritised
-            for inspection and reinforcement.
-          </p>
-        </div>
-
-        <div class="panel-block">
-          <h3>Algorithmic Solution</h3>
-          <p>
-            The road network is modeled as an undirected graph.
-            We use a DFS-based bridge detection algorithm:
-          </p>
-          <ul>
-            <li>
-              Each node is assigned a discovery time <code>disc[u]</code>
-              and a lowest reachable time <code>low[u]</code>.
-            </li>
-            <li>
-              An edge <code>(u, v)</code> is a <strong>bridge</strong> if
-              <code>low[v] &gt; disc[u]</code>.
-            </li>
-            <li>
-              The algorithm runs in <strong>O(V + E)</strong> time.
-            </li>
-          </ul>
-        </div>
-
-        <div class="panel-block">
-          <h3>Input / Output</h3>
-          <p>
-            <strong>Input:</strong> Undirected graph of regions connected by roads/bridges.
-          </p>
-          <p>
-            <strong>Output:</strong> List of bridges that are critical links.
-          </p>
-        </div>
-
-        <div class="panel-block">
-          <h3>SDG Mapping</h3>
-          <div class="sdg-box">
-            <strong>SDG 9:</strong> Resilient Infrastructure<br>
-            <strong>SDG 11:</strong> Sustainable Cities
-          </div>
-        </div>
-
-        <div class="panel-block">
-          <h3>General Importance</h3>
-          <p>
-            Bridge detection is used in communication networks, power grids,
-            and transport systems to identify vulnerable connections.
-          </p>
-        </div>
-
-        <div class="panel-block">
-          <a class="github-link"
-             href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P9"
-             target="_blank">
-            📂 View Code, Dataset & Efficiency 
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= PANEL 10 ================= -->
-    <section class="panel-shell" id="p10-panel">
-      <div class="panel-header">
-        <div class="panel-title-group">
-          <div class="panel-title">10. Flood Evacuation Simulation</div>
-          <div class="panel-chip-row">
-            <span class="panel-chip">Disaster Management</span>
-            <span class="panel-chip algo">Multi-source BFS</span>
-          </div>
-        </div>
-        <div class="panel-controls">
-          <button class="back-btn" data-close>⬅ Back to Map</button>
-        </div>
-      </div>
-
-      <div class="panel-scroll">
-        <div class="panel-block">
-          <h3>Problem Context</h3>
-          <p>
-            Flooding spreads from rivers and low-lying areas to surrounding localities.
-            Authorities must identify which shelters remain reachable before
-            floodwaters cut off access roads.
-          </p>
-        </div>
-
-        <div class="panel-block">
-          <h3>Algorithmic Solution</h3>
-          <p>
-            Flood sources are treated as multiple BFS starting points:
-          </p>
-          <ul>
-            <li>All flood source nodes are enqueued with time 0.</li>
-            <li>Each BFS level represents flood spread per time unit.</li>
-            <li>Shelters are evaluated based on flood arrival time.</li>
-          </ul>
-          <p>
-            Time Complexity: <strong>O(V + E)</strong>.
-          </p>
-        </div>
-
-        <div class="panel-block">
-          <h3>Input / Output</h3>
-          <p>
-            <strong>Input:</strong> City graph, flood sources, shelter nodes, time threshold.
-          </p>
-          <p>
-            <strong>Output:</strong> Flood arrival time and shelter safety classification.
-          </p>
-        </div>
-
-        <div class="panel-block">
-          <h3>SDG Mapping</h3>
-          <div class="sdg-box">
-            <strong>SDG 11.5:</strong> Disaster Risk Reduction<br>
-            <strong>SDG 13:</strong> Climate Action
-          </div>
-        </div>
-
-        <div class="panel-block">
-          <h3>General Importance</h3>
-          <p>
-            Multi-source BFS is widely used in simulations such as fire spread,
-            disease propagation, and network broadcast analysis.
-          </p>
-        </div>
-
-        <div class="panel-block">
-          <a class="github-link"
-             href="https://github.com/ketan18-ux/CityProject.github.io/tree/main/ketan/P10"
-             target="_blank">
-            📂 View Code, Dataset & Efficiency 
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= DOCS PANEL ================= -->
-    <section class="panel-shell" id="doc-panel">
-      <div class="panel-header">
-        <div class="panel-title-group">
-          <div class="panel-title">Technical Documentation & SDG Mapping</div>
-          <div class="panel-chip-row">
-            <span class="panel-chip">DAA Portfolio</span>
-            <span class="panel-chip algo">Algorithms · Datasets · Efficiency</span>
-          </div>
-        </div>
-        <div class="panel-controls">
-          <button class="back-btn" data-close>⬅ Back to Map</button>
-        </div>
-      </div>
-
-      <div class="panel-scroll">
-        <div class="panel-block">
-          <h3>Dataset Design</h3>
-          <p>
-            Each problem uses a 20-row CSV dataset aligned with algorithm inputs
-            for clarity and academic evaluation.
-          </p>
-        </div>
-
-        <div class="panel-block">
-          <h3>Efficiency Analysis</h3>
-          <p>
-            Time and space complexity are analysed using Big-O notation,
-            covering worst-case and practical constraints.
-          </p>
-        </div>
-
-        <div class="panel-block">
-          <h3>SDG Coverage</h3>
-          <div class="sdg-box">
-            SDG 3 · SDG 6 · SDG 7 · SDG 9 · SDG 11 · SDG 13
-          </div>
-        </div>
-
-        <div class="panel-block">
-          <h3>Academic Integrity</h3>
-          <p>
-            All implementations are original, written in C++ using STL only,
-            and suitable for viva voce and university assessment.
-          </p>
-        </div>
-      </div>
-    </section>
-  </div> <!-- overlay end -->
-
-  <!-- ================= SCRIPT ================= -->
-  <script>
-    const overlay = document.getElementById("overlay");
-    const nodes = document.querySelectorAll(".map-node");
-    const panels = document.querySelectorAll(".panel-shell");
-
-    nodes.forEach(node => {
-      node.addEventListener("click", () => {
-        const target = node.dataset.target;
-        panels.forEach(p => p.classList.remove("open"));
-        overlay.classList.add("open");
-        document.getElementById(target + "-panel").classList.add("open");
-      });
-    });
-
-    document.querySelectorAll("[data-close]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        overlay.classList.remove("open");
-        panels.forEach(p => p.classList.remove("open"));
-      });
-    });
-  </script>
+document.querySelectorAll("[data-close]").forEach(btn => {
+  btn.addEventListener("click", () => {
+    overlay.classList.remove("open");
+    panels.forEach(p => p.classList.remove("open"));
+  });
+});
+</script>
 
 </body>
 </html>
