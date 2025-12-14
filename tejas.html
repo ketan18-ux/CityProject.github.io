@@ -324,15 +324,21 @@ int main(){
 </pre>
               </div>
             </details>
-            <p class="toggle-image" role="button" tabindex="0"
-   onclick="toggleDataset('dataset1')"
-   onkeydown="if(event.key==='Enter') toggleDataset('dataset1')">
+
+
+
+
+
+
+<!-- 📊 DATASET BUTTON -->
+<p class="toggle-image" role="button" tabindex="0"
+   onclick="togglePanel('dataset1')"
+   onkeydown="if(event.key==='Enter') togglePanel('dataset1')">
   📊 Click to View Dataset
 </p>
 
-          </details>
-  <summary>📊 Dataset (Sample Input)</summary>
-  <div class="details-code">
+<!-- 📊 DATASET CONTENT (HIDDEN BY DEFAULT) -->
+<div class="image-panel" id="dataset1" aria-hidden="true">
 <pre>
 Residents:
 x   population
@@ -346,8 +352,7 @@ Expected Output:
 Optimal hospital position = 9
 Total weighted distance = 2680
 </pre>
-  </div>
-</details>
+</div>
 
           </article>
 
