@@ -323,8 +323,30 @@ int main(){
 }
 </pre>
               </div>
-            
           </details>
+            <!-- ✅ DATASET BUTTON -->
+<button class="dataset-btn"
+onclick="togglePanel('dataset1')"
+onkeydown="if(event.key==='Enter') togglePanel('dataset1')">
+📊 View Dataset
+</button>
+
+<!-- ✅ DATASET CONTENT -->
+<div class="dataset-panel" id="dataset1">
+<pre>
+Residents:
+x   population
+2   120
+5   300
+9   180
+14  220
+20  160
+
+Expected Output:
+Optimal hospital position = 9
+Total weighted distance = 2680
+</pre>
+</div>
           </article>
 
           <!-- 2 -->
