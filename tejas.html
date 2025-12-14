@@ -414,6 +414,34 @@ int main(){ ios::sync_with_stdio(false); cin.tie(nullptr);
 </pre>
               </div>
             </details>
+      <!-- ✅ DATASET BUTTON -->
+<button class="dataset-btn"
+onclick="togglePanel('dataset2')"
+onkeydown="if(event.key==='Enter') togglePanel('dataset2')">
+📊 View Dataset
+</button>
+
+<!-- ✅ DATASET CONTENT -->
+<div class="dataset-panel" id="dataset2">
+<pre>
+Schools:
+S1 (capacity = 2)
+S2 (capacity = 3)
+
+Students and Distances:
+Student   S1   S2
+A         4    6
+B         2    3
+C         5    1
+D         3    4
+E         6    2
+
+Expected Output:
+Student → School allocation
+Minimum total travel distance
+</pre>
+</div>
+
           </article>
 
           <!-- 3 -->
@@ -469,7 +497,34 @@ int main(){ ios::sync_with_stdio(false); cin.tie(nullptr);
 </pre>
               </div>
             </details>
-          </article>
+            <!-- ✅ DATASET BUTTON -->
+<button class="dataset-btn"
+onclick="togglePanel('dataset3')"
+onkeydown="if(event.key==='Enter') togglePanel('dataset3')">
+📊 View Dataset
+</button>
+
+<!-- ✅ DATASET CONTENT -->
+<div class="dataset-panel" id="dataset3">
+<pre>
+Cars (pickup points):
+C1 (2,3)
+C2 (5,7)
+C3 (8,1)
+
+Parking Slots:
+P1 (3,3)
+P2 (6,7)
+P3 (9,1)
+
+Expected Output:
+Optimal car → parking slot assignment
+Minimum total walking distance
+</pre>
+</div>
+
+</article>
+
 
           <!-- 4 -->
           <article class="card idle" id="p4" tabindex="0" aria-labelledby="p4-title">
@@ -524,7 +579,34 @@ int main(){ int n,m; cin>>n>>m; vector&lt;vector<int&gt;&gt g(n);
 </pre>
               </div>
             </details>
-          </article>
+  <!-- ✅ DATASET BUTTON -->
+<button class="dataset-btn"
+onclick="togglePanel('dataset4')"
+onkeydown="if(event.key==='Enter') togglePanel('dataset4')">
+📊 View Dataset
+</button>
+
+<!-- ✅ DATASET CONTENT -->
+<div class="dataset-panel" id="dataset4">
+<pre>
+Land Parcels (Nodes):
+0, 1, 2, 3, 4, 5
+
+Adjacency (conflict edges):
+0 - 1
+1 - 2
+2 - 3
+3 - 4
+4 - 5
+
+Expected Output:
+Valid zoning using 2 colors
+No adjacent parcels share the same zone
+</pre>
+</div>
+
+</article>
+
 
           <!-- 5 -->
           <article class="card idle" id="p5" tabindex="0" aria-labelledby="p5-title">
@@ -588,7 +670,39 @@ int main(){
 </pre>
               </div>
             </details>
-          </article>
+    <!-- ✅ DATASET BUTTON -->
+<button class="dataset-btn"
+onclick="togglePanel('dataset5')"
+onkeydown="if(event.key==='Enter') togglePanel('dataset5')">
+📊 View Dataset
+</button>
+
+<!-- ✅ DATASET CONTENT -->
+<div class="dataset-panel" id="dataset5">
+<pre>
+Population Centers:
+P1 (2,2)  Population = 100
+P2 (5,5)  Population = 200
+P3 (7,7)  Population = 150
+
+Candidate Park Locations:
+L1 (3,3)
+L2 (6,6)
+L3 (8,8)
+
+Parameters:
+k = 2 parks
+coverage radius = 3 units
+
+Expected Output:
+Selected park locations maximizing population coverage
+Total covered population
+</pre>
+</div>
+
+</article>
+
+     
 
           <!-- 6 -->
           <article class="card idle" id="p6" tabindex="0" aria-labelledby="p6-title">
@@ -630,7 +744,34 @@ int main(){ int n; cin>>n; vector&lt;pair<double,double&gt;&gt poly(n); for(int 
 </pre>
               </div>
             </details>
-          </article>
+  <!-- ✅ DATASET BUTTON -->
+<button class="dataset-btn"
+onclick="togglePanel('dataset6')"
+onkeydown="if(event.key==='Enter') togglePanel('dataset6')">
+📊 View Dataset
+</button>
+
+<!-- ✅ DATASET CONTENT -->
+<div class="dataset-panel" id="dataset6">
+<pre>
+Land Boundary (Polygon Coordinates):
+(0,0)
+(6,0)
+(6,4)
+(0,4)
+
+Task:
+Divide the land into balanced sub-plots
+
+Expected Output:
+Total Area = 24 units²
+Balanced land subdivision
+</pre>
+</div>
+
+</article>
+
+   
 
           <!-- 7 -->
           <article class="card idle" id="p7" tabindex="0" aria-labelledby="p7-title">
@@ -678,7 +819,42 @@ int main(){
 </pre>
               </div>
             </details>
-          </article>
+    <!-- ✅ DATASET BUTTON -->
+<button class="dataset-btn"
+onclick="togglePanel('dataset7')"
+onkeydown="if(event.key==='Enter') togglePanel('dataset7')">
+📊 View Dataset
+</button>
+
+<!-- ✅ DATASET CONTENT -->
+<div class="dataset-panel" id="dataset7">
+<pre>
+Bus Stops:
+A, B, C, D, E
+
+Passenger Count:
+A  50
+B  30
+C  40
+D  20
+E  60
+
+Distances (in km):
+A-B  4
+B-C  3
+C-D  5
+D-E  2
+A-E  9
+
+Expected Output:
+Optimal bus route covering all stops
+Minimum total travel distance
+</pre>
+</div>
+
+</article>
+
+    
 
           <!-- 8 -->
           <article class="card idle" id="p8" tabindex="0" aria-labelledby="p8-title">
@@ -726,7 +902,46 @@ int main(){
 </pre>
               </div>
             </details>
-          </article>
+            <!-- ✅ DATASET BUTTON -->
+<button class="dataset-btn"
+onclick="togglePanel('dataset8')"
+onkeydown="if(event.key==='Enter') togglePanel('dataset8')">
+📊 View Dataset
+</button>
+
+<!-- ✅ DATASET CONTENT -->
+<div class="dataset-panel" id="dataset8">
+<pre>
+Water Sources:
+S1 (capacity = 120)
+S2 (capacity = 100)
+S3 (capacity = 80)
+
+Demand Zones:
+Zone1 = 100
+Zone2 = 80
+Zone3 = 60
+
+Distribution Costs:
+S1 → Z1 = 4
+S1 → Z2 = 6
+S1 → Z3 = 8
+S2 → Z1 = 5
+S2 → Z2 = 4
+S2 → Z3 = 6
+S3 → Z1 = 7
+S3 → Z2 = 5
+S3 → Z3 = 3
+
+Expected Output:
+Optimal water distribution plan
+Minimum total distribution cost
+</pre>
+</div>
+
+</article>
+
+       
 
           <!-- 9 -->
           <article class="card idle" id="p9" tabindex="0" aria-labelledby="p9-title">
@@ -779,7 +994,45 @@ int main(){ int n,m; cin>>n>>m; vector<vector<int>> g(n); for(int i=0;i&lt;m;i++
 </pre>
               </div>
             </details>
-          </article>
+          <!-- ✅ DATASET BUTTON -->
+<button class="dataset-btn"
+onclick="togglePanel('dataset9')"
+onkeydown="if(event.key==='Enter') togglePanel('dataset9')">
+📊 View Dataset
+</button>
+
+<!-- ✅ DATASET CONTENT -->
+<div class="dataset-panel" id="dataset9">
+<pre>
+Emergency Units:
+E1
+E2
+
+Service Areas:
+Area A
+Area B
+Area C
+Area D
+
+Response Time (minutes):
+E1 → A = 5
+E1 → B = 7
+E1 → C = 6
+E1 → D = 8
+
+E2 → A = 6
+E2 → B = 4
+E2 → C = 5
+E2 → D = 7
+
+Expected Output:
+Assignment of emergency units to areas
+Minimum maximum response time
+</pre>
+</div>
+
+</article>
+
 
           <!-- 10 -->
           <article class="card idle" id="p10" tabindex="0" aria-labelledby="p10-title">
@@ -846,7 +1099,40 @@ int main(){
 </pre>
               </div>
             </details>
-          </article>
+         <!-- ✅ DATASET BUTTON -->
+<button class="dataset-btn"
+onclick="togglePanel('dataset10')"
+onkeydown="if(event.key==='Enter') togglePanel('dataset10')">
+📊 View Dataset
+</button>
+
+<!-- ✅ DATASET CONTENT -->
+<div class="dataset-panel" id="dataset10">
+<pre>
+Grid Map:
+0 0 0 0 0
+0 # # 0 0
+0 0 0 0 0
+0 # 0 # 0
+0 0 0 0 0
+
+Utilities:
+Water  : Start (0,0) → End (4,4)
+Gas    : Start (0,4) → End (4,0)
+Electric: Start (2,0) → End (2,4)
+
+Legend:
+0 = free cell
+# = blocked cell
+
+Expected Output:
+Non-overlapping shortest paths for all utilities
+Total routing cost minimized
+</pre>
+</div>
+
+</article>
+
 
         </section>
 
