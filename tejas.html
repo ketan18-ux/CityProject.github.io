@@ -1,264 +1,337 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Land Use, Zoning & Location Optimization — Tejas Keri</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Land Use, Zoning & Location Optimization — Tejas Keri</title>
 
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-<style>
-:root{
-  --bg:#f4f7fb;
-  --panel:#fff;
-  --accent-a:#0f4fa8;
-  --accent-b:#0b6fb6;
-  --neon:#4fc3ff;
-  --text:#042a44;
-  --mono:"JetBrains Mono",monospace;
-  --sans:"Poppins",system-ui;
-}
+  <style>
+    :root{
+      --bg: #f4f7fb;
+      --panel: #ffffff;
+      --muted: #475569;
+      --accent-a: #0f4fa8;
+      --accent-b: #0b6fb6;
+      --card-shadow: 0 18px 40px rgba(14,30,60,0.06);
+      --text: #042a44;
+      --mono: "JetBrains Mono", monospace;
+      --sans: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      --sidebar-w: 300px;
+      --max-width: 1200px;
 
-/* ================= FLASHY ANIMATIONS ================= */
+      /* animation tuning */
+      --hover-lift: -6px;           /* soft lift amount (Option 1) */
+      --hover-scale: 1.03;          /* soft scale */
+      --glow-color: rgba(11,111,182,0.18);
+      --card-transition: 360ms cubic-bezier(.2,.9,.3,1);
+    }
 
-@keyframes thunderFlash{
-  0%,95%,100%{filter:brightness(1)}
-  96%{filter:brightness(1.4)}
-  97%{filter:brightness(0.9)}
-  98%{filter:brightness(1.5)}
-}
+    /* Basic reset */
+    * { box-sizing: border-box; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+    html,body { height:100%; margin:0; font-family:var(--sans); background:linear-gradient(180deg,#f7fbfd 0%,#f4f7fb 100%); color:var(--text); -webkit-font-smoothing:antialiased; }
+    a{ color:inherit; text-decoration:none; }
+    img{ max-width:100%; display:block; height:auto; }
 
-@keyframes neonGlow{
-  0%{box-shadow:0 0 0 rgba(79,195,255,0)}
-  50%{box-shadow:0 0 28px rgba(79,195,255,.45)}
-  100%{box-shadow:0 0 0 rgba(79,195,255,0)}
-}
+    /* Root layout */
+    .root { display:flex; gap:20px; min-height:100vh; padding:20px; align-items:flex-start; justify-content:center; }
+    /* Sidebar */
+    .sidebar {
+      width: var(--sidebar-w);
+      min-width: var(--sidebar-w);
+      background: linear-gradient(180deg,#0b4f88,#083b72);
+      color:white; padding:22px; border-radius:12px;
+      position:sticky; top:18px; height: calc(100vh - 36px); overflow:auto;
+      box-shadow:0 12px 30px rgba(7,20,40,0.12);
+      transition: box-shadow 300ms ease, transform 300ms ease;
+    }
+    .sidebar .brand { display:flex; gap:12px; align-items:center; margin-bottom:12px; }
+    .logo { width:56px; height:56px; border-radius:10px; background:rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:18px; }
+    .brand .title { font-weight:800; font-size:18px; }
+    .brand .subtitle { font-size:12px; opacity:0.95; margin-top:2px; }
 
-@keyframes waveSweep{
-  from{background-position:-200%}
-  to{background-position:200%}
-}
+    .profile { margin-top:12px; padding:12px; background:rgba(255,255,255,0.03); border-radius:8px; font-size:13px; }
+    .profile div { margin-bottom:6px; }
 
-@keyframes floatSexy{
-  0%{transform:translateY(0)}
-  50%{transform:translateY(-8px)}
-  100%{transform:translateY(0)}
-}
+    .nav { display:flex; flex-direction:column; gap:8px; margin-top:18px; }
+    .nav-link {
+      display:block; padding:10px 12px; border-radius:10px; background:rgba(255,255,255,0.02);
+      font-weight:600; color:rgba(255,255,255,0.95); position:relative; overflow:hidden;
+      transition: transform 220ms ease, box-shadow 220ms ease, background 220ms ease;
+    }
+    .nav-link::after{
+      content:""; position:absolute; left:10px; bottom:6px; height:3px; width:0; background:rgba(255,255,255,0.18); border-radius:3px; transition: width 300ms ease;
+    }
+    .nav-link:hover{ transform: translateX(8px); box-shadow: 0 10px 20px rgba(0,0,0,0.12); }
+    .nav-link:hover::after{ width: calc(100% - 20px); }
 
-/* ==================================================== */
+    .nav-link.active {
+      background: rgba(255,255,255,0.06);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+    }
 
-html,body{
-  margin:0;
-  font-family:var(--sans);
-  background:linear-gradient(180deg,#f7fbfd,#f4f7fb);
-}
+    .nav-note { margin-top:14px; font-size:12px; opacity:0.95; }
 
-.root{
-  display:flex;
-  gap:20px;
-  padding:20px;
-  justify-content:center;
-}
+    /* Main area */
+    .main {
+      width:100%;
+      max-width: var(--max-width);
+      margin:0 auto;
+    }
 
-.sidebar{
-  width:300px;
-  background:linear-gradient(180deg,#0b4f88,#083b72);
-  color:white;
-  padding:22px;
-  border-radius:14px;
-  position:sticky;
-  top:20px;
-  height:calc(100vh - 40px);
-  animation:waveSweep 8s linear infinite;
-  background-size:400% 400%;
-}
+    .hero-banner {
+      background: linear-gradient(90deg,var(--accent-a),var(--accent-b));
+      color: white;
+      padding:20px 22px;
+      border-radius:12px;
+      box-shadow:0 14px 36px rgba(7,40,90,0.12);
+      margin-bottom:18px;
+      transform-origin:center;
+      transition: transform 350ms var(--card-transition);
+    }
+    .hero-banner:hover{ transform: translateY(-4px) scale(1.01); }
 
-.hero-banner{
-  background:linear-gradient(90deg,var(--accent-a),var(--accent-b));
-  padding:22px;
-  border-radius:14px;
-  color:white;
-  animation:thunderFlash 6s infinite;
-}
+    .hero-banner h1 { margin:0; font-size:22px; }
+    .hero-banner p { margin:8px 0 0; font-size:14px; color:rgba(255,255,255,0.95); }
 
-.problems-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:26px;
-}
+    /* The grid: 2 columns x 5 rows */
+    .problems-grid {
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(5, auto);
+      gap:26px;
+      align-items: start;
+    }
 
-.card{
-  background:var(--panel);
-  border-radius:14px;
-  padding:22px;
-  position:relative;
-  overflow:hidden;
-  animation:floatSexy 7s ease-in-out infinite;
-  transition:transform .35s ease, box-shadow .35s ease;
-}
+    @media (max-width:1100px) {
+      .root { padding:12px; }
+      .sidebar { display:none; transform:none !important; }
+      .problems-grid { grid-template-columns: 1fr; grid-template-rows: none; }
+      .main { padding:0 6px; }
+    }
 
-.card::before{
-  content:"";
-  position:absolute;
-  inset:-2px;
-  background:linear-gradient(120deg,transparent,rgba(79,195,255,.4),transparent);
-  opacity:.35;
-  animation:waveSweep 5s linear infinite;
-}
+    /* Card */
+    .card {
+      background: var(--panel);
+      border-radius: 12px;
+      padding: 22px;
+      box-shadow: var(--card-shadow);
+      border-left: 8px solid rgba(11,111,182,0.06);
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      min-height: 220px;
+      position:relative;
 
-.card:hover{
-  transform:translateY(-12px) scale(1.05);
-  box-shadow:0 30px 80px rgba(0,80,180,.35);
-  animation:neonGlow 1.8s infinite;
-}
+      /* entrance */
+      opacity: 0;
+      transform: translateY(18px) scale(0.995);
+      transition: transform var(--card-transition), box-shadow var(--card-transition), opacity 420ms ease;
+      will-change: transform, box-shadow;
+    }
 
-.card h2{
-  margin:0;
-  font-size:20px;
-  font-weight:800;
-}
+    /* in-view class is toggled by JS on intersection */
+    .card.in-view{ opacity:1; transform: translateY(0) scale(1); }
 
-.alg{
-  font-size:13px;
-  color:var(--accent-a);
-  font-weight:700;
-}
+    /* Hover (Soft Premium Pop Out - Option 1) */
+    .card:hover{
+      transform: translateY(var(--hover-lift)) scale(var(--hover-scale));
+      box-shadow: 0 26px 60px rgba(8,40,90,0.18), 0 6px 18px rgba(11,111,182,0.06);
+      border-left-color: rgba(11,111,182,0.16);
+      transition: transform 220ms cubic-bezier(.2,.9,.3,1), box-shadow 220ms cubic-bezier(.2,.9,.3,1);
+    }
 
-.section-title{
-  font-weight:700;
-  margin-top:10px;
-}
+    /* Glow effect via pseudo element for smoothness (no layout shift) */
+    .card::before{
+      content:"";
+      position:absolute; inset:0; border-radius:12px;
+      box-shadow: 0 0 0 0 rgba(11,111,182,0);
+      transition: box-shadow 220ms ease;
+      pointer-events:none;
+    }
+    .card:hover::before{ box-shadow: 0 18px 50px var(--glow-color); }
 
-.section-text{
-  color:#475569;
-  font-size:14px;
-}
+    /* Gentle idle floating pulse (very subtle) */
+    @keyframes floatPulse {
+      0% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-4px) scale(1.001); }
+      100% { transform: translateY(0) scale(1); }
+    }
+    .card.idle { animation: floatPulse 6.5s ease-in-out infinite; }
 
-.pills{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-}
+    .card h2 { margin:0; font-size:20px; font-weight:800; color:var(--text); }
+    .alg { color:var(--accent-a); font-weight:700; font-size:13px; margin-top:4px; }
+    .section-title { font-size:13px; font-weight:700; margin-top:8px; color:#093759; }
+    .section-text { font-size:14px; color:var(--muted); margin-top:6px; line-height:1.6; }
 
-.pill{
-  padding:8px 12px;
-  border-radius:999px;
-  background:rgba(0,0,0,.05);
-  font-size:13px;
-}
+    .pills { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; }
+    .pill { background: rgba(2,6,23,0.04); padding:8px 12px; border-radius:999px; font-size:13px; color:var(--muted); }
 
-.toggle-image{
-  margin-top:10px;
-  cursor:pointer;
-  font-weight:700;
-  color:var(--accent-b);
-}
+    /* Collapsible code block styling */
+    details summary { cursor:pointer; font-weight:700; color:var(--accent-a); margin-top:10px; list-style:none; outline:none; }
+    details summary::-webkit-details-marker { display:none; }
+    details[open] summary { color: var(--accent-b); }
 
-.image-panel{
-  max-height:0;
-  overflow:hidden;
-  transition:max-height .5s ease,opacity .4s ease;
-  opacity:0;
-}
+    .details-code { margin-top:8px; background:#0f1724; border-radius:8px; padding:12px; overflow:auto; color:#cbeefc; font-family:var(--mono); font-size:13px; line-height:1.5; transform-origin: top center; transition: transform 300ms ease, opacity 260ms ease; }
+    details:not([open]) .details-code{ display:none; }
 
-.image-panel.open{
-  max-height:800px;
-  opacity:1;
-}
+    pre { margin:0; white-space:pre; font-family:var(--mono); font-size:13px; }
 
-.image-panel img{
-  border-radius:12px;
-  margin-top:10px;
-}
+    /* Image toggle styling */
+    .toggle-image { margin-top:8px; cursor:pointer; color:var(--accent-b); font-weight:700; text-decoration:underline; transition: color 180ms ease; }
+    .toggle-image:focus{ outline:2px dashed rgba(11,111,182,0.18); outline-offset:4px; border-radius:6px; }
+    .image-panel { max-height:0; overflow:hidden; margin-top:10px; border-radius:8px; transition: max-height 420ms cubic-bezier(.2,.9,.3,1), opacity 300ms ease, transform 380ms ease; opacity:0; transform: translateY(-6px); border:1px solid rgba(2,6,23,0.04); }
+    .image-panel.open { opacity:1; transform: translateY(0); max-height: 800px; }
+    .image-panel img { width:100%; height:auto; display:block; border-radius:8px; box-shadow: 0 8px 24px rgba(2,12,40,0.08); }
 
-.dataset-btn{
-  margin-top:12px;
-  padding:10px 18px;
-  border:none;
-  border-radius:999px;
-  font-weight:800;
-  color:white;
-  background:linear-gradient(90deg,var(--accent-a),var(--accent-b));
-  cursor:pointer;
-  animation:neonGlow 3s infinite;
-}
+    /* Footer / top button */
+    .footer { margin-top:28px; padding:14px; border-radius:12px; background:#083b72; color:white; text-align:center; font-size:14px; box-shadow:0 12px 28px rgba(7,40,90,0.12); }
 
-.dataset-panel{
-  display:none;
-  margin-top:10px;
-  background:#0f1724;
-  color:#cbeefc;
-  border-radius:12px;
-  padding:14px;
-  font-family:var(--mono);
-}
+    .top-btn { display:inline-block; margin-top:16px; padding:10px 18px; border-radius:999px; background:linear-gradient(90deg,var(--accent-a),var(--accent-b)); color:white; text-decoration:none; font-weight:700; transition: transform 200ms ease, box-shadow 200ms ease; }
+    .top-btn:hover{ transform: translateY(-4px); box-shadow: 0 12px 30px rgba(7,40,90,0.18); }
 
-.dataset-panel.open{display:block}
+    /* technical section styles (dark) */
+    .tech-wrap{ margin-top:28px; padding:20px; border-radius:12px; background:linear-gradient(180deg,#031223,#071b2a); color:#cfeafc; box-shadow:0 10px 30px rgba(2,10,20,0.35); }
+    .tech-wrap h2{ margin:0 0 8px 0; color:#e6f7ff; }
+    .tech-card{ background:rgba(255,255,255,0.02); padding:14px; border-radius:10px; margin-top:12px; color:#bfe9ff; }
 
-@media(max-width:1100px){
-  .sidebar{display:none}
-  .problems-grid{grid-template-columns:1fr}
-}
-</style>
+    /* hidden view toggles */
+    .view{ display:block; }
+    .hidden{ display:none; }
+
+    /* focus outlines for keyboard users */
+    .card:focus-within { outline:2px solid rgba(11,111,182,0.08); }
+    .nav-link:focus { outline:2px dashed rgba(255,255,255,0.12); outline-offset:4px; }
+
+    /* subtle animated anchor highlight when card active (for keyboard) */
+    .nav-link.active::before{
+      content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:linear-gradient(180deg,var(--accent-a),var(--accent-b));
+      border-radius:4px 0 0 4px; box-shadow: 0 8px 26px rgba(11,111,182,0.12);
+    }
+
+    /* small responsive tweaks */
+    @media (max-width:700px){
+      .hero-banner h1 { font-size:20px; }
+      .card { padding:16px; }
+    }
+  </style>
 </head>
-
 <body>
-<div class="root">
+  <div class="root">
 
-<!-- SIDEBAR (UNCHANGED DATA) -->
-<aside class="sidebar">
-  <div class="brand">
-    <div class="logo">TK</div>
-    <div>
-      <div class="title">Tejas B Keri</div>
-      <div class="subtitle">Land Use & Location Optimization</div>
-    </div>
-  </div>
+    <!-- Sidebar -->
+    <aside class="sidebar" aria-label="Navigation">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">TK</div>
+        <div>
+          <div class="title">Tejas B Keri</div>
+          <div class="subtitle">Land Use & Location Optimization</div>
+        </div>
+      </div>
 
-  <div class="profile">
-    <div><strong>Name:</strong> Tejas B Keri</div>
-    <div><strong>Roll No:</strong> 242</div>
-    <div><strong>USN:</strong> 01fe24bcs144@kletech.ac.in</div>
-    <div><strong>Class:</strong> BE - Computer Science</div>
-    <div><strong>Subject:</strong> Design & Analysis of Algorithms</div>
-    <div><strong>Faculty:</strong> Prof. Prakash Hegade</div>
-  </div>
-</aside>
+      <!-- Personal details (restored) -->
+      <div class="profile" aria-label="Profile">
+        <div><strong>Name:</strong> Tejas B Keri</div>
+        <div><strong>Roll No:</strong> 242</div>
+        <div><strong>USN:</strong> 01fe24bcs144@kletech.ac.in</div>
+        <div><strong>Class:</strong> BE - Computer Science</div>
+        <div><strong>Subject:</strong> Design & Analysis of Algorithms</div>
+        <div><strong>Faculty:</strong> Prof. Prakash Hegade</div>
+      </div>
 
-<main class="main">
+      <nav class="nav" id="sidebar-nav" role="navigation" aria-label="Problems">
+        <a href="#main" class="nav-link" data-target="main" onclick="showView('main', this)">Main Page</a>
+        <a href="#p1" class="nav-link" data-target="p1" onclick="showView('main', this)">1. Optimal Hospital Location</a>
+        <a href="#p2" class="nav-link" data-target="p2" onclick="showView('main', this)">2. School Allocation to Students</a>
+        <a href="#p3" class="nav-link" data-target="p3" onclick="showView('main', this)">3. Smart Parking Slot Allocation</a>
+        <a href="#p4" class="nav-link" data-target="p4" onclick="showView('main', this)">4. Industrial vs Residential Separation</a>
+        <a href="#p5" class="nav-link" data-target="p5" onclick="showView('main', this)">5. Public Park Placement Optimization</a>
+        <a href="#p6" class="nav-link" data-target="p6" onclick="showView('main', this)">6. Land Subdivision Optimization</a>
+        <a href="#p7" class="nav-link" data-target="p7" onclick="showView('main', this)">7. High Footfall Commercial Zone Prediction</a>
+        <a href="#p8" class="nav-link" data-target="p8" onclick="showView('main', this)">8. Creation of Green Belt Buffers</a>
+        <a href="#p9" class="nav-link" data-target="p9" onclick="showView('main', this)">9. Footpath Connectivity Plan</a>
+        <a href="#p10" class="nav-link" data-target="p10" onclick="showView('main', this)">10. Underground Utility Routing</a>
+        <a href="#technical" class="nav-link" data-target="technical" onclick="showView('technical', this)" style="margin-top:12px;background:rgba(255,255,255,0.04);">Technical Documentation & SDG Mapping</a>
+      </nav>
 
-<section class="hero-banner">
-  <h1>Land Use, Zoning & Location Optimization Projects</h1>
-</section>
+      <div class="nav-note">Keyboard: press 1..0 to jump to items</div>
+    </aside>
 
-<section class="problems-grid">
+    <!-- Main content container (both views live here) -->
+    <main class="main" role="main">
 
-<!-- CARD 1 (DATA UNCHANGED) -->
-<article class="card" id="p1">
-<h2>1. Optimal Hospital Location</h2>
-<div class="alg">Algorithm: Weighted Median (Math Foundations)</div>
+      <!-- HERO -->
+      <section id="hero" class="view" aria-hidden="false">
+        <div class="hero-banner" aria-hidden="true">
+          <h1>Land Use, Zoning & Location Optimization Projects</h1>
+          <p></p>
+        </div>
+      </section>
 
-<div class="section-title">Problem Content</div>
-<div class="section-text">Place one or multiple hospitals to minimize travel distance for residents, using population-weighted metrics.</div>
+      <!-- MAIN PAGE VIEW -->
+      <section id="main" class="view">
 
-<div class="section-title">Algorithmic Solution</div>
-<div class="section-text">Sort by coordinate, compute weighted median (1D). For higher dimensions approximate using separable medians or k-medians clustering.</div>
+        <!-- PROBLEMS GRID (2x5) -->
+        <section class="problems-grid" id="problems-grid" aria-label="Problems list">
 
-<div class="section-title">Input / Output (Project Version)</div>
-<div class="section-text">Input: N (pos, weight). Output: median position and total weighted distance.</div>
+          <!-- 1 -->
+          <article class="card idle" id="p1" tabindex="0" aria-labelledby="p1-title">
+            <h2 id="p1-title">1. Optimal Hospital Location</h2>
+            <div class="alg">Algorithm: Weighted Median (Math Foundations)</div>
 
-<div class="section-title">Related SDGs</div>
-<div class="pills">
-  <span class="pill">SDG 3 — Good Health & Well-being</span>
-  <span class="pill">SDG 11 — Sustainable Cities</span>
-</div>
+            <div class="section-title">Problem Content</div>
+            <div class="section-text">Place one or multiple hospitals to minimize travel distance for residents, using population-weighted metrics.</div>
 
-<p class="toggle-image" onclick="toggleImage('img1')">📷 Click to View Image</p>
-<div class="image-panel" id="img1">
-  <img src="./tejas_images/image 1.jpeg">
-</div>
+            <div class="section-title">Algorithmic Solution</div>
+            <div class="section-text">Sort by coordinate, compute weighted median (1D). For higher dimensions approximate using separable medians or k-medians clustering.</div>
 
-<button class="dataset-btn" onclick="togglePanel('dataset1')">📊 View Dataset</button>
+            <div class="section-title">Input / Output (Project Version)</div>
+            <div class="section-text">Input: N (pos, weight). Output: median position and total weighted distance.</div>
+
+            <div class="section-title">Related SDGs</div>
+            <div class="pills">
+              <span class="pill">SDG 3 — Good Health & Well-being</span>
+              <span class="pill">SDG 11 — Sustainable Cities</span>
+            </div>
+
+            <p class="toggle-image" role="button" tabindex="0" onclick="toggleImage('img1')" onkeydown="if(event.key==='Enter') toggleImage('img1')">📷 Click to View Image</p>
+            <div class="image-panel" id="img1" aria-hidden="true">
+              <img src="./tejas_images/image 1.jpeg" alt="./tejas_images/image 1.jpeg">
+            </div>
+
+            <details>
+              <summary>C++ Example (Weighted median 1D)</summary>
+              <div class="details-code" role="region" aria-live="polite">
+<pre>// Weighted median (1D) - O(n log n)
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+using ll = long long;
+int main(){
+  int n;
+  if(!(cin>>n)) return 0;
+  vector<pair<ll,ll>> a(n);
+  ll total=0;
+  for(int i=0;i&lt;n;i++){ cin>>a[i].first>>a[i].second; total+=a[i].second; }
+  sort(a.begin(), a.end());
+  ll acc=0, half=(total+1)/2, median=a.back().first;
+  for(auto &p:a){ acc+=p.second; if(acc>=half){ median=p.first; break; } }
+  ll cost=0; for(auto &p:a) cost += llabs(p.first - median) * p.second;
+  cout &lt;&lt; median &lt;&lt; " " &lt;&lt; cost &lt;&lt; "\\n";
+  return 0;
+}
+</pre>
+              </div>
+          </details>
+            <!-- ✅ DATASET BUTTON -->
+<button class="dataset-btn"
+onclick="togglePanel('dataset1')"
+onkeydown="if(event.key==='Enter') togglePanel('dataset1')">
+📊 View Dataset
+</button>
+
+<!-- ✅ DATASET CONTENT -->
 <div class="dataset-panel" id="dataset1">
 <pre>
 Residents:
@@ -274,20 +347,1183 @@ Optimal hospital position = 9
 Total weighted distance = 2680
 </pre>
 </div>
-</article>
+          </article>
 
-</section>
-</main>
+          <!-- 2 -->
+          <article class="card idle" id="p2" tabindex="0" aria-labelledby="p2-title">
+            <h2 id="p2-title">2. School Allocation to Students</h2>
+            <div class="alg">Algorithm: Dijkstra + Greedy Assignment (Heap)</div>
+
+            <div class="section-title">Problem Content</div>
+            <div class="section-text">Assign students to schools minimizing travel time while respecting school capacities and zones.</div>
+
+            <div class="section-title">Algorithmic Solution</div>
+            <div class="section-text">Run Dijkstra from each school or multi-source; create a min-heap of (distance, student, school) triples and greedily assign while decreasing capacities.</div>
+
+            <div class="section-title">Input / Output (Project Version)</div>
+            <div class="section-text">Input: street graph, student nodes, school nodes with capacities. Output: assignments and total travel cost.</div>
+
+            <div class="section-title">Related SDGs</div>
+            <div class="pills">
+              <span class="pill">SDG 4 — Quality Education</span>
+              <span class="pill">SDG 10 — Reduced Inequalities</span>
+            </div>
+
+            <p class="toggle-image" role="button" tabindex="0" onclick="toggleImage('img2')" onkeydown="if(event.key==='Enter') toggleImage('img2')">📷 Click to View Image</p>
+            <div class="image-panel" id="img2" aria-hidden="true">
+              <img src="./tejas_images/image 2.jpeg" alt="./tejas_images/image 2.jpeg">
+            </div>
+
+            <details>
+              <summary>C++ Example (Dijkstra + greedy assignment)</summary>
+              <div class="details-code" role="region" aria-live="polite">
+<pre>// Dijkstra distances + greedy assignment
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+using ll = long long;
+const ll INF = (1LL<<60);
+vector<ll> dijkstra(int src, const vector<vector<pair<int,int>>> &g){
+  int n=g.size(); vector<ll> dist(n, INF);
+  dist[src]=0; priority_queue<pair<ll,int>, vector<pair<ll,int>>, greater<pair<ll,int>>> pq; pq.push({0,src});
+  while(!pq.empty()){
+    auto [d,u]=pq.top(); pq.pop(); if(d!=dist[u]) continue;
+    for(auto &e:g[u]){ int v=e.first; ll w=e.second; if(dist[v] > d + w){ dist[v]=d + w; pq.push({dist[v], v}); } }
+  }
+  return dist;
+}
+int main(){ ios::sync_with_stdio(false); cin.tie(nullptr);
+  int n,m; cin>>n>>m; vector<vector<pair<int,int>>> g(n);
+  for(int i=0;i&lt;m;i++){ int u,v,w; cin>>u>>v>>w; g[u].push_back({v,w}); g[v].push_back({u,w}); }
+  int S; cin>>S; vector<int> students(S); for(int i=0;i&lt;S;i++) cin>>students[i];
+  int K; cin>>K; vector<int> schools(K), cap(K); for(int i=0;i&lt;K;i++) cin>>schools[i]>>cap[i];
+  vector<vector<ll>> distFromSchool(K, vector<ll>(n, INF));
+  for(int i=0;i&lt;K;i++) distFromSchool[i] = dijkstra(schools[i], g);
+  using T=tuple<ll,int,int>; priority_queue<T, vector<T>, greater<T>> pq;
+  for(int si=0; si&lt;S; ++si) for(int ki=0; ki&lt;K; ++ki) if(distFromSchool[ki][students[si]]<INF) pq.push({distFromSchool[ki][students[si]], si, ki});
+  vector<int> assigned(S,-1); ll total=0;
+  while(!pq.empty()){
+    auto [d,si,ki]=pq.top(); pq.pop();
+    if(assigned[si]!=-1) continue;
+    if(cap[ki]<=0) continue;
+    assigned[si]=ki; cap[ki]--; total+=d;
+  }
+  for(int i=0;i&lt;S;i++) cout &lt;&lt; i &lt;&lt; " -> " &lt;&lt; (assigned[i]==-1? -1: schools[assigned[i]]) &lt;&lt; "\\n";
+  cout &lt;&lt; "Total cost: " &lt;&lt; total &lt;&lt; "\\n";
+  return 0;
+}
+</pre>
+              </div>
+            </details>
+      <!-- ✅ DATASET BUTTON -->
+<button class="dataset-btn"
+onclick="togglePanel('dataset2')"
+onkeydown="if(event.key==='Enter') togglePanel('dataset2')">
+📊 View Dataset
+</button>
+
+<!-- ✅ DATASET CONTENT -->
+<div class="dataset-panel" id="dataset2">
+<pre>
+Schools:
+S1 (capacity = 2)
+S2 (capacity = 3)
+
+Students and Distances:
+Student   S1   S2
+A         4    6
+B         2    3
+C         5    1
+D         3    4
+E         6    2
+
+Expected Output:
+Student → School allocation
+Minimum total travel distance
+</pre>
 </div>
 
-<script>
-function toggleImage(id){
-  document.getElementById(id).classList.toggle("open");
-}
-function togglePanel(id){
-  document.getElementById(id).classList.toggle("open");
-}
-</script>
+          </article>
 
+          <!-- 3 -->
+          <article class="card idle" id="p3" tabindex="0" aria-labelledby="p3-title">
+            <h2 id="p3-title">3. Smart Parking Slot Allocation</h2>
+            <div class="alg">Algorithm: Greedy Assignment + Trie for permit lookup</div>
+
+            <div class="section-title">Problem Content</div>
+            <div class="section-text">Assign incoming cars to parking slots to minimize walking distance while handling reserved permits and accessibility constraints.</div>
+
+            <div class="section-title">Algorithmic Solution</div>
+            <div class="section-text">Form feasible (car,slot,distance) triples, sort by distance and greedily match. Use a Trie for permit prefix matching to restrict reserved slots.</div>
+
+            <div class="section-title">Input / Output (Project Version)</div>
+            <div class="section-text">Input: cars list (coords + permit), slots (coords + reservedPrefix or -). Output: assignments and total walking distance.</div>
+
+            <div class="section-title">Related SDGs</div>
+            <div class="pills">
+              <span class="pill">SDG 11 — Sustainable Cities</span>
+              <span class="pill">SDG 9 — Industry & Infrastructure</span>
+            </div>
+
+            <p class="toggle-image" role="button" tabindex="0" onclick="toggleImage('img3')" onkeydown="if(event.key==='Enter') toggleImage('img3')">📷 Click to View Image</p>
+            <div class="image-panel" id="img3" aria-hidden="true">
+              <img src="./tejas_images/image 3.jpeg" alt="./tejas_images/image 3.jpeg">
+            </div>
+
+            <details>
+              <summary>C++ Example (greedy sorted pairs + Trie)</summary>
+              <div class="details-code" role="region" aria-live="polite">
+<pre>// Greedy assignment with permit prefix matching
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+struct Trie{ unordered_map&lt;char,Trie*&gt; ch; bool end=false; void ins(const string&s){ Trie*cur=this; for(char c:s){ if(!cur->ch[c]) cur->ch[c]=new Trie(); cur=cur->ch[c]; } cur->end=true; } bool starts(const string&p){ Trie*cur=this; for(char c:p){ if(!cur->ch[c]) return false; cur=cur->ch[c]; } return true; } };
+int main(){ ios::sync_with_stdio(false); cin.tie(nullptr);
+  int C,S; cin>>C>>S; struct Car{int x,y; string p;}; vector&lt;Car&gt; cars(C);
+  for(int i=0;i&lt;C;i++) cin>>cars[i].x>>cars[i].y>>cars[i].p;
+  struct Slot{int x,y; string r;}; vector&lt;Slot&gt; slots(S);
+  Trie root;
+  for(int i=0;i&lt;S;i++){ cin>>slots[i].x>>slots[i].y>>slots[i].r; if(slots[i].r!="-") root.ins(slots[i].r); }
+  struct T{int car,slot; double d;};
+  vector&lt;T&gt; v;
+  auto dist=[&](int x1,int y1,int x2,int y2){ return hypot(x1-x2,y1-y2); };
+  for(int i=0;i&lt;C;i++) for(int j=0;j&lt;S;j++){
+    if(slots[j].r=="-" || cars[i].p.rfind(slots[j].r,0)==0) v.push_back({i,j,dist(cars[i].x,cars[i].y,slots[j].x,slots[j].y)});
+  }
+  sort(v.begin(), v.end(), [](auto&a,auto&b){ return a.d<b.d; });
+  vector<int> carUsed(C,-1), slotUsed(S,-1); double total=0;
+  for(auto &t:v) if(carUsed[t.car]==-1 && slotUsed[t.slot]==-1){ carUsed[t.car]=t.slot; slotUsed[t.slot]=t.car; total+=t.d; }
+  for(int i=0;i&lt;C;i++) cout &lt;&lt; "Car " &lt;&lt; i &lt;&lt; " -> Slot " &lt;&lt; (carUsed[i]==-1? -1: carUsed[i]) &lt;&lt; "\\n";
+  cout &lt;&lt; "Total (approx): " &lt;&lt; total &lt;&lt; "\\n";
+}
+</pre>
+              </div>
+            </details>
+            <!-- ✅ DATASET BUTTON -->
+<button class="dataset-btn"
+onclick="togglePanel('dataset3')"
+onkeydown="if(event.key==='Enter') togglePanel('dataset3')">
+📊 View Dataset
+</button>
+
+<!-- ✅ DATASET CONTENT -->
+<div class="dataset-panel" id="dataset3">
+<pre>
+Cars (pickup points):
+C1 (2,3)
+C2 (5,7)
+C3 (8,1)
+
+Parking Slots:
+P1 (3,3)
+P2 (6,7)
+P3 (9,1)
+
+Expected Output:
+Optimal car → parking slot assignment
+Minimum total walking distance
+</pre>
+</div>
+
+</article>
+
+
+          <!-- 4 -->
+          <article class="card idle" id="p4" tabindex="0" aria-labelledby="p4-title">
+            <h2 id="p4-title">4. Industrial vs Residential Separation</h2>
+            <div class="alg">Algorithm: Graph Coloring (BFS/DFS)</div>
+
+            <div class="section-title">Problem Content</div>
+            <div class="section-text">Assign zoning types across adjacent parcels so incompatible types do not share edges, preventing harmful co-location.</div>
+
+            <div class="section-title">Algorithmic Solution</div>
+            <div class="section-text">Build parcel adjacency graph. Attempt 2-coloring using BFS/DFS — if conflict arises, identify components for manual/local backtracking.</div>
+
+            <div class="section-title">Input / Output (Project Version)</div>
+            <div class="section-text">Input: parcel adjacency graph and surface attributes. Output: zone color per parcel and conflict report.</div>
+
+            <div class="section-title">Related SDGs</div>
+            <div class="pills">
+              <span class="pill">SDG 11 — Sustainable Cities</span>
+              <span class="pill">SDG 3 — Good Health</span>
+            </div>
+
+            <p class="toggle-image" role="button" tabindex="0" onclick="toggleImage('img4')" onkeydown="if(event.key==='Enter') toggleImage('img4')">📷 Click to View Image</p>
+            <div class="image-panel" id="img4" aria-hidden="true">
+              <img src="./tejas_images/image 4.jpeg" alt="./tejas_images/image 4.jpeg">
+            </div>
+
+            <details>
+              <summary>C++ Example (Bipartite check)</summary>
+              <div class="details-code" role="region" aria-live="polite">
+<pre>// Bipartite check skeleton
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+bool is_bipartite(const vector&lt;vector&lt;int&gt;&gt;& g){
+  int n=g.size(); vector<int> color(n,-1);
+  for(int s=0;s&lt;n;++s){
+    if(color[s]!=-1) continue;
+    queue<int> q; q.push(s); color[s]=0;
+    while(!q.empty()){
+      int u=q.front(); q.pop();
+      for(int v: g[u]){
+        if(color[v]==-1){ color[v]=color[u]^1; q.push(v); }
+        else if(color[v]==color[u]) return false;
+      }
+    }
+  }
+  return true;
+}
+int main(){ int n,m; cin>>n>>m; vector&lt;vector<int&gt;&gt g(n);
+  for(int i=0;i&lt;m;i++){ int u,v; cin>>u>>v; g[u].push_back(v); g[v].push_back(u); }
+  cout &lt;&lt; (is_bipartite(g)? "BIPARTITE":"NOT_BIPARTITE") &lt;&lt; "\\n"; return 0;
+}
+</pre>
+              </div>
+            </details>
+  <!-- ✅ DATASET BUTTON -->
+<button class="dataset-btn"
+onclick="togglePanel('dataset4')"
+onkeydown="if(event.key==='Enter') togglePanel('dataset4')">
+📊 View Dataset
+</button>
+
+<!-- ✅ DATASET CONTENT -->
+<div class="dataset-panel" id="dataset4">
+<pre>
+Land Parcels (Nodes):
+0, 1, 2, 3, 4, 5
+
+Adjacency (conflict edges):
+0 - 1
+1 - 2
+2 - 3
+3 - 4
+4 - 5
+
+Expected Output:
+Valid zoning using 2 colors
+No adjacent parcels share the same zone
+</pre>
+</div>
+
+</article>
+
+
+          <!-- 5 -->
+          <article class="card idle" id="p5" tabindex="0" aria-labelledby="p5-title">
+            <h2 id="p5-title">5. Public Park Placement Optimization</h2>
+            <div class="alg">Algorithm: Greedy Max-Coverage + Fenwick tree support</div>
+
+            <div class="section-title">Problem Content</div>
+            <div class="section-text">Select k park sites from candidates to maximize covered population within walking radius, ensuring equity.</div>
+
+            <div class="section-title">Algorithmic Solution</div>
+            <div class="section-text">For each candidate precompute which population points it covers; greedily pick candidate with largest uncovered population (Fenwick/segment trees speed updates).</div>
+
+            <div class="section-title">Input / Output (Project Version)</div>
+            <div class="section-text">Input: candidate coords, population grid/points, k. Output: chosen sites and covered population.</div>
+
+            <div class="section-title">Related SDGs</div>
+            <div class="pills">
+              <span class="pill">SDG 11 — Sustainable Cities</span>
+              <span class="pill">SDG 3 — Good Health</span>
+            </div>
+
+            <p class="toggle-image" role="button" tabindex="0" onclick="toggleImage('img5')" onkeydown="if(event.key==='Enter') toggleImage('img5')">📷 Click to View Image</p>
+            <div class="image-panel" id="img5" aria-hidden="true">
+              <img src="./tejas_images/image 5.jpeg" alt="./tejas_images/image 5.jpeg">
+            </div>
+
+            <details>
+              <summary>C++ Example (Greedy + Fenwick skeleton)</summary>
+              <div class="details-code" role="region" aria-live="polite">
+<pre>// Greedy Max-Coverage skeleton
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+struct Fenwick { int n; vector<long long> bit; Fenwick(int n=0):n(n),bit(n+1,0){}; void add(int i,long long v){ for(++i;i<=n;i+=i&-i) bit[i]+=v; } long long sum(int i){ long long r=0; for(++i;i>0;i-=i&-i) r+=bit[i]; return r; } };
+int main(){
+  int P,C,k; cin>>P>>C>>k;
+  vector&lt;pair<int,int&gt;&gt pts(P); vector<int> w(P);
+  for(int i=0;i&lt;P;i++) cin>>pts[i].first>>pts[i].second>>w[i];
+  vector&lt;pair<int,int&gt;&gt cand(C); for(int i=0;i&lt;C;i++) cin>>cand[i].first>>cand[i].second;
+  int r; cin>>r;
+  vector&lt;vector<int&gt;&gt covers(C);
+  for(int i=0;i&lt;C;i++) for(int j=0;j&lt;P;j++){
+    long long dx=cand[i].first-pts[j].first, dy=cand[i].second-pts[j].second;
+    if(dx*dx+dy*dy <= 1LL*r*r) covers[i].push_back(j);
+  }
+  vector&lt;bool&gt; covered(P,false); vector&lt;int&gt; chosen;
+  for(int it=0; it&lt;k; ++it){
+    int best=-1; long long bestgain=0;
+    for(int i=0;i&lt;C;i++){
+      if(find(chosen.begin(), chosen.end(), i)!=chosen.end()) continue;
+      long long gain=0;
+      for(int p:covers[i]) if(!covered[p]) gain += w[p];
+      if(gain>bestgain){ bestgain=gain; best=i; }
+    }
+    if(best==-1) break;
+    chosen.push_back(best);
+    for(int p:covers[best]) covered[p]=true;
+  }
+  long long total=0; for(int i=0;i&lt;P;i++) if(covered[i]) total+=w[i];
+  cout &lt;&lt; "Chosen sites: "; for(int x:chosen) cout &lt;&lt; x &lt;&lt; " "; cout &lt;&lt; "\\nCovered pop: " &lt;&lt; total &lt;&lt; "\\n";
+}
+</pre>
+              </div>
+            </details>
+    <!-- ✅ DATASET BUTTON -->
+<button class="dataset-btn"
+onclick="togglePanel('dataset5')"
+onkeydown="if(event.key==='Enter') togglePanel('dataset5')">
+📊 View Dataset
+</button>
+
+<!-- ✅ DATASET CONTENT -->
+<div class="dataset-panel" id="dataset5">
+<pre>
+Population Centers:
+P1 (2,2)  Population = 100
+P2 (5,5)  Population = 200
+P3 (7,7)  Population = 150
+
+Candidate Park Locations:
+L1 (3,3)
+L2 (6,6)
+L3 (8,8)
+
+Parameters:
+k = 2 parks
+coverage radius = 3 units
+
+Expected Output:
+Selected park locations maximizing population coverage
+Total covered population
+</pre>
+</div>
+
+</article>
+
+     
+
+          <!-- 6 -->
+          <article class="card idle" id="p6" tabindex="0" aria-labelledby="p6-title">
+            <h2 id="p6-title">6. Land Subdivision Optimization</h2>
+            <div class="alg">Algorithm: Divide & Conquer.</div>
+
+            <div class="section-title">Problem Content</div>
+            <div class="section-text">Partition land parcels into balanced subplots while keeping constraints like minimum area and road access.</div>
+
+            <div class="section-title">Algorithmic Solution</div>
+            <div class="section-text">Compute polygon area via shoelace formula and recursively partition along axes to approximate equal-area subplots.</div>
+
+            <div class="section-title">Input / Output (Project Version)</div>
+            <div class="section-text">Input: polygon boundary points. Output: sub-polygons with areas and centroids.</div>
+
+            <div class="section-title">Related SDGs</div>
+            <div class="pills">
+              <span class="pill">SDG 11 — Sustainable Cities</span>
+              <span class="pill">SDG 15 — Life on Land</span>
+            </div>
+
+            <p class="toggle-image" role="button" tabindex="0" onclick="toggleImage('img6')" onkeydown="if(event.key==='Enter') toggleImage('img6')">📷 Click to View Image</p>
+            <div class="image-panel" id="img6" aria-hidden="true">
+              <img src="./tejas_images/image 6.jpeg" alt="./tejas_images/image 6.jpeg">
+            </div>
+
+            <details>
+              <summary>C++ Example </summary>
+              <div class="details-code" role="region" aria-live="polite">
+<pre>// formula skeleton
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+double polygon_area(const vector&lt;pair<double,double&gt;&gt;& poly){
+  double s=0; int n=poly.size();
+  for(int i=0;i&lt;n;i++){ auto [x1,y1]=poly[i]; auto [x2,y2]=poly[(i+1)%n]; s += x1*y2 - x2*y1; }
+  return fabs(s)/2.0;
+}
+int main(){ int n; cin>>n; vector&lt;pair<double,double&gt;&gt poly(n); for(int i=0;i&lt;n;i++) cin>>poly[i].first>>poly[i].second; cout &lt;&lt; polygon_area(poly) &lt;&lt; "\\n"; }
+</pre>
+              </div>
+            </details>
+  <!-- ✅ DATASET BUTTON -->
+<button class="dataset-btn"
+onclick="togglePanel('dataset6')"
+onkeydown="if(event.key==='Enter') togglePanel('dataset6')">
+📊 View Dataset
+</button>
+
+<!-- ✅ DATASET CONTENT -->
+<div class="dataset-panel" id="dataset6">
+<pre>
+Land Boundary (Polygon Coordinates):
+(0,0)
+(6,0)
+(6,4)
+(0,4)
+
+Task:
+Divide the land into balanced sub-plots
+
+Expected Output:
+Total Area = 24 units²
+Balanced land subdivision
+</pre>
+</div>
+
+</article>
+
+   
+
+          <!-- 7 -->
+          <article class="card idle" id="p7" tabindex="0" aria-labelledby="p7-title">
+            <h2 id="p7-title">7. High Footfall Commercial Zone Prediction</h2>
+            <div class="alg">Algorithm: Grid Binning + 2D Prefix Sums</div>
+
+            <div class="section-title">Problem Content</div>
+            <div class="section-text">Analyze movement traces and POI density to identify likely commercial hotspots for transit planning and services.</div>
+
+            <div class="section-title">Algorithmic Solution</div>
+            <div class="section-text">Bin traces into grid cells, build 2D prefix sums for fast rectangle queries, and sort candidate cells by aggregated counts.</div>
+
+            <div class="section-title">Input / Output (Project Version)</div>
+            <div class="section-text">Input: movement traces (x,y), POI data. Output: ranked hotspot cells and suggested interventions.</div>
+
+            <div class="section-title">Related SDGs</div>
+            <div class="pills">
+              <span class="pill">SDG 8 — Decent Work & Economic Growth</span>
+              <span class="pill">SDG 11 — Sustainable Cities</span>
+            </div>
+
+            <p class="toggle-image" role="button" tabindex="0" onclick="toggleImage('img7')" onkeydown="if(event.key==='Enter') toggleImage('img7')">📷 Click to View Image</p>
+            <div class="image-panel" id="img7" aria-hidden="true">
+              <img src="./tejas_images/image 7.jpeg" alt="./tejas_images/image 7.jpeg">
+            </div>
+
+            <details>
+              <summary>C++ Example (2D prefix sums)</summary>
+              <div class="details-code" role="region" aria-live="polite">
+<pre>// 2D prefix sums skeleton
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+int main(){
+  int W,H; cin>>W>>H; int T; cin>>T;
+  vector&lt;vector<int&gt;&gt grid(H, vector<int>(W,0));
+  for(int i=0;i&lt;T;i++){ int x,y; cin>>x>>y; if(x>=0&&x&lt;W&&y>=0&&y&lt;H) grid[y][x]++; }
+  vector&lt;vector<int&gt;&gt ps(H+1, vector<int>(W+1,0));
+  for(int r=1;r<=H;r++) for(int c=1;c<=W;c++) ps[r][c]=grid[r-1][c-1]+ps[r-1][c]+ps[r][c-1]-ps[r-1][c-1];
+  int k; cin>>k; vector&lt;pair<int,pair<int,int&gt;&gt cells;
+  for(int r=0;r&lt;H;r++) for(int c=0;c&lt;W;c++) cells.push_back({grid[r][c],{r,c}});
+  sort(cells.rbegin(), cells.rend());
+  for(int i=0;i&lt;min(k,(int)cells.size());i++) cout &lt;&lt; "Cell (" &lt;&lt; cells[i].second.second &lt;&lt; "," &lt;&lt; cells[i].second.first &lt;&lt; ")=" &lt;&lt; cells[i].first &lt;&lt; "\\n";
+  return 0;
+}
+</pre>
+              </div>
+            </details>
+    <!-- ✅ DATASET BUTTON -->
+<button class="dataset-btn"
+onclick="togglePanel('dataset7')"
+onkeydown="if(event.key==='Enter') togglePanel('dataset7')">
+📊 View Dataset
+</button>
+
+<!-- ✅ DATASET CONTENT -->
+<div class="dataset-panel" id="dataset7">
+<pre>
+Bus Stops:
+A, B, C, D, E
+
+Passenger Count:
+A  50
+B  30
+C  40
+D  20
+E  60
+
+Distances (in km):
+A-B  4
+B-C  3
+C-D  5
+D-E  2
+A-E  9
+
+Expected Output:
+Optimal bus route covering all stops
+Minimum total travel distance
+</pre>
+</div>
+
+</article>
+
+    
+
+          <!-- 8 -->
+          <article class="card idle" id="p8" tabindex="0" aria-labelledby="p8-title">
+            <h2 id="p8-title">8. Creation of Green Belt Buffers</h2>
+            <div class="alg">Algorithm: Multi-source BFS / Grid Morphological Buffer</div>
+
+            <div class="section-title">Problem Content</div>
+            <div class="section-text">Generate successive buffer layers around pollution sources while respecting obstacles and protected zones to create green corridors.</div>
+
+            <div class="section-title">Algorithmic Solution</div>
+            <div class="section-text">Run BFS starting from all pollutant sources simultaneously. Each BFS layer forms one buffer band; mask expansion into protected cells.</div>
+
+            <div class="section-title">Input / Output (Project Version)</div>
+            <div class="section-text">Input: raster map (source cells, obstacles). Output: distance-layered map for planting regions.</div>
+
+            <div class="section-title">Related SDGs</div>
+            <div class="pills">
+              <span class="pill">SDG 13 — Climate Action</span>
+              <span class="pill">SDG 15 — Life on Land</span>
+            </div>
+
+            <p class="toggle-image" role="button" tabindex="0" onclick="toggleImage('img8')" onkeydown="if(event.key==='Enter') toggleImage('img8')">📷 Click to View Image</p>
+            <div class="image-panel" id="img8" aria-hidden="true">
+              <img src="./tejas_images/image 8.jpeg" alt="./tejas_images/image 8.jpeg">
+            </div>
+
+            <details>
+              <summary>C++ Example (Multi-source BFS)</summary>
+              <div class="details-code" role="region" aria-live="polite">
+<pre>// Multi-source BFS skeleton
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+int main(){
+  int R,C; cin>>R>>C; vector&lt;string&gt; grid(R);
+  for(int i=0;i&lt;R;i++) cin>>grid[i];
+  queue&lt;pair<int,int&gt;&gt q; vector&lt;vector<int&gt;&gt dist(R, vector<int>(C,-1));
+  for(int r=0;r&lt;R;r++) for(int c=0;c&lt;C;c++) if(grid[r][c]=='S'){ dist[r][c]=0; q.push({r,c}); }
+  int dr[4]={1,-1,0,0}, dc[4]={0,0,1,-1};
+  while(!q.empty()){ auto [r,c]=q.front(); q.pop();
+    for(int k=0;k&lt;4;k++){ int nr=r+dr[k], nc=c+dc[k];
+      if(nr>=0 && nr&lt;R && nc>=0 && nc&lt;C && grid[nr][nc]!='#' && dist[nr][nc]==-1){ dist[nr][nc]=dist[r][c]+1; q.push({nr,nc}); } }
+  }
+  for(int r=0;r&lt;R;r++){ for(int c=0;c&lt;C;c++) cout &lt;&lt; (dist[r][c]==-1? -1: dist[r][c]) &lt;&lt; " "; cout &lt;&lt; "\\n"; }
+}
+</pre>
+              </div>
+            </details>
+            <!-- ✅ DATASET BUTTON -->
+<button class="dataset-btn"
+onclick="togglePanel('dataset8')"
+onkeydown="if(event.key==='Enter') togglePanel('dataset8')">
+📊 View Dataset
+</button>
+
+<!-- ✅ DATASET CONTENT -->
+<div class="dataset-panel" id="dataset8">
+<pre>
+Water Sources:
+S1 (capacity = 120)
+S2 (capacity = 100)
+S3 (capacity = 80)
+
+Demand Zones:
+Zone1 = 100
+Zone2 = 80
+Zone3 = 60
+
+Distribution Costs:
+S1 → Z1 = 4
+S1 → Z2 = 6
+S1 → Z3 = 8
+S2 → Z1 = 5
+S2 → Z2 = 4
+S2 → Z3 = 6
+S3 → Z1 = 7
+S3 → Z2 = 5
+S3 → Z3 = 3
+
+Expected Output:
+Optimal water distribution plan
+Minimum total distribution cost
+</pre>
+</div>
+
+</article>
+          <!-- 9 -->
+          <article class="card idle" id="p9" tabindex="0" aria-labelledby="p9-title">
+            <h2 id="p9-title">9. Footpath Connectivity Plan</h2>
+            <div class="alg">Algorithm: Dijkstra + Bridge/Articulation detection (DFS)</div>
+
+            <div class="section-title">Problem Content</div>
+            <div class="section-text">Detect disconnected pedestrian networks, compute safe shortest routes, and suggest minimal new links to restore or improve connectivity.</div>
+
+            <div class="section-title">Algorithmic Solution</div>
+            <div class="section-text">Use DFS to find bridges/articulation points (fragile connections) and Dijkstra for safe shortest paths; recommend added edges using union-find / MST on candidate connections.</div>
+
+            <div class="section-title">Input / Output (Project Version)</div>
+            <div class="section-text">Input: pedestrian network graph. Output: bridges, articulation points, and suggested new links.</div>
+
+            <div class="section-title">Related SDGs</div>
+            <div class="pills">
+              <span class="pill">SDG 11 — Sustainable Cities</span>
+              <span class="pill">SDG 3 — Good Health</span>
+            </div>
+
+            <p class="toggle-image" role="button" tabindex="0" onclick="toggleImage('img9')" onkeydown="if(event.key==='Enter') toggleImage('img9')">📷 Click to View Image</p>
+            <div class="image-panel" id="img9" aria-hidden="true">
+              <img src="./tejas_images/image 9.png" alt="./tejas_images/image 9.png">
+            </div>
+
+            <details>
+              <summary>C++ Example (Bridge detection)</summary>
+              <div class="details-code" role="region" aria-live="polite">
+<pre>// Bridge detection skeleton
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+void dfs(int u,int p,const vector<vector<int>>& g,vector<int>& tin,vector<int>& low,vector<int>& vis,int &timer,vector<pair<int,int>>& bridges){
+  vis[u]=1; tin[u]=low[u]=++timer;
+  for(int v: g[u]){
+    if(v==p) continue;
+    if(vis[v]) low[u]=min(low[u], tin[v]);
+    else{
+      dfs(v,u,g,tin,low,vis,timer,bridges);
+      low[u]=min(low[u], low[v]);
+      if(low[v] > tin[u]) bridges.push_back({u,v});
+    }
+  }
+}
+int main(){ int n,m; cin>>n>>m; vector<vector<int>> g(n); for(int i=0;i&lt;m;i++){ int u,v; cin>>u>>v; g[u].push_back(v); g[v].push_back(u); }
+  vector<int> tin(n,-1), low(n,-1), vis(n,0); int timer=0; vector<pair<int,int>> bridges;
+  for(int i=0;i&lt;n;i++) if(!vis[i]) dfs(i,-1,g,tin,low,vis,timer,bridges);
+  for(auto &b:bridges) cout &lt;&lt; "Bridge: " &lt;&lt; b.first &lt;&lt; " - " &lt;&lt; b.second &lt;&lt; "\\n";
+}
+</pre>
+              </div>
+            </details>
+          <!-- ✅ DATASET BUTTON -->
+<button class="dataset-btn"
+onclick="togglePanel('dataset9')"
+onkeydown="if(event.key==='Enter') togglePanel('dataset9')">
+📊 View Dataset
+</button>
+
+<!-- ✅ DATASET CONTENT -->
+<div class="dataset-panel" id="dataset9">
+<pre>
+Emergency Units:
+E1
+E2
+
+Service Areas:
+Area A
+Area B
+Area C
+Area D
+
+Response Time (minutes):
+E1 → A = 5
+E1 → B = 7
+E1 → C = 6
+E1 → D = 8
+
+E2 → A = 6
+E2 → B = 4
+E2 → C = 5
+E2 → D = 7
+
+Expected Output:
+Assignment of emergency units to areas
+Minimum maximum response time
+</pre>
+</div>
+
+</article>
+
+
+          <!-- 10 -->
+          <article class="card idle" id="p10" tabindex="0" aria-labelledby="p10-title">
+            <h2 id="p10-title">10. Underground Utility Routing</h2>
+            <div class="alg">Algorithm: A* / Dijkstra + Greedy Disjoint Routing</div>
+
+            <div class="section-title">Problem Content</div>
+            <div class="section-text">Plan multiple underground utility routes on a grid while avoiding conflicts, minimizing length and respecting obstacles.</div>
+
+            <div class="section-title">Algorithmic Solution</div>
+            <div class="section-text">Route utilities sequentially with A*/Dijkstra, mark used cells as blocked for subsequent routes, optionally iterate to improve disjointness.</div>
+
+            <div class="section-title">Input / Output (Project Version)</div>
+            <div class="section-text">Input: grid map and list of (start, goal) for each utility. Output: set of paths and cost metrics.</div>
+
+            <div class="section-title">Related SDGs</div>
+            <div class="pills">
+              <span class="pill">SDG 9 — Industry & Infrastructure</span>
+              <span class="pill">SDG 6 — Clean Water & Sanitation</span>
+            </div>
+
+            <p class="toggle-image" role="button" tabindex="0" onclick="toggleImage('img10')" onkeydown="if(event.key==='Enter') toggleImage('img10')">📷 Click to View Image</p>
+            <div class="image-panel" id="img10" aria-hidden="true">
+              <img src="./tejas_images/image 10.jpeg" alt="./tejas_images/image 10.jpeg">
+            </div>
+
+            <details>
+              <summary>C++ Example (A* / Grid Dijkstra)</summary>
+              <div class="details-code" role="region" aria-live="polite">
+<pre>// A* / Dijkstra skeleton for grid pathfinding (mark path blocked and next)
+#include &lt;bits/stdc++.h&gt;
+using namespace std;
+using pii = pair<int,int>;
+int heuristic(pii a, pii b){ return abs(a.first-b.first) + abs(a.second-b.second); }
+int main(){
+  ios::sync_with_stdio(false); cin.tie(nullptr);
+  int R,C; cin>>R>>C; vector&lt;string&gt; grid(R);
+  for(int i=0;i&lt;R;i++) cin>>grid[i];
+  int U; cin>>U; vector&lt;pair&lt;pii,pii&gt;&gt req(U);
+  for(int i=0;i&lt;U;i++){ int sr,sc,gr,gc; cin>>sr>>sc>>gr>>gc; req[i]={{sr,sc},{gr,gc}}; }
+  vector&lt;vector<int&gt;&gt blocked(R, vector<int>(C,0));
+  auto inb=[&](int r,int c){ return r>=0 && r&lt;R && c>=0 && c&lt;C; };
+  int dr[4]={1,-1,0,0}, dc[4]={0,0,1,-1};
+  for(int u=0;u&lt;U;u++){
+    auto [s,g] = req[u];
+    priority_queue&lt;tuple&lt;int,int,int&gt;, vector&lt;tuple&lt;int,int,int&gt;&gt, greater&lt;tuple&lt;int,int,int&gt;&gt&gt; pq;
+    vector&lt;vector<int&gt;&gt dist(R, vector<int>(C, INT_MAX)); vector&lt;vector&lt;pii&gt;&gt parent(R, vector&lt;pii&gt;(C,{-1,-1}));
+    dist[s.first][s.second]=0; pq.push({0,s.first,s.second});
+    while(!pq.empty()){
+      auto [d,r,c]=pq.top(); pq.pop();
+      if(d!=dist[r][c]) continue;
+      if(r==g.first && c==g.second) break;
+      for(int k=0;k&lt;4;k++){ int nr=r+dr[k], nc=c+dc[k]; if(!inb(nr,nc)) continue; if(grid[nr][nc]=='#') continue; if(blocked[nr][nc]) continue;
+        if(dist[nr][nc] > d+1){ dist[nr][nc]=d+1; parent[nr][nc]={r,c}; pq.push({dist[nr][nc], nr, nc}); }
+      }
+    }
+    if(dist[g.first][g.second]==INT_MAX){ cout &lt;&lt; "Utility " &lt;&lt; u &lt;&lt; " cannot be routed\\n"; continue; }
+    vector&lt;pii&gt; path; pii cur=g; while(!(cur==s)){ path.push_back(cur); cur=parent[cur.first][cur.second]; } path.push_back(s); reverse(path.begin(), path.end());
+    for(auto &p:path) blocked[p.first][p.second]=1;
+    cout &lt;&lt; "Utility " &lt;&lt; u &lt;&lt; " routed length " &lt;&lt; path.size()-1 &lt;&lt; "\\n";
+  }
+  return 0;
+}
+</pre>
+              </div>
+            </details>
+         <!-- ✅ DATASET BUTTON -->
+<button class="dataset-btn"
+onclick="togglePanel('dataset10')"
+onkeydown="if(event.key==='Enter') togglePanel('dataset10')">
+📊 View Dataset
+</button>
+
+<!-- ✅ DATASET CONTENT -->
+<div class="dataset-panel" id="dataset10">
+<pre>
+Grid Map:
+0 0 0 0 0
+0 # # 0 0
+0 0 0 0 0
+0 # 0 # 0
+0 0 0 0 0
+
+Utilities:
+Water  : Start (0,0) → End (4,4)
+Gas    : Start (0,4) → End (4,0)
+Electric: Start (2,0) → End (2,4)
+
+Legend:
+0 = free cell
+# = blocked cell
+
+Expected Output:
+Non-overlapping shortest paths for all utilities
+Total routing cost minimized
+</pre>
+</div>
+
+</article>
+
+
+        </section>
+
+        <div style="text-align:center;margin-top:20px">
+          <a class="top-btn" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">← Back to Top</a>
+        </div>
+
+        <footer class="footer" role="contentinfo">© 2025 Tejas Keri — Portfolio</footer>
+      <footer class="footer" role="contentinfo">© Contact : 01fe24bcs144@kletech.ac.in </footer>
+      </section>
+
+      <!-- TECHNICAL VIEW: embedded into same file and toggled -->
+      <section id="technical" class="hidden">
+        <div class="tech-wrap">
+          <h2>Technical Documentation & SDG Mapping</h2>
+          <p style="margin-top:8px; color:#bfe9ff;">This section consolidates the technical notes, SDG mapping, metrics and data-structures used across all 10 problems.</p>
+
+          <div class="tech-card">
+            <h3>A. Project Metrics</h3>
+            <p class="section-title">High-level numbers & scope</p>
+            <ul>
+              <li><strong>Total lines of C++ code (approx):</strong> 1500 - 1800</li>
+              <li><strong>Independent functions / modules implemented:</strong> 15+ core routines</li>
+              <li><strong>Data / input files prepared:</strong>JSON, CSV, and plain text formats</li>
+              <li><strong>Figures / diagrams:</strong> 10+ (one per project case study)</li>
+              <li><strong>Each module includes:</strong> time & space complexity notes in comments</li>
+            </ul>
+
+            <p class="section-title">Design Techniques Used</p>
+            <ul>
+              <li>Divide and Conquer</li>
+              <li>Greedy Method</li>
+              <li>Dynamic Programming</li>
+              <li>Backtracking</li>
+              <li>Graph Algorithms</li>
+              <li>Brute Force</li>
+              <li>Heuristics</li>
+              <li>Optimization Techniquess</li>
+            </ul>
+          </div>
+
+        <div class="tech-card">
+            <h3>B. SDG Mapping Summary</h3>
+            <div style="background:rgba(255,255,255,0.02); padding:12px; border-radius:8px;">
+              <li>SDG 4 – Quality Education: Algorithms are documented, structured, and explained to support enhanced learning and academic clarity.</li>
+
+             <li>SDG 8 – Decent Work & Economic Growth: Efficient algorithm design improves productivity, optimization, and computational performance.</li>
+
+             <li>SDG 9 – Industry, Innovation & Infrastructure: Use of structured problem-solving and optimized data processing supports innovation and technical development.</li>
+
+             <li>SDG 11 – Sustainable Cities & Communities: Optimization algorithms (routing, scheduling, resource allocation) promote smarter, more efficient systems.</li>
+
+            <li>SDG 12 – Responsible Consumption & Production: Data-driven decision-making methods help minimize resource waste and improve efficiency.</li>
+
+            <li>SDG 13 – Climate Action: Computational optimization assists in analyzing environmental data and generating sustainable solutions.</li>
+
+            <li>SDG 17 – Partnerships for the Goals: Standardized documentation, modular code, and open data formats enable collaboration and scalability.</li>
+
+            </div>
+          </div>
+
+          <div class="tech-card">
+            <h3>C. Data Structures Used (Core Structures)</h3>
+            <ul>
+              <li>Arrays and vectors for lists of nodes, edges, queues, and trips.</li>
+              <li>Queues and stacks for BFS/DFS and simulation.</li>
+              <li>Priority queues (heaps) for Dijkstra and scheduling.</li>
+              <li>Disjoint Set Union (Union–Find) for Kruskal / clustering.</li>
+              <li>Adjacency lists for efficient graph storage.</li>
+              <li>Fenwick & Segment trees for range queries and updates (park placement, coverage).</li>
+              <li>Tries for permit/prefix matching and fast lookup.</li>
+              <li>Sets</li>
+              <li>Matrices</li>
+            </ul>
+          </div>
+
+          <div class="tech-card">
+            <h3>D. Algorithms Implemented in This Bucket</h3>
+            <p class="section-title">Graph Algorithms</p>
+            <ul>
+              <li>Brute Force Algorithms</li>
+              <li>Divide and Conquer</li>
+              <li>Greedy Algorithms</li>
+              <li>Dynamic Programming</li>
+              <li>Backtracking</li>
+              <li>Branch and Bound</li>
+              <li>Graph Algorithms (BFS, DFS, Dijkstra, Floyd–Warshall)</li>
+              <li>String Algorithms (KMP, Rabin–Karp)</li>
+              <li>Sorting Algorithms (Merge Sort, Quick Sort, Heap Sort)</li>
+              <li>Search Algorithms (Binary Search, Linear Search)</li>
+
+            </ul>
+
+            <p class="section-title">Sorting & Scheduling / Other</p>
+            <ul>
+              <li>Merge Sort — Uses divide-and-conquer to recursively split and merge sorted halves.</li>
+              <li>Quick Sort — Partitions elements around a pivot for fast average-case sorting.</li>
+              <li>Heap Sort — Uses a binary heap to repeatedly extract the maximum or minimum.</li>
+              <li>Insertion Sort — Builds the final sorted array one element at a time.</li>
+              <li>Selection Sort — Repeatedly selects the smallest element and places it in order.</li>
+              <li>Bubble Sort — Repeatedly swaps adjacent elements to push larger ones upward.</li>
+              <li>Counting Sort — Sorts integers by counting frequencies instead of comparing values.</li>
+              <li>Radix Sort — Sorts numbers digit-by-digit using a stable intermediate sort.</li>
+              <li>Job Scheduling (Greedy Scheduling) — Selects jobs to maximize profit or minimize time.</li>
+              <li>Task Scheduling with Deadlines — Schedules tasks to meet deadlines and optimize results.</li>
+              <li>Interval Scheduling Optimization — Chooses non-overlapping intervals for maximum tasks.</li>
+              <li>Round Robin Scheduling — Cycles through tasks with fixed time slices for fairness.</li>
+              <li>First-Come First-Served (FCFS) Scheduling — Executes tasks strictly in arrival order.</li>
+              <li>Shortest Job First (SJF) Scheduling — Prioritizes tasks with the smallest execution time.</li>
+              <li>Priority Scheduling — Executes tasks based on assigned priority levels.</li>
+
+              
+            </ul>
+          </div>
+          
+          <div class="tech-card">
+            <h3>E. Implementation Notes & Best Practices</h3>
+
+          <div class="tech-card">
+            <li>All code is implemented using clean and portable C++ STL constructs (vectors, lists, sets, maps, priority queues) to ensure maintainability.</li>
+
+           <li>Each algorithm block contains a short explanation, time/space complexity, and simple input–output examples for clarity.</li>
+
+           <li>Data handling is standardized using lightweight JSON/CSV/plain-text samples to allow quick switching to real datasets.</li>
+
+           <li>Functions are written as independent modules, making reuse and debugging significantly easier.</li>
+
+          <li>Consistent naming conventions and indentation are followed throughout the codebase for readability.</li>
+
+           <li>Boundary conditions and edge cases are handled explicitly to avoid hidden runtime errors.</li>
+
+          <li>Comments are added only where logic becomes non-trivial, keeping the code clean yet understandable.</li>
+
+          <li>Algorithmic choices are based on performance considerations, ensuring optimal time and memory usage for each problem.</li>
+
+          <li>Document all assumptions, constraints, and edge-case considerations clearly within the codebase.</li>
+          </div>
+
+
+
+          <div class="tech-card">
+            <h3>F Usage & Integration</h3>
+            <p>Save this single HTML file (you already have it) and the <code>images/</code> folder with placeholder images <code>image1.jpg..image10.jpg</code>. To switch between the main portfolio and this technical documentation, use the sidebar link "Technical Documentation & SDG Mapping" or the "Back to Portfolio" control in the header.</p>
+            <p class="section-title">Files included (suggested project structure)</p>
+            <ul>
+              <li><code>index_with_docs.html</code> — this single-file project</li>
+              <li><code>/images/*</code> — placeholder images (image1.jpg..image10.jpg)</li>
+              <li><code>/data/*</code> — sample CSV/JSON inputs (optional)</li>
+            </ul>
+          </div>
+
+<div style="margin-top:12px;">
+  <a class="top-btn" href="javascript:void(0);" 
+     onclick="showView('main', document.querySelector('.nav-link[data-target=main]')); return false;">
+    ← Back to Portfolio
+  </a>
+</div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    // View switching (single-file "pages")
+    function showView(id, clickedLink){
+      // hide all views
+      document.querySelectorAll('.view').forEach(v=>v.classList.add('hidden'));
+      // show hero only if main
+      if(id === 'main'){
+        document.getElementById('hero').classList.remove('hidden');
+      } else {
+        document.getElementById('hero').classList.add('hidden');
+      }
+      // show selected view
+      const el = document.getElementById(id);
+      if(el) el.classList.remove('hidden');
+
+      // update active class on nav
+      document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('active'));
+      if(clickedLink) clickedLink.classList.add('active');
+    }
+
+    // default view
+    showView('main');
+
+    // Sidebar navigation behavior: smooth scroll + active class (for anchors within main view)
+    document.querySelectorAll('.nav-link').forEach(function(a){
+      a.addEventListener('click', function(e){
+        // handled by showView to switch view; for internal anchors we still scroll
+        const target = this.getAttribute('data-target');
+        if(target && target.startsWith('p')){
+          // ensure main view visible
+          showView('main', this);
+          setTimeout(()=>{ const el = document.getElementById(target); if(el) el.scrollIntoView({behavior:'smooth', block:'center'}); }, 220);
+          e.preventDefault();
+        }
+      });
+    });
+
+    // Keyboard shortcuts 1..0 -> items 1..10 (also switches to main view)
+    document.addEventListener('keydown', function(e){
+      const tag = document.activeElement && document.activeElement.tagName;
+      if(tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || (document.activeElement && document.activeElement.isContentEditable)) return;
+      if(e.key >= '0' && e.key <= '9'){
+        let idx = (e.key === '0') ? 10 : Number(e.key);
+        const el = document.getElementById('p' + idx);
+        if(el){ showView('main'); el.scrollIntoView({behavior:'smooth', block:'center'}); }
+        document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('active'));
+        const link = document.querySelector('.nav-link[data-target="p' + idx + '"]');
+        if(link) link.classList.add('active');
+      }
+    });
+
+    // IntersectionObserver to highlight current visible card in sidebar (only when main view visible)
+    const options = { root: null, rootMargin: '-40% 0px -40% 0px', threshold: 0.12 };
+    const observer = new IntersectionObserver((entries)=>{
+      if(document.getElementById('main').classList.contains('hidden')) return; // only run when main is visible
+      entries.forEach(entry=>{
+        const el = entry.target;
+        if(entry.isIntersecting){
+          el.classList.add('in-view');
+          // also mark nav link active (single)
+          document.querySelectorAll('.nav-link').forEach(n=>n.classList.remove('active'));
+          const link = document.querySelector('.nav-link[data-target="' + el.id + '"]');
+          if(link) link.classList.add('active');
+        } else {
+          // optional: don't remove in-view so cards remain visible once revealed
+          // el.classList.remove('in-view');
+        }
+      });
+    }, options);
+    document.querySelectorAll('.card[id]').forEach(card => observer.observe(card));
+
+    // Improve keyboard accessibility for <details> toggles
+    document.querySelectorAll('details > summary').forEach(s=>{
+      s.setAttribute('tabindex','0');
+      s.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.parentElement.open = !this.parentElement.open; }
+      });
+      // little animation on open/close
+      s.parentElement.addEventListener('toggle', function(){
+        const detailsCode = this.querySelector('.details-code');
+        if(this.open){
+          if(detailsCode) detailsCode.style.display='block';
+        } else {
+          if(detailsCode) detailsCode.style.display='none';
+        }
+      });
+    });
+
+    // Toggle image panels with smooth spring-like timing
+    function toggleImage(id){
+      const panel = document.getElementById(id);
+      if(!panel) return;
+      const isOpen = panel.classList.contains('open');
+      if(isOpen){
+        panel.classList.remove('open');
+        panel.setAttribute('aria-hidden','true');
+      } else {
+        panel.classList.add('open');
+        panel.setAttribute('aria-hidden','false');
+        // scroll to image smoothly but slightly delayed so animation is visible
+        setTimeout(()=>{ panel.scrollIntoView({behavior:'smooth', block:'center'}); }, 180);
+      }
+    }
+
+    // subtle parallax on mouse move across a card (lightweight)
+    document.querySelectorAll('.card').forEach(card=>{
+      card.addEventListener('mousemove', function(e){
+        const rect = this.getBoundingClientRect();
+        const x = (e.clientX - rect.left) - rect.width/2;
+        const y = (e.clientY - rect.top) - rect.height/2;
+        const rx = (y / rect.height) * 3; // rotateX small
+        const ry = (x / rect.width) * -3; // rotateY small
+        this.style.transform = `translateY(var(--hover-lift)) scale(var(--hover-scale)) rotateX(${rx}deg) rotateY(${ry}deg)`;
+      });
+      card.addEventListener('mouseleave', function(){
+        // reset transform (respect in-view state)
+        this.style.transform = '';
+      });
+      card.addEventListener('mouseenter', function(){
+        // ensure any transform reset occurs smoothly
+        // small delay harmless
+      });
+    });
+
+    // ensure image panels close when clicking outside (accessibility)
+    document.addEventListener('click', function(e){
+      // if click is inside any .toggle-image or .image-panel, do nothing
+      if(e.target.closest('.toggle-image') || e.target.closest('.image-panel')) return;
+      document.querySelectorAll('.image-panel.open').forEach(panel=>{
+        panel.classList.remove('open');
+        panel.setAttribute('aria-hidden','true');
+      });
+    });
+
+    // make nav-link keyboard actionable (Enter toggles view)
+    document.querySelectorAll('.nav-link').forEach(link=>{
+      link.setAttribute('tabindex','0');
+      link.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
+      });
+    });
+
+    // small progressive enhancement: animate hero once on load
+    window.addEventListener('load', function(){
+      const hero = document.querySelector('.hero-banner');
+      if(hero){
+        hero.animate([
+          { transform: 'translateY(10px) scale(0.997)', opacity: 0.0 },
+          { transform: 'translateY(0px) scale(1)', opacity: 1.0 }
+        ], { duration: 600, easing: 'cubic-bezier(.2,.9,.3,1)' });
+      }
+    });
+
+    // ensure cards that are already in viewport get class immediately (for fast loads)
+    document.addEventListener('DOMContentLoaded', function(){
+      document.querySelectorAll('.card[id]').forEach(card=>{
+        const rect = card.getBoundingClientRect();
+        if(rect.top < window.innerHeight * 0.8){
+          card.classList.add('in-view');
+        }
+      });
+    });
+  </script>
+      <!-- ===================== -->
+<!-- SCRIPT (ADDED ONLY)  -->
+<!-- ===================== -->
+<script>
+/* ---------- Image Toggle ---------- */
+function toggleImage(id) {
+  const panel = document.getElementById(id);
+  if (!panel) return;
+  const open = panel.classList.toggle("open");
+  panel.setAttribute("aria-hidden", !open);
+}
+
+/* ---------- View Switching ---------- */
+function showView(viewId, el) {
+  document.querySelectorAll(".view, #tejas.html").forEach(v => {
+    v.classList.add("hidden");
+  });
+
+  const target = document.getElementById(viewId);
+  if (target) {
+    target.classList.remove("hidden");
+    target.classList.add("view");
+  }
+
+  document.querySelectorAll(".nav-link").forEach(n => n.classList.remove("active"));
+  if (el) el.classList.add("active");
+}
+
+/* ---------- Intersection Observer for Cards ---------- */
+const observer = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in-view");
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.15 }
+);
+
+document.querySelectorAll(".card").forEach(card => observer.observe(card));
+
+/* ---------- Keyboard Navigation (1–0) ---------- */
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+
+  const map = {
+    "1": "p1", "2": "p2", "3": "p3", "4": "p4", "5": "p5",
+    "6": "p6", "7": "p7", "8": "p8", "9": "p9", "0": "p10"
+  };
+
+  if (map[e.key]) {
+    const el = document.getElementById(map[e.key]);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      el.focus();
+    }
+  }
+});
+
+/* ---------- Default Active Nav ---------- */
+document.addEventListener("DOMContentLoaded", () => {
+  const firstNav = document.querySelector(".nav-link");
+  if (firstNav) firstNav.classList.add("active");
+});
+</script>
 </body>
-</html>
+        </html>
+       
+
