@@ -1147,5 +1147,72 @@ int main(){
       });
     });
   </script>
+      <!-- ===================== -->
+<!-- SCRIPT (ADDED ONLY)  -->
+<!-- ===================== -->
+<script>
+/* ---------- Image Toggle ---------- */
+function toggleImage(id) {
+  const panel = document.getElementById(id);
+  if (!panel) return;
+  const open = panel.classList.toggle("open");
+  panel.setAttribute("aria-hidden", !open);
+}
+
+/* ---------- View Switching ---------- */
+function showView(viewId, el) {
+  document.querySelectorAll(".view, #technical").forEach(v => {
+    v.classList.add("hidden");
+  });
+
+  const target = document.getElementById(viewId);
+  if (target) {
+    target.classList.remove("hidden");
+    target.classList.add("view");
+  }
+
+  document.querySelectorAll(".nav-link").forEach(n => n.classList.remove("active"));
+  if (el) el.classList.add("active");
+}
+
+/* ---------- Intersection Observer for Cards ---------- */
+const observer = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in-view");
+        observer.unobserve(entry.target);
+      }
+    });
+  },
+  { threshold: 0.15 }
+);
+
+document.querySelectorAll(".card").forEach(card => observer.observe(card));
+
+/* ---------- Keyboard Navigation (1–0) ---------- */
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+
+  const map = {
+    "1": "p1", "2": "p2", "3": "p3", "4": "p4", "5": "p5",
+    "6": "p6", "7": "p7", "8": "p8", "9": "p9", "0": "p10"
+  };
+
+  if (map[e.key]) {
+    const el = document.getElementById(map[e.key]);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      el.focus();
+    }
+  }
+});
+
+/* ---------- Default Active Nav ---------- */
+document.addEventListener("DOMContentLoaded", () => {
+  const firstNav = document.querySelector(".nav-link");
+  if (firstNav) firstNav.classList.add("active");
+});
+</script>
 </body>
 </html>
